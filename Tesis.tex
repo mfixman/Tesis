@@ -1,5 +1,5 @@
 \documentclass[
-11pt,
+10pt,
 spanish,
 singlespacing, % Single line spacing, alternatives: onehalfspacing or doublespacing
 %draft, % Uncomment to enable draft mode (no pictures, no links, overfull hboxes indicated)
@@ -9,24 +9,49 @@ singlespacing, % Single line spacing, alternatives: onehalfspacing or doublespac
 parskip, % Uncomment to add space between paragraphs
 %nohyperref, % Uncomment to not load the hyperref package
 headsepline, % Uncomment to get a line under the header
-]{MastersDoctoralThesis} % The class file specifying the document structure
+twocolumn
+]{article} % The class file specifying the document structure
 
 \usepackage{pdfcomment}
 \usepackage{palatino}
 \usepackage[utf8]{inputenc} % Required for inputting international characters
 \usepackage[T1]{fontenc} % Output font encoding for international characters
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{changepage}
 
-\geometry{
-	paper=a4paper, % Change to letterpaper for US letter
-	inner=2.5cm, % Inner margin
-	outer=3.8cm, % Outer margin
-	bindingoffset=2cm, % Binding offset
-	top=1.5cm, % Top margin
-	bottom=1.5cm, % Bottom margin
-	%showframe,% show how the type block is set on the page
+% \geometry{
+% 	paper=a4paper, % Change to letterpaper for US letter
+% 	inner=2.5cm, % Inner margin
+% 	outer=3.8cm, % Outer margin
+% 	bindingoffset=2cm, % Binding offset
+% 	top=1.5cm, % Top margin
+% 	bottom=1.5cm, % Bottom margin
+% 	%showframe,% show how the type block is set on the page
+% }
+
+
+\title{Inferencia del Índice de Sociabilidad}
+\author{
+	\hspace{-1.725cm} Esteban Feuerstein\\
+	\hspace{-1.725cm} Universidad de Buenos Aires\\
+	\hspace{-1.725cm} Buenos Aires, Argentcma\\
+	\hspace{-1.725cm} \url{efeuerst@dc.uba.ar}
+	\and
+	Martín Fixman\\
+	Universidad de Buenos Aires\\
+	Buenos Aires, Argentina\\
+	\url{martinfixman@gmail.com}
+	\and
+	Carlos Sarraute\\
+	Grandata Labs\\
+	Buenos Aires, Argentina\\
+	\url{charles@grandata.com}
 }
+\date{}
 
 \begin{document}
+
+\maketitle
 
 \section*{Abstract}
 
