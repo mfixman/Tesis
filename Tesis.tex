@@ -18,6 +18,7 @@ twocolumn
 \usepackage[T1]{fontenc} % Output font encoding for international characters
 \usepackage[margin=2.5cm]{geometry}
 \usepackage{changepage}
+\usepackage{graphicx}
 
 % \geometry{
 % 	paper=a4paper, % Change to letterpaper for US letter
@@ -34,18 +35,18 @@ twocolumn
 \author{
 	\hspace{-1.725cm} Esteban Feuerstein\\
 	\hspace{-1.725cm} Universidad de Buenos Aires\\
-	\hspace{-1.725cm} Buenos Aires, Argentcma\\
+	\hspace{-1.725cm} Buenos Aires, Argentina\\
 	\hspace{-1.725cm} \url{efeuerst@dc.uba.ar}
-	\and
-	Martín Fixman\\
-	Universidad de Buenos Aires\\
-	Buenos Aires, Argentina\\
-	\url{martinfixman@gmail.com}
 	\and
 	Carlos Sarraute\\
 	Grandata Labs\\
 	Buenos Aires, Argentina\\
 	\url{charles@grandata.com}
+	\and
+	Martín Fixman\\
+	Universidad de Buenos Aires\\
+	Buenos Aires, Argentina\\
+	\url{martinfixman@gmail.com}
 }
 \date{}
 
@@ -63,7 +64,7 @@ Modelar los datos de las personas dentro de lo que llamamos \textbf{Grafo de Com
 
 \pdfcomment{Acá van temas sobre papers referenciados, y un resumen de algunas cosas}
 
-\subsection{Descripción de datos de entrada}
+\subsection*{Descripción de datos de entrada}
 
 Los datos usados por este estudio consisten de \textbf{Call Detail Records}, o CDRs, sobre llamados y mensajes de texto provenientes de la red de una compañía telefónica Mexicana, en un periodo de \( M \) meses (\( M = 3 \)), denotado por \( L \). Cada CDR contiene los números de teléfonos anonimizados de los dos participantes de la comunicación \(\left<o, d\right>\), el tiempo del llamado \(t\), y, en el caso de los CDRs de llamados su duración \(s\). Un subconjunto de estos llamados también contienen la latitud y la longitud de la antena usada para la llamada, \(\left<y, x\right>\).
 
@@ -73,11 +74,40 @@ Además se usa información sobre depósitos, extracciones, y transacciones hech
 
 Al igual que en el dataset anterior, \( B \) contiene una gran cantidad de datos sobre usuarios que no pertenecen a la telco. Definimos \( B_N \) como los usuarios del banco donde \( \left( \exists i \right) t_i \in N \), osea que pertenezcan a la telco.
 
-Para este estudio conseguimos información demográfica sobre la edad y el género \( \left<e, g\right> \) de un subconjunto de los nodos \( G_N \) al que denominamos \textbf{Ground Truth}. Estos datos los provee la compañía telefónica y no tenemos ningún tipo de control sobre como se selecciona.
+Para este estudio conseguimos información demográfica sobre la edad y el género \( \left<e, g\right> \) de un subconjunto de los nodos \( G_{GT} \subset G_N \) al que denominamos \textbf{Ground Truth}. Estos datos los provee la compañía telefónica y no tenemos ningún tipo de control sobre como se selecciona.
 
 Para apoyar al estudio, conseguimos los resultados del último censo mexicano, encontrado en \pdfcomment{URL del censo acá} y, usando el nivel socioeconómico de ciertas áreas de México, podemos hacer una primera aproximación del nivel socioeconómico de la población de esas áreas.
 
-\section{Figures}
+\subsection*{Inferencia de datos}
+
+Dado el conjunto de datos de edad y génenero dentro del Ground Truth \( \left|G_{GT}\right| = 1805534 \), y el conjunto de llamadas hechas por los usuarios, podemos usar el algoritmo de Reaccion Difusion \cite{reactiondiffusion} para extender una aproximación a todo \( G_N \).
+
+\begin{figure}
+\center
+\includegraphics[width=\columnwidth]{Figures/gender_age_bar}
+\caption{Cantidad de usuarios en \( G_N \) por genero y edad}
+\end{figure}
+
+\begin{figure}
+\center
+\includegraphics[width=\columnwidth]{Figures/sei_hist}
+\caption{Usuarios por nivel socioeconómico}
+\end{figure}
+
+\begin{figure}
+\center
+\includegraphics[width=\columnwidth]{Figures/sei_age_heatmap}
+\caption{Nivel socioeconomico por genero y edad}
+\end{figure}
+
+\begin{thebibliography}{1}
+\bibitem{reactiondiffusion}
+  \textbf{Paper about Reaction Diffusion Algorithm}, \\
+  Grandata Labs, \\
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit. \\
+  Aliquam dictum nunc sed augue elementum, quis rutrum nisi pulvinar. \\
+  In aliquam iaculis ipsum, vitae lacinia erat blandit ac. \\
+\end{thebibliography}
 
 \end{document}
 
