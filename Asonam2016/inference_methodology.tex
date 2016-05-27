@@ -45,15 +45,6 @@ Instead of predicting the exact value of a user's income, our strategy is to dis
 \[
 	g \in H_i \iff g_s \in R_i
 \]
-%and the income ranges are set as follows (in Mexican pesos):
-
-%\begin{align*}
-%	R_1 &= \left[1000, 2500\right) \\
-%	R_2 &= \left[2500, 7500\right) \\
-%	R_3 &= \left[7500, 20000\right) \\
-%	R_4 &= \left[20000, 50000\right) \\
-%	R_5 &= \left[50000, \infty\right). \\
-%\end{align*}
 
 We define the set $Q$ as the group of users having at least one connection link to bank clients. For each user $q^j \in Q$, we compute the number of outgoing calls $a^j_i$ to the category $H_i$. Our hypothesis, given the observed homophily, is that if a user $q^j$ has a higher number of calls $a^j_i$ to the category $H_i$ than the other category, it would be more likely to belong to the $H_i$ income category. 
 
