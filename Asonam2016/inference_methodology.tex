@@ -27,7 +27,6 @@ The main contribution of this work is the estimation of the income of the telco 
 For each pair \( \left< o, d \right> \in \mathlarger{G} \) we define \( X \) as the set of incomes for callers and \( Y \) as the set of incomes for callees. According to what we can observe in Figure~\ref{homophily_heatmap}, \( X \) and \( Y \) should be significantly correlated. Given the broad non Gaussian distribution of the income's values, which covers several different  orders of magnitude, we choose to use a rank-based measure of correlation which is robust to outliers.
 Namely we computed the \textit{Spearman's rank correlation} %\eqref{spearman} 
 to test the statistical dependence of sets \( X \) and \( Y \) by using the following formula:
-
 \begin{equation}
 r_s = \mathlarger{\rho}_{\operatorname{rank}(X) \operatorname{rank}(Y)} = \frac{\operatorname{cov}(\operatorname{rank}(x), \operatorname{rank}(y))}{\sigma_{\operatorname{rank}(X)} \sigma_{\operatorname{rank}(Y)}}
 \label{spearman}
