@@ -40,7 +40,7 @@ We can take advantage of this homophily to propagate income information to the r
 
 \subsection{Prediction Algorithm}
 
-Instead of predicting the exact value of a user's income, our strategy is to distinguish between only two income categories, $R_1 = \left[1000, 6300\right)$ and $R_2 = \left[6300, \infty\right)$, that is users with low or high income respectively, which we place into two distinct groups $ H_1, H_2 \subseteq G$:
+Instead of predicting the exact value of a user's income, our strategy is to distinguish between only two income categories, $R_1 = \left[1000, 6300\right)$ and $R_2 = \left[6300, \infty\right)$, that is, users with low or high income respectively, which we place into two distinct groups $ H_1, H_2 \subseteq G$:
 \[
 	g \in H_i \iff g_s \in R_i
 \]
@@ -57,15 +57,15 @@ We define below the Beta probability distribution function for each user $B^j$:
 %\end{equation}
 
 \begin{equation}
-B^j \left( x_1, x_2; \alpha^j_1,\alpha^j_2 \right) = \frac{1}{\Beta \left( \alpha^j_1, \alpha^j_2 \right)} x_1^{\alpha^j_1 - 1} \cdot x_2^{\alpha^j_2 - 1}
+B^j \left( x; \alpha^j,\beta^j \right) = \frac{1}{\Beta \left( \alpha^j, \beta^j \right)} x^{\alpha^j - 1} \cdot (1-x)^{\beta^j - 1}
 \label{Beta}
 \end{equation}
-where $\alpha^j_i = a^j_i +1$ are the parameters of the Beta distribution, 
+where $\alpha^j = a^j_1 +1$ and $\beta^j = a^j_2 +1$ are the parameters of the Beta distribution, 
 and $\Beta$ is the beta function, defined by:
 \begin{equation}
-\Beta \left( \alpha_1, \alpha_2 \right) = 
-\frac{ \Gamma \! \left( \alpha_1 \right) \cdot \Gamma \! \left( \alpha_2 \right)}
-{\Gamma \! \left( \alpha_1 + \alpha_2 \right) }
+\Beta \left( \alpha, \beta \right) = 
+\frac{ \Gamma \! \left( \alpha \right) \cdot \Gamma \! \left( \beta \right)}
+{\Gamma \! \left( \alpha + \beta \right) }
 \label{Beta} 
 \end{equation}
 
