@@ -24,24 +24,23 @@
 The main contribution of this work is the estimation of the income of the telco users for which we lack banking data, but have bank clients in their neighborhood of network graph. To show the feasibility of this task, we first show the existence of a strong income homophily in the telco graph as is evidenced in Figure~\ref{homophily_heatmap}.
 
 
-For each pair \( \left< o, d \right> \in \mathlarger{G} \) we define \( X \) as the set of incomes for callers and \( Y \) as the set of incomes for callees. According to what we can observe in Figure~\ref{homophily_heatmap}, \( X \) and \( Y \) should be significantly correlated. Given the broad non Gaussian distribution of the income's values, which covers several different  orders of magnitude, we choose to use a rank-based measure of correlation which is robust to outliers.
+For each pair \( \left< o, d \right> \in \mathlarger{G} \) we define \( X \) as the set of incomes for callers and \( Y \) as the set of incomes for callees. According to what we can observe in Figure~\ref{homophily_heatmap}, \( X \) and \( Y \) should be significantly correlated. Given the broad non Gaussian distribution of the income's values, we choose to use a rank-based measure of correlation which is robust to outliers.
 Namely we computed the \textit{Spearman's rank correlation} %\eqref{spearman} 
-to test the statistical dependence of sets \( X \) and \( Y \) by using the following formula:
-
+to test the statistical dependence of sets \( X \) and \( Y \):
 \begin{equation}
 r_s = \mathlarger{\rho}_{\operatorname{rank}(X) \operatorname{rank}(Y)} = \frac{\operatorname{cov}(\operatorname{rank}(x), \operatorname{rank}(y))}{\sigma_{\operatorname{rank}(X)} \sigma_{\operatorname{rank}(Y)}}
 \label{spearman}
 \end{equation}
-
-If we compare our data with a randomized null hypothesis, where links between users are selected randomly disregarding income data, this coefficient gives us a correlation coefficient of $\mathbf{r_s = 0.474} $ with a p-value $ p < 10^{-6} $. This is statistically significant enough to show that there is homophily between the users' incomes in our data.
-This observation is consistent with the results of~\cite{leo2015socioeconomic}.
+this coefficient gives us a correlation coefficient of $\mathbf{r_s = 0.474}$. We also compared our result with a randomized null hypothesis, where links between users are selected randomly disregarding income data, obtaining a p-value of $ p < 10^{-6} $. These values for $r_s$ and $p$ show a strong indication of income homophily among users in our communication graph.
+%This is statistically significant enough to show that there is homophily between $the users' incomes in our data.
+This observation is consistent with the results in~\cite{leo2015socioeconomic}.
 
 We can take advantage of this homophily to propagate income information to the rest of our graph $ \mathP $, where we don't know the income of all of the users.
 
 
 \subsection{Prediction Algorithm}
 
-Instead of predicting the exact value of a user's income, our strategy is to distinguish between only two income categories, $R_1 = \left[1000, 6300\right)$ and $R_2 = \left[6300, \infty\right)$, that is users with low or high income respectively, which we place into two distinct groups $ H_1, H_2 \subseteq G$:
+Instead of predicting the exact value of a user's income, our strategy is to distinguish between only two income categories, $R_1 = \left[1000, 6300\right)$ and $R_2 = \left[6300, \infty\right)$, that is, users with low or high income respectively, which we place into two distinct groups $ H_1, H_2 \subseteq G$:
 \[
 	g \in H_i \iff g_s \in R_i
 \]
@@ -58,15 +57,15 @@ We define below the Beta probability distribution function for each user $B^j$:
 %\end{equation}
 
 \begin{equation}
-B^j \left( x_1, x_2; \alpha^j_1,\alpha^j_2 \right) = \frac{1}{\Beta \left( \alpha^j_1, \alpha^j_2 \right)} x_1^{\alpha^j_1 - 1} \cdot x_2^{\alpha^j_2 - 1}
+B^j \left( x; \alpha^j,\beta^j \right) = \frac{1}{\Beta \left( \alpha^j, \beta^j \right)} x^{\alpha^j - 1} \cdot (1-x)^{\beta^j - 1}
 \label{Beta}
 \end{equation}
-where $\alpha^j_i = a^j_i +1$ are the parameters of the Beta distribution, 
+where $\alpha^j = a^j_1 +1$ and $\beta^j = a^j_2 +1$ are the parameters of the Beta distribution, 
 and $\Beta$ is the beta function, defined by:
 \begin{equation}
-\Beta \left( \alpha_1, \alpha_2 \right) = 
-\frac{\Gamma \! \left( \alpha_1 \right) \cdot \Gamma \! \left( \alpha_2 \right)}
-{\Gamma \! \left( \alpha_1 + \alpha_2 \right) }
+\Beta \left( \alpha, \beta \right) = 
+\frac{\Gamma \! \left( \alpha \right) \cdot \Gamma \! \left( \beta \right)}
+{\Gamma \! \left( \alpha + \beta \right)}
 \label{Beta} 
 \end{equation}
 
