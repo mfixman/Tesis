@@ -4,16 +4,16 @@
 
 %We need to make sure that our inference algorithm correctly predicts users' income in each of the 5 categories $ H_1, \ldots, H_5 $. According to our hypothesis, the greater the amount of calls to , this increases the probability that both of them will belong to the same group.
 
-%For each link $ p = \left< p_o, p_d, \ldots \right> \in P $, our hypothesis says that $ p_o $ and $ p_d $ will belong to the same income group. 
+%For each link $ p = \left< p_o, p_d, \ldots \right> \in P $, our hypothesis says that $ p_o $ and $ p_d $ will belong to the same income group.
 
-%In order to validate our proposed methodology, we take advantage of the computed $p_lower$ for each user and use this quantity as the predicition score that allow us to evaluate whether a given user belongs to one of the deffined categories. A standarized way to quantify the performace of the metodology is by computing Receiver Operating Characteristic Curve (ROC). This curve  
+%In order to validate our proposed methodology, we take advantage of the computed $p_lower$ for each user and use this quantity as the predicition score that allow us to evaluate whether a given user belongs to one of the deffined categories. A standarized way to quantify the performace of the metodology is by computing Receiver Operating Characteristic Curve (ROC). This curve
 
-We describe in this section the validation of our methodology. 
-We examine the true positive ($TPR$) and false positive ($FPR$) rates: 
+We describe in this section the validation of our methodology.
+We examine the true positive ($TPR$) and false positive ($FPR$) rates:
 \[
 	TPR=TP/P \enspace \text{ and } \enspace FPR=FP/N
 \]
-where $TP$ is the number of correctly predicted users with high income, $P$ is the total number of users with high income, $FP$ is the number of users incorrectly classified as having high income, and $N$ is the total number of users with low income. 
+where $TP$ is the number of correctly predicted users with high income, $P$ is the total number of users with high income, $FP$ is the number of users incorrectly classified as having high income, and $N$ is the total number of users with low income.
 
 In Figure~\ref{ROC_multiclass} we plot the ROC (\textit{Receiver Operating Characteristic}) curve, showing $TPR$ and $FPR$ for the set of possible values of $\tau$. We see that our methodology clearly outperforms random guessing (dashed straight line). We can summarize our performance by calculating  the AUC (\textit{Area Under the Curve}) which in Figure~\ref{ROC_multiclass} is $AUC = 0.74$. Note that random guessing would give a value of $AUC \simeq 0.50$.
 
@@ -25,12 +25,12 @@ In Figure~\ref{ROC_multiclass} we plot the ROC (\textit{Receiver Operating Chara
 %& \multicolumn{2}{ c }{\textbf{Classifier result for income group $ H_i $}} \\
 %\\
 %& Caller in group & Caller not in group \\
-%Callee in group & \cellcolor{green} True Positive & \cellcolor{red} \makecell{False Negative \\ (Type II Error)} \\ 
+%Callee in group & \cellcolor{green} True Positive & \cellcolor{red} \makecell{False Negative \\ (Type II Error)} \\
 %Callee not in group & \cellcolor{red} \makecell{False Positive \\ (Type I Error)} & \cellcolor{green} True Negative \\
 %\end{tabu}
 %\end{adjustwidth}
 
-%To validate these classifiers, we use 
+%To validate these classifiers, we use
 
 %a \textbf{Receiver Operating Characteristic Curve} (ROC) to plot the \textbf{True Positive Rate} and the \textbf{False Positive Rate} of each system. Since the amount of people in each group is almost equal, randonly guessing each user's income would result in a diagonal line.
 
@@ -68,7 +68,7 @@ In Figure~\ref{ROC_multiclass} we plot the ROC (\textit{Receiver Operating Chara
 %\vspace{-1em}
 %
 %\begin{align*}
-%A_1 &= 0.68 & A_2 &= 0.69 & A_3 &= 0.63 \\ 
+%A_1 &= 0.68 & A_2 &= 0.69 & A_3 &= 0.63 \\
 %A_4 &= 0.68 & A_5 &= 0.69
 %\end{align*}
 %
