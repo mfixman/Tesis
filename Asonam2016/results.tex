@@ -10,7 +10,9 @@
 
 We describe in this section the validation of our methodology. 
 We examine the true positive ($TPR$) and false positive ($FPR$) rates: 
-$$TPR=TP/P \; \; \mbox{ and } \; \;  FPR=FP/N$$ 
+\[
+	TPR=TP/P \enspace \text{ and } \enspace FPR=FP/N
+\]
 where $TP$ is the number of correctly predicted users with high income, $P$ is the total number of users with high income, $FP$ is the number of users incorrectly classified as having high income, and $N$ is the total number of users with low income. 
 
 In Figure~\ref{ROC_multiclass} we plot the ROC (\textit{Receiver Operating Characteristic}) curve, showing $TPR$ and $FPR$ for the set of possible values of $\tau$. We see that our methodology clearly outperforms random guessing (dashed straight line). We can summarize our performance by calculating  the AUC (\textit{Area Under the Curve}) which in Figure~\ref{ROC_multiclass} is $AUC = 0.74$. Note that random guessing would give a value of $AUC \simeq 0.50$.

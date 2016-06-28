@@ -45,9 +45,9 @@ Instead of predicting the exact value of a user's income, our strategy is to dis
 	g \in H_i \iff g_s \in R_i
 \]
 
-We define the set $Q$ as the group of users having at least one connection link to bank clients. For each user $q^j \in Q$, we compute the number of outgoing calls $a^j_i$ to the category $H_i$. Our hypothesis, given the observed homophily, is that if a user $q^j$ has a higher number of calls $a^j_i$ to the category $H_i$ than the other category, it would be more likely to belong to the $H_i$ income category. 
+We define the set $Q$ as the group of users having at least one connection link to bank clients. For each user $q^j \in Q$, we compute the number of outgoing calls $a^j_i$ to the category $H_i$. Our hypothesis, given the observed homophily, is that if a user $q^j$ has a higher number of calls $a^j_i$ to the category $H_i$ than the other category, it would be more likely to belong to the $H_i$ income category. In other words, a person is usually in the same income category as the majority of people it calls.
 
-A straight forward approach would be to define the income category of a user as the one with the highest $a^j_i$. The problem with this approach is that it does not factor in the higher uncertainty in our estimates for users with fewer calls. To address this uncertainty, instead of using calling frequencies to define the probability of a user belonging to the high income category, we use the amount of calls $a^j_i$  as parameters defining a Beta distribution for the probability of belonging to a given category. We have therefore taken a Bayesian rather than a frequentist approach to income prediction. 
+A straight forward approach would be to define the income category of a user as the category where most of its contacts belong. The problem with this approach is that it does not factor in the higher uncertainty in our estimates for users with fewer calls. To address this uncertainty, instead of using calling frequencies to define the probability of a user belonging to the high income category, we use the amount of calls $a^j_i$  as parameters defining a Beta distribution for the probability of belonging to a given category. We have therefore taken a Bayesian rather than a frequentist approach to income prediction. 
 
 We define below the Beta probability distribution function for each user $B^j$:  
 
@@ -57,11 +57,11 @@ We define below the Beta probability distribution function for each user $B^j$:
 %\end{equation}
 
 \begin{equation}
-	B^j \left( x; \alpha^j,\beta^j \right) = \frac{1}{\Beta \left( \alpha^j, \beta^j \right)} x^{\alpha^j - 1} \cdot {(1-x)}^{\beta^j - 1}
+	\Beta^j \left( x; \alpha^j, \beta^j \right) = \frac{1}{\Beta \left( \alpha^j, \beta^j \right)} x^{\alpha^j - 1} \cdot {\left( 1 - x \right)}^{\beta^j - 1}
 \label{Beta}
 \end{equation}
 where $\alpha^j = a^j_1 +1$ and $\beta^j = a^j_2 +1$ are the parameters of the Beta distribution, 
-and $\Beta$ is the beta function, defined by:
+and $\Beta$ is the beta function, defined as:
 \begin{equation}
 \Beta \left( \alpha, \beta \right) = 
 \frac{\Gamma \! \left( \alpha \right) \cdot \Gamma \! \left( \beta \right)}
