@@ -73,3 +73,14 @@ In Figure~\ref{ROC_multiclass} we plot the ROC (\textit{Receiver Operating Chara
 %\end{align*}
 %
 %As evidenced by figure \ref{ROC_multiclass}, the inference process seems to have been successful: the predicted value is much better than one predicted by a random classifier for all of the categories.
+
+\subsection{Comparison with other inference methods}
+
+We applied two other inference methods to the same data and compared their accuracies to our Bayesian model.
+
+\begin{itemize}
+	\item \textbf{Random selection} Which chooses the category each user is in randomly.
+	\item \textbf{Majority voting} Which decides whether an user is in the wealthy or poor category depending on the category the majority of its contacts belongs to. In case of a tie, the category is chosen randomly.
+\end{itemize}
+
+The accuracy of the first method is predictably \num{0.5}, while one for majority voting is \num{0.66}, which is noticeably worse than the \num{0.71} accuracy of the Bayesian method.
