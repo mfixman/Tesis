@@ -24,18 +24,18 @@ where $\alpha^j_i = a^j_i +1$ are the parameters of the Dirichlet distribution, 
 \label{Beta}
 \end{equation}
 
-Note that the above equation defines a distinct Dirichlet distribution for each user. For each of these distributions, we computed the marginal probability functions across all different categories, which result in $Beta$ distributed functions, and use them to get the  lowest 5 percentiles (\(p^i_{\operatorname{lower}}\)) in each case ${i=1, \ldots, 5}$ which can be compared to assign a category to each user.
+Note that the above equation defines a distinct Dirichlet distribution for each user. For each of these distributions, we computed the marginal probability functions across all different categories, which result in Beta distributed functions, and use them to get the  lowest 5 percentiles (\(p^i_{\operatorname{lower}}\)) in each case ${i=1, \ldots, 5}$ which can be compared to assign a category to each user.
 
 \begin{figure}
 \centering
 \includegraphics[width=0.75\columnwidth]{figures/ROC_multiclass/ROC_multiclass.png}
-\caption{ROC curves for multiclass problem. The performances observed are: $AUC_1 = 0.68$, $AUC_2 = 0.69$, $AUC_3 = 0.63$, $AUC_4 = 0.68$, $AUC_5 = 0.69$. These predictors performs better than the random case, and have a similar performance (with exception of category 3).}
+\caption{ROC curves for multiclass problem. The performances observed are: $\AUC_1 = 0.68$, $\AUC_2 = 0.69$, $\AUC_3 = 0.63$, $\AUC_4 = 0.68$, $\AUC_5 = 0.69$. These predictors performs better than the random case, and have a similar performance (with exception of category 3).}
 \label{roc_multiple_categories}
 \end{figure}
 
 In order to gain an intuition on how the classification extends to the multiple category case, we constructed for each category $i$ a binary classifier by using the computed $p^i_{lower}$ score and a given threshold $\tau$. In each case we sweep the threshold $\tau$ and compute the resulting ROC curves as shown in Figure~\ref{roc_multiple_categories}.
 
-We observed the performance for the different categories: $AUC_1 = 0.68$, $AUC_2 = 0.69$, $AUC_3=0.63$, $AUC_4 = 0.68$, $AUC_5 = 0.69$. In all cases, the predictor performs better than the random case.
+We observed the performance for the different categories: $\AUC_1 = 0.68$, $\AUC_2 = 0.69$, $\AUC_3=0.63$, $\AUC_4 = 0.68$, $\AUC_5 = 0.69$. In all cases, the predictor performs better than the random case.
 
 %It is worth of mention that in this last case, the income range $[7500,20000]$) matches cualitatively with the range were dispersion in the heatmap get broader (see figure \ref{homophily_heatmap}). This suggest that for this range of income it would be useful to complement the proposed approach with other orthogonal income information or prediction strategies, as users geolocalization, credit card debts, etc.
 
