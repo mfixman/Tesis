@@ -9,11 +9,7 @@
 %In order to validate our proposed methodology, we take advantage of the computed $p_lower$ for each user and use this quantity as the predicition score that allow us to evaluate whether a given user belongs to one of the deffined categories. A standarized way to quantify the performace of the metodology is by computing Receiver Operating Characteristic Curve (ROC). This curve
 
 We describe in this section the validation of our methodology.
-We examine the true positive ($TPR$) and false positive ($FPR$) rates:
-\[
-	TPR=TP/P \enspace \text{ and } \enspace FPR=FP/N
-\]
-where $TP$ is the number of correctly predicted users with high income, $P$ is the total number of users with high income, $FP$ is the number of users incorrectly classified as having high income, and $N$ is the total number of users with low income.
+We examine the true positive ($\TPR$) and false positive ($\FPR$) rates, \( \TPR = \TP / \operatorname{P} \) and \( \FPR = \FP / \operatorname{N} \), where $\TP$ is the number of correctly predicted users with high income, $P$ is the total number of users with high income, $\FP$ is the number of users incorrectly classified as having high income, and $N$ is the total number of users with low income.
 
 In Figure~\ref{ROC_multiclass} we plot the ROC (\textit{Receiver Operating Characteristic}) curve, showing $TPR$ and $FPR$ for the set of possible values of $\tau$. We see that our methodology clearly outperforms random guessing (dashed straight line). We can summarize our performance by calculating  the AUC (\textit{Area Under the Curve}) which in Figure~\ref{ROC_multiclass} is $AUC = 0.74$. Note that random guessing would give a value of $AUC \simeq 0.50$.
 
@@ -63,16 +59,7 @@ In Figure~\ref{ROC_multiclass} we plot the ROC (\textit{Receiver Operating Chara
 \end{center}
 \end{figure}
 
-%The result ROC curves have the following areas:
-%
-%\vspace{-1em}
-%
-%\begin{align*}
-%A_1 &= 0.68 & A_2 &= 0.69 & A_3 &= 0.63 \\
-%A_4 &= 0.68 & A_5 &= 0.69
-%\end{align*}
-%
-%As evidenced by figure \ref{ROC_multiclass}, the inference process seems to have been successful: the predicted value is much better than one predicted by a random classifier for all of the categories.
+We can define the accuracy of the model as the ratio between \(\TP\) and \(\TN\) to total population for a certain \(\FPR\), which gives us a number between \num{0.42} and \num{0.71}. The maximum is achieved with an \(\FPR\) of \num{0.4}.
 
 \subsection{Comparison with other inference methods}
 
@@ -83,4 +70,4 @@ We applied two other inference methods to the same data and compared their accur
 	\item \textbf{Majority voting} Which decides whether an user is in the wealthy or poor category depending on the category the majority of its contacts belongs to. In case of a tie, the category is chosen randomly.
 \end{itemize}
 
-The accuracy of the first method is predictably \num{0.5}, while one for majority voting is \num{0.66}, which is noticeably worse than the \num{0.71} accuracy of the Bayesian method.
+The accuracy of the first method is a predictable \num{0.5}, while one for majority voting is \num{0.66}. These are noticeably worse than the \num{0.71} accuracy calculated for the Bayesian method.
