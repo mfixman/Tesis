@@ -49,7 +49,7 @@ We define the set $Q$ as the group of users having at least one connection link 
 
 A straight forward approach would be to define the income category of a user as the category where most of its contacts belong. The problem with this approach is that it does not factor in the higher uncertainty in our estimates for users with fewer calls. To address this uncertainty, instead of using calling frequencies to define the probability of a user belonging to the high income category, we use the amount of calls $a^j_i$  as parameters defining a Beta distribution for the probability of belonging to a given category. We have therefore taken a Bayesian rather than a frequentist approach to income prediction.
 
-We define below the Beta probability distribution function for each user $B^j$:
+We define \(\Beta^j\) as the Beta probability distribution function for each user.
 
 %\begin{equation}
 %D^j \left( x_1, \ldots, x_5; \alpha^j_1, \ldots, \alpha^j_5 \right) = \frac{1}{\Beta \left( \alpha \right)} \prod^5_{i = 1} x_i^{\alpha^j_i - 1}
