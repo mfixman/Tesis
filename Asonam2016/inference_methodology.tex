@@ -21,10 +21,10 @@
 \end{center}
 \end{figure}
 
-The main contribution of this work is the estimation of the income of the telco users for which we lack banking data, but have bank clients in their neighborhood of network graph. To show the feasibility of this task, we first show the existence of a strong income homophily in the telco graph as is evidenced in Figure~\ref{homophily_heatmap}.
+The main contribution of this work is the estimation of the income of the telco users for which we lack banking data, but have bank clients in their neighborhood of the network graph. To show the feasibility of this task, we first show the existence of a strong income homophily in the telco graph as is evidenced in Figure~\ref{homophily_heatmap}.
 
 
-For each pair \( \left< o, d \right> \in \mathlarger{G} \) we define \( X \) as the set of incomes for callers and \( Y \) as the set of incomes for callees. According to what we can observe in Figure~\ref{homophily_heatmap}, \( X \) and \( Y \) should be significantly correlated. Given the broad non Gaussian distribution of the income's values, we choose to use a rank-based measure of correlation which is robust to outliers.
+For each pair \( \left< o, d \right> \in \mathlarger{G} \), we define \( X \) as the set of incomes for callers and \( Y \) as the set of incomes for callees. According to what we can observe in Figure~\ref{homophily_heatmap}, \( X \) and \( Y \) should be significantly correlated. Given the broad non Gaussian distribution of the income's values, we choose to use a rank-based measure of correlation which is robust to outliers.
 Namely we computed the \textit{Spearman's rank correlation} %\eqref{spearman}
 to test the statistical dependence of sets \( X \) and \( Y \):
 \begin{equation}
