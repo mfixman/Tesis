@@ -4,7 +4,7 @@
 
 The data used in this study consist of a set \( \mathP \) of \textit{Call Detail Records} (CDRs), composed of voice calls and text messages from a Mexican telecommunication company (\textit{telco}) for a 3 month period.
 
-Every CDR \( p \in \mathP \)  contains the anonymized phone numbers of the caller and callee \( \left< p_o, p_d \right> \), the start time \( p_t \), and, in the case of voice calls, the call duration \( p_s \). The latitude and longitude of the antenna used for each call \( \left< p_y, p_x \right> \), are also given for a subset of the data.
+Every CDR \( p \in \mathP \) contains the phone numbers of the caller and callee \( \left< p_o, p_d \right> \) anonymized using a cryptographic hash function for privacy reasons, the start time \( p_t \), and, in the case of voice calls, the call duration \( p_s \). The latitude and longitude of the antenna used for each call \( \left< p_y, p_x \right> \), are also given for a subset of the data.
 
 Given that our collection \( \mathP \) of CDRs are coming from one telephone company, we are able to reconstruct all communication links between clients of this company, as well as communications between the clients and other users, but we have no information on communications where neither users are clients of our telco company.
 
