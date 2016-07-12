@@ -20,6 +20,30 @@
 \usepackage[normalem]{ulem}
 \usepackage[table]{xcolor}
 
+
+
+\newcommand{\conftitle}{2016 IEEE/ACM International Conference on Advances in Social Networks Analysis and Mining (ASONAM)}
+
+\usepackage{fancyhdr}
+\chead{\conftitle}
+\cfoot{\thepage}
+
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+% style for the first page only
+\fancypagestyle{pageStyleOne}{%
+    \fancyhf{}
+    \fancyhead[C]{\conftitle}
+%   \fancyfoot[C]{\thepage}    % do you want page number on the first page?
+    \fancyfoot[L]{IEEE/ACM ASONAM 2016, August 18-21, 2016, San Francisco, CA, USA 978-1-5090-2846-7/16/\$31.00 \copyright 2016 IEEE}
+}
+
+
+
+
+
+
 \DeclareMathOperator{\rank}{rank}
 \DeclareMathOperator{\cov}{cov}
 
