@@ -7,22 +7,24 @@ communication graph, that is, users of similar income tend to communicate more w
 banking information, by taking a Bayesian approach.
 
 To classify users into income categories, we first computed the number of calls a user $u$ makes to members of the different categories, and used them to construct a Beta distribution for the probability of user $u$ to belong to the high income category. We then validated our approach by constructing the ROC curve which clearly shows that our methodology outperforms random guessing.
+We also compared the accuracy obtained with a majority voting, and validated that the
+Bayesian approach provides a higher accuracy.
 Finally, we described how we can extend our approach to multiple categories using the Dirichlet distribution.
 
 Our proposed inference methodology is useful for concrete applications, since it provides an estimation of socio-economic attributes of users lacking banking history, based on their communication network. We also note that this methodology is not restricted to the inference of socio-economic attributes, but is equally applicable to any attribute that exhibits significant homophily in the network.
 
 
-\todo{Revisar conclusions}
-
-\todo{Para una proxima version:}
-
-\todo{Ampliar a vecinos de vecinos}
-
-\todo{Comparar con otros metodos}
-
-\todo{Comparar con reacción-difusión (a primeros vecinos)}
-
-\todo{Idea de Alejo: usar los parametros de la Dirichlet (usar un prior no uniforme)}
-
-\todo{Distribucion de income inferido en función de la edad}
+%\todo{Revisar conclusions}
+%
+%\todo{Para una proxima version:}
+%
+%\todo{Ampliar a vecinos de vecinos}
+%
+%\todo{Comparar con otros metodos}
+%
+%\todo{Comparar con reacción-difusión (a primeros vecinos)}
+%
+%\todo{Idea de Alejo: usar los parametros de la Dirichlet (usar un prior no uniforme)}
+%
+%\todo{Distribucion de income inferido en función de la edad}
 

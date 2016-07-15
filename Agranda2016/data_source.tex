@@ -20,7 +20,7 @@ The bank also provided us with demographic information for a subset of its clien
 
 \begin{figure}[h]
 \begin{center}
-\includegraphics[width=0.8\columnwidth]{figures/gender_age_bar3/gender_age_bar3.png}
+\includegraphics[width=0.9\columnwidth]{figures/gender_age_bar3/gender_age_bar3.png}
 \caption{ Amount of users in \( \mathB \) by gender and age. }
 \label{gender_age_bar}
 \end{center}
@@ -28,7 +28,7 @@ The bank also provided us with demographic information for a subset of its clien
 
 \begin{figure}[h]
 \begin{center}
-{\includegraphics[width=1\columnwidth,trim={0.5cm 0.5cm 1.5cm 1cm},clip=true]
+{\includegraphics[width=0.9\columnwidth] % ,trim={0.5cm 0.5cm 1.5cm 1cm},clip=true]
 {figures/income_age_boxplot4/income_age_boxplot4.png}}
 \caption{Distribution of income $b_s$ as a factor of age $b_a$. This is consistent with data from median house income in Mexico~\cite{gallup2013}.}
 \label{income_age_boxplot}
@@ -70,9 +70,10 @@ We provide here some observations of the distribution of income of the bank clie
 
 Figure~\ref{fig:income_distribution} shows the Lorenz curve, graphical representation of the distribution of income. The X axis plots the cumulative share of clients, ordered from lowest to highest incomes. The Y axis plots the fraction of the total income that they have.
 
-\begin{figure}[h]
+\begin{figure}[ht]
 \begin{center}
-{\includegraphics[width=0.9\columnwidth,trim={1cm 0.3cm 1.2cm 0.5cm},clip=true]{figures/cumulative_income.png}}
+{\includegraphics[width=0.9\columnwidth] % ,trim={1cm 0.3cm 1.2cm 0.5cm},clip=true]
+{figures/cumulative_income.png}}
 \caption{ Lorenz curve representing the distribution of income of bank clients.}
 \label{fig:income_distribution}
 \end{center}
@@ -86,10 +87,5 @@ According to the World Bank~\cite{world_bank}, the Gini coefficient for the whol
 Looking at the cumulative share of the clients with highest incomes, we observe 
 that the top 10\% of clients accumulate 33\% of the total income; the top 20\% accumulate  50.5\% and the top 30\% accumulate 63.1\% of the total income.
 
-
-\todo{Distribution per region.}
-
-\todo{Comparison with statistics from Mexico.}
-
-
-
+% \todo{Distribution per region.}
+% \todo{Comparison with statistics from Mexico.}
