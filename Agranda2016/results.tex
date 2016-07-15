@@ -51,9 +51,9 @@ In Figure~\ref{ROC_multiclass} we plot the ROC (\textit{Receiver Operating Chara
 
 %\subsection{Results}
 
-\begin{figure}[H]
+\begin{figure}[p]
 \begin{center}
-\includegraphics[width=\columnwidth]{figures/ROC_BETA/ROC_Beta_based_approach_201504.png}
+\includegraphics[width=0.9\columnwidth]{figures/ROC_BETA/ROC_Beta_based_approach_201504.png}
 \caption{ROC curve for prediction procedure. We observed an $\AUC = 0.74$ indicating that our predictor is better than a random predictor ($\AUC \simeq 0.50$).}
 \label{ROC_multiclass}
 \end{center}
@@ -61,12 +61,24 @@ In Figure~\ref{ROC_multiclass} we plot the ROC (\textit{Receiver Operating Chara
 
 %We can define the accuracy of the model as the ratio between \(\TP\) and \(\TN\) to total population for a certain \(\FPR\), which gives us values between \num{0.42} and \num{0.71}. The maximum is achieved with an \(\FPR\) of \num{0.4}.
 
-\todo{Add figure accuracy vs FPR}
+\begin{figure}[p]
+\begin{center}
+{\includegraphics[width=0.9\columnwidth,trim={0.5cm 0.5cm 1cm 1cm},clip=true]
+{figures/accuracy_vs_fpr.png}}
+\caption{Accuracy as a function of FPR}
+\label{fig:accuracy_vs_fpr}
+\end{center}
+\end{figure}
+
+
+
+
+Alternatively we can evaluate the performance of our model by computing its accuracy for a given considered threshold $\phi$ of FPR. 
+Figure~\ref{fig:accuracy_vs_fpr} shows the accuracy obtained as a function of FPR, 
+where the accuracy is computed as the ratio between \(\TP\) and \(\TN\) over the total population for a certain \(\FPR\).
+The best accuracy obtained is \num{0.71} for $\phi = 0.4$.
 
 \todo{Add analysis}
-
-
-Alternatively we can evaluate the performance of our model by computing its accuracy for a given considered threshold $\tau$. We obtain the maximum achieved accuracy as \num{0.71} ($\tau$~0.4).
 
 
 \subsection{Comparison with Other Inference Methods}
