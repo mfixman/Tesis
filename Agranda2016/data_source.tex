@@ -4,11 +4,11 @@
 
 The data used in this study consist of a set \( \mathP \) of \textit{Call Detail Records} (CDRs), composed of voice calls and text messages from a Mexican telecommunication company (\textit{telco}) for a 3 month period.
 
-Every CDR \( p \in \mathP \) contains the phone numbers of the caller and callee \( \left< p_o, p_d \right> \), which are anonymized using a cryptographic hash function for privacy reasons, the starting time \( p_t \), and, in the case of voice calls, the call duration \( p_s \). The latitude and longitude of the antenna used for each call \( \left< p_y, p_x \right> \), are also given for a subset of the data.
+Every CDR \( p \in \mathP \) contains the phone numbers of the caller and callee \( \left< p_o, p_d \right> \), which are anonymized using a cryptographic hash function for privacy reasons, the starting time \( p_t \), and, in the case of voice calls, the call duration \( p_s \). The latitude and longitude of the antenna used for each call \( \left< p_y, p_x \right> \) are also given for a subset of the data.
 
 Given that our collection \( \mathP \) of CDRs are coming from one telephone company, we are able to reconstruct all communication links between clients of this company, as well as communications between the clients and other users, but we have no information on communications where neither users are clients of our telco company.
 
-If we define \( N \) as the number of users of the telco, and \( \mathP_N \subseteq \mathP \) as the calls where \( \left( \forall p \in \mathP_N \right) p_o \in N \wedge p_d \in N \), we create a communications graph \( \mathG_N \) which contains only the users from the telco, and all the calls exchanged between them.
+If we define \( N \) as the set of clients of the telco, and \( \mathP_N \subseteq \mathP \) as the calls where \( \forall p \in \mathP_N, \; p_o \in N \wedge p_d \in N \), we create a communications graph \( \mathG_N \) which contains only the users from the telco, and all the calls exchanged between them.
 
 %With the data provided to us by the telco, \( \mathG \) contains \num{72107108} users who made \num{72107108} calls and sent \num{634225740} text messages in this period of 3 months.
 
@@ -16,7 +16,7 @@ If we define \( N \) as the number of users of the telco, and \( \mathP_N \subse
 
 For this study we also used account balances for over 10 million clients of a bank in Mexico for a period of 6 months, denoted \( \mathB \). The data for each client \( b \in \mathB \) contains his phone number \( b_p \), anonymized with the same hash function used in \( \mathP \), and the reported income of this person over 6 months \( b_{s_0}, \ldots, b_{s_5} \). We average these 6 values to get \( b_s \), an estimate of a user's income.
 
-The bank also provided us with demographic information for a subset of its clients \( \mathA \subseteq \mathB \). For each user \( u \in \mathA \) we are given the age \( u_a \) of the user, which allows us to observe differences in the income distribution according to the age. In another line of work, homophily with respect to age has been observed and used to generate inferences~\cite{brea2014}.
+The bank also provided us demographic information for a subset of its clients \( \mathA \subseteq \mathB \). For each user \( u \in \mathA \), we are given the age \( u_a \) of the user, which allows us to observe differences in the income distribution according to the age. In another line of work, homophily with respect to age has been observed and used to generate inferences~\cite{brea2014}.
 
 \begin{figure}[h]
 \begin{center}
@@ -85,7 +85,7 @@ The Gini coefficient obtained is $G = 0.45$.
 According to the World Bank~\cite{world_bank}, the Gini coefficient for the whole population of Mexico was 0.481 in 2012. Our result is consistent with this information, since the income inequality is expected to be lower within the bank clients than within the whole population of the country.
 
 Looking at the cumulative share of the clients with highest incomes, we observe 
-that the top 10\% of clients accumulate 33\% of the total income; the top 20\% accumulate  50.5\% and the top 30\% accumulate 63.1\% of the total income.
+that the top 10\% of clients accumulate 33\% of the total income; the top 20\% accumulate  50.5\%; and the top 30\% accumulate 63.1\% of the total income.
 
 % \todo{Distribution per region.}
 % \todo{Comparison with statistics from Mexico.}

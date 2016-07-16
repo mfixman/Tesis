@@ -1,12 +1,12 @@
 \section{Conclusion}
 
-This work is based on the combination of two data sources for phone records and banking information. We showed there's a significant level of homphily between the income levels of the participants of a call, and based on this property we presented a Bayesian approach to infer income categories for users in the graph for which we don't have banking data.
+This work is based on the combination of two data sources of mobile phone records and banking information. We showed that there is a significant level of homophily between the income of the participants of a call, and based on this property, we presented a Bayesian approach to infer the income category of users in the graph for which we don't have banking data.
 
-We first tried to separate users into 2 categories depending on their income. To do this, we computed the number of calls each user \( u \) makes to member of the same and different categories, and we constructed a Beta distribution for the probability of that user belonging to each category. We later validated this approach by constructing a ROC curve to compare it to random guessing and a simple test to compare it to majority voting. This way we were able to confirm that the method presented in this paper is better than the previous two.
+We first classified users into 2 categories depending on their income. To this end, we computed the number of calls each user \( u \) makes to members of the same and different categories, and we constructed a Beta distribution for the probability of user $u$ belonging to each category. We later validated this approach by constructing the ROC curve and computing its accuracy, and compared it to random guessing and to a simpler method based on majority voting. We were able to validate that the method presented outperforms the other two.
+Finally, we showed that this approach can be extended to more than 2 categories by using a Dirichlet distribution. 
+% The predictor for each category performs better than a frequentist method of inference.
 
-The method proposed can be easily extended to more than 2 categories and the predictor for each category is still better than frequentist methods of inference.
-
-Our proposed inference methodology is useful for concrete applications, since it provides an estimation of socio-economic attributes of users lacking banking history, based on their communication network. We also note that this methodology is not restricted to the inference of socio-economic attributes, but is equally applicable to any attribute that exhibits significant homophily in the network.
+Our proposed inference methodology is useful in concrete applications, since it provides an estimation of socio-economic attributes of users lacking banking history, based on their communication network. We also note that this methodology is not restricted to the inference of socio-economic attributes, but is equally applicable to any attribute that exhibits significant homophily in the network.
 
 %\todo{Revisar conclusions}
 %

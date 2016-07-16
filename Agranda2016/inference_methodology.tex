@@ -25,18 +25,18 @@
 The main contribution of this work is the estimation of the income of the telco users for which we lack banking data, but have bank clients in their neighborhood of the network graph. To show the feasibility of this task, we first show the existence of a strong income homophily in the telco graph as is evidenced in Figure~\ref{homophily_heatmap}.
 
 
-For each pair \( \left< o, d \right> \in \mathlarger{G} \), we define \( X \) as the set of incomes for callers and \( Y \) as the set of incomes for callees. According to what we can observe in Figure~\ref{homophily_heatmap}, \( X \) and \( Y \) should be significantly correlated. Given the broad non Gaussian distribution of the income's values, we choose to use a rank-based measure of correlation which is robust to outliers.
+For each pair \( \left< o, d \right> \in \mathlarger{G} \), we define \( X \) as the set of incomes for callers and \( Y \) as the set of incomes for callees. According to what we can observe in Figure~\ref{homophily_heatmap}, \( X \) and \( Y \) should be significantly correlated. Given the broad non-Gaussian distribution of the income's values, we choose to use a rank-based measure of correlation which is robust to outliers.
 Namely we computed the \textit{Spearman's rank correlation} %\eqref{spearman}
 to test the statistical dependence of sets \( X \) and \( Y \):
 \begin{equation}
 r_s = \mathlarger{\rho}_{\operatorname{rank}(X) \operatorname{rank}(Y)} = \frac{\operatorname{cov}(\operatorname{rank}(x), \operatorname{rank}(y))}{\sigma_{\operatorname{rank}(X)} \sigma_{\operatorname{rank}(Y)}}
 \label{spearman}
 \end{equation}
-this coefficient gives us a correlation coefficient of $\mathbf{r_s = 0.474}$. We also compared our result with a randomized null hypothesis, where links between users are selected randomly disregarding income data, obtaining a p-value of $ p < 10^{-6} $. These values for $r_s$ and $p$ show a strong indication of income homophily among users in our communication graph.
+this coefficient gives us a correlation coefficient of $\mathbf{r_s = 0.474}$. We also compared our result with a randomized null hypothesis, where links between users are selected randomly disregarding income data, obtaining a $p$-value of $ p < 10^{-6} $. These values for $r_s$ and $p$ show a strong indication of income homophily among users in our communication graph.
 %This is statistically significant enough to show that there is homophily between $the users' incomes in our data.
 This observation is consistent with the results reported in~\cite{leo2015socioeconomic}.
 
-We can take advantage of this homophily to propagate income information to the rest of our graph $ \mathP $, where we don't know the income of all of the users.
+We can take advantage of this homophily to propagate income information to the rest of our graph $ \mathP $, where we don't know the income of all the users.
 
 
 \subsection{Prediction Algorithm}
@@ -48,12 +48,10 @@ Instead of predicting the exact value of a user's income, our strategy is to dis
 
 We define the set $Q$ as the group of users having at least one connection link to bank clients. For each user $q^j \in Q$, we compute the number of outgoing calls $a^j_i$ to the category $H_i$. Our hypothesis, given the observed homophily, is that if a user $q^j$ has a higher number of calls $a^j_i$ to the category $H_i$ than the other category, it would be more likely to belong to the $H_i$ income category. In other words, a person is usually in the same income category as the majority of people it calls.
 
-A straight forward approach would be to define the income category of a user as the category where most of its contacts belong. The problem with this approach is that it does not factor in the higher uncertainty in our estimates for users with fewer calls. To address this uncertainty, instead of using calling frequencies to define the probability of a user belonging to the high income category, we use the amount of calls $a^j_i$  as parameters defining a Beta distribution for the probability of belonging to a given category. We have therefore taken a Bayesian rather than a frequentist approach to income prediction.
+A straightforward approach would be to define the income category of a user as the category where most of its contacts belong. The problem with this approach is that it does not factor in the higher uncertainty in our estimates for users with fewer calls. To address this uncertainty, instead of using calling frequencies to define the probability of a user belonging to the high income category, we use the amount of calls $a^j_i$  as parameters defining a Beta distribution for the probability of belonging to a given category. We have therefore taken a Bayesian rather than a frequentist approach to income prediction.
 
-A straight forward approach would be to define the income category of a user as the one with the highest $a^j_i$. The problem with this approach is that it does not factor in the higher uncertainty in our estimates for users with fewer calls. To address this uncertainty, instead of using calling frequencies to define the probability of a user belonging to the high income category, we use the amount of calls $a^j_i$  as parameters defining a Beta distribution for the probability of belonging to a given category. We have therefore taken a Bayesian rather than a frequentist approach to income prediction. 
 
-We define \(\Beta^j\) as the Beta probability distribution function for each user.
-
+We define \(\Beta^j\) as the Beta probability distribution function for each user:
 \begin{equation}
 	\Beta^j \left( x; \alpha^j, \beta^j \right) = \frac{1}{\Beta \left( \alpha^j, \beta^j \right)} x^{\alpha^j - 1} \cdot {\left( 1 - x \right)}^{\beta^j - 1}
 \label{Beta}
@@ -63,7 +61,7 @@ and $\Beta$ is the beta function, defined as:
 \begin{equation}
 \Beta \left( \alpha, \beta \right) =
 \frac{\Gamma \! \left( \alpha \right) \cdot \Gamma \! \left( \beta \right)}
-{\Gamma \! \left( \alpha + \beta \right)}
+{\Gamma \! \left( \alpha + \beta \right)} .
 \label{Beta}
 \end{equation}
 
