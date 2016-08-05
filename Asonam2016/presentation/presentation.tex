@@ -2,10 +2,11 @@
 \mode<presentation>{\usetheme{Warsaw}}
 
 \usepackage[citestyle=authortitle-icomp]{biblatex}
+\usepackage{tikz}
 
 \title[Bayesian Income Inference \hspace{3em} IEEE/ACM ASONAM 2016]{A Bayesian Approach to Income Inference \\ in a Communication Network}
 
-\author[Martin Fixman et.\ al]{%
+\author[Fixman et.\ al]{%
 	Martin~Fixman\inst{1}\inst{2}\and
 	Jorge~Brea\inst{1}\and
 	Ariel~Berenstein\inst{1}\and
@@ -31,16 +32,34 @@
 \end{frame}
 
 \section{Introduction}
+\subsection{Introduction}
 
 \begin{frame}{Introduction}
 In recent years, we have witnessed an exponential growth in the capacity to gather, store and manipulate massive amounts of data across a broad spectrum of disciplines.
 
 Mobile phone datasets provide a very rich view into the social interactions and the physical movements of large segments of a population.
+\end{frame}
+
+\subsection{Understanding the Social Graph}
+
+\begin{frame}
+The voice calls and text messages exchanged between people, together with the call locations (recorded through cell tower usages), allow us to construct a rich social graph which can give us interesting insights on the users' social fabric, detailing not only particular social relationships and traits, but also regular patterns of behavior both in space and time, such as their daily and weekly mobility patterns\footcite{gonzalez2008understanding}\footcite{ponieman2013human}\footcite{sarraute2015city}.
+\begin{center}
+\input{introduction_graph.tex}
+\end{center}
 
 \end{frame}
-\begin{frame}
 
-	The voice calls and text messages exchanged between people, together with the call locations (recorded through cell tower usages), allow us to construct a rich social graph which can give us interesting insights on the users' social fabric, detailing not only particular social relationships and traits, but also regular patterns of behavior both in space and time, such as their daily and weekly mobility patterns\footcite{gonzalez2008understanding}\footcite{ponieman2013human}\footcite{sarraute2015city}.
+\begin{frame}
+Economic factors are also believed to have a determining role in both the social network’s structure and dynamics. In particular, individuals have a tendency to establish links with others of a similar socioeconomic background, which results in social stratification\footcite{leo2015socioeconomic}.
+
+\pause{}
+
+In this work, we leverage the socioeconomic homophily present in the cellular phone network to generate inferences of socioeconomic status in the communication graph. To this aim we use two data sources:
+\begin{enumerate}
+	\item The Call Detail Records from the operator, which allows us to construct a social graph.
+	\item Reported income from a subset of clients obtained from a large bank.
+\end{enumerate}
 \end{frame}
 
 \end{document}
