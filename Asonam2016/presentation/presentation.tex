@@ -1,6 +1,7 @@
 \documentclass{beamer}
-
 \mode<presentation>{\usetheme{Warsaw}}
+
+\usepackage[citestyle=authortitle-icomp]{biblatex}
 
 \title[Bayesian Income Inference \hspace{3em} IEEE/ACM ASONAM 2016]{A Bayesian Approach to Income Inference \\ in a Communication Network}
 
@@ -21,10 +22,25 @@
 
 \date{}
 
+\addbibresource{../bibliography/sna.bib}{}
+
 \begin{document}
 
 \begin{frame}
 	\titlepage{}
+\end{frame}
+
+\section{Introduction}
+
+\begin{frame}{Introduction}
+In recent years, we have witnessed an exponential growth in the capacity to gather, store and manipulate massive amounts of data across a broad spectrum of disciplines.
+
+Mobile phone datasets provide a very rich view into the social interactions and the physical movements of large segments of a population.
+
+\end{frame}
+\begin{frame}
+
+	The voice calls and text messages exchanged between people, together with the call locations (recorded through cell tower usages), allow us to construct a rich social graph which can give us interesting insights on the users' social fabric, detailing not only particular social relationships and traits, but also regular patterns of behavior both in space and time, such as their daily and weekly mobility patterns\footcite{gonzalez2008understanding}\footcite{ponieman2013human}\footcite{sarraute2015city}.
 \end{frame}
 
 \end{document}
