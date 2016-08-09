@@ -2,7 +2,14 @@
 \mode<presentation>{\usetheme{Warsaw}}
 
 \usepackage[citestyle=authortitle-icomp]{biblatex}
+\usepackage[group-separator={,}]{siunitx}
 \usepackage{tikz}
+
+\newcommand{\mathA}{\mathcal{A}}
+\newcommand{\mathB}{\mathcal{B}}
+\newcommand{\mathC}{\mathcal{C}}
+\newcommand{\mathG}{\mathcal{G}}
+\newcommand{\mathP}{\mathcal{P}}
 
 \title[Bayesian Income Inference \hspace{3em} IEEE/ACM ASONAM 2016]{A Bayesian Approach to Income Inference \\ in a Communication Network}
 
@@ -61,5 +68,36 @@ In this work, we leverage the socioeconomic homophily present in the cellular ph
 	\item Reported income from a subset of clients obtained from a large bank.
 \end{enumerate}
 \end{frame}
+
+\section{Data Sources}
+\subsection{Bank Data Source}
+
+\begin{frame}{Bank Data Source}
+For this study, we got access the account balances of over 10 million clients of a mexican bank for a period of 6 months, denoted \( \mathB \). We also have some demografic information of a subset \( \mathA \subseteq \mathB \), including the users' age.
+
+\begin{figure}[h]
+	\begin{center}
+		{\includegraphics[width=\columnwidth]
+				{../figures/income_age_boxplot4/income_age_boxplot4_wide.png}
+		}\label{income_age_boxplot}
+	\end{center}
+\end{figure}
+\end{frame}
+
+\subsection{Mobile Phone Data Source}
+
+\begin{frame}{Mobile Phone Data Source}
+The main dataset for this study consists of a set \( \mathP \) of \textit{Call Detail Records} composed of voice calls and text messages from a Mexican telco for a 3 month period. Since we only have complete data for users of the telco, we work on set of calls \( \mathG_N \) between these users.
+
+\medskip
+
+The data in \( \mathB \) contains the self-reported phone numbers of the bank user, which the bank hashes with the same function as the telco uses for the CDRs. Thanks to this fact, we can correlate telco users with bank users to create the \textbf{social graph} \( G \).
+\[
+	G = \mathP \bowtie_{\operatorname{originUser}} \mathB \bowtie_{\operatorname{targetUser}} \mathB
+\]
+
+This graph has a total of \num{2027554} nodes with \num{5044976} edges, which represent \num{29599762} calls and \num{5476783} text messages.
+\end{frame}
+
 
 \end{document}
