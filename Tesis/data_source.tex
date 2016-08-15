@@ -21,15 +21,14 @@ The bank also provided us demographic information for a subset of its clients \(
 \begin{figure}[h]
 \begin{center}
 \includegraphics[width=0.9\columnwidth]{figures/gender_age_bar3/gender_age_bar3.png}
-\caption{ Amount of users in \( \mathB \) by gender and age. }
+\caption{Amount of users in \( \mathB \) by gender and age.}
 \label{gender_age_bar}
 \end{center}
 \end{figure}
 
 \begin{figure}[h]
 \begin{center}
-{\includegraphics[width=0.9\columnwidth] % ,trim={0.5cm 0.5cm 1.5cm 1cm},clip=true]
-{figures/income_age_boxplot4/income_age_boxplot4.png}}
+{\includegraphics[width=0.9\columnwidth]{figures/income_age_boxplot4/income_age_boxplot4.png}}
 \caption{Distribution of income \( b_s \) as a factor of age \( b_a \). This is consistent with data from median house income in Mexico~\cite{gallup2013}.}
 \label{income_age_boxplot}
 \end{center}
@@ -42,14 +41,12 @@ the 60--65 years range (the retirement age in Mexico). After 65 years old, the m
 
 \subsection{Bank and Telco Matching}
 
-Since the phone numbers in each call \( p_o  \) and \( p_d  \) are anonymized with the same hash function as the phone number in the bank data, \( b_p  \), we can match users to their unique phone to create the social graph:
+Since the phone numbers in each call \( p_o  \) and \( p_d  \) are anonymized with the same hash function as the phone number in the bank data, \( b_p  \), we can match users to their unique phone to create the social graph (\( \bowtie \) denotes the inner join operator).
 
 \begin{equation}
 G = \mathP \bowtie_{_{p_o = b_p}} \mathB \bowtie_{_{p_d = b_p}} \mathB
 \label{join}
 \end{equation}
-
-where \( \bowtie \) denotes the inner join operator.
 
 \( G \) includes income information for the subset of the social graph that appears in the bank data, so \( \forall g \in G \) we have its phone number \( g_p \),  its average income over 6 months \( g_s \), and its age \( g_a \).
 This graph has a total of \num{2027554} nodes with \num{5044976} edges, which represent \num{29599762} calls and \num{5476783} text messages.
