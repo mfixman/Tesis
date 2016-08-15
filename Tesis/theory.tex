@@ -28,7 +28,7 @@ f \left( \theta \middle| x \right) = \frac{f \left( x \middle| \theta \right) f 
 \label{bayes}
 \end{equation}
 
-\( f \left( x \right) \), the \emph{marginal likelihood}, is the probability of observing the data \( x \)  averaged across the entire space, which acts as a normalizing constant so that the density integrates to 1.
+\( f \left( x \right) \), the \emph{marginal likelihood}, is the probability of observing the data \( x \) averaged across the entire space, which acts as a normalizing constant so that the density integrates to 1.
 
 \begin{equation}
 f \left( x \right) = \int f \left( x \middle| \theta \right) f \left( \theta \right) d\theta
@@ -51,9 +51,9 @@ Where \( \alpha \) and \( \beta \) are parameters for the Beta distribution, and
 \label{Betaf}
 \end{equation}
 
-As we get more data from the sampling, the \emph{Beta distribution} turns more concenteated towards the actual \( \theta \) and its shapes resembles more a normal curve, as can be seen in \textbf{Fig.~\ref{betagraph}}. This represents the increased certainty which comes from the aquired knowledge of the problem.
+As we get more data from the sampling, the \emph{Beta distribution} turns more concenteated towards the actual \( \theta \) and its shapes resembles more a normal curve, as can be seen in \Cref{betagraph}. This represents the increased certainty which comes from the aquired knowledge of the problem.
 
-\begin{figure}[h]
+\begin{figure}[H]
 \begin{center}
 \includegraphics[width=\textwidth]{figures/beta.png}
 \caption{Beta distribution with different parameters}
