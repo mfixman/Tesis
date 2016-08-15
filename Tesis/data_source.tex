@@ -41,14 +41,14 @@ the 60--65 years range (the retirement age in Mexico). After 65 years old, the m
 
 \subsection{Bank and Telco Matching}
 
-Since the phone numbers in each call \( p_o  \) and \( p_d  \) are anonymized with the same hash function as the phone number in the bank data, \( b_p  \), we can match users to their unique phone to create the social graph (\( \bowtie \) denotes the inner join operator).
+Since the phone numbers in each call \( p_o \) and \( p_d \) are anonymized with the same hash function as the phone number in the bank data, \( b_p \), we can match users to their unique phone to create the social graph (\( \bowtie \) denotes the inner join operator).
 
 \begin{equation}
 G = \mathP \bowtie_{_{p_o = b_p}} \mathB \bowtie_{_{p_d = b_p}} \mathB
 \label{join}
 \end{equation}
 
-\( G \) includes income information for the subset of the social graph that appears in the bank data, so \( \forall g \in G \) we have its phone number \( g_p \),  its average income over 6 months \( g_s \), and its age \( g_a \).
+\( G \) includes income information for the subset of the social graph that appears in the bank data, so \( \forall g \in G \) we have its phone number \( g_p \), its average income over 6 months \( g_s \), and its age \( g_a \).
 This graph has a total of \num{2027554} nodes with \num{5044976} edges, which represent \num{29599762} calls and \num{5476783} text messages.
 
 \subsection{Outlier Filtering}
@@ -83,7 +83,7 @@ The Gini coefficient obtained is \( G = 0.45 \).
 
 According to the World Bank~\cite{world_bank}, the Gini coefficient for the whole population of Mexico was 0.481 in 2012. Our result is consistent with this information, since the income inequality is expected to be lower within the bank clients than within the whole population of the country.
 
-Looking at the cumulative share of the clients with highest incomes, we observe that the top 10\% of clients accumulate 33\% of the total income; the top 20\% accumulate  50.5\%; and the top 30\% accumulate 63.1\% of the total income.
+Looking at the cumulative share of the clients with highest incomes, we observe that the top 10\% of clients accumulate 33\% of the total income; the top 20\% accumulate 50.5\%; and the top 30\% accumulate 63.1\% of the total income.
 
 % \todo{Distribution per region.}
 % \todo{Comparison with statistics from Mexico.}
