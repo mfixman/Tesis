@@ -1,10 +1,8 @@
 \documentclass{beamer}
-  \mode<presentation> {
-    \usetheme{Frankfurt}
-  }
 
-
-
+\mode<presentation> {%
+	\usetheme{Frankfurt}
+}
 
 % \usepackage{times}
 \usepackage{amsmath,amssymb}
@@ -16,7 +14,6 @@
 \usefonttheme[onlymath]{serif}
 \boldmath
 
-
 \usepackage{scalefnt}
 \usepackage{ragged2e}
 \usepackage{graphics}
@@ -27,11 +24,12 @@
 \usepackage[authoryear,round]{natbib}
 
 \usepackage[group-separator={,}]{siunitx}
+\usepackage{caption}
 
 \usepackage{color}
 
-\graphicspath{ {../} }
-
+\graphicspath{{../}}
+\captionsetup[figure]{labelformat=empty}% redefines the caption setup of the figures environment in the beamer class.
 
 \newcommand{\Beta}{B}
 
@@ -48,14 +46,14 @@
 \newcommand{\FPR}{\operatorname{FPR}}
 \newcommand{\AUC}{\operatorname{AUC}}
 
+\newcommand{\closeopen}[2]{\left[ #1, #2 \right)}
+
 \usepackage{array}
 \newcolumntype{L}[1]{>{\raggedright\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
 \newcolumntype{C}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
 \newcolumntype{R}[1]{>{\raggedleft\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
 
 \beamertemplatenavigationsymbolsempty
-
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -64,7 +62,7 @@
 
   \author{Carlos Sarraute
   }
-  \institute[]{
+  \institute[]{%
   Grandata Labs 
   }
 
@@ -75,7 +73,7 @@
 \setbeamertemplate{footline}[text line]{\hfill \insertframenumber / 30}
 
 \AtBeginSection[]
-{
+{%
   \begin{frame}<beamer>{Agenda}
     \tableofcontents[currentsection]
   \end{frame}
@@ -106,11 +104,11 @@
 
 \item Labs and Data Science team:
 \begin{itemize}
-\item 5 persons, based in Vicente Lopez (Buenos Aires)... \\ and growing!
+\item 5 persons, based in Vicente Lopez (Buenos Aires)~\ldots \\ and growing!
 \item $\forall$ students and graduates from FCEyN, UBA \\ $\in$ Computer Sc., Physics, Mathematics
 \end{itemize}
 
-\item Researching Human Dynamics...
+\item Researching Human Dynamics
 \begin{itemize}
 \item Using ``Big Data'' to analyze social networks and human behavior.
 \item Integrating banking and cellphone data.
@@ -171,8 +169,8 @@ to human behavior \\
 \begin{block}{Publications}
 \begin{itemize}
 \item 30 papers published
-\item Conferences: NetMob, ASONAM, KDD, ...
-\item Journals: AI Communications, Elsevier Computer Communications, ...
+\item Conferences: NetMob, ASONAM, KDD, \ldots
+\item Journals: AI Communications, Elsevier Computer Communications, \ldots
 \item 4 papers at ASONAM, August 18-21, 2016 in San Francisco.
 \end{itemize}
 \end{block}
@@ -204,7 +202,7 @@ Generate inferences of socioeconomic status in the communication graph.
 \item Banking reported income for a subset of clients obtained from a large bank.
 \end{itemize} 
 
-\item We construct an \textcolor{blue}{inferential algorithm} that allows us to predict the socioeconomic status of users.
+\item We construct an \textcolor{blue}{inference algorithm} that allows us to predict the socioeconomic status of users.
 
 \item The first time that both mobile phone and banking information has been integrated in this way to make inferences based on a social telecommunication graph.
 
@@ -269,13 +267,12 @@ where $\bowtie$ denotes the inner join operator.
 
 \begin{figure}
 \begin{center}
-{\includegraphics[width=0.8\columnwidth] % ,trim={0.5cm 0.5cm 1.5cm 1cm},clip=true]
-{figures/income_age_boxplot4/income_age_boxplot4.png}}
+\includegraphics[width=0.8\columnwidth]{figures/income_age_boxplot4/income_age_boxplot4.png}
+\caption{Distribution of income $b_s$ according to age $b_a$}
 \label{income_age_boxplot}
 \end{center}
 \end{figure}
-Distribution of income $b_s$ according to age $b_a$. 
-Consistent with data from \cite{gallup2013}.
+Consistent with data from~\cite{gallup2013}.
 
 \end{frame}
 
@@ -286,12 +283,11 @@ Consistent with data from \cite{gallup2013}.
 
 \begin{figure}
 \begin{center}
-{\includegraphics[width=0.8\columnwidth]
-{figures/cumulative_income.png}}
+\includegraphics[width=0.8\columnwidth]{figures/cumulative_income.png}
+\caption{Lorenz curve representing the distribution of income of bank clients}
 \label{fig:income_distribution}
 \end{center}
 \end{figure}
-Lorenz curve representing the distribution of income of bank clients.
 
 \end{frame}
 
@@ -310,7 +306,7 @@ Lorenz curve representing the distribution of income of bank clients.
 From the Lorenz curve, we can compute the Gini coefficient:
 $$G = 0.45$$
 
-According to the World \cite{world_bank}, the Gini coefficient for whole Mexico was 0.481 in 2012. 
+According to the World Bank~\cite{world_bank}, the Gini coefficient for whole Mexico was \num{0.481} in 2012. 
 
 \end{column}
 \end{columns}
@@ -333,7 +329,7 @@ Top 30\% accumulate 63.1\%  of total income.
 \centering
 
 \begin{LARGE}
-Individual features ?
+Individual features~?
 
 \bigskip
 
@@ -342,7 +338,7 @@ or
 \bigskip
 \medskip
 
-Network topology ??
+Network topology~??
 \end{LARGE}
 \end{frame}
 
@@ -351,14 +347,13 @@ Network topology ??
 
 \begin{figure}[h]
 \begin{center}
-{\includegraphics[width=0.7\columnwidth]
-{Homophily_income_origin_target_low.png}}
+\includegraphics[width=0.7\columnwidth]{Homophily_income_origin_target_low.png}
+\caption{Number of calls between users, according to their monthly income}
 \label{homophily_heatmap}
 \end{center}
 \end{figure}
-Number of calls between users, according to their monthly income.
 
-Similar to homophily with respect to age in \cite{brea2014}.
+Similar to homophily with respect to age in~\cite{brea2014}.
 
 \end{frame}
 
@@ -366,8 +361,8 @@ Similar to homophily with respect to age in \cite{brea2014}.
 
 Instead of predicting the exact value of a user's income, our strategy is to distinguish between 2 categories:
 \begin{itemize}
-\item $R_1 = \left[1000, 6300\right)$ i.e. low income
-\item $R_2 = \left[6300, \infty\right)$ i.e. high income
+\item $R_1 = \closeopen{1000}{6300}$ i.e.\ low income
+\item $R_2 = \closeopen{6300}{\infty}$ i.e.\ high income
 \end{itemize} 
 
 \bigskip
@@ -438,23 +433,21 @@ the Beta distribution.
 
 \begin{frame}{Motivation}
 
-	\begin{columns}
-		\begin{column}{0.49\textwidth}
+\begin{columns}
+\begin{column}{0.49\textwidth}
 
 \begin{figure}[h]
 \begin{center}
-{\includegraphics[width=\columnwidth]
-{distribucion1.png}}
+\includegraphics[width=\columnwidth]{distribucion1.png}
 \end{center}
 \end{figure}
 \end{column}
 
-		\begin{column}{0.49\textwidth}
+\begin{column}{0.49\textwidth}
 
 \begin{figure}[h]
 \begin{center}
-{\includegraphics[width=\columnwidth]
-{distribucion2.png}}
+\includegraphics[width=\columnwidth]{distribucion2.png}
 \end{center}
 \end{figure}
 
@@ -483,7 +476,7 @@ and $\Beta$ is the beta function, defined as:
 \begin{equation}
 \Beta \left( \alpha, \beta \right) =
 \frac{\Gamma \! \left( \alpha \right) \cdot \Gamma \! \left( \beta \right)}
-{\Gamma \! \left( \alpha + \beta \right)} .
+{\Gamma \! \left( \alpha + \beta \right)}
 \label{Beta}
 \end{equation}
 
@@ -500,19 +493,17 @@ We obtain a Beta distribution for the probability of belonging to high income ca
 
 \begin{figure}[h]
 \begin{center}
-{\includegraphics[width=\columnwidth]
-{distribucion3.png}}
+\includegraphics[width=\columnwidth]{distribucion3.png}
 % \caption{Tres.}
 \end{center}
 \end{figure}
 \end{column}
 
-		\begin{column}{0.49\textwidth}
+\begin{column}{0.49\textwidth}
 
 \begin{figure}[h]
 \begin{center}
-{\includegraphics[width=\columnwidth]
-{distribucion4.png}}
+\includegraphics[width=\columnwidth]{distribucion4.png}
 % \caption{Cuatro.}
 \end{center}
 \end{figure}
@@ -561,14 +552,13 @@ Where:
 
 \begin{figure}
 \begin{center}
-{\includegraphics[width=0.7\columnwidth] % ,trim={0.5cm 0.5cm 1cm 1cm},clip=true]
-{figures/ROC_BETA/ROC_Beta_based_approach_201504.png}}
+\includegraphics[width=0.7\columnwidth]{figures/ROC_BETA/ROC_Beta_based_approach_201504.png}
+\caption{ROC curve for prediction procedure}
 \label{ROC_multiclass}
 \end{center}
 \end{figure}
 
-ROC curve for prediction procedure. We observed an $\AUC = 0.74$ indicating that our predictor is better than a random predictor ($\AUC \simeq 0.50$).
-
+We observed an $\AUC = 0.74$ indicating that our predictor is better than a random predictor ($\AUC \simeq 0.50$).
 
 \end{frame}
 
@@ -577,13 +567,12 @@ ROC curve for prediction procedure. We observed an $\AUC = 0.74$ indicating that
 
 \begin{figure}[p]
 \begin{center}
-{\includegraphics[width=0.7\columnwidth] % ,trim={0.5cm 0.5cm 1cm 1cm},clip=true]
-{figures/accuracy_vs_fpr.png}}
+\includegraphics[width=0.7\columnwidth]{figures/accuracy_vs_fpr.png}
+\caption{Accuracy as a function of FPR}
 \label{fig:accuracy_vs_fpr}
 \end{center}
 \end{figure}
 
-Accuracy as a function of FPR. 
 The best accuracy obtained is \num{0.71} for $\tau = 0.4$.
 
 \end{frame}
@@ -597,7 +586,7 @@ We applied two other inference methods to the same data and compared their accur
 	The accuracy is as expected \num{0.5}.
 	\item \textbf{Majority voting} which decides the category depending on the category of the majority of its contacts.
 	The accuracy for majority voting is \num{0.66}.
-\item \textbf{Bayesian method} gives an accuracy of \num{0.71}.
+	\item \textbf{Bayesian method} gives an accuracy of \num{0.71}.
 \end{itemize}
 
 \end{frame}
@@ -606,14 +595,13 @@ We applied two other inference methods to the same data and compared their accur
 \begin{frame}{Extension to Multiple Categories}
 
 \begin{figure}[h]
-\centering
-{\includegraphics[width=0.7\columnwidth]
-{figures/ROC_multiclass/ROC_multiclass.png}}
-
+\begin{center}
+\includegraphics[width=0.6\columnwidth]{figures/ROC_multiclass/ROC_multiclass.png}
+\caption{ROC curves for multiclass problem}
+\end{center}
 \label{roc_multiple_categories}
 \end{figure}
 
-ROC curves for multiclass problem.
 We use the Dirichlet distribution for the probability of belonging to multiple categories.
 % The performances observed are: $\AUC_1 = 0.68$, $\AUC_2 = 0.69$, $\AUC_3 = 0.63$, $\AUC_4 = 0.68$, $\AUC_5 = 0.69$.
 
@@ -640,7 +628,7 @@ Carlos Sarraute
 
 \bigskip
 
-charles@grandata.com
+\texttt{charles@grandata.com}
 \end{Large}
 
 \end{frame}
