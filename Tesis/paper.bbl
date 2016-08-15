@@ -36,6 +36,11 @@ Yannick Leo, Eric Fleury, Carlos Sarraute, Jos{\'e}~Ignacio Alvarez-Hamelin,
 \newblock In {\em Fourth conference on the Analysis of Mobile Phone Datasets
   (NetMob 2015)}, 2015.
 
+\bibitem{mackay}
+David MacKay.
+\newblock {\em Information Theory, Inference, and Learning Algorithms}.
+\newblock 2003.
+
 \bibitem{mcpherson2001birds}
 Miller McPherson, Lynn Smith-Lovin, and James~M Cook.
 \newblock Birds of a feather: Homophily in social networks.
