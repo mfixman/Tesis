@@ -1,6 +1,6 @@
 \section{Extension to Multiple Categories}
 
-We present here how the methodology described in Section~\ref{inference_methodology} for
+We present here how the methodology described in \Cref{inference_methodology} for
 two categories can be extended to multiple categories.
 To this end, we separate the income values into five distinct groups $ H_1, \ldots, H_5 \subseteq G$ of increasing wealth where:
 \[
@@ -39,10 +39,10 @@ Note that the above equation defines a distinct Dirichlet distribution for each 
 \label{roc_multiple_categories}
 \end{figure}
 
-In order to gain an intuition on how the classification extends to the multiple category case, we constructed for each category $i$ a binary classifier by using the computed $p^i_{lower}$ score and a given threshold $\tau$. In each case we sweep the threshold $\tau$ and compute the resulting ROC curves as shown in Figure~\ref{roc_multiple_categories}.
+In order to gain an intuition on how the classification extends to the multiple category case, we constructed for each category $i$ a binary classifier by using the computed $p^i_{lower}$ score and a given threshold $\tau$. In each case we sweep the threshold $\tau$ and compute the resulting ROC curves as shown in \Cref{roc_multiple_categories}.
 
 We observed the performance for the different categories: $\AUC_1 = 0.68$, $\AUC_2 = 0.69$, $\AUC_3=0.63$, $\AUC_4 = 0.68$, $\AUC_5 = 0.69$. In all cases, the predictor performs better than the random case.
 
-%It is worth of mention that in this last case, the income range $[7500,20000]$) matches cualitatively with the range were dispersion in the heatmap get broader (see figure \ref{homophily_heatmap}). This suggest that for this range of income it would be useful to complement the proposed approach with other orthogonal income information or prediction strategies, as users geolocalization, credit card debts, etc.
+%It is worth of mention that in this last case, the income range $[7500,20000]$) matches cualitatively with the range were dispersion in the heatmap get broader (see \cref{homophily_heatmap}). This suggest that for this range of income it would be useful to complement the proposed approach with other orthogonal income information or prediction strategies, as users geolocalization, credit card debts, etc.
 
 %We use the Dirichlet distribution to define the following algorithm to infer the appropriate income category for each user

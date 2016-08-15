@@ -11,7 +11,7 @@
 We describe in this section the validation of our methodology.
 We examine the true positive ($\TPR$) and false positive ($\FPR$) rates, \( \TPR = \TP / \operatorname{P} \) and \( \FPR = \FP / \operatorname{N} \), where $\TP$ is the number of correctly predicted users with high income, $\operatorname{P}$ is the total number of users with high income, $\FP$ is the number of users incorrectly classified as having high income, and $\operatorname{N}$ is the total number of users with low income.
 
-In Figure~\ref{ROC_multiclass} we plot the ROC (\textit{Receiver Operating Characteristic}) curve, showing $\TPR$ and $\FPR$ for the set of possible values of $\tau$. We see that our methodology clearly outperforms random guessing (dashed straight line). We can summarize our performance by calculating  the $\AUC$ (\textit{Area Under the Curve}) which in Figure~\ref{ROC_multiclass} is $\AUC = 0.74$. Note that random guessing would give a value of $\AUC \simeq 0.50$.
+In \Cref{ROC_multiclass} we plot the ROC (\textit{Receiver Operating Characteristic}) curve, showing $\TPR$ and $\FPR$ for the set of possible values of $\tau$. We see that our methodology clearly outperforms random guessing (dashed straight line). We can summarize our performance by calculating  the $\AUC$ (\textit{Area Under the Curve}) which in \Cref{ROC_multiclass} is $\AUC = 0.74$. Note that random guessing would give a value of $\AUC \simeq 0.50$.
 
 %\vspace{1em}
 %
@@ -72,7 +72,7 @@ In Figure~\ref{ROC_multiclass} we plot the ROC (\textit{Receiver Operating Chara
 
 Alternatively we can evaluate the performance of our model by computing its accuracy for a given threshold $\tau$ of FPR.
 
-Figure~\ref{fig:accuracy_vs_fpr} shows the accuracy obtained as a function of FPR, where the accuracy is computed as the ratio between \(\TP\) and \(\TN\) over the total population for a certain \(\FPR\).  The best accuracy obtained is \num{0.71} for $\tau = 0.4$.
+\Cref{fig:accuracy_vs_fpr} shows the accuracy obtained as a function of FPR, where the accuracy is computed as the ratio between \(\TP\) and \(\TN\) over the total population for a certain \(\FPR\).  The best accuracy obtained is \num{0.71} for $\tau = 0.4$.
 
 \subsection{Comparison with Other Inference Methods}
 
