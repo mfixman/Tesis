@@ -1,3 +1,35 @@
-\section{Theorical Introduction}
+\section{Theoretical Introduction}
 
-hola
+\subsection{Social Homophily}
+
+\subsection{Spearman's Coefficient}
+
+Spearman's Rank Correlation Coefficient (also known as Spearman's rho) is a nonparametric measure of rank correlation which measures how well the relationship between two variables can be described using a monotonic function\cite{statistical_analysis}. Unlike Pearson's Correlation Coefficient, which measures lineal relationship between variables, Spearman's Coefficient uses the \emph{rank} of the variables in its calculations; therefore is measures its monotonicity.
+
+For a sample of size \( n \) with scores \( X_i \) and \( Y_i \), the Spearman Coefficient \( r_s \) is defined as
+
+\begin{equation}
+r_s = \mathlarger{\rho}_{\operatorname{rank}(X) \operatorname{rank}(Y)} = \frac{\operatorname{cov}(\operatorname{rank}(x), \operatorname{rank}(y))}{\sigma_{\operatorname{rank}(X)} \sigma_{\operatorname{rank}(Y)}}
+\label{spearman}
+\end{equation}
+
+Where \( \rho_{a,b} \) denotes the Pearson correlation between the variables \( a \) and \( b \). This value will be close to 1 when the variables are directly monotonic, close to -1 when they are inversely monotonic, and close to 0 when there is no tendency for either variable to increase or decrease when the other increases.
+
+\subsection{Beta Distribution}
+
+This work uses a Bayesian approach to statistics instead of the usual frequentist approach. In this context, the Beta distribution is a family of probability distributions which can be used to describe initial knowledge concerning probability of success of a single bi-variate distribution.
+
+\begin{equation}
+\Beta \left( x; \alpha, \beta \right) = \frac{1}{\Beta \left( \alpha, \beta \right)} x^{\alpha - 1} \cdot {\left( 1 - x \right)}^{\beta - 1}
+\label{Beta}
+\end{equation}
+
+Where \( \alpha \) and \( \beta \) are the parameters of the Beta distribution, and \( \Beta \) is the beta function, defined as:
+
+\begin{equation}
+\Beta \left( \alpha, \beta \right) = \frac{\Gamma \! \left( \alpha \right) \cdot \Gamma \! \left( \beta \right)}
+{\Gamma \! \left( \alpha + \beta \right)}.
+\label{Betaf}
+\end{equation}
+
+The Beta function is used as the normalization constant of the distribution, to ensure that the total probability integrates to 1.
