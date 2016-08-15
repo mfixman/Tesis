@@ -2,22 +2,22 @@
 
 \subsection{Evaluation of Performance}
 
-%We need to make sure that our inference algorithm correctly predicts users' income in each of the 5 categories $ H_1, \ldots, H_5 $. According to our hypothesis, the greater the amount of calls to , this increases the probability that both of them will belong to the same group.
+%We need to make sure that our inference algorithm correctly predicts users' income in each of the 5 categories \( H_1, \ldots, H_5  \). According to our hypothesis, the greater the amount of calls to , this increases the probability that both of them will belong to the same group.
 
-%For each link $ p = \left< p_o, p_d, \ldots \right> \in P $, our hypothesis says that $ p_o $ and $ p_d $ will belong to the same income group.
+%For each link \( p = \left< p_o, p_d, \ldots \right> \in P  \), our hypothesis says that \( p_o  \) and \( p_d  \) will belong to the same income group.
 
-%In order to validate our proposed methodology, we take advantage of the computed $p_lower$ for each user and use this quantity as the predicition score that allow us to evaluate whether a given user belongs to one of the deffined categories. A standarized way to quantify the performace of the metodology is by computing Receiver Operating Characteristic Curve (ROC). This curve
+%In order to validate our proposed methodology, we take advantage of the computed \( p_lower \) for each user and use this quantity as the predicition score that allow us to evaluate whether a given user belongs to one of the deffined categories. A standarized way to quantify the performace of the metodology is by computing Receiver Operating Characteristic Curve (ROC). This curve
 
 We describe in this section the validation of our methodology.
-We examine the true positive ($\TPR$) and false positive ($\FPR$) rates, \( \TPR = \TP / \operatorname{P} \) and \( \FPR = \FP / \operatorname{N} \), where $\TP$ is the number of correctly predicted users with high income, $\operatorname{P}$ is the total number of users with high income, $\FP$ is the number of users incorrectly classified as having high income, and $\operatorname{N}$ is the total number of users with low income.
+We examine the true positive (\( \TPR \)) and false positive (\( \FPR \)) rates, \( \TPR = \TP / \operatorname{P} \) and \( \FPR = \FP / \operatorname{N} \), where \( \TP \) is the number of correctly predicted users with high income, \( \operatorname{P} \) is the total number of users with high income, \( \FP \) is the number of users incorrectly classified as having high income, and \( \operatorname{N} \) is the total number of users with low income.
 
-In \Cref{ROC_multiclass} we plot the ROC (\textit{Receiver Operating Characteristic}) curve, showing $\TPR$ and $\FPR$ for the set of possible values of $\tau$. We see that our methodology clearly outperforms random guessing (dashed straight line). We can summarize our performance by calculating  the $\AUC$ (\textit{Area Under the Curve}) which in \Cref{ROC_multiclass} is $\AUC = 0.74$. Note that random guessing would give a value of $\AUC \simeq 0.50$.
+In \Cref{ROC_multiclass} we plot the ROC (\textit{Receiver Operating Characteristic}) curve, showing \( \TPR \) and \( \FPR \) for the set of possible values of \( \tau \). We see that our methodology clearly outperforms random guessing (dashed straight line). We can summarize our performance by calculating  the \( \AUC \) (\textit{Area Under the Curve}) which in \Cref{ROC_multiclass} is \( \AUC = 0.74 \). Note that random guessing would give a value of \( \AUC \simeq 0.50 \).
 
 %\vspace{1em}
 %
 %\begin{adjustwidth}{-1.5cm}{}
 %\begin{tabu} to \textwidth { r X[c] X[c] }
-%& \multicolumn{2}{ c }{\textbf{Classifier result for income group $ H_i $}} \\
+%& \multicolumn{2}{ c }{\textbf{Classifier result for income group \( H_i  \)}} \\
 %\\
 %& Caller in group & Caller not in group \\
 %Callee in group & \cellcolor{green} True Positive & \cellcolor{red} \makecell{False Negative \\ (Type II Error)} \\
@@ -29,7 +29,7 @@ In \Cref{ROC_multiclass} we plot the ROC (\textit{Receiver Operating Characteris
 
 %a \textbf{Receiver Operating Characteristic Curve} (ROC) to plot the \textbf{True Positive Rate} and the \textbf{False Positive Rate} of each system. Since the amount of people in each group is almost equal, randonly guessing each user's income would result in a diagonal line.
 
-%As an objective measurement, we can calculate the \textbf{Area under the curve} for each income group as the chance that the classifier would make a better prediction of the composition of this income group better than a random one. For this we define the density functions $ f_i(x) $ as the probability that a user will be considered part of the income group $ H_i $, and $ g_i(x) $ as the probability that it won't. This way we can characterize the True Positive Rate and the False Positive Rate for each group as
+%As an objective measurement, we can calculate the \textbf{Area under the curve} for each income group as the chance that the classifier would make a better prediction of the composition of this income group better than a random one. For this we define the density functions \( f_i(x)  \) as the probability that a user will be considered part of the income group \( H_i  \), and \( g_i(x)  \) as the probability that it won't. This way we can characterize the True Positive Rate and the False Positive Rate for each group as
 
 %\vspace{-1em}
 %
@@ -46,7 +46,7 @@ In \Cref{ROC_multiclass} we plot the ROC (\textit{Receiver Operating Characteris
 %A_i = P(X_1 > X_0) = \int^{-\infty}_{\infty} \operatorname{TPR_i}(T) \operatorname{FPR_i}(T) dT
 %\]
 
-%Where $ X_1 $ is the score for a positive instance, and $ X_0 $ is the score for a negative one.
+%Where \( X_1  \) is the score for a positive instance, and \( X_0  \) is the score for a negative one.
 
 %\subsection{Results}
 
@@ -54,7 +54,7 @@ In \Cref{ROC_multiclass} we plot the ROC (\textit{Receiver Operating Characteris
 \begin{center}
 {\includegraphics[width=0.9\columnwidth] % ,trim={0.5cm 0.5cm 1cm 1cm},clip=true]
 {figures/ROC_BETA/ROC_Beta_based_approach_201504.png}}
-\caption{ROC curve for prediction procedure. We observed an $\AUC = 0.74$ indicating that our predictor is better than a random predictor ($\AUC \simeq 0.50$).}
+\caption{ROC curve for prediction procedure. We observed an \( \AUC = 0.74 \) indicating that our predictor is better than a random predictor (\( \AUC \simeq 0.50 \)).}
 \label{ROC_multiclass}
 \end{center}
 \end{figure}
@@ -70,9 +70,9 @@ In \Cref{ROC_multiclass} we plot the ROC (\textit{Receiver Operating Characteris
 \end{center}
 \end{figure}
 
-Alternatively we can evaluate the performance of our model by computing its accuracy for a given threshold $\tau$ of FPR.
+Alternatively we can evaluate the performance of our model by computing its accuracy for a given threshold \( \tau \) of FPR.
 
-\Cref{fig:accuracy_vs_fpr} shows the accuracy obtained as a function of FPR, where the accuracy is computed as the ratio between \(\TP\) and \(\TN\) over the total population for a certain \(\FPR\).  The best accuracy obtained is \num{0.71} for $\tau = 0.4$.
+\Cref{fig:accuracy_vs_fpr} shows the accuracy obtained as a function of FPR, where the accuracy is computed as the ratio between \(\TP\) and \(\TN\) over the total population for a certain \(\FPR\).  The best accuracy obtained is \num{0.71} for \( \tau = 0.4 \).
 
 \subsection{Comparison with Other Inference Methods}
 
