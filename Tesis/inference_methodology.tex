@@ -32,7 +32,7 @@ We can take advantage of this homophily to propagate income information to the r
 
 \subsection{Prediction Algorithm}
 
-Instead of predicting the exact value of a user's income, our strategy is to distinguish between only two income categories, $R_1 = \left[1000, 6300\right)$ and $R_2 = \left[6300, \infty\right)$, that is, users with low or high income respectively, which we place into two distinct groups $ H_1, H_2 \subseteq G$ depending on \( g_s \), the users' income:
+Instead of predicting the exact value of a user's income, our strategy is to distinguish between only two income categories, $R_1 = \closeopen{1000}{6300}$ and $R_2 = \closeopen{6300}{\infty}$, that is, users with low or high income respectively, which we place into two distinct groups $ H_1, H_2 \subseteq G$ depending on \( g_s \), the users' income:
 \[
 	g \in H_i \iff g_s \in R_i
 \]
