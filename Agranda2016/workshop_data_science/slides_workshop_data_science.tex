@@ -25,6 +25,8 @@
 
 \usepackage[group-separator={,}]{siunitx}
 \usepackage{caption}
+\usepackage{pbox}
+\usepackage{tabularx}
 
 \usepackage{color}
 
@@ -122,35 +124,28 @@
 
 
 \begin{frame}{Human Behavior}
-\begin{columns}
-\begin{column}{0.45\textwidth}
-\centering
-\includegraphics[width=0.8\columnwidth]{bjork-debut.jpg}
 
+\begin{tabularx}{\textwidth}{c c}
+\includegraphics[height=0.4\textheight]{bjork-debut.jpg} &
+\includegraphics[height=0.4\textheight]{pi.jpg} \\
+
+\pbox[t]{0.4\textwidth}{%
+\small
 There's definitely, definitely, definitely no logic \\
 to human behavior \\
-\begin{flushright}
-\textit{Björk - Debut}
-\end{flushright}
-
-\end{column}
-\begin{column}{0.54\textwidth}
-\centering
-\includegraphics[width=0.8\columnwidth]{pi.jpg}
-
-% Restate my assumptions: \\
+\textit{Björk --- Debut}
+} &
+\pbox[t]{0.6\textwidth}{%
+\small
+Restate my assumptions: \\
 1. Mathematics is the language of nature. \\
 2. Everything around us can be represented and understood through numbers. \\
 3. If you graph the numbers of any system, patterns emerge. \\
-\begin{flushright}
-\textit{Aronofsky - Pi}
-\end{flushright}
-
-\end{column}
-\end{columns}
+\textit{Aronofsky --- Pi}
+}
+\end{tabularx}
 
 \end{frame}
-
 
 \begin{frame}{The Scientific Connection}
 \begin{block}{Scientific Collaborations}
@@ -231,7 +226,7 @@ Each CDR \( p \in \mathP \) contains:
 \begin{itemize}
 \item Account balances for over 10 million clients of a bank in Mexico for a period of 6 months, denoted \( \mathB \). 
 \item For each client \( b \in \mathB \) we have his phone number \( b_p \), anonymized with the same hash function used in \( \mathP \).
-\item Average income over 6 months \( b_s \).
+\item The average income of 6 months \( b_s \).
 
 \end{itemize}
 
@@ -249,7 +244,6 @@ Each CDR \( p \in \mathP \) contains:
 
 \item We can match users to their unique phone to create the social graph:
 $$ G = \mathP \bowtie_{_{p_o = b_p}} \mathB \bowtie_{_{p_d = b_p}} \mathB $$
-where $\bowtie$ denotes the inner join operator.
 
 \item \( \forall g \in G \) we have its phone number \( g_p \),  its average income over 6 months \( g_s \), and its age \( g_a \).
 
@@ -267,12 +261,12 @@ where $\bowtie$ denotes the inner join operator.
 
 \begin{figure}
 \begin{center}
-\includegraphics[width=0.8\columnwidth]{figures/income_age_boxplot4/income_age_boxplot4.png}
+\includegraphics[width=\columnwidth]{figures/income_age_boxplot4/income_age_boxplot4_wide.png}
 \caption{Distribution of income $b_s$ according to age $b_a$}
 \label{income_age_boxplot}
 \end{center}
 \end{figure}
-Consistent with data from~\cite{gallup2013}.
+This is consistent with data from~\cite{gallup2013}.
 
 \end{frame}
 
