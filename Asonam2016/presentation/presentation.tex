@@ -4,6 +4,7 @@
 \usepackage[citestyle=authortitle-icomp]{biblatex}
 \usepackage[group-separator={,}]{siunitx}
 \usepackage{tikz}
+\usepackage{relsize}
 
 \newcommand{\mathA}{\mathcal{A}}
 \newcommand{\mathB}{\mathcal{B}}
@@ -103,7 +104,15 @@ This graph has a total of \num{2027554} nodes with \num{5044976} edges, which re
 \subsection{Income Homophily}
 
 \begin{frame}{Inference Methodology}
-The main part of this work is based on the observed homophily between income levels of the participants in a phone call. That is, if person \emph{A} calls person \emph{B}, then there's a high change that \emph{A} and \emph{B} have similar incomes. We can observe this homphily in the source data.
+The main part of this work is based on the observed homophily between income levels of the participants in a phone call. That is, if person \emph{X} calls person \emph{Y}, then there's a high change that \emph{X} and \emph{Y} have similar incomes.
+	
+We can observe this homophily in the source data by measuting \textbf{Spearman's Rank Correlation} to test the statistical dependence of sets \emph{X} and \emph{Y}.
+
+\[
+	r_s = \mathlarger{\rho}_{\operatorname{rank}(X) \operatorname{rank}(Y)} = \frac{\operatorname{cov}(\operatorname{rank}(x), \operatorname{rank}(y))}{\sigma_{\operatorname{rank}(X)} \sigma_{\operatorname{rank}(Y)}}
+\]
+
+This formula gives us a correlation coefficient of \( \mathbf{r_s = 0.474} \). Compared to a randomized null hypothersis, where links between users are selected randomly disregarding income data, we have a p-value of \( p < 10^{-6} \).
 
 \end{frame}
 \begin{frame}
