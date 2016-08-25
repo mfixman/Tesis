@@ -6,6 +6,9 @@
 \usepackage{tikz}
 \usepackage{relsize}
 
+\setbeamertemplate{caption}{\raggedright\insertcaption\par}
+\setbeamerfont{caption}{size=\scriptsize}
+
 \newcommand{\mathA}{\mathcal{A}}
 \newcommand{\mathB}{\mathcal{B}}
 \newcommand{\mathC}{\mathcal{C}}
@@ -112,18 +115,32 @@ We can observe this homophily in the source data by measuting \textbf{Spearman's
 	r_s = \mathlarger{\rho}_{\operatorname{rank}(X) \operatorname{rank}(Y)} = \frac{\operatorname{cov}(\operatorname{rank}(x), \operatorname{rank}(y))}{\sigma_{\operatorname{rank}(X)} \sigma_{\operatorname{rank}(Y)}}
 \]
 
-This formula gives us a correlation coefficient of \( \mathbf{r_s = 0.474} \). Compared to a randomized null hypothersis, where links between users are selected randomly disregarding income data, we have a p-value of \( p < 10^{-6} \).
+This formula gives us a correlation coefficient of \( \mathbf{r_s = 0.474} \). Compared to a randomized null hypothesis, where links between users are selected randomly disregarding income data, we have a p-value of \( p < 10^{-6} \).
 
 \end{frame}
 \begin{frame}
 
 \begin{figure}[h]
 	\begin{center}
-		{\includegraphics[height=0.6\textheight]
+		{\includegraphics[height=0.8\textheight]
 		{../figures/Homophily_income_origin_target_1/Homophily_income_origin_target_1.png}
 		}\label{homophily_heatmap}
 	\end{center}
+	\caption{The income homophily can be easily seen when plotting the data.}
 \end{figure}
+
+\end{frame}
+
+\subsection{Prediction Algorithm}
+\begin{frame}{Prediction Algorithm}
+	We separate the users in our input into two disjoint groups:
+
+	\begin{description}
+		\item[Poor People] have less than 3600~MXN\footnote{3600~MXN = 343~USD = 5095ARS} in their bank account.
+		\item[Wealthy People] have more than 3600~MXN.\@
+	\end{description}
+
+	According to our hypothesis, poorer people should have more calls to other poor people, while wealthy people should have more calls to wealthier ones.
 
 \end{frame}
 
