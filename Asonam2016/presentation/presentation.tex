@@ -9,6 +9,8 @@
 \setbeamertemplate{caption}{\raggedright\insertcaption\par}
 \setbeamerfont{caption}{size=\scriptsize}
 
+\newcommand{\Beta}{B}
+
 \newcommand{\mathA}{\mathcal{A}}
 \newcommand{\mathB}{\mathcal{B}}
 \newcommand{\mathC}{\mathcal{C}}
@@ -133,15 +135,56 @@ This formula gives us a correlation coefficient of \( \mathbf{r_s = 0.474} \). C
 
 \subsection{Prediction Algorithm}
 \begin{frame}{Prediction Algorithm}
-	We separate the users in our input into two disjoint groups:
+	We separate the users in our input into two disjoint groups, which have roughly the same amount of people in our dataset after removing outliers.
 
 	\begin{description}
 		\item[Poor People] have less than 3600~MXN\footnote{3600~MXN = 343~USD = 5095ARS} in their bank account.
 		\item[Wealthy People] have more than 3600~MXN.\@
 	\end{description}
 
-	According to our hypothesis, poorer people should have more calls to other poor people, while wealthy people should have more calls to wealthier ones.
+	According to our hypothesis, poor people should have more calls to other poorer people, while wealthy people should have a higher proportion of calls to wealthier ones.
+\end{frame}
 
+\begin{frame}
+	The simpler method for inferring the category of each user with this data is \textbf{Majority Voting}, which gives each user the category for which the majority of its contacts belongs. This has an accuracy of 66\%, which is way better than the 50\% you get from random selection, but still can be improved.
+\end{frame}
+
+\begin{frame}
+	A better approach, presented by this paper, uses \textbf{Bayesian Inference} to solve this problem. We can define, for each user \( j \) with \( \alpha^j \) calls to wealthy people and \( \beta^j \) calls to poor people, a \textbf{Beta Distribution} \( \Beta^j ( x; \alpha^j, \beta^j ) \) which gives the probability of belonging to each category.
+
+	\pause{}
+
+	\[
+	\begin{split}
+		\alpha^j &\text{ calls to wealthy users} \\
+		\beta^j  &\text{ calls to poor users} \\
+		\Beta(x; \alpha^j, \beta^j) &\text{ distribution of probabilities that the user \( j \) is wealthy}
+	\end{split}
+	\]
+
+	TODO:\@ Beta distribution graph goes here.
+\end{frame}
+
+\section{Results}
+\subsection{ROC Curve}
+\begin{frame}[fragile]{Results}
+	\begin{overlayarea}{\textwidth}{.3\textheight}
+		\alt<1>{%
+			We then define a parameter \( \tau \) which balances the precision and recall of each users' distribution.
+		}{}
+		\alt<2>{%
+			The ROC Curve has an \textbf{Area Under the Curve} of \num{0.74}.
+
+			The can obtain an optimal accuracy with \( \tau = 0.4 \) of 77\%
+		}{}
+	\end{overlayarea}
+
+	\vspace{-4em}
+	\begin{figure}
+		\includegraphics[height=.6\textheight]
+		{../figures/ROC_BETA/ROC_Beta_based_approach_201504.png}
+		\caption{ROC Curve with \textit{False Positive Rate} plot against the \textit{True Positive Rate}}
+	\end{figure}
 \end{frame}
 
 \end{document}
