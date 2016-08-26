@@ -2,9 +2,12 @@
 \mode<presentation>{\usetheme{Warsaw}}
 
 \usepackage[citestyle=authortitle-icomp]{biblatex}
-\usepackage[group-separator={,}]{siunitx}
+\usepackage[group-separator={,},group-minimum-digits=4]{siunitx}
 \usepackage{tikz}
 \usepackage{relsize}
+\usepackage{todonotes}
+
+\presetkeys{todonotes}{inline}{}
 
 \setbeamertemplate{caption}{\raggedright\insertcaption\par}
 \setbeamerfont{caption}{size=\scriptsize}
@@ -114,7 +117,7 @@ The main part of this work is based on the observed homophily between income lev
 We can observe this homophily in the source data by measuting \textbf{Spearman's Rank Correlation} to test the statistical dependence of sets \emph{X} and \emph{Y}.
 
 \[
-	r_s = \mathlarger{\rho}_{\operatorname{rank}(X) \operatorname{rank}(Y)} = \frac{\operatorname{cov}(\operatorname{rank}(x), \operatorname{rank}(y))}{\sigma_{\operatorname{rank}(X)} \sigma_{\operatorname{rank}(Y)}}
+	r_s = \mathlarger{\rho}_{\operatorname{rank}(X) \operatorname{rank}(Y)} = \frac{\operatorname{cov} \left( \operatorname{rank}(x), \operatorname{rank}(y) \right)}{\sigma_{\operatorname{rank}(X)} \sigma_{\operatorname{rank}(Y)}}
 \]
 
 This formula gives us a correlation coefficient of \( \mathbf{r_s = 0.474} \). Compared to a randomized null hypothesis, where links between users are selected randomly disregarding income data, we have a p-value of \( p < 10^{-6} \).
@@ -138,8 +141,8 @@ This formula gives us a correlation coefficient of \( \mathbf{r_s = 0.474} \). C
 	We separate the users in our input into two disjoint groups, which have roughly the same amount of people in our dataset after removing outliers.
 
 	\begin{description}
-		\item[Poor People] have less than 3600~MXN\footnote{3600~MXN = 343~USD = 5095ARS} in their bank account.
-		\item[Wealthy People] have more than 3600~MXN.\@
+		\item[Poor People] have less than \num{3600}~MXN\footnote{3600~MXN = 343~USD = \num{5095}ARS} in their bank account.
+		\item[Wealthy People] have more than \num{3600}~MXN.\@
 	\end{description}
 
 	According to our hypothesis, poor people should have more calls to other poorer people, while wealthy people should have a higher proportion of calls to wealthier ones.
@@ -158,33 +161,59 @@ This formula gives us a correlation coefficient of \( \mathbf{r_s = 0.474} \). C
 	\begin{split}
 		\alpha^j &\text{ calls to wealthy users} \\
 		\beta^j  &\text{ calls to poor users} \\
-		\Beta(x; \alpha^j, \beta^j) &\text{ distribution of probabilities that the user \( j \) is wealthy}
+		\Beta^j \left( x; \alpha^j, \beta^j \right) &\text{ distribution of probabilities that the user \( j \) is wealthy}
 	\end{split}
 	\]
 
-	TODO:\@ Beta distribution graph goes here.
+	\todo{TODO: Beta distribution graph goes here.}
 \end{frame}
 
 \section{Results}
 \subsection{ROC Curve}
 \begin{frame}[fragile]{Results}
-	\begin{overlayarea}{\textwidth}{.3\textheight}
+	\begin{overlayarea}{\textwidth}{2.5em}
 		\alt<1>{%
 			We then define a parameter \( \tau \) which balances the precision and recall of each users' distribution.
 		}{}
 		\alt<2>{%
 			The ROC Curve has an \textbf{Area Under the Curve} of \num{0.74}.
 
-			The can obtain an optimal accuracy with \( \tau = 0.4 \) of 77\%
+			The can obtain an optimal accuracy with \( \tau = 0.4 \) of 71\%
 		}{}
 	\end{overlayarea}
 
-	\vspace{-4em}
+	\todo{TODO: New image with marker.}
 	\begin{figure}
 		\includegraphics[height=.6\textheight]
 		{../figures/ROC_BETA/ROC_Beta_based_approach_201504.png}
 		\caption{ROC Curve with \textit{False Positive Rate} plot against the \textit{True Positive Rate}}
 	\end{figure}
+\end{frame}
+
+\section{A subset of the things related to this work which may happen in the future}
+\subsection{Extension to Multiple Categories}
+
+\begin{frame}{Extension to Multiple Categories}
+	An obvious improvement for this work is separating the users into more than 2 groups depending on their wealth.
+
+	\begin{description}[leftmargin=!]
+		\item[\(R_1\)] \num{1000}~MXN\footnote{\num{1000}~MXN = \num{53.79}~USD = \num{806.52} ARS} to \num{2500}~MXN\footnote{\num{2500}~MXN = \num{134.47}~USD = \num{2016.30}~ARS}
+		\item[\(R_2\)] \num{2500}~MXN to \num{7500}~MXN\footnote{\num{7500}~MXN = \num{403.41}~USD = \num{6048.89}~ARS}
+		\item[\(R_3\)] \num{7500}~MXN to \num{20000}~MXN\footnote{\num{20000}~MXN = \num{1075.75}~USD = \num{16130.37}~ARS}
+		\item[\(R_4\)] \num{20000}~MXN to \num{50000}~MXN\footnote{\num{50000}~MXN = \num{2689.37}~USD = \num{40325.93}~ARS}
+	\end{description}
+\end{frame}
+
+\begin{frame}
+	Instead of using a Beta Distribution for each user \( j \), we define a \textbf{Dirichlet distribution} for each category, taking \( \alpha^j_i \) as the number it has with users to the category \( i \).
+
+	\[
+		D^j \left( x_1, \ldots, x_5; \alpha^j_1, \ldots, \alpha^j_5 \right) = \frac{1}{\Beta(\alpha)} \prod^5_{i = 1}{x_i^{\alpha^j_i - 1}}
+	\]
+
+	\pause{}
+
+	The result of the distribution is 5 distributions for each user, which gives the probability of each user to belong to each category.
 \end{frame}
 
 \end{document}
