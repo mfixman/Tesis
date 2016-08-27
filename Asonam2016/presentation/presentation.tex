@@ -182,9 +182,9 @@ This formula gives us a correlation coefficient of \( \mathbf{r_s = 0.474} \). C
 		}{}
 	\end{overlayarea}
 
-	\todo{TODO: New image with marker.}
+	% \todo{TODO: New image with marker.}
 	\begin{figure}
-		\includegraphics[height=.6\textheight]
+		\includegraphics[height=.7\textheight]
 		{../figures/ROC_BETA/ROC_Beta_based_approach_201504.png}
 		\caption{ROC Curve with \textit{False Positive Rate} plot against the \textit{True Positive Rate}}
 	\end{figure}
@@ -214,6 +214,15 @@ This formula gives us a correlation coefficient of \( \mathbf{r_s = 0.474} \). C
 	\pause{}
 
 	The result of the distribution is 5 distributions for each user, which gives the probability of each user to belong to each category.
+\end{frame}
+
+\begin{frame}
+	We can create 5 new ROC Curves with this data, which have higher \textbf{Area Under the Curves} than the case with majority voting.
+
+	\begin{figure}
+		\includegraphics[height=.8\textheight]{../figures/ROC_multiclass/ROC_multiclass.png}
+		\caption{ROC Curves with \textit{False Positive Rates} plotted against the \textit{True Positive Rates}}
+	\end{figure}
 \end{frame}
 
 \end{document}
