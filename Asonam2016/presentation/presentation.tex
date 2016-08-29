@@ -1,5 +1,6 @@
 \documentclass{beamer}
-\mode<presentation>{\usetheme{Warsaw}}
+\usetheme{CambridgeUS}
+\usecolortheme{dolphin}
 
 \usepackage[citestyle=authortitle-icomp]{biblatex}
 \usepackage{relsize}
@@ -20,7 +21,7 @@
 \newcommand{\mathG}{\mathcal{G}}
 \newcommand{\mathP}{\mathcal{P}}
 
-\title[Bayesian Income Inference \hspace{3em} IEEE/ACM ASONAM 2016]{A Bayesian Approach to Income Inference \\ in a Communication Network}
+\title[Bayesian Income Inference]{A Bayesian Approach to Income Inference \\ in a Communication Network}
 
 \author[Fixman et.\ al]{%
 	Martin~Fixman\inst{1}\inst{2}\and
@@ -31,9 +32,9 @@
 	Matias~Travizano\inst{1}
 }
 
-\institute{%
+\institute[FCEyN UBA \and Grandata]{%
 	\inst{1}Grandata Labs, Bartolome Cruz 1818, Vicente Lopez, Argentina \\
-	\inst{2}Universidad de Buenos Aires, Argentina \bigbreak{}
+	\inst{2}Universidad de Buenos Aires, Argentina
 	\{mfixman,ariel,jorge,martin,mat,charles\}@grandata.com
 }
 
@@ -184,8 +185,8 @@ This formula gives us a correlation coefficient of \( \mathbf{r_s = 0.474} \). C
 
 	% \todo{TODO: New image with marker.}
 	\begin{figure}
-		\includegraphics[height=.7\textheight]
-		{../figures/ROC_BETA/ROC_Beta_based_approach_201504.png}
+		\includegraphics[height=.7\textheight, width=\textwidth]
+		{../figures/roc_curve_wide.png}
 		\caption{ROC Curve with \textit{False Positive Rate} plot against the \textit{True Positive Rate}}
 	\end{figure}
 \end{frame}
@@ -220,7 +221,7 @@ This formula gives us a correlation coefficient of \( \mathbf{r_s = 0.474} \). C
 	We can create 5 new ROC Curves with this data, which have higher \textbf{Area Under the Curves} than the case with majority voting.
 
 	\begin{figure}
-		\includegraphics[height=.8\textheight]{../figures/ROC_multiclass/ROC_multiclass.png}
+		\includegraphics[height=.7\textheight]{../figures/ROC_multiclass/ROC_multiclass.png}
 		\caption{ROC Curves with \textit{False Positive Rates} plotted against the \textit{True Positive Rates}}
 	\end{figure}
 \end{frame}
