@@ -185,8 +185,12 @@ This formula gives us a correlation coefficient of \( \mathbf{r_s = 0.474} \). C
 
 	% \todo{TODO: New image with marker.}
 	\begin{figure}
-		\includegraphics[height=.7\textheight, width=\textwidth]
-		{../figures/roc_curve_wide.png}
+		\alt<1>{%
+			\includegraphics[height=.7\textheight, width=\textwidth]{../figures/roc_curve_wide.png}
+		}{}
+		\alt<2>{%
+				\includegraphics[height=.7\textheight, width=\textwidth]{../figures/roc_curve_marked_wide.png}
+		}{}
 		\caption{ROC Curve with \textit{False Positive Rate} plot against the \textit{True Positive Rate}}
 	\end{figure}
 \end{frame}
