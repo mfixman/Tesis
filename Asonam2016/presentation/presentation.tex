@@ -7,11 +7,13 @@
 \usepackage[group-separator={,},group-minimum-digits=4]{siunitx}
 \usepackage{tikz}
 \usepackage{todonotes}
+\usepackage{nth}
 
 \presetkeys{todonotes}{inline}{}
 
 \setbeamertemplate{caption}{\raggedright\insertcaption\par}
 \setbeamerfont{caption}{size=\scriptsize}
+\setbeamertemplate{navigation symbols}{}
 
 \newcommand{\Beta}{B}
 
@@ -59,7 +61,7 @@ Mobile phone datasets provide a very rich view into the social interactions and 
 
 \subsection{Understanding the Social Graph}
 
-\begin{frame}
+\begin{frame}{Understanding the Social Graph}
 The voice calls and text messages exchanged between people, together with the call locations (recorded through cell tower usages), allow us to construct a rich social graph which can give us interesting insights on the users' social fabric, detailing not only particular social relationships and traits, but also regular patterns of behavior both in space and time, such as their daily and weekly mobility patterns\footcite{gonzalez2008understanding}\footcite{ponieman2013human}\footcite{sarraute2015city}.
 \begin{center}
 \input{introduction_graph.tex}
@@ -77,6 +79,9 @@ In this work, we leverage the socioeconomic homophily present in the cellular ph
 	\item The Call Detail Records from the operator, which allows us to construct a social graph.
 	\item Reported income from a subset of clients obtained from a large bank.
 \end{enumerate}
+
+This allows us to take advantage of both the individual users' features and the topology of the phone network.
+
 \end{frame}
 
 \section{Data Sources}
@@ -154,6 +159,7 @@ This formula gives us a correlation coefficient of \( \mathbf{r_s = 0.474} \). C
 \end{frame}
 
 \begin{frame}
+	\alt<1-2>{%
 	A better approach, presented by this paper, uses \textbf{Bayesian Inference} to solve this problem. We can define, for each user \( j \) with \( \alpha^j \) calls to wealthy people and \( \beta^j \) calls to poor people, a \textbf{Beta Distribution} \( \Beta^j ( x; \alpha^j, \beta^j ) \) which gives the probability of belonging to each category.
 
 	\pause{}
@@ -166,7 +172,16 @@ This formula gives us a correlation coefficient of \( \mathbf{r_s = 0.474} \). C
 	\end{split}
 	\]
 
-	\todo{TODO: Beta distribution graph goes here.}
+	}{}
+
+	To make sure we take into account both the mean and the variance of the distribution, we take the \nth{5} percentile of the \textbf{Cumulative Distribution Function} of the Beta distribution for each user, and define rich users as people where that value if higher than some threshold \( \tau \).
+
+	\alt<3>{%
+		\begin{figure}
+			\includegraphics[width=\textwidth]{../figures/Beta_example.png}
+			\caption{Value of the 5th percentile for different neighbours' socioeconomic levels.}
+		\end{figure}
+	}{}
 \end{frame}
 
 \section{Results}
@@ -176,19 +191,34 @@ This formula gives us a correlation coefficient of \( \mathbf{r_s = 0.474} \). C
 		\alt<1>{%
 			We then define a parameter \( \tau \) which balances the precision and recall of each users' distribution.
 		}{}
-		\alt<2>{%
+		\alt<2->{%
 			The ROC Curve has an \textbf{Area Under the Curve} of \num{0.74}.
 
-			The can obtain an optimal accuracy with \( \tau = 0.4 \) of 71\%
+			We can obtain an optimal accuracy with \( \tau = 0.4 \) of 71\%
 		}{}
 	\end{overlayarea}
 
-	% \todo{TODO: New image with marker.}
-	\begin{figure}
-		\includegraphics[height=.7\textheight, width=\textwidth]
-		{../figures/roc_curve_wide.png}
-		\caption{ROC Curve with \textit{False Positive Rate} plot against the \textit{True Positive Rate}}
-	\end{figure}
+	\begin{overlayarea}{\textwidth}{.9\textheight}
+		\alt<1>{%
+			\begin{figure}
+				\includegraphics[width=\textwidth]
+				{../figures/roc_curve_wide.png}
+				\caption{ROC Curve with \textit{False Positive Rate} plotted against the \textit{True Positive Rate}}
+			\end{figure}
+		}{}
+		\alt<2>{%
+			\begin{figure}
+				\todo{Same graph as before, except with a vertical mark on \( 0.4 \).}
+			\end{figure}
+		}{}
+		\alt<3>{%
+			\begin{figure}
+			\includegraphics[width=\textwidth]
+			{../figures/accuracy.png}
+			\caption{Model accuracy plotted against False Positive Rate}
+			\end{figure}
+		}{}
+	\end{overlayarea}
 \end{frame}
 
 \section{Future Work}
