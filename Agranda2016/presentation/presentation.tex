@@ -58,8 +58,6 @@
 \subsection{Introduction}
 
 \begin{frame}{Introduction}
-\note{Men, Tuva amen}
-
 In recent years, we have witnessed an exponential growth in the capacity to gather, store and manipulate massive amounts of data across a broad spectrum of disciplines.
 
 Mobile phone datasets provide a very rich view into the social interactions and the physical movements of large segments of a population.
@@ -68,7 +66,16 @@ Mobile phone datasets provide a very rich view into the social interactions and 
 \subsection{Understanding the Social Graph}
 
 \begin{frame}{Understanding the Social Graph}
-The voice calls and text messages exchanged between people, together with the call locations (recorded through cell tower usages), allow us to construct a rich social graph which can give us interesting insights on the users' social fabric, detailing not only particular social relationships and traits, but also regular patterns of behavior both in space and time, such as their daily and weekly mobility patterns\footcite{gonzalez2008understanding}\footcite{ponieman2013human}\footcite{sarraute2015city}.
+\note{%
+	The voice calls and text messages exchanged between people, together with the call locations (recorded through cell tower usages), allow us to construct a rich social graph which can give us interesting insights on the users' social fabric, detailing not only particular social relationships and traits, but also regular patterns of behavior both in space and time, such as their daily and weekly mobility patterns
+}
+
+\begin{equation*}
+	G = \left< \text{users}, \text{calls} \right>
+\end{equation*}
+
+We use the \textbf{Social Graph} to understand users' behaviour.\footcite{gonzalez2008understanding}\footcite{ponieman2013human}\footcite{sarraute2015city}
+
 \begin{center}
 \input{introduction_graph.tex}
 \end{center}
@@ -76,17 +83,38 @@ The voice calls and text messages exchanged between people, together with the ca
 \end{frame}
 
 \begin{frame}
-Economic factors are also believed to have a determining role in both the social network's structure and dynamics. In particular, individuals have a tendency to establish links with others of a similar socioeconomic background, which results in social stratification\footcite{leo2015socioeconomic}.
+\note{%
+	Economic factors are also believed to have a determining role in both the social network's structure and dynamics. In particular, individuals have a tendency to establish links with others of a similar socioeconomic background, which results in social stratification.
 
-\pause{}
+	(pause)
 
-In this work, we leverage the socioeconomic homophily present in the cellular phone network to generate inferences of socioeconomic status in the communication graph. To this aim we use two data sources:
-\begin{enumerate}
-	\item The Call Detail Records from the operator, which allows us to construct a social graph.
-	\item Reported income from a subset of clients obtained from a large bank.
-\end{enumerate}
+	In this work, we leverage the socioeconomic homophily present in the cellular phone network to generate inferences of socioeconomic status in the communication graph. To this aim we use two data sources:
 
-This allows us to take advantage of both the individual users' features and the topology of the phone network.
+	\begin{enumerate}
+		\item The Call Detail Records from the operator, which allows us to construct a social graph.
+		\item Reported income from a subset of clients obtained from a large bank.
+	\end{enumerate}
+
+	This allows us to take advantage of both the individual users' features and the topology of the phone network.
+}
+
+\begin{itemize}
+	\item Economic factors determine the structure of the Social Network.
+	\begin{itemize}
+		\item People tend to call other people of similar socioeconomic status.\footcite{leo2015socioeconomic}
+	\end{itemize}
+
+	\pause{}
+
+	\item Two separate data sources.
+
+	\begin{enumerate}
+		\item The Call Detail Records from the operator.
+		\item Reported income from a subset of clients obtained from a large bank.
+	\end{enumerate}
+
+	\item We use this data to \textit{infer} the socioeconomic status of users which aren't in the bank subset.
+\end{itemize}
 
 \end{frame}
 
@@ -94,7 +122,14 @@ This allows us to take advantage of both the individual users' features and the 
 \subsection{Bank Data Source}
 
 \begin{frame}{Bank Data Source}
-For this study, we got access the account balances of over 10 million clients of a mexican bank for a period of 6 months, denoted \( \mathB \). We also have some demografic information of a subset \( \mathA \subseteq \mathB \), including the users' age.
+\note{%
+	For this study, we got access the account balances of over 10 million clients of a mexican bank for a period of 6 months, denoted \( \mathB \). We also have some demografic information of a subset \( \mathA \subseteq \mathB \), including the users' age.
+}
+
+\begin{itemize}
+	\item Income data for \num{10000000} clients.
+	\item Demographic data (age and gender) for a smaller subset.
+\end{itemize}
 
 \begin{figure}[h]
 	\begin{center}
@@ -108,34 +143,74 @@ For this study, we got access the account balances of over 10 million clients of
 \subsection{Mobile Phone Data Source}
 
 \begin{frame}{Mobile Phone Data Source}
-The main dataset for this study consists of a set \( \mathP \) of \textit{Call Detail Records} composed of voice calls and text messages from a Mexican telco for a 3 month period. Since we only have complete data for users of the telco, we work on set of calls \( \mathG_N \) between these users.
+\note{%
+	The main dataset for this study consists of a set \( \mathP \) of \textit{Call Detail Records} composed of voice calls and text messages from a Mexican telco for a 3 month period. Since we only have complete data for users of the telco, we work on set of calls \( \mathG_N \) between these users.
 
-\medskip
+	The data in \( \mathB \) contains the self-reported phone numbers of the bank user, which the bank hashes with the same function as the telco uses for the CDRs. Thanks to this fact, we can correlate telco users with bank users to create the \textbf{social graph} \( G \).
+	\[
+		G = \mathP \bowtie_{\operatorname{originUser}} \mathB \bowtie_{\operatorname{targetUser}} \mathB
+	\]
 
-The data in \( \mathB \) contains the self-reported phone numbers of the bank user, which the bank hashes with the same function as the telco uses for the CDRs. Thanks to this fact, we can correlate telco users with bank users to create the \textbf{social graph} \( G \).
-\[
-	G = \mathP \bowtie_{\operatorname{originUser}} \mathB \bowtie_{\operatorname{targetUser}} \mathB
-\]
+	This graph has a total of \num{2027554} nodes with \num{5044976} edges, which represent \num{29599762} calls and \num{5476783} text messages.
+}
 
-This graph has a total of \num{2027554} nodes with \num{5044976} edges, which represent \num{29599762} calls and \num{5476783} text messages.
+\begin{itemize}
+	\item Set \( \mathG_N \) of \textit{Call Detail Records}
+	\begin{itemize}
+		\item A total of \num{2027554} users.
+		\item \num{29599762} calls between \num{5044976} pairs.
+	\end{itemize}
+	\item Self-reported phone number \( \mathB \) of the bank account.
+	\begin{itemize}
+		\item Hashed with the same function as the phone numbers in \( \mathG_N \).
+	\end{itemize}
+	\item We join this dataset with the bank to create the \textbf{Social Graph} \( G \).
+
+	\[
+		G = \mathP \bowtie_{\operatorname{originUser}} \mathB \bowtie_{\operatorname{targetUser}} \mathB
+	\]
+\end{itemize}
+
 \end{frame}
 
 \section{Inference Methodology}
 \subsection{Income Homophily}
 
 \begin{frame}{Inference Methodology}
-The main part of this work is based on the observed homophily between income levels of the participants in a phone call. That is, if person \emph{X} calls person \emph{Y}, then there's a high change that \emph{X} and \emph{Y} have similar incomes.
-	
-We can observe this homophily in the source data by measuting \textbf{Spearman's Rank Correlation} to test the statistical dependence of sets \emph{X} and \emph{Y}.
+\note{%
+	The main part of this work is based on the observed homophily between income levels of the participants in a phone call. That is, if person \emph{X} calls person \emph{Y}, then there's a high change that \emph{X} and \emph{Y} have similar incomes.
+
+	We can observe this homophily in the source data by measuting \textbf{Spearman's Rank Correlation} to test the statistical dependence of sets \emph{X} and \emph{Y}. This correlation uses the rank of the variable instead of the value, so it's independent in differences in relative wealth between social groups.
+
+	\[
+		r_s = \mathlarger{\rho}_{\operatorname{rank}(X) \operatorname{rank}(Y)} = \frac{\operatorname{cov} \left( \operatorname{rank}(x), \operatorname{rank}(y) \right)}{\sigma_{\operatorname{rank}(X)} \sigma_{\operatorname{rank}(Y)}}
+	\]
+
+	This formula gives us a correlation coefficient of \( \mathbf{r_s = 0.474} \). Compared to a randomized null hypothesis, where links between users are selected randomly disregarding income data, we have a p-value of \( p < 10^{-6} \).
+}
+
+\begin{itemize}
+	\item We assume that there is homophily between participants in a phone call.
+	\begin{itemize}
+		\item If user \textit{X} cals user \textit{Y}, then \textit{X} and \textit{Y} probably have similar incomes.
+	\end{itemize}
+	\item We can measure this calculating the \textbf{Spearman's Rank Correlation} of the data.
+\end{itemize}
 
 \[
 	r_s = \mathlarger{\rho}_{\operatorname{rank}(X) \operatorname{rank}(Y)} = \frac{\operatorname{cov} \left( \operatorname{rank}(x), \operatorname{rank}(y) \right)}{\sigma_{\operatorname{rank}(X)} \sigma_{\operatorname{rank}(Y)}}
 \]
 
-This formula gives us a correlation coefficient of \( \mathbf{r_s = 0.474} \). Compared to a randomized null hypothesis, where links between users are selected randomly disregarding income data, we have a p-value of \( p < 10^{-6} \).
+\begin{itemize}
+	\item Correlation coefficient is \( \mathbf{r_s = 0.474} \): there's a significant correlation.
+\end{itemize}
 
 \end{frame}
+
 \begin{frame}
+\note{%
+	The income homophily can be easily seen when plotting the data.
+}
 
 \begin{figure}[h]
 	\begin{center}
