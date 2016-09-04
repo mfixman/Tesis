@@ -58,9 +58,17 @@
 \subsection{Introduction}
 
 \begin{frame}{Introduction}
-In recent years, we have witnessed an exponential growth in the capacity to gather, store and manipulate massive amounts of data across a broad spectrum of disciplines.
+\note{%
+	In recent years, we have witnessed an exponential growth in the capacity to gather, store and manipulate massive amounts of data across a broad spectrum of disciplines.
 
-Mobile phone datasets provide a very rich view into the social interactions and the physical movements of large segments of a population.
+	Mobile phone datasets provide a very rich view into the social interactions and the physical movements of large segments of a population.
+
+	In Grandata, we work with the datasets a big telco and a big bank in Mexico to infer the socioeconomic data of their users using data mining approaches.
+}
+
+	In recent years, we have witnessed an exponential growth in the capacity to gather, store and manipulate massive amounts of data across a broad spectrum of disciplines.
+
+	Mobile phone datasets provide a very rich view into the social interactions and the physical movements of large segments of a population.
 \end{frame}
 
 \subsection{Understanding the Social Graph}
@@ -225,57 +233,115 @@ We use the \textbf{Social Graph} to understand users' behaviour.\footcite{gonzal
 
 \subsection{Prediction Algorithm}
 \begin{frame}{Prediction Algorithm}
+\note{%
 	We separate the users in our input into two disjoint groups, which have roughly the same amount of people in our dataset after removing outliers.
 
 	\begin{description}
 		\item[Poor People] have less than \num{3600}~MXN\footnote{3600~MXN = 343~USD = \num{5095}ARS} in their bank account.
-		\item[Wealthy People] have more than \num{3600}~MXN.\@
+		\item[Wealthy People] have more than \num{3600}~MXN.
 	\end{description}
 
 	According to our hypothesis, poor people should have more calls to other poorer people, while wealthy people should have a higher proportion of calls to wealthier ones.
+}
+
+\begin{itemize}
+	\item Users are separated in two groups.
+	\begin{description}
+		\item[Poor People] have less than \num{3600}~MXN\footnote{3600~MXN = 343~USD = \num{5095}ARS} in their bank account.
+		\item[Wealthy People] have more than \num{3600}~MXN.
+	\end{description}
+	\item Acording to our hypothesis, if a person calls mostly users from one of the groups then its part of that group.
+\end{itemize}
 \end{frame}
 
 \begin{frame}
+\note{%
 	The simpler method for inferring the category of each user with this data is \textbf{Majority Voting}, which gives each user the category for which the majority of its contacts belongs. This has an accuracy of 66\%, which is way better than the 50\% you get from random selection, but still can be improved.
+
+	(pause)
+
+	A better approach, presented by this paper, uses \textbf{Bayesian Inference} to solve this problem
+}
+
+\begin{itemize}
+	\item<1-> \textbf{Random Selection} 50\%~accuracy.
+	\item<2-> \textbf{Majority Voting} same category as the majority of its contacts. 66\%~accuracy.
+	\item<3-> \textbf{Bayesian Inference} where we define a probability distribution for one category using a \textbf{Beta~Distribution}.
+\end{itemize}
+
 \end{frame}
 
-\begin{frame}
-	\alt<1-2>{%
-	A better approach, presented by this paper, uses \textbf{Bayesian Inference} to solve this problem. We can define, for each user \( j \) with \( \alpha^j \) calls to wealthy people and \( \beta^j \) calls to poor people, a \textbf{Beta Distribution} \( \Beta^j ( x; \alpha^j, \beta^j ) \) which gives the probability of belonging to each category.
+\subsection{Bayesian Approach}
+\begin{frame}{The Bayesian Approach}
+\note{%
+	A better approach, presented by this paper, uses \textbf{bayesian inference} to solve this problem. We can define, for each user \( j \) with \( \alpha^j \) calls to wealthy people and \( \beta^j \) calls to poor people, a \textbf{beta distribution} \( \beta^j ( x; \alpha^j, \beta^j ) \) which gives the probability distributions of belonging to one category.
 
-	\pause{}
+	\( \alpha^j \) calls to wealthy users.
 
-	\[
-	\begin{split}
-		\alpha^j &\text{ calls to wealthy users} \\
-		\beta^j  &\text{ calls to poor users} \\
-		\Beta^j \left( x; \alpha^j, \beta^j \right) &\text{ distribution of probabilities that the user \( j \) is wealthy}
-	\end{split}
-	\]
+	\( \beta^j \) calls to poor users.
 
-	}{}
+	\( \beta^j \left( x; \alpha^j, \beta^j \right) \) is the distribution of probabilities that the user \( j \) is wealthy.
 
-	To make sure we take into account both the mean and the variance of the distribution, we take the \nth{5} percentile of the \textbf{Cumulative Distribution Function} of the Beta distribution for each user, and define rich users as people where that value if higher than some threshold \( \tau \).
+	To make sure we take into account both the mean and the variance of the distribution, we take the \nth{5} percentile of the \textbf{cumulative distribution function} of the beta distribution for each user. We can see in this graph how the same ratio of wealthy to poor contacts could give a different value for the integral.
 
-	\alt<3>{%
+	(pause)
+
+	We take some threshold \( \tau \), and define rich users as people where that value if higher than that threshold.
+}
+
+\begin{overlayarea}{\textwidth}{.3\textheight}
+\begin{itemize}
+		\item We define a \textbf{Beta~Distribution} with two parameters.
+		\begin{itemize}
+			\item \( \alpha^j \) calls to wealthy users.
+			\item \( \beta^j \) calls to poor users.
+		\end{itemize}
+		\item \( \beta^j \left( x; \alpha^j, \beta^j \right) \) is the distribution of probabilities that the user \( j \) is wealthy.
+
+\end{itemize}
+\end{overlayarea}
+
+\begin{overlayarea}{\textwidth}{.7\textheight}
+	\alt<1>{%
 		\begin{figure}
-			\includegraphics[width=\textwidth]{Beta_example.png}
-			\caption{Value of the 5th percentile for different neighbours' socioeconomic levels.}
+		\includegraphics[height=.45\textheight]{Beta_example.png}
+		\caption{Value of the 5th percentile for different neighbours' socioeconomic levels.}
 		\end{figure}
 	}{}
+
+	\alt<2>{%
+		\begin{itemize}
+			\item We then take the \nth{5} percentile of the CDF for each user \( k_i \).
+			\item A user is wealthy if \( k_i > \tau \) for some parameter \( \tau \).
+		\end{itemize}
+	}{}
+\end{overlayarea}
+
 \end{frame}
 
 \section{Results}
 \subsection{ROC Curve}
 \begin{frame}[fragile]{Results}
+\note{%
+	\( \tau \) balances the precision and recall of each users' distribution.
+
+	We can plot the True Positive Rate and the False Positive Rate of the distribution in a ROC Curve to select the most optimal \( \tau \).
+
+	(pause)
+
+	In our case, the optimal \( \tau \) is 0.4, which gives us an accuracy for predicting the wealth category of 71\%.
+}
 	\begin{overlayarea}{\textwidth}{2.5em}
 		\alt<1>{%
-			We then define a parameter \( \tau \) which balances the precision and recall of each users' distribution.
+			\begin{itemize}
+				\item \( \tau \) balances the precision and recall of each users' distribution.
+				\item This curve has an \textbf{AUC} of \num{0.74}.
+			\end{itemize}
 		}{}
 		\alt<2->{%
-			The ROC Curve has an \textbf{Area Under the Curve} of \num{0.74}.
-
-			We can obtain an optimal accuracy with \( \tau = 0.4 \) of 71\%
+			\begin{itemize}
+				\item We can obtain an optimal accuracy with \( \tau = 0.4 \) of \textbf{71\%}.
+			\end{itemize}
 		}{}
 	\end{overlayarea}
 
@@ -306,40 +372,88 @@ We use the \textbf{Social Graph} to understand users' behaviour.\footcite{gonzal
 \subsection{Extension to Multiple Categories}
 
 \begin{frame}{Extension to Multiple Categories}
-	An obvious improvement for this work is separating the users into more than 2 groups depending on their wealth.
+\note{%
+	There are several improvemente we can make to this algorithm. Our next line of work consists of separating the groups into more than 2 categories.
+
+	In this case, we define 4 categories depending on a users' wealth.
 
 	\begin{description}[leftmargin=!]
-		\item[\(R_1\)] \num{1000}~MXN\footnote{\num{1000}~MXN = \num{53.79}~USD = \num{806.52} ARS} to \num{2500}~MXN\footnote{\num{2500}~MXN = \num{134.47}~USD = \num{2016.30}~ARS}
-		\item[\(R_2\)] \num{2500}~MXN to \num{7500}~MXN\footnote{\num{7500}~MXN = \num{403.41}~USD = \num{6048.89}~ARS}
-		\item[\(R_3\)] \num{7500}~MXN to \num{20000}~MXN\footnote{\num{20000}~MXN = \num{1075.75}~USD = \num{16130.37}~ARS}
-		\item[\(R_4\)] \num{20000}~MXN to \num{50000}~MXN\footnote{\num{50000}~MXN = \num{2689.37}~USD = \num{40325.93}~ARS}
+		\item[\(R_1\)] \num{1000}~MXN
+		\item[\(R_2\)] \num{2500}~MXN to \num{7500}~MXN
+		\item[\(R_3\)] \num{7500}~MXN to \num{20000}~MXN
+		\item[\(R_4\)] \num{20000}~MXN to \num{50000}~MXN
+		\item[\(R_5\)] More than \num{50000}~MXN
 	\end{description}
+}
+
+4 categories to describe a users' wealth:
+
+\begin{description}[leftmargin=!]
+	\item[\(R_1\)] \num{1000}~MXN\footnote{\num{1000}~MXN = \num{53.79}~USD = \num{806.52} ARS} to \num{2500}~MXN\footnote{\num{2500}~MXN = \num{134.47}~USD = \num{2016.30}~ARS}
+	\item[\(R_2\)] \num{2500}~MXN to \num{7500}~MXN\footnote{\num{7500}~MXN = \num{403.41}~USD = \num{6048.89}~ARS}
+	\item[\(R_3\)] \num{7500}~MXN to \num{20000}~MXN\footnote{\num{20000}~MXN = \num{1075.75}~USD = \num{16130.37}~ARS}
+	\item[\(R_4\)] \num{20000}~MXN to \num{50000}~MXN\footnote{\num{50000}~MXN = \num{2689.37}~USD = \num{40325.93}~ARS}
+	\item[\(R_5\)] More than \num{50000}~MXN
+\end{description}
+
 \end{frame}
 
 \begin{frame}
+\note{%
 	Instead of using a Beta Distribution for each user \( j \), we define a \textbf{Dirichlet distribution} for each category, taking \( \alpha^j_i \) as the number it has with users to the category \( i \).
 
 	\[
 		D^j \left( x_1, \ldots, x_5; \alpha^j_1, \ldots, \alpha^j_5 \right) = \frac{1}{\Beta(\alpha)} \prod^5_{i = 1}{x_i^{\alpha^j_i - 1}}
 	\]
 
-	\pause{}
-
 	The result of the distribution is 5 distributions for each user, which gives the probability of each user to belong to each category.
+}
+
+\begin{itemize}
+	\item We use a \textbf{Dirichlet distribution} for each category.
+	\begin{itemize}
+		\item \( \alpha^j_i \) is the number it has with users to the category \( i \).
+	\end{itemize}
+
+	\[
+		D^j \left( x_1, \ldots, x_5; \alpha^j_1, \ldots, \alpha^j_5 \right) = \frac{1}{\Beta(\alpha)} \prod^5_{i = 1}{x_i^{\alpha^j_i - 1}}
+	\]
+
+	\item 5 distinct distributions for each user.
+	\item \( D^j \) is the probability distributions that user \( j \) is part of each category.
+\end{itemize}
 \end{frame}
 
 \begin{frame}
+\note{%
 	We can create 5 new ROC Curves with this data, which have higher \textbf{Area Under the Curves} than the case with majority voting.
-
+}
 	\begin{figure}
-		\includegraphics[height=.6\textheight]{ROC_multiclass_wide.png}
+		\includegraphics[width=\textwidth]{ROC_multiclass_wide.png}
 		\caption{ROC Curves with \textit{False Positive Rates} plotted against the \textit{True Positive Rates}}
 	\end{figure}
 \end{frame}
 
-\subsection{Machine Learning Approach}
-\begin{frame}{Machine Learning Approach}
+\subsection{Next Steps}
+\begin{frame}{Next Steps}
+\note{%
 	This paper presents a Bayesian approach to inferring the Socioeconomic Index of people according to the social graph based on a probabilistic hypothesis, but we can use several features of the graph, such as average call time to each category, to create a new algorithm for inferring this data.
+
+	(pause)
+
+	We also aren't using a big part of the dataset, which contains data for age and gender.
+
+	(pause)
+
+	We can locate the antenna of a small part of the voice calls. An obvious next step would be to add geographical location of the user to improve our inference.
+}
+
+\begin{itemize}
+	\item<1-> Extending the work to multiple categories.
+	\item<1-> A Machine Learning approach to the algorithm using more data from the social graph.
+	\item<2-> Using more demographic data (age \& gender) to infer socioeconomic index.
+	\item<3-> Make use of geographical location.
+\end{itemize}
 \end{frame}
 
 \section{Bibliography}
