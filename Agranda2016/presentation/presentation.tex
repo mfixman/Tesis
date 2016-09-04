@@ -11,7 +11,7 @@
 
 \presetkeys{todonotes}{inline}{}
 
-\graphicspath{{../../Asonam2016/}}
+\graphicspath{{../../figures/}}
 
 \setbeamertemplate{caption}{\raggedright\insertcaption\par}
 \setbeamerfont{caption}{size=\scriptsize}
@@ -96,7 +96,7 @@ For this study, we got access the account balances of over 10 million clients of
 \begin{figure}[h]
 	\begin{center}
 		{\includegraphics[width=\columnwidth]
-				{figures/income_age_boxplot4/income_age_boxplot4_wide.png}
+				{income_age_boxplot4_wide.png}
 		}\label{income_age_boxplot}
 	\end{center}
 \end{figure}
@@ -137,7 +137,7 @@ This formula gives us a correlation coefficient of \( \mathbf{r_s = 0.474} \). C
 \begin{figure}[h]
 	\begin{center}
 		{\includegraphics[height=0.8\textheight]
-		{figures/Homophily_income_origin_target_1/Homophily_income_origin_target_1.png}
+		{Homophily_income_origin_target_1.png}
 		}\label{homophily_heatmap}
 	\end{center}
 	\caption{The income homophily can be easily seen when plotting the data.}
@@ -181,7 +181,7 @@ This formula gives us a correlation coefficient of \( \mathbf{r_s = 0.474} \). C
 
 	\alt<3>{%
 		\begin{figure}
-			\includegraphics[width=\textwidth]{figures/Beta_example.png}
+			\includegraphics[width=\textwidth]{Beta_example.png}
 			\caption{Value of the 5th percentile for different neighbours' socioeconomic levels.}
 		\end{figure}
 	}{}
@@ -204,20 +204,20 @@ This formula gives us a correlation coefficient of \( \mathbf{r_s = 0.474} \). C
 	\begin{overlayarea}{\textwidth}{.9\textheight}
 		\alt<1>{%
 			\begin{figure}
-				\includegraphics[width=\textwidth]{figures/roc_curve_wide.png}
+				\includegraphics[width=\textwidth]{roc_curve_wide.png}
 				\caption{ROC Curve with \textit{False Positive Rate} plotted against the \textit{True Positive Rate}}
 			\end{figure}
 		}{}
 		\alt<2>{%
 			\begin{figure}
-				\includegraphics[width=\textwidth]{figures/roc_curve_marked_wide.png}
+				\includegraphics[width=\textwidth]{roc_curve_marked_wide.png}
 				\caption{ROC Curve with \textit{False Positive Rate} plotted against the \textit{True Positive Rate}}
 			\end{figure}
 		}{}
 		\alt<3>{%
 			\begin{figure}
 			\includegraphics[width=\textwidth]
-			{figures/accuracy.png}
+			{accuracy.png}
 			\caption{Model accuracy plotted against False Positive Rate}
 			\end{figure}
 		}{}
@@ -254,7 +254,7 @@ This formula gives us a correlation coefficient of \( \mathbf{r_s = 0.474} \). C
 	We can create 5 new ROC Curves with this data, which have higher \textbf{Area Under the Curves} than the case with majority voting.
 
 	\begin{figure}
-		\includegraphics[height=.6\textheight]{figures/ROC_multiclass_wide.png}
+		\includegraphics[height=.6\textheight]{ROC_multiclass_wide.png}
 		\caption{ROC Curves with \textit{False Positive Rates} plotted against the \textit{True Positive Rates}}
 	\end{figure}
 \end{frame}
