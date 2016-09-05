@@ -10,7 +10,7 @@
 \usepackage{tikz}
 \usepackage{todonotes}
 
-\setbeameroption{show notes on second screen=right}
+% \setbeameroption{show notes on second screen=right}
 
 \presetkeys{todonotes}{inline}{}
 
@@ -40,8 +40,8 @@
 
 \institute[FCEyN UBA \and Grandata]{%
 	\inst{1}Grandata Labs, Bartolome Cruz 1818, Vicente Lopez, Argentina \\
-	\inst{2}Universidad de Buenos Aires, Argentina
-	\{mfixman,ariel,jorge,martin,charles\}@grandata.com
+	\inst{2}Universidad de Buenos Aires, Argentina \\
+	\texttt{ \{mfixman, ariel, jorge, martin, charles\}@grandata.com }
 }
 
 \date[Workshop AGRANDA]{Workshop AGRANDA \\ September 7, 2016}
@@ -247,10 +247,10 @@ We use the \textbf{Social Graph} to understand users' behaviour.\footcite{gonzal
 \begin{itemize}
 	\item Users are separated in two groups.
 	\begin{description}
-		\item[Poor People] have less than \num{3600}~MXN\footnote{3600~MXN = 343~USD = \num{5095}ARS} in their bank account.
-		\item[Wealthy People] have more than \num{3600}~MXN.
+		\item[Low income] receive less than \num{3600}~MXN\footnote{3600~MXN = 343~USD = \num{5095}ARS} in their bank account per month.
+		\item[High income] receive more than \num{3600}~MXN.
 	\end{description}
-	\item Acording to our hypothesis, if a person calls mostly users from one of the groups then its part of that group.
+	\item According to our hypothesis, if a person calls mostly users from one of the groups then its part of that group.
 \end{itemize}
 \end{frame}
 
@@ -280,7 +280,7 @@ We use the \textbf{Social Graph} to understand users' behaviour.\footcite{gonzal
 
 	\( \beta^j \) calls to poor users.
 
-	\( \beta^j \left( x; \alpha^j, \beta^j \right) \) is the distribution of probabilities that the user \( j \) is wealthy.
+	\( B^j \left( x; \alpha^j, \beta^j \right) \) is the distribution of probabilities that the user \( j \) is wealthy.
 
 	To make sure we take into account both the mean and the variance of the distribution, we take the \nth{5} percentile of the \textbf{cumulative distribution function} of the beta distribution for each user. We can see in this graph how the same ratio of wealthy to poor contacts could give a different value for the integral.
 
@@ -294,9 +294,9 @@ We use the \textbf{Social Graph} to understand users' behaviour.\footcite{gonzal
 		\item We define a \textbf{Beta~Distribution} with two parameters.
 		\begin{itemize}
 			\item \( \alpha^j \) calls to wealthy users.
-			\item \( \beta^j \) calls to poor users.
+			\item $ \beta^j $ calls to poor users.
 		\end{itemize}
-		\item \( \beta^j \left( x; \alpha^j, \beta^j \right) \) is the distribution of probabilities that the user \( j \) is wealthy.
+		\item \( B^j \left( x; \alpha^j, \beta^j \right) \) is the distribution of the probability that user $ j $ is wealthy.
 
 \end{itemize}
 \end{overlayarea}
@@ -375,7 +375,7 @@ We use the \textbf{Social Graph} to understand users' behaviour.\footcite{gonzal
 \note{%
 	There are several improvemente we can make to this algorithm. Our next line of work consists of separating the groups into more than 2 categories.
 
-	In this case, we define 4 categories depending on a users' wealth.
+	In this case, we define 5 categories depending on a users' wealth.
 
 	\begin{description}[leftmargin=!]
 		\item[\(R_1\)] \num{1000}~MXN
@@ -386,7 +386,7 @@ We use the \textbf{Social Graph} to understand users' behaviour.\footcite{gonzal
 	\end{description}
 }
 
-4 categories to describe a users' wealth:
+5 categories to describe a users' wealth:
 
 \begin{description}[leftmargin=!]
 	\item[\(R_1\)] \num{1000}~MXN\footnote{\num{1000}~MXN = \num{53.79}~USD = \num{806.52} ARS} to \num{2500}~MXN\footnote{\num{2500}~MXN = \num{134.47}~USD = \num{2016.30}~ARS}
@@ -412,7 +412,7 @@ We use the \textbf{Social Graph} to understand users' behaviour.\footcite{gonzal
 \begin{itemize}
 	\item We use a \textbf{Dirichlet distribution} for each category.
 	\begin{itemize}
-		\item \( \alpha^j_i \) is the number it has with users to the category \( i \).
+		\item \( \alpha^j_i \) is the number of calls user $j$ has with users in category \( i \).
 	\end{itemize}
 
 	\[
