@@ -14,7 +14,7 @@
 
 \presetkeys{todonotes}{inline}{}
 
-\graphicspath{{../../figures/small/}}
+\graphicspath{{../../figures/}}
 
 \setbeamertemplate{caption}{\raggedright\insertcaption\par}
 \setbeamerfont{caption}{size=\scriptsize}
@@ -331,38 +331,37 @@ We use the \textbf{Social Graph} to understand users' behaviour.\footcite{gonzal
 
 	In our case, the optimal $ \tau $ is 0.4, which gives us an accuracy for predicting the wealth category of 71\%.
 }
-	\begin{overlayarea}{\textwidth}{2.5em}
-		\alt<1>{%
-			\begin{itemize}
-				\item $ \tau $ balances the precision and recall of each users' distribution.
-				\item This curve has an \textbf{AUC} of \num{0.74}.
-			\end{itemize}
-		}{}
-		\alt<2->{%
-			\begin{itemize}
+	\begin{overlayarea}{\textwidth}{.05\textheight}
+		\begin{itemize}
+			\alt<1>{%
+				\item The ROC Curve balances the precision and recall of each users' distribution.
+			}{}
+			\alt<2>{%
+				\item We select a parameter $ \tau $ to choose the optimal accuracy.
+			}{}
+			\alt<3>{%
 				\item We can obtain an optimal accuracy with $ \tau = 0.4 $ of \textbf{71\%}.
-			\end{itemize}
-		}{}
+			}{}
+		\end{itemize}
 	\end{overlayarea}
 
-	\begin{overlayarea}{\textwidth}{.9\textheight}
-		\alt<1>{%
+	\begin{overlayarea}{\textwidth}{.95\textheight}
+		\alt<1-2>{%
 			\begin{figure}
-				\includegraphics[width=\textwidth]{roc_curve_wide.png}
-				\caption{ROC Curve with \textit{False Positive Rate} plotted against the \textit{True Positive Rate}}
-			\end{figure}
-		}{}
-		\alt<2>{%
-			\begin{figure}
-				\includegraphics[width=\textwidth]{roc_curve_marked_wide.png}
-				\caption{ROC Curve with \textit{False Positive Rate} plotted against the \textit{True Positive Rate}}
+				\begin{overlayarea}{\textwidth}{\textheight}
+					\includegraphics[width=.5\textwidth]{roc_curve.png}
+					\alt<2>{%
+						\includegraphics[width=.5\textwidth]{accuracy.png}
+					}{}
+					\caption{ROC Curve \alt<2>{and Accuracy}{} (AUC = 0.74)}
+				\end{overlayarea}
 			\end{figure}
 		}{}
 		\alt<3>{%
 			\begin{figure}
-			\includegraphics[width=\textwidth]
-			{accuracy.png}
-			\caption{Model accuracy plotted against False Positive Rate}
+				\includegraphics[width=.5\textwidth]{roc_curve_marked.png}
+				\includegraphics[width=.5\textwidth]{accuracy_marked.png}
+				\caption{ROC Curve and Accuracy (AUC = 0.74); $ \tau = 0.4 $}
 			\end{figure}
 		}{}
 	\end{overlayarea}
@@ -428,9 +427,14 @@ We use the \textbf{Social Graph} to understand users' behaviour.\footcite{gonzal
 \note{%
 	We can create 5 new ROC Curves with this data, which have higher \textbf{Area Under the Curves} than the case with majority voting.
 }
+
+	\begin{itemize}
+		\item 5 distinct distributions for each user.
+		\item $ D^j $ is the probability distributions that user $ j $ is part of each category.
+	\end{itemize}
 	\begin{figure}
-		\includegraphics[width=\textwidth]{ROC_multiclass_wide.png}
-		\caption{ROC Curves with \textit{False Positive Rates} plotted against the \textit{True Positive Rates}}
+		\includegraphics[height=.8\textheight]{ROC_multiclass.png}
+		% \caption{ROC Curves with \textit{False Positive Rates} plotted against the \textit{True Positive Rates}}
 	\end{figure}
 \end{frame}
 
