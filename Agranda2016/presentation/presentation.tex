@@ -247,10 +247,10 @@ We use the \textbf{Social Graph} to understand users' behaviour.\footcite{gonzal
 \begin{itemize}
 	\item Users are separated in two groups.
 	\begin{description}
-		\item[Low income] receive less than \num{3600}~MXN\footnote{3600~MXN = 343~USD = \num{5095}ARS} in their bank account per month.
+		\item[Low income] receive at most \num{3600}~MXN\footnote{3600~MXN = 343~USD = \num{5095}ARS} in their bank account per month.
 		\item[High income] receive more than \num{3600}~MXN.
 	\end{description}
-	\item According to our hypothesis, if a person calls mostly users from one of the groups then its part of that group.
+	\item According to our hypothesis, if a person calls mostly users from one of the groups then he is part of that group.
 \end{itemize}
 \end{frame}
 
@@ -388,12 +388,15 @@ We use the \textbf{Social Graph} to understand users' behaviour.\footcite{gonzal
 5 categories to describe a users' wealth:
 
 \begin{description}[leftmargin=!]
-	\item[$R_1$] \num{1000}~MXN\footnote{\num{1000}~MXN = \num{53.79}~USD = \num{806.52} ARS} to \num{2500}~MXN\footnote{\num{2500}~MXN = \num{134.47}~USD = \num{2016.30}~ARS}
+	\item[$R_1$] \num{1000}~MXN\footnote{\num{1000}~MXN = \num{53.79}~USD = \num{806.52}~ARS} to \num{2500}~MXN\footnote{\num{2500}~MXN = \num{134.47}~USD = \num{2016.30}~ARS}
 	\item[$R_2$] \num{2500}~MXN to \num{7500}~MXN\footnote{\num{7500}~MXN = \num{403.41}~USD = \num{6048.89}~ARS}
 	\item[$R_3$] \num{7500}~MXN to \num{20000}~MXN\footnote{\num{20000}~MXN = \num{1075.75}~USD = \num{16130.37}~ARS}
 	\item[$R_4$] \num{20000}~MXN to \num{50000}~MXN\footnote{\num{50000}~MXN = \num{2689.37}~USD = \num{40325.93}~ARS}
 	\item[$R_5$] More than \num{50000}~MXN
 \end{description}
+
+\stepcounter{footnote}
+\footnotetext{All currency conversions as of 18 August 2016.}
 
 \end{frame}
 
@@ -454,8 +457,8 @@ We use the \textbf{Social Graph} to understand users' behaviour.\footcite{gonzal
 
 \begin{itemize}
 	\item<1-> Extending the work to multiple categories.
-	\item<1-> A Machine Learning approach to the algorithm using more data from the social graph.
-	\item<2-> Using more demographic data (age \& gender) to infer socioeconomic index.
+	\item<1-> A Machine Learning approach to the algorithm using more variables from the social graph.
+	\item<2-> Using more demographic variables (age \& gender) to infer socioeconomic index.
 	\item<3-> Make use of geographical location.
 \end{itemize}
 \end{frame}
