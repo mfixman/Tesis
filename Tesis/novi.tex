@@ -1,5 +1,47 @@
 \documentclass[runningheads, a4paper]{llncs}
 
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage[]{changepage} % Not (yet) supported by LaTeXML.
+\usepackage{float}
+\usepackage[T1]{fontenc} % Not (yet) supported by LaTeXML.
+\usepackage[]{graphicx}
+\usepackage[utf8]{inputenc}
+\usepackage{makecell}
+\usepackage{multirow}
+\usepackage{pbox}
+\usepackage{relsize}
+\usepackage[group-separator={,}]{siunitx}
+\usepackage{soul}
+\usepackage{tabularx}
+\usepackage{tabu}
+\usepackage{cleveref}
+\usepackage[normalem]{ulem}
+\usepackage[table]{xcolor}
+\usepackage{epigraph}
+
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\cov}{cov}
+
+\bibliographystyle{plain}
+
+\newcommand{\Beta}{B}
+
+\newcommand{\mathA}{\mathcal{A}}
+\newcommand{\mathB}{\mathcal{B}}
+\newcommand{\mathC}{\mathcal{C}}
+\newcommand{\mathG}{\mathcal{G}}
+\newcommand{\mathP}{\mathcal{P}}
+
+\newcommand{\TP}{\operatorname{TP}}
+\newcommand{\TN}{\operatorname{TN}}
+\newcommand{\FP}{\operatorname{FP}}
+\newcommand{\TPR}{\operatorname{TPR}}
+\newcommand{\FPR}{\operatorname{FPR}}
+\newcommand{\AUC}{\operatorname{AUC}}
+
+\newcommand{\closeopen}[2]{\left[ #1, #2 \right)}
+
 \title{Inference of Socioeconomic Status in a Communications Graph \\ A Bayesian Approach}
 
 \author{%
@@ -8,8 +50,6 @@
 	Ariel Berenstein\inst{2}
 	\and
 	Jorge Brea\inst{2}
-	\and
-	Martin Minnoni\inst{2}
 	\and
 	Carlos Sarraute\inst{2}
 }
@@ -28,19 +68,35 @@
 	\input{abstract}
 \end{abstract}
 
+\section{Introduction}
+
+\input{introduction}
+
 \section{Theoerical Introduction}
+
+\input{theory}
 
 \section{Related Work}
 
 \section{Dataset}
 
+\input{data_source}
+
 \section{The Bayesian Method}
+
+\input{inference_methodology}
+
+\section{Results}
+
+\input{results}
 
 \section{Comparison with Other Methods}
 
 \section{Real World Observations}
 
 \section{Conclusion}
+
+\input{conclusion}
 
 \section*{References}
 
