@@ -1,13 +1,49 @@
-\input{header}
+\documentclass[runningheads, a4paper]{llncs}
 
-\newcommand{\todo}[1]{\textbf{\color{red} TODO: #1}}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage[]{changepage} % Not (yet) supported by LaTeXML.
+\usepackage{float}
+\usepackage[T1]{fontenc} % Not (yet) supported by LaTeXML.
+\usepackage[]{graphicx}
+\usepackage[utf8]{inputenc}
+\usepackage{makecell}
+\usepackage{multirow}
+\usepackage{pbox}
+\usepackage{relsize}
+\usepackage[group-separator={,}]{siunitx}
+\usepackage{soul}
+\usepackage{tabularx}
+\usepackage{tabu}
+\usepackage{cleveref}
+\usepackage[normalem]{ulem}
+\usepackage[table]{xcolor}
+\usepackage{epigraph}
 
-\begin{document}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\cov}{cov}
 
-\title{Inference of Socioeconomic Status in a Communication Graph}
+\bibliographystyle{plain}
 
-\authorrunning{Fixman, Sarraute, Berenstein, Brea}
-\titlerunning{Inference of Socioeconomic Status in a Communication Graph}
+\newcommand{\todo}[1]{\textbf{\color{red} TODO:\@ #1}}
+
+\newcommand{\Beta}{B}
+\newcommand{\mathA}{\mathcal{A}}
+\newcommand{\mathB}{\mathcal{B}}
+\newcommand{\mathC}{\mathcal{C}}
+\newcommand{\mathG}{\mathcal{G}}
+\newcommand{\mathP}{\mathcal{P}}
+
+\newcommand{\TP}{\operatorname{TP}}
+\newcommand{\TN}{\operatorname{TN}}
+\newcommand{\FP}{\operatorname{FP}}
+\newcommand{\TPR}{\operatorname{TPR}}
+\newcommand{\FPR}{\operatorname{FPR}}
+\newcommand{\AUC}{\operatorname{AUC}}
+
+\newcommand{\closeopen}[2]{\left[ #1, #2 \right)}
+
+\title{Inference of Socioeconomic Status in a Communications Graph \\ A Bayesian Approach}
 
 \author{%
 	Martin Fixman\inst{1,2}
@@ -19,11 +55,17 @@
 	Jorge Brea\inst{2}
 }
 
+\authorrunning{Fixman, Sarraute, Berenstein, Brea}
+\titlerunning{Inference of Socioeconomic Status in a Communication Graph}
+
 \institute{%
 	FCEyN, Universidad de Buenos Aires, Argentina
 \and
 	Grandata Labs, Argentina
 }
+
+\begin{document}
+
 \maketitle
 
 \begin{abstract}
@@ -34,13 +76,17 @@
 
 \input{theory}
 
+\section{Related Work}
+
 \input{data_source}
 
 \input{inference_methodology}
 
 \input{results}
 
-\input{multiple_categories}
+\section{Comparison with Other Methods}
+
+\section{Real World Observations}
 
 \input{conclusion}
 
