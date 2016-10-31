@@ -52,7 +52,7 @@ In \Cref{ROC_multiclass} we plot the ROC (\textit{Receiver Operating Characteris
 
 \begin{figure}[p]
 \begin{center}
-{\includegraphics[width=0.9\columnwidth] % ,trim={0.5cm 0.5cm 1cm 1cm},clip=true]
+{\includegraphics[width=0.9\columnwidth]
 {figures/ROC_BETA/ROC_Beta_based_approach_201504.png}}
 \caption{ROC curve for prediction procedure. We observed an \( \AUC = 0.74 \) indicating that our predictor is better than a random predictor (\( \AUC \simeq 0.50 \)).}
 \label{ROC_multiclass}
@@ -63,27 +63,13 @@ In \Cref{ROC_multiclass} we plot the ROC (\textit{Receiver Operating Characteris
 
 \begin{figure}[p]
 \begin{center}
-{\includegraphics[width=0.9\columnwidth] % ,trim={0.5cm 0.5cm 1cm 1cm},clip=true]
+{\includegraphics[width=0.9\columnwidth]
 {figures/accuracy_vs_fpr.png}}
 \caption{Accuracy as a function of FPR\@. The best accuracy obtained is 0.71.}
 \label{fig:accuracy_vs_fpr}
 \end{center}
 \end{figure}
 
-Alternatively we can evaluate the performance of our model by computing its accuracy for a given threshold \( \tau \) of FPR.
+Alternatively we can evaluate the performance of our model by computing its accuracy for a given threshold \( \tau \) of FPR.\@
 
 \Cref{fig:accuracy_vs_fpr} shows the accuracy obtained as a function of FPR, where the accuracy is computed as the ratio between \(\TP\) and \(\TN\) over the total population for a certain \(\FPR\). The best accuracy obtained is \num{0.71} for \( \tau = 0.4 \).
-
-\subsection{Comparison with Other Inference Methods}
-
-We applied two other inference methods to the same data and compared their accuracies to our Bayesian model.
-
-\begin{itemize}
-	\item \textbf{Random selection} which chooses randomly the category for each user.
-	\item \textbf{Majority voting} which decides whether a user is in the high or low income category depending on the category of the majority of its contacts. In case of a tie, the category is chosen randomly.
-\end{itemize}
-
-The accuracy of the first method is as expected \num{0.5}, while the accuracy for majority voting is \num{0.66}.
-With the Bayesian method we obtain an accuracy of \num{0.71}.
-
-% \todo{Expand this section!}

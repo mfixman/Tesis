@@ -1,0 +1,37 @@
+In the following section, we compare the results of the Bayesian method with other classifiers.
+
+\begin{figure}
+	\begin{tabularx}{\textwidth}{>{\bfseries}X c c c c c c}
+		\toprule
+		\textbf{Classifier} & \textbf{Accuracy} & \textbf{Precision} & \textbf{Recall} & \textbf{AUC} & \textbf{$F_1$}-\textbf{score} & \textbf{$F_4$}-\textbf{score} \\
+		\midrule
+		Método Bayesiano & 0 & 0 & 0 & 0 & 0 & 0 \\
+		\midrule
+		Random Selection & 0 & 0 & 0 & 0 & 0 & 0 \\
+		Majority Voting & 0 & 0 & 0 & 0 & 0 & 0 \\
+		\midrule
+		Naïve Bayes & 0 & 0 & 0 & 0 & 0 & 0 \\
+		K Nearest Neighbors & 0 & 0 & 0 & 0 & 0 & 0 \\
+		SVM & 0 & 0 & 0 & 0 & 0 & 0 \\
+		Logistic Regression & 0 & 0 & 0 & 0 & 0 & 0 \\
+		SGD & 0 & 0 & 0 & 0 & 0 & 0 \\
+		\midrule
+		Categorized LR & 0 & 0 & 0 & 0 & 0 & 0 \\
+		Count Link Model & 0 & 0 & 0 & 0 & 0 & 0 \\
+		\bottomrule
+	\end{tabularx}
+\end{figure}
+
+\subsection{Random Selection}
+
+For completeness sake we created a random classifier for the socioeconomic category of each user.
+
+We applied two other inference methods to the same data and compared their accuracies to our Bayesian model.
+
+\begin{itemize}
+	\item \textbf{Random selection} which chooses randomly the category for each user.
+	\item \textbf{Majority voting} which decides whether a user is in the high or low income category depending on the category of the majority of its contacts. In case of a tie, the category is chosen randomly.
+\end{itemize}
+
+The accuracy of the first method is as expected \num{0.5}, while the accuracy for majority voting is \num{0.66}.
+With the Bayesian method we obtain an accuracy of \num{0.71}.
