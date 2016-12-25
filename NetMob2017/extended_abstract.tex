@@ -1,0 +1,96 @@
+% \documentclass[runningheads, a4paper]{llncs}
+\documentclass[conference]{IEEEtran}
+
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage[]{changepage}
+\usepackage{float}
+\usepackage[T1]{fontenc}
+\usepackage[]{graphicx}
+\usepackage[utf8]{inputenc}
+\usepackage{makecell}
+\usepackage{multirow}
+\usepackage{pbox}
+\usepackage{relsize}
+\usepackage[group-separator={,}]{siunitx}
+\usepackage{soul}
+\usepackage{tabularx}
+\usepackage{booktabs}
+\usepackage{tabu}
+\usepackage{cleveref}
+\usepackage[normalem]{ulem}
+\usepackage[table]{xcolor}
+\usepackage{epigraph}
+
+\newcommand{\conftitle}{2017 Conference on Scientific Analysis of Mobile Phone Datasets (NetMob)}
+
+\usepackage{fancyhdr}
+\chead{\conftitle}
+\cfoot{\thepage}
+
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\cov}{cov}
+
+\bibliographystyle{plain}
+
+\newcommand{\todo}[1]{\textbf{\color{red} TODO:\@ #1}}
+
+\newcommand{\Beta}{B}
+\newcommand{\mathA}{\mathcal{A}}
+\newcommand{\mathB}{\mathcal{B}}
+\newcommand{\mathC}{\mathcal{C}}
+\newcommand{\mathG}{\mathcal{G}}
+\newcommand{\mathP}{\mathcal{P}}
+
+\newcommand{\TP}{\operatorname{TP}}
+\newcommand{\TN}{\operatorname{TN}}
+\newcommand{\FP}{\operatorname{FP}}
+\newcommand{\TPR}{\operatorname{TPR}}
+\newcommand{\FPR}{\operatorname{FPR}}
+\newcommand{\AUC}{\operatorname{AUC}}
+
+\newcommand{\closeopen}[2]{\left[ #1, #2 \right)}
+
+\title{Inference of Socioeconomic Status in a Communications Graph \\ A Bayesian Approach \\ \vspace{1ex} \Large{Extended Abstract}}
+
+\author{%
+	\IEEEauthorblockN{%
+		Martin Fixman\IEEEauthorrefmark{1}\IEEEauthorrefmark{2},
+		Carlos Sarraute\IEEEauthorrefmark{1}
+		Ariel Berenstein\IEEEauthorrefmark{1},
+		Jorge Brea\IEEEauthorrefmark{1},
+	}
+	\IEEEauthorblockA{\IEEEauthorrefmark{1}Grandata Labs, Bartolome Cruz 1818, Vicente Lopez, Argentina}
+	\IEEEauthorblockA{\IEEEauthorrefmark{2}Universidad de Buenos Aires, Argentina}
+	\IEEEauthorblockA{\{mfixman, charles, ariel, jorge\}@grandata.com}
+}
+
+\begin{document}
+
+\maketitle
+
+% \input{abstract}
+
+\input{introduction}
+
+% \input{theory}
+% 
+\section{Related Work}
+% 
+% \input{data_source}
+% 
+\input{inference_methodology}
+% 
+\input{results}
+% 
+% \section{Comparison with Other Inference Methods}
+% 
+% \input{comparison}
+% 
+% \section{Real World Observations}
+% 
+% \input{conclusion}
+
+\bibliography{bibliography/sna}{}
+
+\end{document}
