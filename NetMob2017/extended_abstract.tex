@@ -1,4 +1,3 @@
-% \documentclass[runningheads, a4paper]{llncs}
 \documentclass[conference]{IEEEtran}
 
 \usepackage{amsfonts}
@@ -27,6 +26,8 @@
 \usepackage{fancyhdr}
 \chead{\conftitle}
 \cfoot{\thepage}
+
+\graphicspath{{../figures/}{./figures/}}
 
 \DeclareMathOperator{\rank}{rank}
 \DeclareMathOperator{\cov}{cov}
@@ -69,27 +70,17 @@
 
 \maketitle
 
-% \input{abstract}
+\begin{abstract}
+\input{abstract}
+\end{abstract}
 
 \input{introduction}
 
-% \input{theory}
-% 
-\section{Related Work}
-% 
-% \input{data_source}
-% 
+\input{data_source}
+ 
 \input{inference_methodology}
-% 
+ 
 \input{results}
-% 
-% \section{Comparison with Other Inference Methods}
-% 
-% \input{comparison}
-% 
-% \section{Real World Observations}
-% 
-% \input{conclusion}
 
 \bibliography{bibliography/sna}{}
 
