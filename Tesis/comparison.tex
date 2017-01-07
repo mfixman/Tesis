@@ -52,21 +52,33 @@ There are many metrics that can be used to measure the performance of a classifi
 
 We can easily see the problem of income predicition with the parameters we presented in~\ref{inference_methodology} as a binary classification task, where each instance represents a person and it's positive when this person is in the upper quantile of wealth $\closeopen{6300}{\infty}$, and negative when it is in the lower quantile $\closeopen{1000}{6300}$.
 
-Once we define out classifier $g$ and run it against a matrix\maybe{Set?} of features\maybe{Should I explain train/test split before this subsubsection?}, we get a predicted result $\ypred$ which, when compared to the actual result $\ytrue = y$, can be classified as one of the following.
+Once we define out classifier $g$ and run it against a matrix\maybe{Set?} of features\maybe{Should I explain train/test split before this subsubsection?}, we get a predicted result $\ypred$ which, when compared to the actual result $\ytrue = y$, can be classified as the one in table~\ref{confusion}\maybe{Make the table nicer}.
 
+\begin{figure}[h]
 \begin{tabularx}{\textwidth}{| c  X | X | X |}
 \hline
 & & \multicolumn{2}{|c|}{\textbf{Predicted Condition}} \\
 & Total Population & Predicted Condition Positive & Predicted Condition Negative \\ \hline
-\multirow{2}{5em}{\textbf{True Condition}} & Condition Positive & \textbf{True Positive} & \makecell{\textbf{False Negative} \\ (Type II error)} \\
-& Condition Negative & \makecell{\textbf{False Positive} \\ (Type I Error)} & \textbf{True Negative} \\ \hline
+\multirow{2}{5em}{\textbf{True Condition}} & Condition Positive & \cellcolor{OrangeRed} \textbf{True Positive} & \cellcolor{CadetBlue} \makecell{\textbf{False Negative} \\ (Type II error)} \\
+& Condition Negative & \cellcolor{CadetBlue} \makecell{\textbf{False Positive} \\ (Type I Error)} & \cellcolor{OrangeRed} \textbf{True Negative} \\ \hline
 \end{tabularx}
+\label{confusion}
+\caption[caption]{Confusion Table, showing different classifications of an individual prediction. \\ True and False Positives ($\TP$/$\FP$) refer to the number of predicted positives that were correct/incorrect, and similarly for True and False Negatives ($\TN$/$\FN$).}
+\end{figure}
+
+\subsubsection{Precision and Recall} Precision denotes the proportion of predicted positive cases that are correctly real positive. Trying to maximize this would allow us to adjust a particular predictor so that the majority of the predicted cases are actually positive. Conversely, recall is the proportion of real positive cases that are correctly predicted positive, and maximizing it would allow us to adjust a predictor so that the majority of positive cases are predicted.
+
+\begin{equation}
+\label{precisionrecall}
+\begin{split}
+\operatorname{Precision} &= \frac{\TP}{\TP + \FP} \\
+\operatorname{Recall} &= \frac{\TP}{\TP + \FN}
+\end{split}
+\end{equation}
+
+These two measures and their combinations focus only on the positive examples and predictions, althrough between them they capture some information about the rates and kind of errors made\cite{binaryevaluation}. While the recall has been shown to have a major weight in working with machine translation\cite{fraser2007}, they aren't particularly useful to use alone since they don't take into account many factors of the prediction\cite{binaryevaluarion}.
 
 \subsubsection{Accuracy}
-
-\subsubsection{Precision}
-
-\subsubsection{Recall}
 
 \subsubsection{Area Under the Curve}
 
