@@ -1,0 +1,23 @@
+\section{Data Sources}\label{data_sources}
+
+\subsection{Mobile Phone Data Source}
+
+The data used in this study consist of a set $\mathP$ of \textit{Call Detail Records} (CDRs), composed of voice calls and text messages from a Mexican telecommunication company (\textit{telco}) for a 3 month period.
+
+Every CDR $p \in \mathP$ contains the phone numbers of the caller and callee $\left< p_o, p_d \right>$, which are anonymized using a cryptographic hash function for privacy reasons, the starting time $p_t$, and, in the case of voice calls, the call duration $p_s$. The latitude and longitude of the antenna used for each call $\left< p_y, p_x \right>$, are also given for a subset of the data.
+
+Given that our collection $\mathP$ of CDRs are coming from one telephone company, we are able to reconstruct all communication links between clients of this company, as well as communications between the clients and other users, but we have no information on communications where neither users are clients of our telco company.
+
+If we define $N$ as the number of users of the telco, and $\mathP_N \subseteq \mathP$ as the calls where $\left( \forall p \in \mathP_N \right) p_o \in N \wedge p_d \in N$, we create a communications graph $\mathG_N$ which contains only the users from the telco, and all the calls exchanged between them.
+
+%With the data provided to us by the telco, $\mathG$ contains \num{72107108} users who made \num{72107108} calls and sent \num{634225740} text messages in this period of 3 months.
+
+\subsection{Banking Information}
+
+For this study we also used account balances for over 10 million clients of a bank in Mexico for a period of 6 months, denoted $\mathB$. The data for each client $b \in \mathB$ contains his phone number $b_p$, anonymized with the same hash function used in $\mathP$, and the reported income of this person over 6 months $b_{s_0}, \ldots, b_{s_5}$. We average these 6 values to get $b_s$, an estimate of a user's income.
+
+\subsection{Bank and Telco Matching}
+
+Since the phone numbers in each call $p_o$ and $p_d$ are anonymized with the same hash function as the phone number in the bank data, $b_p$, we can match users to their unique phone and create the social graph $G$, which includes income information for the subset of the social graph that appears in the bank data. Therefore, $\forall g \in G$ we have its phone number $g_p$, its average income over 6 motnhs $g_s$ and its age $g_a$.
+
+The final graph has a total of \num{2027554} nodes with \num{5044976} edges, which represent \num{29599762} calls and \num{5476783} text messages.
