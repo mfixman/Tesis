@@ -24,7 +24,7 @@ We can take advantage of this homophily to propagate income information to the r
 
 \subsection{Prediction Algorithm}
 
-Instead of predicting the exact value of a user's income, our strategy is to distinguish between only two income categories, $R_1 = \closeopen{1000}{6300}$ and $R_2 = \closeopen{6300}{\infty}$, that is, users with low or high income respectively, which we place into two distinct groups $H_1, H_2 \subseteq G$ depending on $g_s$, the users' income: $H_1$ for poorer users, and $H_2$ for wealthier ones.
+Instead of predicting the exact value of a user's income, our strategy is to distinguish between only two income categories depending on their monthly income in American dollars: $R_1 = \closeopen{55}{350}$ and $R_2 = \closeopen{350}{\infty}$. These two categories represent roughly users with low or high income in the country where this study was made. We place these into two distinct groups $H_1, H_2 \subseteq G$ depending on $g_s$, the users' income: $H_1$ for poorer users, and $H_2$ for wealthier ones.
 
 We define the set $Q$ as the group of users having at least one connection link to bank clients. For each user $q^j \in Q$, we compute the number of outgoing calls $a^j_i$ to the category $H_i$. Our hypothesis, given the observed homophily, is that if a user $q^j$ has a higher number of calls $a^j_i$ to the category $H_i$ than the other category, it would be more likely to belong to the $H_i$ income category. In other words, a person is usually in the same income category as the majority of people it calls.
 
