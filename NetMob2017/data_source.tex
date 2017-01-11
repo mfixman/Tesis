@@ -2,7 +2,7 @@
 
 \subsection{Mobile Phone Data Source}
 
-The data used in this study consist of a set $\mathP$ of \textit{Call Detail Records} (CDRs), composed of voice calls and text messages from a Mexican telecommunication company (\textit{telco}) for a 3 month period.
+The data used in this study consist of a set $\mathP$ of \textit{Call Detail Records} (CDRs), composed of voice calls and text messages from a telecommunications company (\textit{telco}) for a 3 month period.
 
 Every CDR $p \in \mathP$ contains the phone numbers of the caller and callee $\left< p_o, p_d \right>$, which are anonymized using a cryptographic hash function for privacy reasons, the starting time $p_t$, and, in the case of voice calls, the call duration $p_s$. The latitude and longitude of the antenna used for each call $\left< p_y, p_x \right>$, are also given for a subset of the data.
 
@@ -14,7 +14,7 @@ If we define $N$ as the number of users of the telco, and $\mathP_N \subseteq \m
 
 \subsection{Banking Information}
 
-For this study we also used account balances for over 10 million clients of a bank in Mexico for a period of 6 months, denoted $\mathB$. The data for each client $b \in \mathB$ contains his phone number $b_p$, anonymized with the same hash function used in $\mathP$, and the reported income of this person over 6 months $b_{s_0}, \ldots, b_{s_5}$. We average these 6 values to get $b_s$, an estimate of a user's income.
+For this study we also used account balances for over 10 million clients of a bank for a period of 6 months, denoted $\mathB$. The data for each client $b \in \mathB$ contains his phone number $b_p$, anonymized with the same hash function used in $\mathP$, and the reported income of this person over 6 months $b_{s_0}, \ldots, b_{s_5}$. We average these 6 values to get $b_s$, an estimate of a user's income.
 
 \subsection{Bank and Telco Matching}
 
