@@ -91,8 +91,8 @@ Additionally, this table can be easily seen in a graphical way in figure~\ref{fi
 
 \begin{equation}
 \begin{split}
-\Precision &= \frac{\TP}{\TP + \FP} \\
-\Recall &= \frac{\TP}{\TP + \FN}
+\Precision = \TPA &= \frac{\TP}{\TP + \FP} \\
+\Recall = \TPR &= \frac{\TP}{\TP + \FN}
 \end{split}
 \label{precisionrecall}
 \end{equation}
@@ -130,8 +130,41 @@ This can be more simply expressed using the weighted average of either the \emph
 \label{accuracy2}
 \end{equation}
 
+\subsubsection{ROC Curve}
+
+A \emph{Receiver Operating Characteristing} graph is a technique for visualizing, organizing, and selecting classifiers based on their performance\cite{fawcett2005}. The curve is created by plotting the \emph{True Positive Rate} against the \emph{False Positive Rate} at various threshold settings.
+
+This allows to compare different classifiers before having to select a particular threshold value for them. In particular, a random classifier will score near the positive diagonal ($\FPR = \TPR$), while a perfect classifier will score in the top left hand corner ($\FPR = 1, \TPR = 0$) and a worst case classifier will score in the bottom right hand corner\footnote{Note that, for any binary classifier, it's trivial to transpose the entire ROC curve (or a part of it) to the other part of the diagonal; therefore the worst ``realistic'' case is the random one}\cite{binaryevaluation}.
+
+\begin{figure}
+\todo{Add figure of ROC with AUC}
+\caption{A \emph{ROC Curve}, where the \emph{Area Under the Curve} is marked}
+\label{fig:roc}
+\end{figure}
+
 \subsubsection{Area Under the Curve}
 
-\subsubsection{$F_\beta$ score}
+The \emph{ROC Curve} allows us to compare classifiers and choose the one which is closer to optimal in some sense. While there are many possible parametrizations, the most common is to minimize the \emph{Area Under the Curve}, which is equal to the probability that a classifier will rank a randomly chosen positive instance higher than a randomly chosen negative one\cite{fawcett2005}. This can be formulated as shown in formula~\ref{eq:auc}.
+
+\begin{equation}
+\begin{split}
+\AUC &= P\left(X_1 > X_0\right) \\
+&= \todo{Something something}
+\end{split}
+\label{eq:auc}
+\end{equation}
+
+\subsubsection{F-measure}
+
+The \emph{F-measure} is another measure of a tests accuracy. It considers both the \emph{Precision} and the \emph{Recall} of the test to compute the score. It can be considered the weighted average of both values for some weight $\beta$, where $F_\beta$ reaches the best score 1 when both precision and recall are 1.
+
+\begin{equation}
+\begin{split}
+F_\beta &= \left( 1 + \beta^2 \right) \cdot \frac{\TPA \cdot \TPR}{\left( \beta^2 \cdot \TPA \right) + \TPR} \\
+&= \frac{\left( 1 + \beta^2 \right) \cdot \TP}{\left( 1 + \beta^2 \right) \cdot \TP + \beta^2 \cdot \FN + \FP}
+\end{split}
+\end{equation}
+
+The most commonly used \emph{F-measure}, $F_1$, measures the \emph{Precision} and \emph{Recall} is thet harmonic mean of the \emph{Precision} and \emph{Recall}. In particular, for an \emph{F-measure} with $\beta > 1$ weights Recall higher than Precision, while with $beta < 1$ weights Precision higher than Recall.
 
 \subsection{Graph Sampling and Categorical User Data}
