@@ -37,8 +37,8 @@ We applied two other inference methods to the same data and compared their accur
 	\item \textbf{Majority voting} which decides whether a user is in the high or low income category depending on the category of the majority of its contacts. In case of a tie, the category is chosen randomly.
 \end{itemize}
 
-The accuracy of the first method is as expected \num{0.5}, while the accuracy for majority voting is \num{0.66}.
-With the Bayesian method we obtain an accuracy of \num{0.71}.
+The \emph{accuracy} of the first method is as expected \num{0.5}, while the \emph{accuracy} for majority voting is \num{0.66}.
+With the Bayesian method we obtain an \emph{accuracy} of \num{0.71}.
 
 \subsection{Machine Learning Validation Metrics}
 
@@ -83,51 +83,51 @@ Additionally, this table can be easily seen in a graphical way in figure~\ref{fi
 \begin{figure}
 \centering
 \includegraphics[width=15em]{figures/TrueFalseNegativePositive.png}
-\caption{Visual explanation of Precision and Recall}
+\caption{Visual explanation of \emph{Precision} and \emph{Recall}}
 \label{fig:truefalsenegativepositive}
 \end{figure}
 
-\subsubsection{Precision and Recall} Precision denotes the proportion of predicted positive cases that are correctly real positive. Trying to maximize this would allow us to adjust a particular predictor so that the majority of the predicted cases are actually positive. Conversely, recall is the proportion of real positive cases that are correctly predicted positive, and maximizing it would allow us to adjust a predictor so that the majority of positive cases are predicted.
+\subsubsection{Precision and Recall} \emph{Precision} denotes the proportion of predicted positive cases that are correctly real positive. Trying to maximize this would allow us to adjust a particular predictor so that the majority of the predicted cases are actually positive. Conversely, \emph{recall} is the proportion of real positive cases that are correctly predicted positive, and maximizing it would allow us to adjust a predictor so that the majority of positive cases are predicted.
 
 \begin{equation}
-\label{precisionrecall}
 \begin{split}
 \Precision &= \frac{\TP}{\TP + \FP} \\
 \Recall &= \frac{\TP}{\TP + \FN}
 \end{split}
+\label{precisionrecall}
 \end{equation}
 
-These two measures and their combinations focus only on the positive examples and predictions, althrough between them they capture some information about the rates and kind of errors made\cite{binaryevaluation}. While the recall has been shown to have a major weight in working with machine translation\cite{fraser2007}, they aren't particularly useful to use alone since they don't take into account many factors of the prediction\cite{binaryevaluation}.
+These two measures and their combinations focus only on the positive examples and predictions, althrough between them they capture some information about the rates and kind of errors made\cite{binaryevaluation}. While the \emph{recall} has been shown to have a major weight in working with machine translation\cite{fraser2007}, they aren't particularly useful to use alone since they don't take into account many factors of the prediction\cite{binaryevaluation}.
 
 \subsubsection{Inverse~Precision and Inverse~Recall}
 
-As a corollary of the previous metrics, we can add metrics that measure the proportion of real negative cases that are correctly predicted negative, referred as the \textbf{Inverse~Recall}, and the proportion of predicted negatives that are real negatives, referreed as the \textbf{Inverse~Precision}\cite{binaryevaluation}. We can see that these are equivalent to finding the Presicion and Recall of the negative category.
+As a corollary of the previous metrics, we can add metrics that measure the proportion of real negative cases that are correctly predicted negative, referred as the \emph{Inverse~Recall}, and the proportion of predicted negatives that are real negatives, referreed as the \emph{Inverse~Precision}\cite{binaryevaluation}. We can see that these are equivalent to finding the \emph{Precision} and \emph{Recall} of the negative category.
 
 \begin{equation}
-\label{negativeprecisionrecall}
 \begin{split}
 \InvPrecision = \TNR &= \frac{\TN}{\FP + \TN} \\
 \InvRecall = \TNA &= \frac{\TN}{\FN + \TN}
 \end{split}
+\label{negativeprecisionrecall}
 \end{equation}
 
 \subsubsection{Accuracy}
 
-The accuracy, commonly referred in te context of binary classifiers as \textbf{Rand~Accuracy}\cite{powers15}, is used as a statistical measure of how well a binary classification test identifies or excludes a condition. Unlike the \textbf{precision}, it takes into account the negatives, and it's expressible\cite{binaryevaluation} both as a weighted average of precision and inverse prevision or recall and inverse recall.
+The \emph{accuracy}, commonly referred in te context of binary classifiers as \textbf{Rand~Accuracy}\cite{powers15}, is used as a statistical measure of how well a binary classification test identifies or excludes a condition. Unlike the \emph{precision}, it takes into account the negatives, and it's expressible\cite{binaryevaluation} both as a weighted average of \emph{precision} and inverse \emph{precision} or \emph{recall} and \emph{inverse recall}.
 
 \begin{equation}
-\label{accuracy}
 \Accuracy = \frac{\TP + \TN}{N}
+\label{accuracy}
 \end{equation}
 
-This can be more simply expressed using the weighted average of either the \textbf{Precision} and \textbf{Inverse~Precision} or the \textbf{Recall} and the \textbf{Inverse~Recall}.
+This can be more simply expressed using the weighted average of either the \emph{Precision} and \emph{Inverse~Precision} or the \emph{Recall} and the \emph{Inverse~Recall}.
 
 \begin{equation}
-\label{accuracy2}
 \begin{split}
 \Accuracy &= \left(\TP + \TN\right) \cdot \TPR + \left(\FP + \TN\right) \cdot \TNR \\
 &= \left(\TP + \FP\right) \cdot \TPA + \left(\FN + \TN\right) \cdot \TNA
 \end{split}
+\label{accuracy2}
 \end{equation}
 
 \subsubsection{Area Under the Curve}
