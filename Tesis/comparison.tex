@@ -55,12 +55,24 @@ We can easily see the problem of income predicition with the parameters we prese
 Once we define out classifier $g$ and run it against a matrix\maybe{Set?} of features\maybe{Should I explain train/test split before this subsubsection?}, we get a predicted result $\ypred$ which, when compared to the actual result $\ytrue = y$, can be classified as the one in table~\ref{confusion}\maybe{Make the table nicer}.
 
 \begin{figure}[h]
-\begin{tabularx}{\textwidth}{| c  X | X | X |}
+\begin{tabularx}{\textwidth}{| c | X | X X |}
 \hline
-& & \multicolumn{2}{|c|}{\textbf{Predicted Condition}} \\
-& Total Population & Predicted Condition Positive & Predicted Condition Negative \\ \hline
-\multirow{2}{5em}{\textbf{True Condition}} & Condition Positive & \cellcolor{OrangeRed} \textbf{True Positive} & \cellcolor{CadetBlue} \makecell{\textbf{False Negative} \\ (Type II error)} \\
-& Condition Negative & \cellcolor{CadetBlue} \makecell{\textbf{False Positive} \\ (Type I Error)} & \cellcolor{OrangeRed} \textbf{True Negative} \\ \hline
+
+& & \multicolumn{2}{c|}{\textbf{Predicted Condition}} \\
+& Total Population &
+\makecell{Condition Positive} &
+\makecell{Condition Negative} \\ \hline
+
+\multirow{2}{5em}{\textbf{True Condition}} &
+Condition Positive &
+\cellcolor{OrangeRed} \makecell{\textbf{True Positive}} &
+\cellcolor{CadetBlue} \makecell{\textbf{False Negative} \\ (Type II error)} \\
+
+
+& Condition Negative &
+\cellcolor{CadetBlue} \makecell{\textbf{False Positive} \\ (Type I Error)} &
+\cellcolor{OrangeRed} \makecell{\textbf{True Negative}} \\ \hline
+
 \end{tabularx}
 \label{confusion}
 \caption[caption]{Confusion Table, showing different classifications of an individual prediction. \\ True and False Positives ($\TP$/$\FP$) refer to the number of predicted positives that were correct/incorrect, and similarly for True and False Negatives ($\TN$/$\FN$).}
@@ -76,9 +88,38 @@ Once we define out classifier $g$ and run it against a matrix\maybe{Set?} of fea
 \end{split}
 \end{equation}
 
-These two measures and their combinations focus only on the positive examples and predictions, althrough between them they capture some information about the rates and kind of errors made\cite{binaryevaluation}. While the recall has been shown to have a major weight in working with machine translation\cite{fraser2007}, they aren't particularly useful to use alone since they don't take into account many factors of the prediction\cite{binaryevaluarion}.
+These two measures and their combinations focus only on the positive examples and predictions, althrough between them they capture some information about the rates and kind of errors made\cite{binaryevaluation}. While the recall has been shown to have a major weight in working with machine translation\cite{fraser2007}, they aren't particularly useful to use alone since they don't take into account many factors of the prediction\cite{binaryevaluation}.
+
+\subsubsection{Inverse~Precision and Inverse~Recall}
+
+As a corollary of the previous metrics, we can add metrics that measure the proportion of real negative cases that are correctly predicted negative, referred as the \textbf{Inverse~Recall}, and the proportion of predicted negatives that are real negatives, referreed as the \textbf{Inverse~Precision}\cite{binaryevaluation}. We can see that these are equivalent to finding the Presicion and Recall of the negative category.
+
+\begin{equation}
+\label{negativeprecisionrecall}
+\begin{split}
+\operatorname{Inverse\ Recall} = \TNR &= \frac{\TN}{\FP + \TN} \\
+\operatorname{Inverse\ Precision} = \TNA &= \frac{\TN}{\FN + \TN}
+\end{split}
+\end{equation}
 
 \subsubsection{Accuracy}
+
+The accuracy, commonly referred in te context of binary classifiers as \textbf{Rand~Accuracy}\cite{powers15}, is used as a statistical measure of how well a binary classification test identifies or excludes a condition. Unlike the \textbf{precision}, it takes into account the negatives, and it's expressible\cite{binaryevaluation} both as a weighted average of precision and inverse prevision or recall and inverse recall.
+
+\begin{equation}
+\label{accuracy}
+\operatorname{Accuracy} = \frac{\TP + \TN}{N}
+\end{equation}
+
+This can be more simply expressed using the weighted average of either the \textbf{Precision} and \textbf{Inverse~Precision} or the \textbf{Recall} and the \textbf{Inverse~Recall}.
+
+\begin{equation}
+\label{accuracy2}
+\begin{split}
+\operatorname{Accuracy} &= \left(\TP + \TN\right) \cdot \TPR + \left(\FP + \TN\right) \cdot \TNR \\
+&= \left(\TP + \FP\right) \cdot \TPA + \left(\FN + \TN\right) \cdot \TNA
+\end{split}
+\end{equation}
 
 \subsubsection{Area Under the Curve}
 
