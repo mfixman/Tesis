@@ -52,7 +52,7 @@ There are many metrics that can be used to measure the performance of a classifi
 
 We can easily see the problem of income predicition with the parameters we presented in~\ref{inference_methodology} as a binary classification task, where each instance represents a person and it's positive when this person is in the upper quantile of wealth $\closeopen{6300}{\infty}$, and negative when it is in the lower quantile $\closeopen{1000}{6300}$.
 
-Once we define out classifier $g$ and run it against a matrix\maybe{Set?} of features\maybe{Should I explain train/test split before this subsubsection?}, we get a predicted result $\ypred$ which, when compared to the actual result $\ytrue = y$, can be classified as the one in table~\ref{confusion}\maybe{Make the table nicer}.
+Once we define out classifier $g$ and run it against a matrix\maybe{Set?} of features\maybe{Should I explain train/test split before this subsubsection?}, we get a predicted result $\ypred$ which, when compared to the actual result $\ytrue = y$, can be classified as the one in table~\ref{confusion}.
 
 \begin{figure}[h]
 \begin{tabularx}{\textwidth}{| c | X | X X |}
@@ -78,13 +78,22 @@ Condition Positive &
 \caption[caption]{Confusion Table, showing different classifications of an individual prediction. \\ True and False Positives ($\TP$/$\FP$) refer to the number of predicted positives that were correct/incorrect, and similarly for True and False Negatives ($\TN$/$\FN$).}
 \end{figure}
 
+Additionally, this table can be easily seen in a graphical way in figure~\ref{fig:truefalsenegativepositive}.
+
+\begin{figure}
+\centering
+\includegraphics[width=15em]{figures/TrueFalseNegativePositive.png}
+\caption{Visual explanation of Precision and Recall}
+\label{fig:truefalsenegativepositive}
+\end{figure}
+
 \subsubsection{Precision and Recall} Precision denotes the proportion of predicted positive cases that are correctly real positive. Trying to maximize this would allow us to adjust a particular predictor so that the majority of the predicted cases are actually positive. Conversely, recall is the proportion of real positive cases that are correctly predicted positive, and maximizing it would allow us to adjust a predictor so that the majority of positive cases are predicted.
 
 \begin{equation}
 \label{precisionrecall}
 \begin{split}
-\operatorname{Precision} &= \frac{\TP}{\TP + \FP} \\
-\operatorname{Recall} &= \frac{\TP}{\TP + \FN}
+\Precision &= \frac{\TP}{\TP + \FP} \\
+\Recall &= \frac{\TP}{\TP + \FN}
 \end{split}
 \end{equation}
 
@@ -97,8 +106,8 @@ As a corollary of the previous metrics, we can add metrics that measure the prop
 \begin{equation}
 \label{negativeprecisionrecall}
 \begin{split}
-\operatorname{Inverse\ Recall} = \TNR &= \frac{\TN}{\FP + \TN} \\
-\operatorname{Inverse\ Precision} = \TNA &= \frac{\TN}{\FN + \TN}
+\InvPrecision = \TNR &= \frac{\TN}{\FP + \TN} \\
+\InvRecall = \TNA &= \frac{\TN}{\FN + \TN}
 \end{split}
 \end{equation}
 
@@ -108,7 +117,7 @@ The accuracy, commonly referred in te context of binary classifiers as \textbf{R
 
 \begin{equation}
 \label{accuracy}
-\operatorname{Accuracy} = \frac{\TP + \TN}{N}
+\Accuracy = \frac{\TP + \TN}{N}
 \end{equation}
 
 This can be more simply expressed using the weighted average of either the \textbf{Precision} and \textbf{Inverse~Precision} or the \textbf{Recall} and the \textbf{Inverse~Recall}.
@@ -116,7 +125,7 @@ This can be more simply expressed using the weighted average of either the \text
 \begin{equation}
 \label{accuracy2}
 \begin{split}
-\operatorname{Accuracy} &= \left(\TP + \TN\right) \cdot \TPR + \left(\FP + \TN\right) \cdot \TNR \\
+\Accuracy &= \left(\TP + \TN\right) \cdot \TPR + \left(\FP + \TN\right) \cdot \TNR \\
 &= \left(\TP + \FP\right) \cdot \TPA + \left(\FN + \TN\right) \cdot \TNA
 \end{split}
 \end{equation}
