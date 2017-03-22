@@ -1,6 +1,3 @@
-\newcommand{\ypred}{y_{pred}}
-\newcommand{\ytrue}{y_{true}}
-
 In the following section, we compare the results of the Bayesian method with other classifiers.
 
 \begin{figure}
@@ -37,51 +34,7 @@ We applied two other inference methods to the same data and compared their accur
 	\item \textbf{Majority voting} which decides whether a user is in the high or low income category depending on the category of the majority of its contacts. In case of a tie, the category is chosen randomly.
 \end{itemize}
 
-The accuracy of the first method is as expected \num{0.5}, while the accuracy for majority voting is \num{0.66}.
-With the Bayesian method we obtain an accuracy of \num{0.71}.
-
-\subsection{Machine Learning Validation Metrics}
-
-In the following subsections we present the outline of several supervised machine learning algorithms which are used to compare the Bayesian method to a more realistic baseline. First, we'll present several ways to validate the different algorithms when applied to the data. In the following section, we'll present many of the algorithms used for comparison.
-
-Given a set of features $X$ with labels $y$, called \textbf{training data}, and another set of features $Z$ without labels, we want to create an a binary classifier represented as a learning function $g : X \rightarrow y$ that will predict certain values of $y$ that are as close as possible to the real values.
-
-There are many metrics that can be used to measure the performance of a classifier or a predictor~\cite{binaryevaluation}; different fields have different preferences due to different goals. In this section, we present many metrics to evaluate different results that are commonly used in the area of mobile phone data analysis~\cite{oskardottir2016}.
-
-\subsubsection{Classification of individual results}
-
-We can easily see the problem of income predicition with the parameters we presented in~\ref{inference_methodology} as a binary classification task, where each instance represents a person and it's positive when this person is in the upper quantile of wealth $\closeopen{6300}{\infty}$, and negative when it is in the lower quantile $\closeopen{1000}{6300}$.
-
-Once we define out classifier $g$ and run it against a matrix\maybe{Set?} of features\maybe{Should I explain train/test split before this subsubsection?}, we get a predicted result $\ypred$ which, when compared to the actual result $\ytrue = y$, can be classified as the one in table~\ref{confusion}\maybe{Make the table nicer}.
-
-\begin{figure}[h]
-\begin{tabularx}{\textwidth}{| c  X | X | X |}
-\hline
-& & \multicolumn{2}{|c|}{\textbf{Predicted Condition}} \\
-& Total Population & Predicted Condition Positive & Predicted Condition Negative \\ \hline
-\multirow{2}{5em}{\textbf{True Condition}} & Condition Positive & \cellcolor{OrangeRed} \textbf{True Positive} & \cellcolor{CadetBlue} \makecell{\textbf{False Negative} \\ (Type II error)} \\
-& Condition Negative & \cellcolor{CadetBlue} \makecell{\textbf{False Positive} \\ (Type I Error)} & \cellcolor{OrangeRed} \textbf{True Negative} \\ \hline
-\end{tabularx}
-\label{confusion}
-\caption[caption]{Confusion Table, showing different classifications of an individual prediction. \\ True and False Positives ($\TP$/$\FP$) refer to the number of predicted positives that were correct/incorrect, and similarly for True and False Negatives ($\TN$/$\FN$).}
-\end{figure}
-
-\subsubsection{Precision and Recall} Precision denotes the proportion of predicted positive cases that are correctly real positive. Trying to maximize this would allow us to adjust a particular predictor so that the majority of the predicted cases are actually positive. Conversely, recall is the proportion of real positive cases that are correctly predicted positive, and maximizing it would allow us to adjust a predictor so that the majority of positive cases are predicted.
-
-\begin{equation}
-\label{precisionrecall}
-\begin{split}
-\operatorname{Precision} &= \frac{\TP}{\TP + \FP} \\
-\operatorname{Recall} &= \frac{\TP}{\TP + \FN}
-\end{split}
-\end{equation}
-
-These two measures and their combinations focus only on the positive examples and predictions, althrough between them they capture some information about the rates and kind of errors made\cite{binaryevaluation}. While the recall has been shown to have a major weight in working with machine translation\cite{fraser2007}, they aren't particularly useful to use alone since they don't take into account many factors of the prediction\cite{binaryevaluarion}.
-
-\subsubsection{Accuracy}
-
-\subsubsection{Area Under the Curve}
-
-\subsubsection{$F_\beta$ score}
+The \emph{accuracy} of the first method is as expected \num{0.5}, while the \emph{accuracy} for majority voting is \num{0.66}.
+With the Bayesian method we obtain an \emph{accuracy} of \num{0.71}.
 
 \subsection{Graph Sampling and Categorical User Data}

@@ -39,13 +39,22 @@
 \newcommand{\mathG}{\mathcal{G}}
 \newcommand{\mathP}{\mathcal{P}}
 
-\newcommand{\TP}{\operatorname{TP}}
-\newcommand{\TN}{\operatorname{TN}}
-\newcommand{\FP}{\operatorname{FP}}
-\newcommand{\FN}{\operatorname{FN}}
-\newcommand{\TPR}{\operatorname{TPR}}
-\newcommand{\FPR}{\operatorname{FPR}}
-\newcommand{\AUC}{\operatorname{AUC}}
+\DeclareMathOperator{\TP}{TP}
+\DeclareMathOperator{\TN}{TN}
+\DeclareMathOperator{\FP}{FP}
+\DeclareMathOperator{\FN}{FN}
+\DeclareMathOperator{\FPR}{FPR}
+\DeclareMathOperator{\AUC}{AUC}
+\DeclareMathOperator{\TNR}{TNR}
+\DeclareMathOperator{\TNA}{TNA}
+\DeclareMathOperator{\TPA}{TPA}
+\DeclareMathOperator{\TPR}{TPR}
+
+\DeclareMathOperator{\Precision}{Precision}
+\DeclareMathOperator{\Recall}{Recall}
+\DeclareMathOperator{\InvPrecision}{Inverse\ Precision}
+\DeclareMathOperator{\InvRecall}{Inverse\ Recall}
+\DeclareMathOperator{\Accuracy}{Accuracy}
 
 \newcommand{\closeopen}[2]{\left[ #1, #2 \right)}
 
@@ -77,6 +86,11 @@
 \begin{abstract}
 	\input{abstract}
 \end{abstract}
+
+\setcounter{tocdepth}{2}
+\tableofcontents
+
+\newpage
 
 \input{introduction}
 
