@@ -1,6 +1,7 @@
 \section{Experimental Dataset}
 
 \subsection{Mobile Phone Data Source}
+\label{subsec:mobiledatasource}
 
 The data used in this study consist of a set \( \mathP \) of \textit{Call Detail Records} (CDRs), composed of voice calls and text messages from a Mexican telecommunication company (\textit{telco}) for a 3 month period.
 
@@ -9,6 +10,12 @@ Every CDR \( p \in \mathP \) contains the phone numbers of the caller and callee
 Given that our collection \( \mathP \) of CDRs are coming from one telephone company, we are able to reconstruct all communication links between clients of this company, as well as communications between the clients and other users, but we have no information on communications where neither users are clients of our telco company.
 
 If we define \( N \) as the set of clients of the telco, and \( \mathP_N \subseteq \mathP \) as the calls where \( \forall p \in \mathP_N, \; p_o \in N \wedge p_d \in N \), we create a communications graph \( \mathG_N \) which contains only the users from the telco, and all the calls exchanged between them.
+
+\todo{Add data where we include the time and SMS (?) of each call.}
+
+\todo{Explain telco vs non-telco}
+
+\todo{Separate into $P$ for calls and $S$ for SMS}
 
 %With the data provided to us by the telco, \( \mathG \) contains \num{72107108} users who made \num{72107108} calls and sent \num{634225740} text messages in this period of 3 months.
 
