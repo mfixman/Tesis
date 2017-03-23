@@ -37,4 +37,48 @@ We applied two other inference methods to the same data and compared their accur
 The \emph{accuracy} of the first method is as expected \num{0.5}, while the \emph{accuracy} for majority voting is \num{0.66}.
 With the Bayesian method we obtain an \emph{accuracy} of \num{0.71}.
 
-\subsection{Graph Sampling and Categorical User Data}
+\subsection{Graph Sampling}
+
+The set $B$ is randomly sampled into two disjoint subsets, $T$ and $S$, such that $T \cup S = B$ and $T \cap S = \varnothing$. Additonally, $\left| T \right| = \sfrac{4}{5} \cdot \left| B \right|$ and $\left| S \right| = \sfrac{1}{5} \cdot \left| B \right|$. We use $T$ as the \emph{Training Set} of the data, while $S$ is considered the \emph{Testing Set}. This way, we can be sure of not having overfitting issues when applying \emph{Machine Learning} methods to the data.
+
+\subsection{User Data}
+
+As explained in Section~\ref{subsec:mobiledatasource}, the set $P$ contains \emph{Call Detail Records}. Each element $p \in P$ contains the caller and the callee $\left< p_o, p_d \right>$ and call data (including the call duration $p_s$). Additionally, the set $S$ contains \emph{SMS Records}, which for each element $s \in S$ contain origin and destination data $\left< s_o, s_d \right>$.
+
+For each element of the set of users that belong to the telco $u \in U \subseteq P_o \cup P_d \cup S_o \cup S_d$, it's possible to define the following features.
+
+\begin{equation}
+\label{eq:calls}
+\begin{split}
+u_{\operatorname{incalls}}  &= \left| \left\{ p \in P \mid p_d = u \right\} \right| \\
+u_{\operatorname{outcalls}} &= \left| \left\{ p \in P \mid p_o = u \right\} \right|
+\end{split}
+\end{equation}
+
+\begin{equation}
+\label{eq:time}
+\begin{split}
+u_{\operatorname{intime}}  &= \sum_{\substack{p \in P \\ p_d = u}} \; p_s \\
+u_{\operatorname{outtime}} &= \sum_{\substack{p \in P \\ p_d = u}} \; p_s
+\end{split}
+\end{equation}
+
+\begin{equation}
+\label{eq:sms}
+\begin{split}
+u_{\operatorname{insms}}  &= \left| \left\{ s \in S \mid s_d = u \right\} \right| \\
+u_{\operatorname{outsms}} &= \left| \left\{ s \in S \mid s_o = u \right\} \right|
+\end{split}
+\end{equation}
+
+\begin{equation}
+\label{eq:contacts}
+\begin{split}
+u_{\operatorname{incontacts}}  &= \left| \left\{ p_o \mid p \in P \and p_d = u \right\} \cup \left\{ s_o \mid s \in S \and s_d = u \right\} \right| \\
+u_{\operatorname{outcontacts}} &= \left| \left\{ p_d \mid p \in P \and p_o = u \right\} \cup \left\{ s_d \mid s \in S \and s_o = u \right\} \right| \\
+\end{split}
+\end{equation}
+
+In particular, Equation~\ref{eq:calls} refers to the amount of in-calls and out-calls each user has, Equation~\ref{eq:time} to the total time in incoming calls and outgoing calls, Equation~\ref{eq:sms} the amount of incoming and outgoing SMS, and Equation~\ref{eq:contacts} to the total amount of different users where either a call of an SMS has been made or received. These last two features correspond to the \emph{In-Degree} and \emph{Out-Degree} of the node in the graph.
+
+These features will be referred as the \emph{User Data} for user $u$.
