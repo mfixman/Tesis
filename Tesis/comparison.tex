@@ -42,6 +42,7 @@ With the Bayesian method we obtain an \emph{accuracy} of \num{0.71}.
 The set $B$ is randomly sampled into two disjoint subsets, $T$ and $S$, such that $T \cup S = B$ and $T \cap S = \varnothing$. Additonally, $\left| T \right| = \sfrac{4}{5} \cdot \left| B \right|$ and $\left| S \right| = \sfrac{1}{5} \cdot \left| B \right|$. We use $T$ as the \emph{Training Set} of the data, while $S$ is considered the \emph{Testing Set}. This way, we can be sure of not having overfitting issues when applying \emph{Machine Learning} methods to the data.
 
 \subsection{User Data}
+\label{subsec:user_data}
 
 As explained in Section~\ref{subsec:mobiledatasource}, the set $P$ contains \emph{Call Detail Records}. Each element $p \in P$ contains the caller and the callee $\left< p_o, p_d \right>$ and call data (including the call duration $p_s$). Additionally, the set $S$ contains \emph{SMS Records}, which for each element $s \in S$ contain origin and destination data $\left< s_o, s_d \right>$.
 
@@ -50,35 +51,74 @@ For each element of the set of users that belong to the telco $u \in U \subseteq
 \begin{equation}
 \label{eq:calls}
 \begin{split}
-u_{\operatorname{incalls}}  &= \left| \left\{ p \in P \mid p_d = u \right\} \right| \\
-u_{\operatorname{outcalls}} &= \left| \left\{ p \in P \mid p_o = u \right\} \right|
+\operatorname{incalls}_u  &= \left| \left\{ p \in P \mid p_d = u \right\} \right| \\
+\operatorname{outcalls}_u &= \left| \left\{ p \in P \mid p_o = u \right\} \right|
 \end{split}
 \end{equation}
 
 \begin{equation}
 \label{eq:time}
 \begin{split}
-u_{\operatorname{intime}}  &= \sum_{\substack{p \in P \\ p_d = u}} \; p_s \\
-u_{\operatorname{outtime}} &= \sum_{\substack{p \in P \\ p_d = u}} \; p_s
+\operatorname{intime}_u  &= \sum_{\substack{p \in P \\ p_d = u}} \, p_s \\
+\operatorname{outtime}_u &= \sum_{\substack{p \in P \\ p_o = u}} \, p_s
 \end{split}
 \end{equation}
 
 \begin{equation}
 \label{eq:sms}
 \begin{split}
-u_{\operatorname{insms}}  &= \left| \left\{ s \in S \mid s_d = u \right\} \right| \\
-u_{\operatorname{outsms}} &= \left| \left\{ s \in S \mid s_o = u \right\} \right|
+\operatorname{insms}_u  &= \left| \left\{ s \in S \mid s_d = u \right\} \right| \\
+\operatorname{outsms}_u &= \left| \left\{ s \in S \mid s_o = u \right\} \right|
 \end{split}
 \end{equation}
 
 \begin{equation}
 \label{eq:contacts}
 \begin{split}
-u_{\operatorname{incontacts}}  &= \left| \left\{ p_o \mid p \in P \and p_d = u \right\} \cup \left\{ s_o \mid s \in S \and s_d = u \right\} \right| \\
-u_{\operatorname{outcontacts}} &= \left| \left\{ p_d \mid p \in P \and p_o = u \right\} \cup \left\{ s_d \mid s \in S \and s_o = u \right\} \right| \\
+\operatorname{incontacts}_u  &= \left| \left\{ p_o \mid p \in P \and p_d = u \right\} \cup \left\{ s_o \mid s \in S \and s_d = u \right\} \right| \\
+\operatorname{outcontacts}_u &= \left| \left\{ p_d \mid p \in P \and p_o = u \right\} \cup \left\{ s_d \mid s \in S \and s_o = u \right\} \right|
 \end{split}
 \end{equation}
 
 In particular, Equation~\ref{eq:calls} refers to the amount of in-calls and out-calls each user has, Equation~\ref{eq:time} to the total time in incoming calls and outgoing calls, Equation~\ref{eq:sms} the amount of incoming and outgoing SMS, and Equation~\ref{eq:contacts} to the total amount of different users where either a call of an SMS has been made or received. These last two features correspond to the \emph{In-Degree} and \emph{Out-Degree} of the node in the graph.
 
-These features will be referred as the \emph{User Data} for user $u$.
+These features will be referred as the \emph{User Data} of user $u$.
+
+\subsection{Higher Order User Data}
+
+Where \emph{User Data} contains data directly about the neighbours of each user, we can define \emph{User Data of Order $1$}, as the user data variables about the edges of the neighbours of each user $u$ where $u$ isn't any of the endpoints. In the case of cumulative data (calls, time, and SMS), this is equal to the sum of the \emph{User Data} of the neighbours of $u$ minus the \emph{User Data} os $u$ (since we aren't counting ``inner'' edges). This isn't true in the case of the contacts, since two neighbours of $u$ may have a contact in common, which should be counted only once.
+
+Additionally, for any $n \in \mathbb{N}$, we can inductively define the \emph{User Data of Order $n$} as the user data of the nodes at distance $n$ of a certain node.
+
+\subsection{Categorical User Data}
+
+Another possible featureset consists of using of separating the data of the neighbourhood of each user $u \in U$ into two disjoint groups, $L_u$ and $K_u$, which contain the neighours of $u$ in the low and high categories of income respectively\footnotemark{}.
+
+\begin{equation}
+\begin{split}
+	L_u &\subseteq H_1 \cap \left( \left\{ p_o \mid p \in P \and p_d = u \right\} \cup \left\{ p_d \mid p \in P \and p_d = u \right\} \right) \\
+	K_u &\subseteq H_2 \cap \left( \left\{ p_o \mid p \in P \and p_d = u \right\} \cup \left\{ p_d \mid p \in P \and p_d = u \right\} \right) \\
+\end{split}
+\end{equation}
+
+Having these groups it's possible to define a set of features similar to the one in Section~\ref{subsec:user_data}, where each feature is separated by the category of the neighbour. Equation~\ref{eq:matcatuserdata} contains the possible forms of the new features, while Equation~\ref{eq:categoricaluserdata} contains the way to calculate some of them. The formula for the rest of the features comes trivially.
+
+\begin{equation}
+\label{eq:matcatuserdata}
+	\begin{Bmatrix} in \\ out \end{Bmatrix}
+	\times
+	\begin{Bmatrix} calls \\ time \\ sms \\ contacts \end{Bmatrix}
+	\times
+	\begin{Bmatrix} low \\ high \end{Bmatrix}
+\end{equation}
+
+\begin{equation}
+\label{eq:categoricaluserdata}
+\begin{split}
+	\operatorname{incallslow}_u &= \left| \left\{ p \in P \mid p_d = u \and \mathbf{p_o \in H_1} \right\} \right| \\
+	\operatorname{outtimelow}_u &= \sum_{\substack{p \in P \\ p_o = u \\ \mathbf{p_d \in H_1}}} \, p_s \\
+	\operatorname{outcontactshigh}_u &= \left| \mathbf{H_2 \, \cap} \, \left( \left\{ p_d \mid p \in P \and p_o = u \right\} \cup \left\{ s_d \mid s \in S \and s_o = u \right\} \right) \right|
+\end{split}
+\end{equation}
+
+\footnotetext{Note that, since not all users have banking information, there may be nodes in the neighbourhood of $u$ which don't belong to either $L_u$ or $K_u$.}
