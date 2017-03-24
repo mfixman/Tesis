@@ -127,7 +127,9 @@ Additionally, this table can be easily seen in a graphical way in figure~\ref{fi
 \label{fig:truefalsenegativepositive}
 \end{figure}
 
-\subsubsection{Precision and Recall} \emph{Precision} denotes the proportion of predicted positive cases that are correctly real positive. Trying to maximize this would allow us to adjust a particular predictor so that the majority of the predicted cases are actually positive. Conversely, \emph{recall} is the proportion of real positive cases that are correctly predicted positive, and maximizing it would allow us to adjust a predictor so that the majority of positive cases are predicted.
+\subsubsection{Precision and Recall}
+\label{subsec:precisionrecall}
+\emph{Precision} denotes the proportion of predicted positive cases that are correctly real positive. Trying to maximize this would allow us to adjust a particular predictor so that the majority of the predicted cases are actually positive. Conversely, \emph{recall} is the proportion of real positive cases that are correctly predicted positive, and maximizing it would allow us to adjust a predictor so that the majority of positive cases are predicted.
 
 \begin{equation}
 \begin{split}
@@ -152,7 +154,7 @@ As a corollary of the previous metrics, we can add metrics that measure the prop
 \end{equation}
 
 \subsubsection{Accuracy}
-
+\label{subsec:accuracy}
 The \emph{accuracy}, commonly referred in te context of binary classifiers as \textbf{Rand~Accuracy}\cite{powers15}, is used as a statistical measure of how well a binary classification test identifies or excludes a condition. Unlike the \emph{precision}, it takes into account the negatives, and it's expressible\cite{binaryevaluation} both as a weighted average of \emph{precision} and inverse \emph{precision} or \emph{recall} and \emph{inverse recall}.
 
 \begin{equation}
@@ -183,7 +185,7 @@ This allows to compare different classifiers before having to select a particula
 \end{figure}
 
 \subsubsection{Area Under the Curve}
-
+\label{subsec:auc}
 The \emph{ROC Curve} allows us to compare classifiers and choose the one which is closer to optimal in some sense. While there are many possible parametrizations, the most common is to minimize the \emph{Area Under the Curve}, which is equal to the probability that a classifier will rank a randomly chosen positive instance higher than a randomly chosen negative one\cite{fawcett2005}. This can be formulated as shown in formula~\ref{eq:auc}.
 
 \begin{equation}
@@ -195,7 +197,7 @@ The \emph{ROC Curve} allows us to compare classifiers and choose the one which i
 \end{equation}
 
 \subsubsection{F-measure}
-
+\label{subsec:fmeasure}
 The \emph{F-measure} is another measure of a tests accuracy. It considers both the \emph{Precision} and the \emph{Recall} of the test to compute the score. It can be considered the weighted average of both values for some weight $\beta$, where $F_\beta$ reaches the best score 1 when both precision and recall are 1.
 
 \begin{equation}
@@ -206,3 +208,13 @@ F_\beta &= \left( 1 + \beta^2 \right) \cdot \frac{\TPA \cdot \TPR}{\left( \beta^
 \end{equation}
 
 The most commonly used \emph{F-measure}, $F_1$, measures the \emph{Precision} and \emph{Recall} is thet harmonic mean of the \emph{Precision} and \emph{Recall}. In particular, for an \emph{F-measure} with $\beta > 1$ weights Recall higher than Precision, while with $beta < 1$ weights Precision higher than Recall.
+
+\subsection{Machine Learning Models}
+
+\subsubsection{Random Forest}
+\label{subsec:randomforest}
+\todo{Add Random Forest}
+
+\subsubsection{Logistic Regression}
+\label{subsec:logisticregression}
+\todo{Describe Logistic Regression}

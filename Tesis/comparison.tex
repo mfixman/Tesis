@@ -85,14 +85,18 @@ In particular, Equation~\ref{eq:calls} refers to the amount of in-calls and out-
 These features will be referred as the \emph{User Data} of user $u$.
 
 \subsection{Higher Order User Data}
+\label{subsec:higherorderuserdata}
 
 Where \emph{User Data} contains data directly about the neighbours of each user, we can define \emph{User Data of Order $1$}, as the user data variables about the edges of the neighbours of each user $u$ where $u$ isn't any of the endpoints. In the case of cumulative data (calls, time, and SMS), this is equal to the sum of the \emph{User Data} of the neighbours of $u$ minus the \emph{User Data} os $u$ (since we aren't counting ``inner'' edges). This isn't true in the case of the contacts, since two neighbours of $u$ may have a contact in common, which should be counted only once.
 
 Additionally, for any $n \in \mathbb{N}$, we can inductively define the \emph{User Data of Order $n$} as the user data of the nodes at distance $n$ of a certain node.
 
 \subsection{Categorical User Data}
+\label{subsec:categoricaluserdata}
 
 Another possible featureset consists of using of separating the data of the neighbourhood of each user $u \in U$ into two disjoint groups, $L_u$ and $K_u$, which contain the neighours of $u$ in the low and high categories of income respectively\footnotemark{}.
+
+\footnotetext{Note that, since not all users have banking information, there may be nodes in the neighbourhood of $u$ which don't belong to either $L_u$ or $K_u$.}
 
 \begin{equation}
 \begin{split}
@@ -121,4 +125,55 @@ Having these groups it's possible to define a set of features similar to the one
 \end{split}
 \end{equation}
 
-\footnotetext{Note that, since not all users have banking information, there may be nodes in the neighbourhood of $u$ which don't belong to either $L_u$ or $K_u$.}
+There are two distinct analyses done with \emph{Categorical User Data}: one with all the nodes in $T$, unambiguously called the ``outer graph'', and one that only contains the nodes in $T$ which are adjacent to at least one other node in $T$, unambiguously called the ``inner graph''. The latter should give a better or equal result, since the rest of the nodes contains no information in this category.
+
+The ``outer graph'' contains \todo{add amount of nodes here}, while the ``inner graph'' contains only \todo{same here}.
+
+\subsection{Validation Metrics}
+
+There are several validation metrics used for each method.
+
+\begin{description}
+	\item[Accuracy] as described in Subsection~\ref{subsec:accuracy}, which measures the general performance of this method.
+	\item[Precision] as described in Subsection~\ref{subsec:precisionrecall}, which measures the performance regarding the positive instances found by this method.
+	\item[Recall] as described in Subsection~\ref{subsec:precisionrecall}, which measures the performance regarding the positive instances in the dataset.
+	\item[Area Under the Curve] as described in Subsection~\ref{subsec:auc}, which measures the general performance disregarding which threshold is used.
+	\item[$\mathbf{F_1}$ Score] as described in Subsection~\ref{subsec:fmeasure} which is generalized score balancing Precision and Recall.
+	\item[$\mathbf{F_4}$ Score] as described in Subsection~\ref{subsec:fmeasure}, which gives more weight to the Recall. This is usually wanted since the ultimate practical objective of this study is to find wealthier people, even if the result has low Precision.
+	\item[Time] can be used to break ties between similar models.
+\end{description}
+
+\subsection{Machine Learning Models}
+
+Using the previous features, we create datasets on different levels.
+
+\begin{enumerate}
+	\item[0] \emph{Local Features} as described in Section~\ref{subsec:user_data}.
+	\item[0.5] \emph{Classified Local Features} as described in Section~\ref{subsec:categoricaluserdata}, joined with the data on the previous item. There are two separate sets of sampels used for experiments on this level.
+	\begin{description}
+		\item[Outer Nodes] which contain all samples.
+		\item[Innter Nodes] which only contain samples in the training set $T$ which have at least a neighbour in $T$.
+	\end{description}
+	\item[1] \emph{Neighbour Features}, as described in Section~\ref{subsec:higherorderuserdata} for \emph{User Data of Order 1}, joined with data on \textbf{Level 0}.
+	\item[1.5] \emph{Classified Neighbouring Features}, which combine the feature extraction methods seen in Section~\ref{subsec:categoricaluserdata} and Section~\ref{subsec:higherorderuserdata}, and separate the accumulation of the \emph{User Data} of a node's neighbours along categorical features. This data is also joined with all previous levels, and discriminated between sets of \emph{Outer Nodes} and \emph{Inner Nodes}
+	\item[$\geq 2$] The method described in Section~\ref{subsec:higherorderuserdata}, with or without classification by the type of the other endpoint of the link. In this section, we'll prove that the accuracy of the methods before this one are similar enough to the ones in this level so that sacrificing speed is not worth the new features.
+\end{enumerate}
+
+\begin{table}
+\centering
+\begin{tabular}{>{\bfseries}l c c c c c c c}
+\toprule
+\textbf{Level} & 0 & \multicolumn{2}{c}{0.5} & 1 & \multicolumn{2}{c}{1.5} & 2 \\
+\cmidrule(lr){3-4} \cmidrule(lr){6-7}
+\textbf{Dataset} &   & inner     &    outer    &   & inner     &    outer    &   \\
+\midrule
+Features &\num{1234567}&\num{1234567}&\num{1234567}&\num{1234567}&\num{1234567}&\num{1234567}&\num{1234567}\\
+Samples  &\num{1234567}&\num{1234567}&\num{1234567}&\num{1234567}&\num{1234567}&\num{1234567}&\num{1234567}\\
+\bottomrule
+\end{tabular}
+\caption{Size of the datasets used for testing for each feature extraction method}
+\label{tab:datasettable}
+\todo{Change placeholders for actual numbers}
+\end{table}
+
+These datasets contain differing numbers of features and samples, as described in Table~\ref{tab:datasettable}.
