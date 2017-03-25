@@ -185,44 +185,36 @@ Applying the features from Section~\ref{subsec:featureextraction} to the \emph{R
 The results of the \emph{Grid Search} are presented in Table~\ref{tab:gridsearch}, while the different metrics of the result are presented in Table~\ref{tab:comparison}.
 
 \begin{table}
-\centering
-\begin{tabular}{>{\bfseries}l l r r r r r r r}
+\begin{tabular*}{\textwidth}{>{\bfseries}l l l @{\extracolsep{\fill}} r r r r r r r}
 \toprule
-Level & Method & Accuracy & Precision & Recall & AUC & F\textsubscript{1}-score & F\textsubscript{4}-score & Time \\
+Level & Method & Dataset & Accuracy & Precision & Recall & AUC & F\textsubscript{1}-score & F\textsubscript{4}-score & Time \\
 \midrule
-
 \multirow{2}{*}{0}
-& LR & \num{0.541} & \num{0.580} & \num{0.299} & \num{0.541} & \num{0.395} & \num{0.308} & \SI{2.647}{\second} \\
-& RF & \num{0.541} & \num{0.542} & \num{0.528} & \num{0.541} & \num{0.535} & \num{0.528} & \SI{1.396}{\second} \\
+& LR & & \num{0.541} & \num{0.580} & \num{0.299} & \num{0.541} & \num{0.395} & \num{0.308} & \SI{2.647}{\second} \\
+& RF & & \num{0.541} & \num{0.542} & \num{0.528} & \num{0.541} & \num{0.535} & \num{0.528} & \SI{11.396}{\second} \\
 \midrule
-
 \multirow{4}{*}{0.5}
-& LR (outer) &\num{0.570} & \num{0.749} & \num{0.212} & \num{0.570} & \num{0.330} & \num{0.221} & \SI{3.727}{\second} \\ 
-& RF (outer) &\num{0.567} & \num{0.572} & \num{0.533} & \num{0.567} & \num{0.552} & \num{0.535} & \SI{8.528}{\second} \\ 
-& LR (inner) &\num{0.720} & \num{0.747} & \num{0.842} & \num{0.675} & \num{0.792} & \num{0.836} & \SI{1.005}{\second} \\ 
-& RF (inner) &\num{0.700} & \num{0.738} & \num{0.817} & \num{0.658} & \num{0.775} & \num{0.812} & \SI{2.146}{\second} \\ 
+& LR & Outer &\num{0.570} & \num{0.749} & \num{0.212} & \num{0.570} & \num{0.330} & \num{0.221} & \SI{3.727}{\second} \\
+& RF & Outer &\num{0.567} & \num{0.572} & \num{0.533} & \num{0.567} & \num{0.552} & \num{0.535} & \SI{8.528}{\second} \\
+& LR & Inner &\num{0.720} & \num{0.747} & \num{0.842} & \num{0.675} & \num{0.792} & \num{0.836} & \SI{1.005}{\second} \\
+& RF & Inner &\num{0.700} & \num{0.738} & \num{0.817} & \num{0.658} & \num{0.775} & \num{0.812} & \SI{2.146}{\second} \\
 \midrule
-
 \multirow{2}{*}{1}
-& LR & \num{0} & \num{0} & \num{0} & \num{0} & \num{0} & \num{0} & \SI{0}{\second} \\
-& RF & \num{0} & \num{0} & \num{0} & \num{0} & \num{0} & \num{0} & \SI{0}{\second} \\
+& LR & & \num{0.552} & \num{0.597} & \num{0.326} & \num{0.553} & \num{0.422} & \num{0.335} & \SI{5.255}{\second} \\
+& RF & & \num{0.572} & \num{0.580} & \num{0.527} & \num{0.572} & \num{0.552} & \num{0.530} & \SI{22.523}{\second} \\
 \midrule
-
-
 \multirow{4}{*}{1.5}
-& LR (outer) & \num{0} & \num{0} & \num{0} & \num{0} & \num{0} & \num{0} & \SI{0}{\second} \\
-& RF (outer) & \num{0} & \num{0} & \num{0} & \num{0} & \num{0} & \num{0} & \SI{0}{\second} \\
-& LR (inner) & \num{0} & \num{0} & \num{0} & \num{0} & \num{0} & \num{0} & \SI{0}{\second} \\
-& RF (inner) & \num{0} & \num{0} & \num{0} & \num{0} & \num{0} & \num{0} & \SI{0}{\second} \\
+& LR & Outer & \num{0.598} & \num{0.726} & \num{0.358} & \num{0.606} & \num{0.479} & \num{0.369} & \SI{22.851}{\second} \\
+& RF & Outer & \num{0.723} & \num{0.747} & \num{0.852} & \num{0.675} & \num{0.796} & \num{0.845} & \SI{4.780}{\second} \\
+& LR & Inner & \num{0.643} & \num{0.668} & \num{0.617} & \num{0.644} & \num{0.642} & \num{0.620} & \SI{21.498}{\second} \\
+& RF & Inner & \num{0.735} & \num{0.766} & \num{0.838} & \num{0.697} & \num{0.800} & \num{0.834} & \SI{6.706}{\second} \\
 \midrule
-
-
 \multirow{2}{*}{2}
-& LR & \num{0} & \num{0} & \num{0} & \num{0} & \num{0} & \num{0} & \SI{0}{\second} \\
-& RF & \num{0} & \num{0} & \num{0} & \num{0} & \num{0} & \num{0} & \SI{0}{\second} \\
+& LR & & \num{0} & \num{0} & \num{0} & \num{0} & \num{0} & \num{0} & \SI{0}{\second} \\
+& RF & & \num{0} & \num{0} & \num{0} & \num{0} & \num{0} & \num{0} & \SI{0}{\second} \\
 \bottomrule
-
-\end{tabular}
+\end{tabular*}
 \caption{Results of running dataset with different feature extraction methods}
 \label{tab:comparison}
+\todo{Add level $\geq 2$}
 \end{table}
