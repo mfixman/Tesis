@@ -130,7 +130,7 @@ There are two distinct analyses done with \emph{Categorical User Data}: one with
 The ``outer graph'' contains \todo{add amount of nodes here}, while the ``inner graph'' contains only \todo{same here}.
 
 \subsection{Validation Metrics}
-
+\label{subsec:validationmetrics}
 There are several validation metrics used for each method.
 
 \begin{description}
@@ -143,16 +143,16 @@ There are several validation metrics used for each method.
 	\item[Time] can be used to break ties between similar models.
 \end{description}
 
-\subsection{Machine Learning Models}
-
-Using the previous features, we create datasets on different levels.
+\subsection{Feature Extraction}
+\label{subsec:featureextraction}
+Using the previous graph, we can create features separated into different levels.
 
 \begin{enumerate}
 	\item[0] \emph{Local Features} as described in Section~\ref{subsec:user_data}.
-	\item[0.5] \emph{Classified Local Features} as described in Section~\ref{subsec:categoricaluserdata}, joined with the data on the previous item. There are two separate sets of sampels used for experiments on this level.
+	\item[0.5] \emph{Classified Local Features} as described in Section~\ref{subsec:categoricaluserdata} (using only the adjacency information of the training set $T$), joined with the data on the previous item. There are two separate sets of sampels used for experiments on this level.
 	\begin{description}
-		\item[Outer Nodes] which contain all samples.
-		\item[Innter Nodes] which only contain samples in the training set $T$ which have at least a neighbour in $T$.
+		\item[Outer Nodes] which contain all samples in $S$.
+		\item[Innter Nodes] which only contain samples in the testing set $S$ which have at least a neighbour in the training set $T$.
 	\end{description}
 	\item[1] \emph{Neighbour Features}, as described in Section~\ref{subsec:higherorderuserdata} for \emph{User Data of Order 1}, joined with data on \textbf{Level 0}.
 	\item[1.5] \emph{Classified Neighbouring Features}, which combine the feature extraction methods seen in Section~\ref{subsec:categoricaluserdata} and Section~\ref{subsec:higherorderuserdata}, and separate the accumulation of the \emph{User Data} of a node's neighbours along categorical features. This data is also joined with all previous levels, and discriminated between sets of \emph{Outer Nodes} and \emph{Inner Nodes}
@@ -177,3 +177,52 @@ Samples  &\num{1234567}&\num{1234567}&\num{1234567}&\num{1234567}&\num{1234567}&
 \end{table}
 
 These datasets contain differing numbers of features and samples, as described in Table~\ref{tab:datasettable}.
+
+\subsection{Results}
+
+Applying the features from Section~\ref{subsec:featureextraction} to the \emph{Random Forest} model described in Section~\ref{subsec:randomforest} and the \emph{Logistic Regression} model described in Section~\ref{subsec:logisticregression}. Prior to applying each model, a \emph{Grid Search} was made with the parameter $C$ in the case of the \emph{Logistic Regression}, and the \emph{Criterion} used in the \emph{Random Forest}. In particular, one of the values of Equation~\ref{eq:gridsearch} was used.
+
+The results of the \emph{Grid Search} are presented in Table~\ref{tab:gridsearch}, while the different metrics of the result are presented in Table~\ref{tab:comparison}.
+
+\begin{table}
+\centering
+\begin{tabular}{>{\bfseries}l l r r r r r r r}
+\toprule
+Level & Method & Accuracy & Precision & Recall & AUC & F\textsubscript{1}-score & F\textsubscript{4}-score & Time \\
+\midrule
+
+\multirow{2}{*}{0}
+& LR & \num{0.541} & \num{0.580} & \num{0.299} & \num{0.541} & \num{0.395} & \num{0.308} & \SI{2.647}{\second} \\
+& RF & \num{0.541} & \num{0.542} & \num{0.528} & \num{0.541} & \num{0.535} & \num{0.528} & \SI{1.396}{\second} \\
+\midrule
+
+\multirow{4}{*}{0.5}
+& LR (outer) &\num{0.570} & \num{0.749} & \num{0.212} & \num{0.570} & \num{0.330} & \num{0.221} & \SI{3.727}{\second} \\ 
+& RF (outer) &\num{0.567} & \num{0.572} & \num{0.533} & \num{0.567} & \num{0.552} & \num{0.535} & \SI{8.528}{\second} \\ 
+& LR (inner) &\num{0.720} & \num{0.747} & \num{0.842} & \num{0.675} & \num{0.792} & \num{0.836} & \SI{1.005}{\second} \\ 
+& RF (inner) &\num{0.700} & \num{0.738} & \num{0.817} & \num{0.658} & \num{0.775} & \num{0.812} & \SI{2.146}{\second} \\ 
+\midrule
+
+\multirow{2}{*}{1}
+& LR & \num{0} & \num{0} & \num{0} & \num{0} & \num{0} & \num{0} & \SI{0}{\second} \\
+& RF & \num{0} & \num{0} & \num{0} & \num{0} & \num{0} & \num{0} & \SI{0}{\second} \\
+\midrule
+
+
+\multirow{4}{*}{1.5}
+& LR (outer) & \num{0} & \num{0} & \num{0} & \num{0} & \num{0} & \num{0} & \SI{0}{\second} \\
+& RF (outer) & \num{0} & \num{0} & \num{0} & \num{0} & \num{0} & \num{0} & \SI{0}{\second} \\
+& LR (inner) & \num{0} & \num{0} & \num{0} & \num{0} & \num{0} & \num{0} & \SI{0}{\second} \\
+& RF (inner) & \num{0} & \num{0} & \num{0} & \num{0} & \num{0} & \num{0} & \SI{0}{\second} \\
+\midrule
+
+
+\multirow{2}{*}{2}
+& LR & \num{0} & \num{0} & \num{0} & \num{0} & \num{0} & \num{0} & \SI{0}{\second} \\
+& RF & \num{0} & \num{0} & \num{0} & \num{0} & \num{0} & \num{0} & \SI{0}{\second} \\
+\bottomrule
+
+\end{tabular}
+\caption{Results of running dataset with different feature extraction methods}
+\label{tab:comparison}
+\end{table}
