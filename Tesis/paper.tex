@@ -4,6 +4,7 @@
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage[]{changepage} % Not (yet) supported by LaTeXML.
+\usepackage{caption}
 \usepackage{float}
 \usepackage[T1]{fontenc} % Not (yet) supported by LaTeXML.
 \usepackage[]{graphicx}
@@ -25,9 +26,6 @@
 \usepackage{makecell}
 \usepackage{xfrac}
 
-\DeclareMathOperator{\rank}{rank}
-\DeclareMathOperator{\cov}{cov}
-
 \bibliographystyle{plain}
 
 \newcommand{\todo}[1]{\textbf{\color{red} TODO:\@ #1}}
@@ -39,6 +37,9 @@
 \newcommand{\mathC}{\mathcal{C}}
 \newcommand{\mathG}{\mathcal{G}}
 \newcommand{\mathP}{\mathcal{P}}
+
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\cov}{cov}
 
 \DeclareMathOperator{\TP}{TP}
 \DeclareMathOperator{\TN}{TN}
@@ -58,6 +59,9 @@
 \DeclareMathOperator{\Accuracy}{Accuracy}
 
 \newcommand{\closeopen}[2]{\left[ #1, #2 \right)}
+
+\setcounter{secnumdepth}{3}
+\captionsetup[table]{skip = 2ex}
 
 \title{Inference of Socioeconomic Status in a Communications Graph \\ A Bayesian Approach}
 
