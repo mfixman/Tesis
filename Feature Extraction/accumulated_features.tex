@@ -1,0 +1,28 @@
+\section{Accumulated Graph Features}
+\label{sec:accumulatedfeatures}
+
+\subsection{User Data}
+
+The first accumulated features consist of accumulating the three quantifiable features described in Section~\ref{sec:graphfeatures} for every node, separated on whether those features are incoming or outgoing.
+
+Additionally, we add two features corresponding to the \emph{In-Degree} and \emph{Out-Degree} of each node. This can be seen as the sum of an imaginary feature on each link, \textbf{Contacts}, which is always exactly $1$ when the link exists.
+
+These features are defined mathematically for each node $v \in V$ in Equation~\ref{eq:user_data}.
+
+\begin{equation}
+\begin{gathered}
+\begin{aligned}
+v_{\incalls} &= \sum_{\substack{e \in E \\ e_d = v}} e_{\calls} &
+v_{\outcalls} &= \sum_{\substack{e \in E \\ e_o = v}} e_{\calls} \\
+v_{\intime} &= \sum_{\substack{e \in E \\ e_d = v}} e_{\etime} &
+v_{\outtime} &= \sum_{\substack{e \in E \\ e_o = v}} e_{\etime} \\
+v_{\insms} &= \sum_{\substack{e \in E \\ e_d = v}} e_{\sms} &
+v_{\outsms} &= \sum_{\substack{e \in E \\ e_o = v}} e_{\sms} \\
+\end{aligned} \\
+\begin{aligned}
+v_{\incontacts} &= \left| \left\{ e \in E \mid e_d = v \right\} \right| \\
+v_{\outcontacts} &= \left| \left\{ e \in E \mid e_o = v \right\} \right|
+\end{aligned}
+\end{gathered}
+\label{eq:user_data}
+\end{equation}
