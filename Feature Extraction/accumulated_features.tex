@@ -72,8 +72,10 @@ This definition can be seen intuitively in Figure~\ref{fig:higherorderuserdata}.
 
 \begin{figure}
 \centering
-\includegraphicsmaybe{figures/higherorderuserdata.png}
-\caption{Example of the edges present in the calculation of the \emph{Higher Order User Data} for a certain node.}
+\framebox[\columnwidth]{%
+	\input{figures/ego.tikz}
+}
+\caption{Example of the edges present in the calculation of the \emph{Higher Order User Data} for a certain node $v$. \textcolor{red}{Red} edges represent edges whose features are accumulated in the \emph{User Data of Order 0}, \textcolor{blue}{blue} edges represent those of \emph{Order 1}, and \textcolor{ForestGreen}{green} those of \emph{Order 2}.}
 \label{fig:higherorderuserdata}
 \end{figure}
 

@@ -1,0 +1,60 @@
+
+\begin{tikzpicture}[>=latex,line join=bevel,]
+%%
+\node (b4) at (58.264bp,80.697bp) [draw,ellipse] {};
+  \node (b5) at (107.65bp,46.247bp) [draw,ellipse] {};
+  \node (b6) at (134.09bp,46.247bp) [draw,ellipse] {};
+  \node (b7) at (183.48bp,80.697bp) [draw,ellipse] {};
+  \node (b0) at (183.48bp,124.78bp) [draw,ellipse] {};
+  \node (b1) at (158.52bp,150.63bp) [draw,ellipse] {};
+  \node (b2) at (107.65bp,159.23bp) [draw,ellipse] {};
+  \node (b3) at (64.526bp,134.74bp) [draw,ellipse] {};
+  \node (c11) at (64.398bp,30.901bp) [draw,ellipse] {};
+  \node (c10) at (36.354bp,54.739bp) [draw,ellipse] {};
+  \node (a1) at (92.698bp,86.739bp) [draw,ellipse] {};
+  \node (a0) at (133.84bp,129.35bp) [draw,ellipse] {};
+  \node (c9) at (21.176bp,85.884bp) [draw,ellipse] {};
+  \node (a2) at (139.69bp,78.794bp) [draw,ellipse] {};
+  \node (c3) at (140.7bp,18.0bp) [draw,ellipse] {};
+  \node (c2) at (220.56bp,85.884bp) [draw,ellipse] {};
+  \node (c1) at (205.39bp,54.739bp) [draw,ellipse] {};
+  \node (c0) at (220.56bp,119.6bp) [draw,ellipse] {};
+  \node (c7) at (205.39bp,150.74bp) [draw,ellipse] {};
+  \node (c6) at (64.398bp,174.58bp) [draw,ellipse] {};
+  \node (c5) at (101.04bp,187.48bp) [draw,ellipse] {};
+  \node (c4) at (140.7bp,187.48bp) [draw,ellipse] {};
+  \node (a3) at (152.17bp,91.719bp) [draw,ellipse] {};
+  \node (c8) at (21.176bp,119.6bp) [draw,ellipse] {};
+  \node (v) at (120.87bp,102.74bp) [draw,fill=gray,ellipse] {v};
+  \draw [red,] (v) ..controls (135.03bp,84.728bp) and (135.11bp,84.621bp)  .. (a2);
+  \draw [ForestGreen,] (b6) ..controls (138.26bp,28.429bp) and (138.28bp,28.341bp)  .. (c3);
+  \draw [blue,] (a1) ..controls (80.328bp,107.82bp) and (76.815bp,113.8bp)  .. (b3);
+  \draw [ForestGreen,] (b7) ..controls (166.4bp,55.662bp) and (157.67bp,42.867bp)  .. (c3);
+  \draw [blue,] (a0) ..controls (121.21bp,143.76bp) and (120.45bp,144.63bp)  .. (b2);
+  \draw [ForestGreen,] (b2) ..controls (87.533bp,166.37bp) and (84.387bp,167.49bp)  .. (c6);
+  \draw [ForestGreen,] (b4) ..controls (41.841bp,97.922bp) and (37.585bp,102.39bp)  .. (c8);
+  \draw [red,] (v) ..controls (142.36bp,95.175bp) and (142.44bp,95.145bp)  .. (a3);
+  \draw [ForestGreen,] (b7) ..controls (199.9bp,97.922bp) and (204.16bp,102.39bp)  .. (c0);
+  \draw [blue,] (a0) ..controls (147.71bp,141.31bp) and (147.8bp,141.39bp)  .. (b1);
+  \draw [ForestGreen,] (b0) ..controls (195.28bp,138.77bp) and (195.36bp,138.87bp)  .. (c7);
+  \draw [ForestGreen,] (b4) ..controls (61.028bp,58.262bp) and (61.616bp,53.483bp)  .. (c11);
+  \draw [ForestGreen,] (b2) ..controls (103.48bp,177.05bp) and (103.46bp,177.14bp)  .. (c5);
+  \draw [blue,] (a1) ..controls (74.544bp,83.554bp) and (74.414bp,83.531bp)  .. (b4);
+  \draw [red,] (v) ..controls (130.88bp,123.29bp) and (130.94bp,123.4bp)  .. (a0);
+  \draw [ForestGreen,] (b7) ..controls (195.28bp,66.71bp) and (195.36bp,66.613bp)  .. (c1);
+  \draw [blue,] (a0) ..controls (156.36bp,127.28bp) and (160.96bp,126.85bp)  .. (b0);
+  \draw [ForestGreen,] (b4) ..controls (46.458bp,66.71bp) and (46.377bp,66.613bp)  .. (c10);
+  \draw [blue,] (a3) ..controls (169.4bp,85.652bp) and (169.52bp,85.612bp)  .. (b7);
+  \draw [ForestGreen,] (b5) ..controls (87.533bp,39.109bp) and (84.387bp,37.993bp)  .. (c11);
+  \draw [ForestGreen,] (b2) ..controls (123.17bp,172.5bp) and (124.91bp,173.98bp)  .. (c4);
+  \draw [blue,] (a1) ..controls (99.753bp,67.634bp) and (100.57bp,65.415bp)  .. (b5);
+  \draw [blue,] (a2) ..controls (136.61bp,60.878bp) and (136.59bp,60.759bp)  .. (b6);
+  \draw [red,] (v) ..controls (100.85bp,91.371bp) and (100.71bp,91.289bp)  .. (a1);
+  \draw [blue,] (a1) ..controls (110.72bp,69.108bp) and (116.32bp,63.636bp)  .. (b6);
+  \draw [blue,] (a1) ..controls (98.712bp,115.9bp) and (101.69bp,130.32bp)  .. (b2);
+  \draw [ForestGreen,] (b7) ..controls (201.88bp,83.271bp) and (202.17bp,83.312bp)  .. (c2);
+  \draw [ForestGreen,] (b4) ..controls (39.861bp,83.271bp) and (39.566bp,83.312bp)  .. (c9);
+  \draw [ForestGreen,] (b0) ..controls (201.88bp,122.21bp) and (202.17bp,122.17bp)  .. (c0);
+%
+\end{tikzpicture}
+
