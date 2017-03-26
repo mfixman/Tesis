@@ -12,17 +12,37 @@ These features are defined mathematically for each node $v \in V$ in Equation~\r
 \begin{equation}
 \begin{gathered}
 \begin{aligned}
-v_{\incalls} &= \sum_{\substack{e \in E \\ e_d = v}} e_{\calls} &
-v_{\outcalls} &= \sum_{\substack{e \in E \\ e_o = v}} e_{\calls} \\
-v_{\intime} &= \sum_{\substack{e \in E \\ e_d = v}} e_{\etime} &
-v_{\outtime} &= \sum_{\substack{e \in E \\ e_o = v}} e_{\etime} \\
-v_{\insms} &= \sum_{\substack{e \in E \\ e_d = v}} e_{\sms} &
-v_{\outsms} &= \sum_{\substack{e \in E \\ e_o = v}} e_{\sms} \\
+\incalls_v &= \sum_{\substack{e \in E \\ e_d = v}} \calls_e &
+\outcalls_v &= \sum_{\substack{e \in E \\ e_o = v}} \calls_e \\
+\intime_v &= \sum_{\substack{e \in E \\ e_d = v}} \etime_e &
+\outtime_v &= \sum_{\substack{e \in E \\ e_o = v}} \etime_e \\
+\insms_v &= \sum_{\substack{e \in E \\ e_d = v}} \sms_e &
+\outsms_v &= \sum_{\substack{e \in E \\ e_o = v}} \sms_e \\
 \end{aligned} \\
 \begin{aligned}
-v_{\incontacts} &= \left| \left\{ e \in E \mid e_d = v \right\} \right| \\
-v_{\outcontacts} &= \left| \left\{ e \in E \mid e_o = v \right\} \right|
+\incontacts_v &= \left| \left\{ e \in E \mid e_d = v \right\} \right| \\
+\outcontacts_v &= \left| \left\{ e \in E \mid e_o = v \right\} \right|
 \end{aligned}
 \end{gathered}
 \label{eq:user_data}
 \end{equation}
+
+These accumulated patterns present interesting distributions which are similar in all telcos \todo{Citation Needed}. These distributions are presented in Figure~\ref{fig:callsms}, Figure~\ref{fig:time}, and Figure~\ref{fig:contacts}.
+
+\begin{figure}
+\includegraphicsmaybe{figures/callsms_dist.png}
+\caption{Distribution of the amount of outgoing calls and SMS for each user.}
+\label{fig:callsms}
+\end{figure}
+
+\begin{figure}
+\includegraphicsmaybe{figures/time_dist.png}
+\caption{Distribution of total call time of outgoing calls for each user.}
+\label{fig:callsms}
+\end{figure}
+
+\begin{figure}
+\includegraphicsmaybe{figures/contact_dist.png}
+\caption{Distribution of \emph{Out-Degree} for each user.}
+\label{fig:callsms}
+\end{figure}

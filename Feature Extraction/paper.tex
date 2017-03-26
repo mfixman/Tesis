@@ -2,9 +2,13 @@
 
 \usepackage{amsmath}
 \usepackage{blindtext}
+\usepackage{graphicx}
 \usepackage[table,dvipsnames]{xcolor}
 
 \bibliographystyle{plain}
+
+\DeclareMathOperator{\orig}{orig}
+\DeclareMathOperator{\dest}{dest}
 
 \DeclareMathOperator{\calls}{calls}
 \DeclareMathOperator{\etime}{time}
@@ -23,6 +27,12 @@
 
 \newcommand{\todo}[1]{\textbf{\color{red} TODO:\@ #1}}
 \newcommand{\maybe}[1]{\footnote{\color{red} #1}}
+
+\newcommand{\noimage}{%
+  \setlength{\fboxsep}{-\fboxrule}
+  \fbox{\phantom{\rule{\columnwidth}{100pt}}}
+}
+\newcommand{\includegraphicsmaybe}[1]{\IfFileExists{#1}{\includegraphics[width=\columnwidth]{#1}}{\noimage}}
 
 \title{Comparison of Feature Extraction Methods and Predictors for Income Inference}
 
