@@ -1,0 +1,17 @@
+\section{Data Sources}
+\label{sec:data_sources}
+
+\subsection{Mobile Phone Data Source}
+\label{subsec:telcoinformation}
+
+The data used in this study consist of a set $P$ of \textit{Call Detail Records} (CDRs), composed of voice calls, and another set $S$ from the same company containing text messages from a Mexican telecommunication company (\textit{telco}) for a 3 month period.
+
+Every CDR $p \in P$ contains the phone numbers of the caller and callee $\left< p_o, p_d \right>$, which are anonymized using a cryptographic hash function for privacy reasons, the starting time \( p_t \), and, in the case of voice calls, the call duration \( p_s \). The same datum, except call duration, can be found for each element $s \in S$.
+
+Given that our collections $P$ and $S$ are coming from one telephone company, we are able to reconstruct all communication links between clients of this company, as well as communications between the clients and other users, but we have no information on communications where neither users are clients of our telco company. Since we need all the information about the calls and SMSs from the users on the graph, we only work with the users in the telco.
+
+\subsection{Banking Information}
+
+For this study we also obtained the set $B$ account balances of over 10 million clients of a bank in Mexico for a period of 6 months (with the same endpoint than the period of time used in Section~\ref{subsec:telcoinformation}). The data of each client $b \in B$ contains the phone number $b_p$ anonymized with the same function as the datasets in Section~\ref{subsec:telcoinformation}, along with the reported income of this person over 6 months $b_{s_0}, \ldots, b_{s_5}$. We average these 6 values to get $b_s$, an estimate of the users' monthly income.
+
+Since the objective of this paper is to detect users with high income, we simplify the task by not using or predicting the number directly. Instead, we separate the users into two equally-sized sets, one with \emph{Low Income} users and another for users with \emph{High Income}, which are simply defined as the high and low quantile of users.

@@ -1,0 +1,36 @@
+\section{Inference Methodology}
+
+As previously explained in Section~\ref{subsec:categoricaluserdata}, the nodes in $T \subseteq V$ are separated into two disjoint subgroups, $G$ and $H$, so that $G \cup H = T$, $G \cap H = \varnothing$, $\left| G \right| = \sfrac{3}{4} \cdot \left| T \right|$, and $\left| H \right| = \sfrac{1}{4} \cdot \left| T \right|$. Furthemore, the subset $H_{\inner} \subseteq H$ is defined so that a node $h \in H$ is part of it if and only if there is an edge $\left< h, x \right> \in E$ or $\left< x, h \right> \in E$ such that $x \in H$\footnotemark{}. This later definition becomes important when doing inferences on features using the \emph{Categorical User Data} dataset.
+
+\footnotetext{Reciprocally, this also implies $x \in H_{\inner}$.}
+
+The inferences will be attempted with both a \emph{Logistic Regression} and a \emph{Random Forest} classifier, both of which are solid classifiers commonly used for cases like this~\cite{binaryevaluation}, using of the features of different presented in Section~\ref{sec:accumulatedfeatures} merged with all the previous levels with the data on $G$. This way we can assure that no possibly useful information will be lost when adding new data, and ideally every prediction should be better or equal than the one in the previous level. Table~\ref{tab:features} shows the amount of features in each level after merging.
+
+\begin{table}[t]
+\centering
+\begin{tabular}{>{\bfseries}l r}
+\toprule
+Level & Features \\
+\midrule
+0 & \num{20} \\
+0.5 & \num{40} \\
+1 & \num{60} \\
+1.5 & \num{80} \\
+2 & \num{100} \\
+\bottomrule
+\end{tabular}
+\caption{Amount of total features per level. \\ \todo{Fill this with actual values}}
+\label{tab:features}
+\end{table}
+
+The classifiers are trained using those features and the labels in $H$ doing a \emph{Grid Search} on different hyperparameters of the predictors with \emph{5-fold cross-validation} to prevent cases of overfitting. Since we don't want to measure only \emph{Accuracy} we present several different comparison metrics, and since in most real life cases it's more interesting to find high income users than to be accurate\footnotemark{}, we measure the \emph{F\textsubscript{4} score} of each prediction.
+
+\footnotetext{This means we care more about having high \emph{Recall} than high \emph{Precision}.}
+
+In addition, the methods are compared against three dummy methods.
+
+\begin{itemize}
+	\item \textbf{Random Selection} where the category of each one of the output nodes is chosen at random.
+	\item \textbf{Majority Voting} where each node gets the category of the majority of the nodes in its neighborhood.
+	\item \textbf{Bayesian Inference}, as presented in~\cite{fixman2016inference}, which uses a Bayesian approach to model the probability of each node belonging to some category.
+\end{itemize}

@@ -1,0 +1,90 @@
+\documentclass[conference]{IEEEtran}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{blindtext}
+\usepackage{booktabs}
+\usepackage{caption}
+\usepackage{graphicx}
+\usepackage[utf8]{inputenc}
+\usepackage{multirow}
+\usepackage[group-separator={,}]{siunitx}
+\usepackage[x11names, rgb, dvipsnames]{xcolor}
+\usepackage{xfrac}
+
+\usepackage{tikz}
+\usetikzlibrary{shapes}
+
+\bibliographystyle{plain}
+
+\DeclareMathOperator{\orig}{orig}
+\DeclareMathOperator{\dest}{dest}
+
+\DeclareMathOperator{\calls}{calls}
+\DeclareMathOperator{\etime}{time}
+\DeclareMathOperator{\sms}{sms}
+\DeclareMathOperator{\contacts}{contacts}
+
+\DeclareMathOperator{\incalls}{incalls}
+\DeclareMathOperator{\intime}{intime}
+\DeclareMathOperator{\insms}{insms}
+\DeclareMathOperator{\incontacts}{incontacts}
+
+\DeclareMathOperator{\outcalls}{outcalls}
+\DeclareMathOperator{\outtime}{outtime}
+\DeclareMathOperator{\outsms}{outsms}
+\DeclareMathOperator{\outcontacts}{outcontacts}
+
+\DeclareMathOperator{\ego}{Ego}
+\DeclareMathOperator{\inner}{inner}
+% \DeclareMathOperator{\outer}{outer}
+
+\newcommand{\todo}[1]{\textbf{\color{red} TODO:\@ #1}}
+\newcommand{\maybe}[1]{\footnote{\color{red} #1}}
+
+\newcommand{\noimage}{%
+  \setlength{\fboxsep}{-\fboxrule}
+  \fbox{\phantom{\rule{\columnwidth}{100pt}}}
+}
+\newcommand{\includegraphicsmaybe}[1]{\IfFileExists{#1}{\includegraphics[width=\columnwidth]{#1}}{\noimage}}
+
+\renewcommand{\thefootnote}{\fnsymbol{footnote}}
+\captionsetup[table]{skip = 2ex}
+
+\title{Comparison of Feature Extraction Methods and Predictors for Income Inference}
+
+\author{%
+\IEEEauthorblockN{%
+	Martin Fixman\IEEEauthorrefmark{1},
+	Carlos Sarraute\IEEEauthorrefmark{2},
+	Many Others\IEEEauthorrefmark{2}
+}
+\IEEEauthorblockA{\IEEEauthorrefmark{1}Universidad de Buenos Aires, Argentina}
+\IEEEauthorblockA{\IEEEauthorrefmark{2}Grandata Labs, Bartolomé Cruz 1818, Vicente López, Buenos Aires, Argentina}
+\IEEEauthorblockA{martinfixman@gmail.com, charles@grandata.com}
+}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+\input{abstract}
+\end{abstract}
+
+\input{introduction}
+
+\input{data_sources}
+
+\input{basic_features}
+
+\input{accumulated_features}
+
+\input{results_table}
+
+\input{inference_methodology}
+
+\input{results}
+
+\bibliography{bibliography/sna}{}
+
+\end{document}
