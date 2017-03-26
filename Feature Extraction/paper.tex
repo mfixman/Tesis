@@ -1,9 +1,14 @@
 \documentclass[conference]{IEEEtran}
 
 \usepackage{amsmath}
+\usepackage{amssymb}
 \usepackage{blindtext}
+\usepackage{booktabs}
+\usepackage{caption}
 \usepackage{graphicx}
 \usepackage[utf8]{inputenc}
+\usepackage{multirow}
+\usepackage[group-separator={,}]{siunitx}
 \usepackage[x11names, rgb, dvipsnames]{xcolor}
 \usepackage{xfrac}
 
@@ -31,6 +36,8 @@
 \DeclareMathOperator{\outcontacts}{outcontacts}
 
 \DeclareMathOperator{\ego}{Ego}
+\DeclareMathOperator{\inner}{inner}
+% \DeclareMathOperator{\outer}{outer}
 
 \newcommand{\todo}[1]{\textbf{\color{red} TODO:\@ #1}}
 \newcommand{\maybe}[1]{\footnote{\color{red} #1}}
@@ -40,6 +47,9 @@
   \fbox{\phantom{\rule{\columnwidth}{100pt}}}
 }
 \newcommand{\includegraphicsmaybe}[1]{\IfFileExists{#1}{\includegraphics[width=\columnwidth]{#1}}{\noimage}}
+
+\renewcommand{\thefootnote}{\fnsymbol{footnote}}
+\captionsetup[table]{skip = 2ex}
 
 \title{Comparison of Feature Extraction Methods and Predictors for Income Inference}
 
@@ -68,6 +78,12 @@
 \input{basic_features}
 
 \input{accumulated_features}
+
+\input{results_table}
+
+\input{inference_methodology}
+
+\input{results}
 
 \bibliography{bibliography/sna}{}
 
