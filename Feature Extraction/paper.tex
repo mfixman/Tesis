@@ -1,5 +1,12 @@
 \documentclass[conference]{IEEEtran}
 
+\usepackage[table,dvipsnames]{xcolor}
+
+\bibliographystyle{plain}
+
+\newcommand{\todo}[1]{\textbf{\color{red} TODO:\@ #1}}
+\newcommand{\maybe}[1]{\footnote{\color{red} #1}}
+
 \title{Comparison of Feature Extraction Methods and Predictors for Income Inference}
 
 \author{%
@@ -19,5 +26,9 @@
 \begin{abstract}
 \input{abstract}
 \end{abstract}
+
+\input{introduction}
+
+\bibliography{bibliography/sna}{}
 
 \end{document}
