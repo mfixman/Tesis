@@ -1,0 +1,17 @@
+\section{Basic Graph Features}
+
+We represent the network as a directed graph $G = \left< V, E \right>$, where the nodes $V$ represent the users and the links $E$ represent the links between them.
+
+A small subset of the nodes, $T \subseteq V$ contains the \emph{Ground Truth} of the data, which tells whether that user is part of the group of users with \emph{High Income} or the one with \emph{Low Income}. This data will be useful to train the predictors, test them, and also for generating some features as seen in Section~\ref{subsec:categoricaluserdata}.
+
+E contains the accumulated data of the edges between nodes. Each element $e \in E$ contains the following information.
+
+\begin{itemize}
+	\item \textbf{Origin} of the calls and SMS, which is the incoming endpoint\maybe{Is this the right terminology?} of this edge in the graph.
+	\item \textbf{Destination} of the calls and SMS, which is the outgoing endpoint\maybe{Idem} of this edge of the graph.
+	\item \textbf{Calls}, the total number of calls from the origin to the destination.
+	\item \textbf{Time}, the total time (in seconds) of all the calls from the origin to the destination.
+	\item \textbf{SMS}, the total amount of messages from the origin to the destination.
+\end{itemize}
+
+There isn't a simple way to use the three quantifiable features (\emph{Calls}, \emph{Time}, and \emph{SMS}) directly, since they refer to information about the edges when there should be a prediction towards the nodes. However, as shown in Section~\ref{sec:accumulatedfeatures}, this data, along with the information in $T$, can be acumulated for each user in different ways in order to create features for each user which are possible to use in the prediction of socioeconomic levels.
