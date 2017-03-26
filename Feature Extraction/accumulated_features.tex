@@ -2,6 +2,7 @@
 \label{sec:accumulatedfeatures}
 
 \subsection{User Data}
+\label{subsec:user_data}
 
 The first accumulated features consist of accumulating the three quantifiable features described in Section~\ref{sec:graphfeatures} for every node, separated on whether those features are incoming or outgoing.
 
@@ -38,11 +39,37 @@ These accumulated patterns present interesting distributions which are similar i
 \begin{figure}
 \includegraphicsmaybe{figures/time_dist.png}
 \caption{Distribution of total call time of outgoing calls for each user.}
-\label{fig:callsms}
+\label{fig:time}
 \end{figure}
 
 \begin{figure}
 \includegraphicsmaybe{figures/contact_dist.png}
 \caption{Distribution of \emph{Out-Degree} for each user.}
-\label{fig:callsms}
+\label{fig:contacts}
+\end{figure}
+
+\subsection{Higher Order User Data}
+
+The features described in Section~\ref{subsec:user_data} correspond to the information about calls and SMS from a user $v \in V$ towards all of its neighbours. However, there's no reason why this information can't be extended to nodes at a higher distance from $v$.
+
+The \emph{Ego Network} of the node $v$ is defined as the graph consisting of $v$ and its neighbors. A simple way to get more features about that node is to accumulate the call and SMS information about the edges which are \textbf{not} part of the \emph{Ego Network}, but one endpoint on the border\maybe{Formal definition of border of ego network?} of this.
+
+Additionally, if we define the distance between two nodes using the intuitive definition which is presented on Equation~\ref{eq:distance}, we can define the \emph{User Data of Order $n$}, for any natural number $n$, as the accumulation of call and SMS information where one endpoint is on the border of the \emph{Ego Network of Order $n$}, and the other one isn't. The \emph{Ego Network of Order $n$} of a certain node $v$ is the subgraph composed of the node $v$, plus all the nodes which are at most at distance $n$ of $v$.
+
+\begin{equation}
+d \left( a, b \right) =
+\begin{cases}
+	0 & \text{if } a = b \\
+	1 + \min_{v \in \ego \left(b \right)} d \left( a, v \right) & \text{otherwise}
+\end{cases}
+\label{eq:distance}
+\end{equation}
+
+This definition can be seen intuitively in Figure~\ref{fig:nthorderuserdata}.
+
+\begin{figure}
+\centering
+\includegraphicsmaybe{figures/higherorderuserdata.png}
+\caption{Example of the edges present in the calculation of the \emph{Higher Order User Data} for a certain node.}
+\label{fig:higherorderuserdata}
 \end{figure}
