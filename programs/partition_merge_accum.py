@@ -27,7 +27,7 @@ class OrderedDF(object):
     def __iter__(self):
         self.extract()
         while not self.done():
-            yield self
+            yield self.body
             self.extract()
 
     def __init__(self, it):
@@ -46,18 +46,20 @@ def parse_args():
     parser.add_argument('-c', '--columns', nargs = '*', default = [], help = 'Columns to partition the file by, other than the first.')
     parser.add_argument('merge_col', help = 'Column in the standard imput to do the merging.')
     parser.add_argument('merge_file', help = 'File to do the merging with.')
+    return parser.parse_args()
 
 if __name__ == '__main__':
     logging.basicConfig(format='%(asctime)s|\t%(message)s', level=logging.DEBUG, datefmt='%H:%M:%S')
     args = parse_args()
 
+    logging.debug('Reading merge file.')
     extra = pandas.read_csv(args.merge_file, sep = '|', index_col = [0])
 
-    data = OrderedDF(pandas.read_csv(sys.stdin, sep = '|', index_col = [0], chunksize = 100000))
+    data = OrderedDF(pandas.read_csv(sys.stdin, sep = '|', index_col = [0], chunksize = 1000000))
     for e, chunk in enumerate(data):
         if e & (e - 1) == 0:
             logging.debug('Parsing chunk {}. Last datum is {}.'.format(e, data.body.index[-1]))
 
-        full = data.merge(extra, left_on = args.merge_col, right_index = True).drop(args.merge_col, axis = 1)
+        full = chunk.merge(extra, left_on = args.merge_col, right_index = True).drop(args.merge_col, axis = 1)
         accum = full.groupby([full.index] + args.columns).sum()
-        accum.to_csv(sys.stdout, index = True, header = e == 0)
+        accum.to_csv(sys.stdout, sep = '|', index = True, header = e == 0)
