@@ -86,15 +86,15 @@ As we get more data from the sampling, the \emph{Beta distribution} turns more c
 
 In the following subsections we present the outline of several supervised machine learning algorithms which are used to compare the Bayesian method to a more realistic baseline. First, we'll present several ways to validate the different algorithms when applied to the data. In the following section, we'll present many of the algorithms used for comparison.
 
-Given a set of features $X$ with labels $y$, called \textbf{training data}, and another set of features $Z$ without labels, we want to create an a binary classifier represented as a learning function $g : X \rightarrow y$ that will predict certain values of $y$ that are as close as possible to the real values.
+Given a set of fatures $Z$, all of which belong to members of a population which belong to a certain category, and a random subset of those features $X \subseteq Z$ whose category $y$ is known, the models should be trained with $X$ and $y$ in order to correctly predict the values corresponding to all the features in $Z$. Since those values are unknown validation of the output is impossible; therefore, we validate the model using the known values in $X$ and $y$.
 
 There are many metrics that can be used to measure the performance of a classifier or a predictor~\cite{binaryevaluation}; different fields have different preferences due to different goals. In this section, we present many metrics to evaluate different results that are commonly used in the area of mobile phone data analysis~\cite{oskardottir2016}.
 
 \subsubsection{Classification of individual results}
 
-Once we define out classifier $g$ and run it against a matrix\maybe{Set?} of features\maybe{Should I explain train/test split before this subsubsection?}, we get a predicted result $\ypred$ which, when compared to the actual result $\ytrue = y$, can be classified as the one in table~\ref{confusion}.
+Once we define out classifier $g$ and run it against a matrix\maybe{Set?} of features\maybe{Should I explain train/test split before this subsubsection?}, we get a predicted result $\ypred$ which, when compared to the actual result $\ytrue = y$, can be classified as the one in Table~\ref{tab:confusion}.
 
-\begin{figure}[h]
+\begin{table}[h]
 \begin{tabularx}{\textwidth}{| c | X | X X |}
 \hline
 
@@ -114,9 +114,9 @@ Condition Positive &
 \cellcolor{OrangeRed} \makecell{\textbf{True Negative}} \\ \hline
 
 \end{tabularx}
-\label{confusion}
 \caption[caption]{Confusion Table, showing different classifications of an individual prediction. \\ True and False Positives ($\TP$/$\FP$) refer to the number of predicted positives that were correct/incorrect, and similarly for True and False Negatives ($\TN$/$\FN$).}
-\end{figure}
+\label{tab:confusion}
+\end{table}
 
 Additionally, this table can be easily seen in a graphical way in figure~\ref{fig:truefalsenegativepositive}.
 
@@ -124,7 +124,7 @@ Additionally, this table can be easily seen in a graphical way in figure~\ref{fi
 \centering
 \includegraphics[width=15em]{figures/TrueFalseNegativePositive.png}
 \caption{Visual explanation of \emph{Precision} and \emph{Recall}}
-\label{fig:truefalsenegativepositive}
+\label{fig:truefalsenegativepositiv}
 \end{figure}
 
 \subsubsection{Precision and Recall}
@@ -209,12 +209,18 @@ F_\beta &= \left( 1 + \beta^2 \right) \cdot \frac{\TPA \cdot \TPR}{\left( \beta^
 
 The most commonly used \emph{F-measure}, $F_1$, measures the \emph{Precision} and \emph{Recall} is thet harmonic mean of the \emph{Precision} and \emph{Recall}. In particular, for an \emph{F-measure} with $\beta > 1$ weights Recall higher than Precision, while with $beta < 1$ weights Precision higher than Recall.
 
-\subsection{Machine Learning Models}
+\subsection{Supervised Machine Learning Models}
+
+This section presents several \emph{Supervised Machine Learning} models that are used in the paper. All models work using the process described in the introduction to Section~\ref{sucsec:mlmetrics} with a 
+
+\subsubsection{Logistic Regression}
+\label{subsec:logisticregression}
+
+\subsubsection{Decision Trees}
+\label{subsec:decisiontrees}
+\todo{Describe Decision Trees}
 
 \subsubsection{Random Forest}
 \label{subsec:randomforest}
 \todo{Add Random Forest}
 
-\subsubsection{Logistic Regression}
-\label{subsec:logisticregression}
-\todo{Describe Logistic Regression}
