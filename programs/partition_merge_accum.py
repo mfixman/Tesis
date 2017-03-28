@@ -62,4 +62,4 @@ if __name__ == '__main__':
 
         full = chunk.merge(extra, left_on = args.merge_col, right_index = True).drop(args.merge_col, axis = 1)
         accum = full.groupby([full.index] + args.columns).sum()
-        accum.to_csv(sys.stdout, sep = '|', index = True, header = e == 0)
+        accum.to_csv(sys.stdout, sep = '|', index = True, header = e == 0, index_label = extra.index.name)
