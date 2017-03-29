@@ -1,40 +1,40 @@
 \begin{table*}[t]
-\begin{tabular*}{\textwidth}{>{\bfseries}l l l @{\extracolsep{\fill}} r r r r r r r}
+\begin{tabular*}{\textwidth}{>{\bfseries}l l l @{\extracolsep{\fill}} r r r r r r r r}
 \toprule
-Method & Dataset & Level & Accuracy & Precision & Recall & AUC & F\textsubscript{1}-score & F\textsubscript{4}-score & Predict Time \\
+Method & Dataset & Level & Accuracy & Precision & Recall & AUC & F\textsubscript{1}-score & F\textsubscript{4}-score & Fit Time & Predict Time \\
 \midrule
 
-Random Selection & & & \num{1} & \num{1} & \num{1} & \num{1} & \num{1} & \num{1} & \SI{1}{\second} \\
-Majority Voting & & & \num{1} & \num{1} & \num{1} & \num{1} & \num{1} & \num{1} & \SI{1}{\second} \\
-Bayesian Method & & & \num{1} & \num{1} & \num{1} & \num{1} & \num{1} & \num{1} & \SI{1}{\second} \\
+Random Selection & & & \num{0.499} & \num{0.499} & \num{0.499} & \num{0.499} & \num{0.499} & \num{0.499} & \SI{0.000}{\second} & \SI{0.005}{\second} \\
+Majority Voting & & & \num{0.543} & \num{0.540} & \num{0.585} & \num{0.543} & \num{0.561} & \num{0.582} & \SI{0.000}{\second} & \SI{0.273}{\second} \\
+Bayesian Method & & & \num{1} & \num{1} & \num{1} & \num{1} & \num{1} & \num{1} & \SI{1}{\second} & \SI{1}{\second} \\
 
 \midrule
 
 \multirow{7}{*}{Logistic Regression}
 & \multirow{5}{*}{Outer}
-  & 0 & \num{0.541} & \num{0.580} & \num{0.299} & \num{0.541} & \num{0.395} & \num{0.308} & \SI{2.647}{\second} \\
-& & 0.5 &\num{0.570} & \num{0.749} & \num{0.212} & \num{0.570} & \num{0.330} & \num{0.221} & \SI{3.727}{\second} \\
-& & 1 & \num{0.552} & \num{0.597} & \num{0.326} & \num{0.553} & \num{0.422} & \num{0.335} & \SI{5.255}{\second} \\
-& & 1.5 & \num{0.598} & \num{0.726} & \num{0.358} & \num{0.606} & \num{0.479} & \num{0.369} & \SI{22.851}{\second} \\
-& & 2 & \num{0} & \num{0} & \num{0} & \num{0} & \num{0} & \num{0} & \SI{0}{\second} \\
-\cmidrule{2-10}
+  & 0 & \num{0.541} & \num{0.580} & \num{0.299} & \num{0.541} & \num{0.395} & \num{0.308} & \SI{4.976}{\second} & \SI{0.028}{\second} \\
+& & 0.5 &\num{0.570} & \num{0.749} & \num{0.212} & \num{0.570} & \num{0.330} & \num{0.221} & \SI{4.108}{\second} & \SI{0.061}{\second} \\
+& & 1 & \num{0.552} & \num{0.597} & \num{0.326} & \num{0.553} & \num{0.422} & \num{0.335} & \SI{6.213}{\second} & \SI{0.45}{\second} \\
+& & 1.5 & \num{0.598} & \num{0.726} & \num{0.358} & \num{0.606} & \num{0.479} & \num{0.369} & \SI{62.745}{\second} & \SI{0.084}{\second} \\
+& & 2 & \num{0} & \num{0} & \num{0} & \num{0} & \num{0} & \num{0} & \SI{0}{\second} & \SI{0}{\second} \\
+\cmidrule{2-11}
 & \multirow{2}{*}{Inner}
-  & 0.5 &\num{0.720} & \num{0.747} & \num{0.842} & \num{0.675} & \num{0.792} & \num{0.836} & \SI{1.005}{\second} \\
-& & 1.5 & \num{0.643} & \num{0.668} & \num{0.617} & \num{0.644} & \num{0.642} & \num{0.620} & \SI{21.498}{\second} \\
+  & 0.5 &\num{0.720} & \num{0.747} & \num{0.842} & \num{0.675} & \num{0.792} & \num{0.836} & \SI{0.821}{\second} & \SI{0.20}{\second} \\
+& & 1.5 & \num{0.723} & \num{0.746} & \num{0.857} & \num{0.672} & \num{0.797} & \num{0.849} & \SI{4.960}{\second} & \SI{0.021}{\second} \\
 
 \midrule
 
 \multirow{7}{*}{Random Forest}
 & \multirow{5}{*}{Outer}
-  & 0 & \num{0.541} & \num{0.542} & \num{0.528} & \num{0.541} & \num{0.535} & \num{0.528} & \SI{11.396}{\second} \\
-& & 0.5 & \num{0.567} & \num{0.572} & \num{0.533} & \num{0.567} & \num{0.552} & \num{0.535} & \SI{8.528}{\second} \\
-& & 1 & \num{0.572} & \num{0.580} & \num{0.527} & \num{0.572} & \num{0.552} & \num{0.530} & \SI{22.523}{\second} \\
-& & 1.5 & \num{0.723} & \num{0.747} & \num{0.852} & \num{0.675} & \num{0.796} & \num{0.845} & \SI{4.780}{\second} \\
-& & 2 & \num{0} & \num{0} & \num{0} & \num{0} & \num{0} & \num{0} & \SI{0}{\second} \\
-\cmidrule{2-10}
+  & 0 & \num{0.541} & \num{0.542} & \num{0.528} & \num{0.541} & \num{0.535} & \num{0.528} & \SI{24.066}{\second} & \SI{4.732}{\second} \\
+& & 0.5 & \num{0.567} & \num{0.572} & \num{0.533} & \num{0.567} & \num{0.552} & \num{0.535} & \SI{31.870}{\second} & \SI{4.442}{\second} \\
+& & 1 & \num{0.572} & \num{0.580} & \num{0.527} & \num{0.572} & \num{0.552} & \num{0.530} & \SI{68.472}{\second}  & \SI{4.568}{\second} \\
+& & 1.5 & \num{0.723} & \num{0.747} & \num{0.852} & \num{0.675} & \num{0.796} & \num{0.845} & \SI{64.757}{\second} & \SI{3.939}{\second}  \\
+& & 2 & \num{0} & \num{0} & \num{0} & \num{0} & \num{0} & \num{0} & \SI{0}{\second} & \SI{0}{\second} \\
+\cmidrule{2-11}
 & \multirow{2}{*}{Inner}
-  & 0.5 &\num{0.700} & \num{0.738} & \num{0.817} & \num{0.658} & \num{0.775} & \num{0.812} & \SI{2.146}{\second} \\
-& & 1.5 & \num{0.735} & \num{0.766} & \num{0.838} & \num{0.697} & \num{0.800} & \num{0.834} & \SI{6.706}{\second} \\
+  & 0.5 &\num{0.700} & \num{0.738} & \num{0.817} & \num{0.658} & \num{0.775} & \num{0.812} & \SI{8.537}{\second} & \SI{0.551}{\second} \\
+& & 1.5 & \num{0.735} & \num{0.766} & \num{0.838} & \num{0.697} & \num{0.800} & \num{0.834} & \SI{15.597}{\second} & \SI{0.570}{\second}  \\
 \bottomrule
 \end{tabular*}
 
