@@ -43,6 +43,7 @@ def parse_args():
         ),
         epilog = 'The first row fill always be partitioned, and should be ordered.'
     )
+    parser.add_argument('-f', '--filterrows', help = 'Only rows processed ar the ones in this file.')
     parser.add_argument('-c', '--columns', nargs = '*', default = [], help = 'Columns to partition the file by, other than the first.')
     parser.add_argument('merge_col', help = 'Column in the standard imput to do the merging.')
     parser.add_argument('merge_file', help = 'File to do the merging with.')
@@ -53,13 +54,29 @@ if __name__ == '__main__':
     args = parse_args()
 
     logging.debug('Reading merge file.')
-    extra = pandas.read_csv(args.merge_file, sep = '|', index_col = [0])
+    extra = []
+    for e, chunk in enumerate(pandas.read_csv(args.merge_file, sep = '|', index_col = [0], chunksize = 1000000)):
+        if e & (e - 1) == 0:
+            logging.debug('Parsing chunk {}. Last datum is {}.'.format(e, chunk.index[-1]))
+
+        extra.append(chunk)
+    extra = pandas.concat(extra)
+
+    filterrows = None
+    if args.filterrows:
+        logging.debug('Reading filter file.')
+        filterrows = pandas.read_csv(args.filterrows, sep = '|', usecols = [0], squeeze = True).values
 
     data = OrderedDF(pandas.read_csv(sys.stdin, sep = '|', index_col = [0], chunksize = 1000000))
     for e, chunk in enumerate(data):
         if e & (e - 1) == 0:
-            logging.debug('Parsing chunk {}. Last datum is {}.'.format(e, data.body.index[-1]))
+            logging.debug('Parsing chunk {}. Last datum is {}.'.format(e, None if chunk.empty else chunk.index[-1]))
+
+        if filterrows is not None:
+            chunk = chunk[chunk.index.isin(filterrows)]
 
         full = chunk.merge(extra, left_on = args.merge_col, right_index = True).drop(args.merge_col, axis = 1)
         accum = full.groupby([full.index] + args.columns).sum()
-        accum.to_csv(sys.stdout, sep = '|', index = True, header = e == 0, index_label = extra.index.name)
+
+        accum.index.rename(extra.index.name, level = 0, inplace = True)
+        accum.to_csv(sys.stdout, sep = '|', index = True, header = e == 0)
