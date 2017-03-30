@@ -6,7 +6,7 @@
 
 The data used in this study consist of a set $P$ of \textit{Call Detail Records} (CDRs), composed of voice calls, and another set $S$ from the same company containing text messages from a Mexican telecommunication company (\textit{telco}) for a 3 month period.
 
-Every CDR $p \in P$ contains the phone numbers of the caller and callee $\left< p_o, p_d \right>$, which are anonymized using a cryptographic hash function for privacy reasons, the starting time \( p_t \), and, in the case of voice calls, the call duration \( p_s \). The same datum, except call duration, can be found for each element $s \in S$.
+Every CDR $p \in P$ contains the phone numbers of the caller and callee $\left< p_o, p_d \right>$, which are anonymized using a cryptographic hash function for privacy reasons, the starting time \( p_t \), and the call duration \( p_s \). The same datum, except call duration, can be found for each element $s \in S$.
 
 Given that our collections $P$ and $S$ are coming from one telephone company, we are able to reconstruct all communication links between clients of this company, as well as communications between the clients and other users, but we have no information on communications where neither users are clients of our telco company. Since we need all the information about the calls and SMSs from the users on the graph, we only work with the users in the telco.
 

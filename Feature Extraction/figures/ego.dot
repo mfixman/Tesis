@@ -1,6 +1,6 @@
 graph G {
-	ratio = .85
-	ranksep = 0.4
+	ratio = .57
+	ranksep = 0.3
 	// overlap = true
 
 	node[shape=circle, label=""]

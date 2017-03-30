@@ -3,10 +3,10 @@
 \usepackage{amsfonts}
 \usepackage{amsmath}
 \usepackage{amssymb}
-\usepackage[]{changepage} % Not (yet) supported by LaTeXML.
+\usepackage[]{changepage}
 \usepackage{caption}
 \usepackage{float}
-\usepackage[T1]{fontenc} % Not (yet) supported by LaTeXML.
+\usepackage[T1]{fontenc}
 \usepackage[]{graphicx}
 \usepackage[utf8]{inputenc}
 \usepackage{makecell}
@@ -25,11 +25,21 @@
 \usepackage{multirow}
 \usepackage{makecell}
 \usepackage{xfrac}
+\usepackage{exscale}
 
 \bibliographystyle{plain}
 
 \newcommand{\todo}[1]{\textbf{\color{red} TODO:\@ #1}}
 \newcommand{\maybe}[1]{\footnote{\color{red} #1}}
+
+\newcommand{\noimage}{%
+  \setlength{\fboxsep}{-\fboxrule}
+  \fbox{\phantom{\rule{\columnwidth}{100pt}}}
+}
+\newcommand{\includegraphicsmaybe}[1]{\IfFileExists{#1}{\includegraphics[width=\columnwidth]{#1}}{\noimage}}
+
+\newcommand{\closeopen}[2]{\left[ #1, #2 \right)}
+\newcommand{\mathmuchlarger}[1]{\mathlarger{\mathlarger{#1}}}
 
 \newcommand{\Beta}{B}
 \newcommand{\mathA}{\mathcal{A}}
@@ -58,7 +68,9 @@
 \DeclareMathOperator{\InvRecall}{Inverse\ Recall}
 \DeclareMathOperator{\Accuracy}{Accuracy}
 
-\newcommand{\closeopen}[2]{\left[ #1, #2 \right)}
+\DeclareMathOperator{\calls}{calls}
+\DeclareMathOperator{\etime}{time}
+\DeclareMathOperator{\sms}{sms}
 
 \setcounter{secnumdepth}{3}
 \captionsetup[table]{skip = 2ex}
