@@ -169,7 +169,56 @@ Analyzing \Cref{fig:income_distribution}, we can observe that the top 10\% of th
 
 \subsection{Regional Distribution of Income}
 
-Given the have locations of the calls in the subset $G' \subseteq G$, we can infer the home of each user in $V'$ using the 
+Given the have locations of the calls in the subset $G' \subseteq G$, we can infer the home of each user in $V'$ using the method described in~\cite{csaji2013}. This is extremely useful when doing analyses, since it allows us to find differences in income distribution between areas of Mexico. In particular, \Cref{fig:regions} shows the average income per Mexican State in our dataset, which is compared to the data in Mexico in \Cref{tab:regions}.
 
-\todo{Distribution per region.}
-\todo{Comparison with statistics from Mexico.}
+\begin{figure}
+\centering
+\includegraphicsmaybe{figures/regions.png}
+\caption{Average income by region of Mexico}
+\label{fig:regions}
+\end{figure}
+
+\begin{table}[p]
+\centering
+\begin{tabular}{>{\bfseries}l c c c}
+\toprule
+\multirow{2}{*}{State} & \multirow{2}{*}{Count in dataset} & Average Income & Average Income \\
+& & (current dataset) & (Mexico's census) \\
+\midrule
+Aguascalientes & & & \\
+Baja California Norte & & & \\
+Baja California Sur & & & \\
+Campeche & & & \\
+Chiapas & & & \\
+Chihuahua & & & \\
+Ciudad de México & & & \\
+Coahuila & & & \\
+Colima & & & \\
+Durango & & & \\
+Estado de México & & & \\
+Guanajuato & & & \\
+Guerrero & & & \\
+Hidalgo & & & \\
+Jalisco & & & \\
+Michoacan & & & \\
+Morelos & & & \\
+Nayarit & & & \\
+Nuevo Leon & & & \\
+Oaxaca & & & \\
+Puebla & & & \\
+Queretaro & & & \\
+Quintana Roo & & & \\
+San Luis Potosi & & & \\
+Sinaloa & & & \\
+Sonora & & & \\
+Tabasco & & & \\
+Tamaulipas & & & \\
+Tlaxcala & & & \\
+Veracruz & & & \\
+Yucatan & & & \\
+Zacatecas & & & \\
+\bottomrule
+\end{tabular}
+\caption{Income information about Mexico's regions}
+\label{tab:regions}
+\end{table}
