@@ -34,6 +34,7 @@ The set $E$ can be formally constructed with the instructions of the Equation~\r
 For simplicity sake, this paper will also refer to the elements of these three sets as $\calls_e$, $\sms_e$, and $\etime_e$ respectively.
 
 \subsubsection{Magnitudes and Distributions}
+\label{subsec:telco_magnitude}
 
 As a corollary, $G_N$ can be defined as the graph $\left< N, E_N \right>$, where $E_N$ contains only calls between users of the telco, and $G'$ as $\left< V', E' \right>$, where $E'$ contains the calls from and to users whose calls are located.
 
@@ -75,6 +76,7 @@ Additionally, the distribution of calling times present a logarithmic pattern\ma
 \end{figure}
 
 \subsection{Banking Information}
+\label{subsec:bank_source}
 
 \subsubsection{Dataset Description}
 
@@ -100,14 +102,38 @@ In another line of work, homophily with respect to age has been observed and use
 \label{fig:income_age_boxplot}
 \end{figure}
 
+The income distribution, as shown in \Cref{fig:income_distribution} presents a similar distribution to the values in the dataset presented in~\Cref{subsec:telco_magnitude}\maybe{Check this}.
+
+\begin{figure}
+\centering
+\includegraphicsmaybe{figures/incomedistribution.png}
+\caption{Distribution of incomes of users, represented by the set $B$}
+\label{fig:income_distribution}
+\end{figure}
+
 \subsection{Matching of Bank and Telco Information}
 
 Since the phone numbers in each call in the list of users $V$ are anonymized with the same hash function as the phone number in the bank data in the set $B$, the users can be matched to their unique phone to augment the \emph{Social Graph} $G$, where the elements in the set $S = V \cap B$ contain banking information.
 
 \begin{equation}
 \label{eq:banktelcojoin}
-G = \mathP \bowtie_{_{p_o = b_p}} \mathB \bowtie_{_{p_d = b_p}} \mathB
+\begin{gathered}
+G = \left< V, E \right> \\
+( \forall e \in E ) \\
+e_o = b_p \implies e_{\operatorname{so}} = b_s \\
+e_d = b_p \implies e_{\operatorname{sd}} = b_s \\
+\end{gathered}
 \end{equation}
+
+The distribution of bank users in $S$ is similar to the one in $B$, as shown in~\Cref{fig:matchdistribution}. This demostrates that the users of this particular telco have mostly the same socioeconomic patterns as the clients of the bank in general.
+
+\begin{figure}
+\centering
+\includegraphicsmaybe{figures/matchdistribution.png}
+\caption{Distribution of incomes for users of both the bank and telco, represented by the set $S$.}
+\label{fig:matchdistribution}
+\end{figure}
+
 
 % \subsection{Outlier Filtering}
 % 
@@ -140,6 +166,10 @@ From the Lorenz curve, we can compute the Gini coefficient as the area that lies
 According to the World Bank~\cite{world_bank}, the Gini coefficient for the whole population of Mexico was $0.481$ in 2012. Our result is consistent with this information, since the income inequality is expected to be lower when accounting only to bank clients than within the whole population of the country.
 
 Analyzing \Cref{fig:income_distribution}, we can observe that the top 10\% of the clients accumulate 33\% of the total income, while the top 20\% accumulate 50.5\% and the top 30\% accumulate 63.1\%; the rest of the income is distributed among the remaining 70\% of the population.
+
+\subsection{Regional Distribution of Income}
+
+Given the have locations of the calls in the subset $G' \subseteq G$, we can infer the home of each user in $V'$ using the 
 
 \todo{Distribution per region.}
 \todo{Comparison with statistics from Mexico.}
