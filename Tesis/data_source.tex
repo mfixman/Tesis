@@ -102,13 +102,14 @@ In another line of work, homophily with respect to age has been observed and use
 \label{fig:income_age_boxplot}
 \end{figure}
 
-The income distribution, as shown in \Cref{fig:income_distribution} presents a similar distribution to the values in the dataset presented in~\Cref{subsec:telco_magnitude}\maybe{Check this}.
+The income distribution, as shown in \Cref{fig:incomedistribution} presents a similar distribution to the values in the dataset presented in~\Cref{subsec:telco_magnitude}\maybe{Check this}.
 
 \begin{figure}
-\centering
-\includegraphicsmaybe{figures/incomedistribution.png}
-\caption{Distribution of incomes of users, represented by the set $B$}
-\label{fig:income_distribution}
+\raggedright{}
+\includegraphics[width=1.15\textwidth]{figures/incomedistribution.png}
+% \includegraphicsmaybe{figures/incomedistribution.png}
+\caption{Distribution of incomes of users, represented by the set $B$, with different percentiles marked. This plot helps appreciate the unequal distribution of income, since the 50th percentile has a comparatively low income, while the differential between higher percentile of incomes is each time higher.}
+\label{fig:incomedistribution}
 \end{figure}
 
 \subsection{Matching of Bank and Telco Information}
@@ -152,20 +153,22 @@ The distribution of bank users in $S$ is similar to the one in $B$, as shown in~
 
 We provide here some observations of the distribution of income of the bank clients. These observations correspond to the filtered dataset, obtained after applying the filters of the previous section.
 
-\Cref{fig:income_distribution} shows the Lorenz curve, graphical representation of the distribution of income~\cite{satchell1987}. The curve plots the cumulative share of clients, sorted by income, to the fraction of the total income of the population.
+\Cref{fig:lorenz} shows the Lorenz curve, graphical representation of the distribution of income~\cite{satchell1987}. The curve plots the cumulative share of clients, sorted by income, to the fraction of the total income of the population.
 
 \begin{figure}
 \centering
 \includegraphics[width=0.9\columnwidth]{figures/cumulative_income.png}
 \caption{Lorenz curve representing the distribution of income of bank clients.}
-\label{fig:income_distribution}
+\label{fig:lorenz}
 \end{figure}
 
 From the Lorenz curve, we can compute the Gini coefficient as the area that lies between the line of perfect equality and the Lorenz curve over the total area under the line of equality. The data presents a coefficient of $\operatorname{Gini} = 0.45$.
 
 According to the World Bank~\cite{world_bank}, the Gini coefficient for the whole population of Mexico was $0.481$ in 2012. Our result is consistent with this information, since the income inequality is expected to be lower when accounting only to bank clients than within the whole population of the country.
 
-Analyzing \Cref{fig:income_distribution}, we can observe that the top 10\% of the clients accumulate 33\% of the total income, while the top 20\% accumulate 50.5\% and the top 30\% accumulate 63.1\%; the rest of the income is distributed among the remaining 70\% of the population.
+By simple analyzing \Cref{fig:incomedistribution}, we can reach the conclusion that thet income in Mexico is very unequally distributed. In particular, the top 1\% of the population get about 10\% of the total income, while the top 5\% get 25\%, the top 10\% 37\%, and the top 25\% get 61\%.
+
+Analyzing \Cref{fig:incomedistribution}, we can observe that the top 10\% of the clients accumulate 33\% of the total income, while the top 20\% accumulate 50.5\% and the top 30\% accumulate 63.1\%; the rest of the income is distributed among the remaining 70\% of the population.
 
 \subsection{Regional Distribution of Income}
 
@@ -178,47 +181,3 @@ Given the have locations of the calls in the subset $G' \subseteq G$, we can inf
 \label{fig:regions}
 \end{figure}
 
-\begin{table}[p]
-\centering
-\begin{tabular}{>{\bfseries}l c c c}
-\toprule
-\multirow{2}{*}{State} & \multirow{2}{*}{Count in dataset} & Average Income & Average Income \\
-& & (current dataset) & (Mexico's census) \\
-\midrule
-Aguascalientes & & & \\
-Baja California Norte & & & \\
-Baja California Sur & & & \\
-Campeche & & & \\
-Chiapas & & & \\
-Chihuahua & & & \\
-Ciudad de México & & & \\
-Coahuila & & & \\
-Colima & & & \\
-Durango & & & \\
-Estado de México & & & \\
-Guanajuato & & & \\
-Guerrero & & & \\
-Hidalgo & & & \\
-Jalisco & & & \\
-Michoacan & & & \\
-Morelos & & & \\
-Nayarit & & & \\
-Nuevo Leon & & & \\
-Oaxaca & & & \\
-Puebla & & & \\
-Queretaro & & & \\
-Quintana Roo & & & \\
-San Luis Potosi & & & \\
-Sinaloa & & & \\
-Sonora & & & \\
-Tabasco & & & \\
-Tamaulipas & & & \\
-Tlaxcala & & & \\
-Veracruz & & & \\
-Yucatan & & & \\
-Zacatecas & & & \\
-\bottomrule
-\end{tabular}
-\caption{Income information about Mexico's regions}
-\label{tab:regions}
-\end{table}

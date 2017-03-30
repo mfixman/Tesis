@@ -32,11 +32,12 @@
 \newcommand{\todo}[1]{\textbf{\color{red} TODO:\@ #1}}
 \newcommand{\maybe}[1]{\footnote{\color{red} #1}}
 
-\newcommand{\noimage}{%
+\newcommand{\noimage}[1]{%
   \setlength{\fboxsep}{-\fboxrule}
-  \fbox{\phantom{\rule{\columnwidth}{100pt}}}
+  % \fbox{\phantom{\rule{\columnwidth}{100pt}}}
+  \framebox(300, 100){\texttt{#1}}
 }
-\newcommand{\includegraphicsmaybe}[1]{\IfFileExists{#1}{\includegraphics[width=\columnwidth]{#1}}{\noimage}}
+\newcommand{\includegraphicsmaybe}[1]{\IfFileExists{#1}{\includegraphics[width=\columnwidth]{#1}}{\noimage{#1}}}
 
 \newcommand{\closeopen}[2]{\left[ #1, #2 \right)}
 \newcommand{\mathmuchlarger}[1]{\mathlarger{\mathlarger{#1}}}
@@ -126,6 +127,8 @@
 \section{Real World Observations}
 
 \input{conclusion}
+
+\input{figures}
 
 \bibliography{bibliography/sna}{}
 
