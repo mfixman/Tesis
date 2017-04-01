@@ -66,12 +66,12 @@ In the context of \emph{Bayesian Inference}, the \emph{Beta Distribution} is the
 
 \subsubsection{Probability Density Function}
 
-Given a variable $0 \leq x \leq 1$, which represents the unknown probability of having a \emph{Positive Sample} from the distribution, and the shape parameters $\alpha > 0$ and $\beta > 0$, the \emph{Probability Density Function} of the beta distribution can be described as in Equation~\ref{eq:beta_pdf}.
+Given a variable $0 \leq x \leq 1$, which represents the unknown probability of having a \emph{Positive Sample} from the distribution, and the shape parameters $\alpha > 0$ and $\beta > 0$, the \emph{Probability Density Function} of the beta distribution can be described as in Equation~\ref{eq:beta_pdf}, where $\kappa$ represents some constant.
 
 \begin{equation}
 \label{eq:beta_pdf}
 \begin{aligned}
-f(x; \alpha, \beta) &= \kappa \cdot x^{\alpha - 1} {\left( 1 - x \right)}^{\beta - 1} \\
+f\left(x; \alpha, \beta\right) &= \kappa \cdot x^{\alpha - 1} {\left( 1 - x \right)}^{\beta - 1} \\
 &= \dsfrac{x^{\alpha - 1} {\displaystyle \left( 1 - x \right)}^{\beta - 1}}{\int^1_0 {u^{\alpha - 1} {\left( 1 - u \right)}^{\beta - 1} du}} \\
 &= \dsfrac{\Gamma \left( \alpha + \beta \right)}{\Gamma \left( \alpha \right) \Gamma \left( \beta \right)} \cdot x^{\alpha - 1} {\left( 1 - x\right)}^{\beta - 1} \\
 &= \dsfrac{1}{\Beta \left(\alpha, \beta\right)} \cdot x^{\alpha - 1} {\left(1 - x\right)}^{\beta - 1}
@@ -79,26 +79,58 @@ f(x; \alpha, \beta) &= \kappa \cdot x^{\alpha - 1} {\left( 1 - x \right)}^{\beta
 \end{equation}
 
 \begin{equation}
-\Beta \left( x; \alpha, \beta \right) = \frac{1}{\Beta \left( \alpha, \beta \right)} x^{\alpha - 1} \cdot {\left( 1 - x \right)}^{\beta - 1}
-\label{Beta}
+\label{eq:beta_function}
+\Beta\left(\alpha, \beta\right) = \frac{\Gamma\left(\alpha + \beta\right)}{\Gamma\left(\alpha\right) \Gamma\left(\beta\right)}
 \end{equation}
 
-Where \( \alpha \) and \( \beta \) are parameters for the Beta distribution, and \( \Beta \) is the \emph{Beta function}, which is the normalizing constant of the distribution.
+\Cref{eq:beta_function}, describes the \emph{Beta Function}, which is related to the \emph{Gamma Function} and describes a similar pattern~\cite{thegammafunction}.
+
+Regarding this thesis, the \emph{Beta Distribution} will be used to model a real life problem in Section~\ref{sec:inference_methodology}. In this problem, both $\alpha \in \mathbb{N}$ and $\beta \in \mathbb{N}$, so the \emph{Beta Function} can be simplified using the identity $\left( x - 1 \right)! = \Gamma \left( x \right)$ as shown in Equation~\ref{eq:beta_int}.
 
 \begin{equation}
-\Beta \left( \alpha, \beta \right) = \int^1_0 p^{\alpha - 1} {(1 - p)} ^{\beta - 1} dp = \frac{\Gamma (\alpha) \cdot \Gamma(\beta)}{\Gamma (\alpha + \beta)}
-\label{Betaf}
+\label{eq:beta_int}
+\Beta(\alpha, \beta) = \frac{(\alpha + \beta - 1)!}{(\alpha - 1)! \cdot (\beta - 1)!}
 \end{equation}
 
-As we get more data from the sampling, the \emph{Beta distribution} turns more concenteated towards the actual \( \theta \) and its shapes resembles more a normal curve, as can be seen in \Cref{betagraph}. This represents the increased certainty which comes from the aquired knowledge of the problem.
+Additionally, the \emph{Beta Function} can be generalized into the \emph{Incomplete Beta Function} for some parameter $x$ as in Equation~\ref{eq:incomplete_beta}. This function is, confusingly, also represented with the greek letter $\Beta$; to ease comprehension this thesis will refer to it as $\Betainc$.
 
-\begin{figure}[H]
-\begin{center}
+\begin{equation}
+\label{eq:incomplete_beta}
+\Betainc(x; \alpha, \beta) = \int_0^x {t^{\alpha - 1} {(1 - t)}^{\beta - 1} dt}
+\end{equation}
+
+As we get more data from the sampling, the \emph{Beta distribution} turns more concenteated towards the actual \( \theta \) and its shapes resembles more a normal curve, as can be seen in \Cref{fig:betagraph}. This represents the increased certainty which comes from the aquired knowledge of the problem.
+
+\begin{figure}
+\centering
 \includegraphics[width=\textwidth]{figures/beta.png}
 \caption{Beta distribution with different parameters}
-\end{center}
-\label{betagraph}
+\label{fig:betagraph}
 \end{figure}
+
+\subsubsection{Cumulative Distribution Function}
+
+The \emph{Cumulative Distribution Function} of the \emph{Beta Distribution} is defined in Equation~\ref{eq:beta_cdf}.
+
+\begin{equation}
+\label{eq:beta_cdf}
+\begin{aligned}
+F \left( x; \alpha, \beta \right)  &= \int_0^x f \left( t; \alpha, \beta \right) dt \\
+&= \int_0^x {\frac{1}{\Beta \left( \alpha, \beta \right)} t^{\alpha - 1} {\left( 1 - t \right)}^{\beta - 1} dt} \\
+&= \frac{1}{\Beta \left( \alpha, \beta \right)} \cdot \int_0^x {t^{\alpha - 1} {\left( 1 - t \right)}^{\beta - 1} dt} \\
+&= \frac{\Betainc \left( x; \alpha, \beta \right)}{\Beta \left( \alpha, \beta \right)}
+\end{aligned}
+\end{equation}
+
+$F$ is also known as the \emph{Regularized Incomplete Beta Function}, represented as $I_x(\alpha, \beta)$. This function is related to the \emph{Cumulative Distribution Function} of the \emph{Binomial Distribution}, as shown in Equation~\ref{eq:incomplete_beta_binomial}.
+
+\begin{equation}
+\label{eq:incomplete_beta_binomial}
+\begin{gathered}
+X \sim B \left( n, p \right)  \\
+P \left( X \leq k \right)  = I_{1 - p} \left( n - k, k + 1 \right)
+\end{gathered}
+\end{equation}
 
 \subsection{Machine Learning Validation Metrics}
 \label{subsec:mlmetrics}
