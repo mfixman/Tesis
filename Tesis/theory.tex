@@ -115,11 +115,21 @@ The \emph{Cumulative Distribution Function} of the \emph{Beta Distribution} is d
 \begin{equation}
 \label{eq:beta_cdf}
 \begin{aligned}
-F(x; \alpha, \beta) &= \int_0^x f(t; \alpha, \beta) dt \\
-&= \int_0^x \frac{1}{\Beta(\alpha, \beta)} t^{\alpha - 1} {(1 - t)}^{\beta - 1} dt \\
-&= \frac{1}{\Beta(\alpha, \beta)} \int_0^x t^{\alpha - 1} {(1 - t)}^{\beta - 1} dt \\
-&= \frac{\Betainc(x; \alpha, \beta)}{\Beta(\alpha, \beta)}
+F \left( x; \alpha, \beta \right)  &= \int_0^x f \left( t; \alpha, \beta \right) dt \\
+&= \int_0^x {\frac{1}{\Beta \left( \alpha, \beta \right)} t^{\alpha - 1} {\left( 1 - t \right)}^{\beta - 1} dt} \\
+&= \frac{1}{\Beta \left( \alpha, \beta \right)} \cdot \int_0^x {t^{\alpha - 1} {\left( 1 - t \right)}^{\beta - 1} dt} \\
+&= \frac{\Betainc \left( x; \alpha, \beta \right)}{\Beta \left( \alpha, \beta \right)}
 \end{aligned}
+\end{equation}
+
+$F$ is also known as the \emph{Regularized Incomplete Beta Function}, represented as $I_x(\alpha, \beta)$. This function is related to the \emph{Cumulative Distribution Function} of the \emph{Binomial Distribution}, as shown in Equation~\ref{eq:incomplete_beta_binomial}.
+
+\begin{equation}
+\label{eq:incomplete_beta_binomial}
+\begin{gathered}
+X \sim B \left( n, p \right)  \\
+P \left( X \leq k \right)  = I_{1 - p} \left( n - k, k + 1 \right)
+\end{gathered}
 \end{equation}
 
 \subsection{Machine Learning Validation Metrics}
