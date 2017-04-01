@@ -61,6 +61,22 @@ Another possible way to accumulate these values is discriminating them by the ca
 \end{gathered}
 \end{equation}
 
+\subsubsection{Uncertainty}
+
+One important thing to note is that the only nodes accumulated in \Cref{eq:bayesian_accum} for some node $v \in V$ are the neighbouring ones that belong to $S$. \Cref{eq:subset_neighbours} indicates how to build the subset $D \subseteq S$ of bank users who also have a neughbour in the \emph{Social Graph} $G$ which is also part of the bank.
+
+\begin{equation}
+\label{eq:subset_neighbours}
+\begin{gathered}
+E^D = \left\{ e \in E \mid e_o \in S \land e_d \in S \right\} \\
+D = E^D_o \cup E^D_d
+\end{gathered}
+\end{equation}
+
+$D$ is defined as a subset of $S$, instead of one of $V$, because we cannot analyze the performance of a predictor on telco users who aren't part of the bank.
+
+There is an aditional level of uncertainty: while the data contains information about calls, and the inference assumes that callee and caller know each other (which is usually true after we remove outliers, as in \Cref{subsec:outlier}), there is simply no information about the socioeconomic level of acquaintances who don't share phone calls. However, the more calls a user names, and the more people it calls, the more \emph{Certain} we can be that the algorithm in this section is correct.
+
 % We define the set \( Q \) as the group of users having at least one connection link to bank clients. For each user \( q^j \in Q \), we compute the number of outgoing calls \( a^j_i \) to the category \( H_i \). Our hypothesis, given the observed homophily, is that if a user \( q^j \) has a higher number of calls \( a^j_i \) to the category \( H_i \) than the other category, it would be more likely to belong to the \( H_i \) income category. In other words, a person is usually in the same income category as the majority of people it calls.
 
 % A straightforward approach would be to define the income category of a user as the category where most of its contacts belong. The problem with this approach is that it does not factor in the higher uncertainty in our estimates for users with fewer calls. To address this uncertainty, instead of using calling frequencies to define the probability of a user belonging to the high income category, we use the amount of calls \( a^j_i \) as parameters defining a Beta distribution for the probability of belonging to a given category. We have therefore taken a Bayesian rather than a frequentist approach to income prediction.

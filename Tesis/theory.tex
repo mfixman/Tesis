@@ -44,20 +44,39 @@ The Bayesian approach connects the data \( x \) with a \emph{prior distribution}
 By Bayes Theorem, we can infer the \emph{posterior distribution} using the other parameters.
 
 \begin{equation}
-f \left( \theta \middle| x \right) = \frac{f \left( x \middle| \theta \right) f \left( \theta \right)}{f \left( x \right)}
+f \left( \theta \mid x \right) = \frac{f \left( x \mid \theta \right) f \left( \theta \right)}{f \left( x \right)}
 \label{bayes}
 \end{equation}
 
-\( f \left( x \right) \), the \emph{marginal likelihood}, is the probability of observing the data \( x \) averaged across the entire space, which acts as a normalizing constant so that the density integrates to 1.
+$f(x)$, the \emph{Marginal Likelihood}, is the probability of observing the data $x$ averaged across the entire space, which acts as a normalizing constant so that the density integrates to 1.
 
 \begin{equation}
-f \left( x \right) = \int f \left( x \middle| \theta \right) f \left( \theta \right) d\theta
+f \left( x \right) = \int f \left( x \mid \theta \right) f \left( \theta \right) d \theta
 \label{marginal}
 \end{equation}
 
-\subsubsection{Beta Distribution}
+\subsection{Beta Distribution}
+\label{subsec:beta}
 
-In this context, the \emph{Beta distribution} is a family of Bayesian probability distributions which can be used to describe initial knowledge concerning probability of success of a single bi-variate distribution.
+The \emph{Beta Distribution} is a family of continuos probability distributions defined in the interval $\left[ 0, 1 \right]$ which is parametrized by two shape parameters, $\alpha$ and $\beta$.
+
+The distribution can be used to model the behaviour of \emph{Random Variables} limited to intervals of a finite length. It is often used as a statistical funcion to model unknown data from a known sample, such as allele frequencies in population genetics~\cite{Balding1995}, Malaysian sunshine data~\cite{Sulaiman1999573}, and heterogeneity in the probability of HIV transmission~\cite{SIM:SIM4780080110}.
+
+In the context of \emph{Bayesian Inference}, the \emph{Beta Distribution} is the conjutate prior of the \emph{Binomial Distribution}, which allows us to describe initial knowledge concerning probability of success of a single bi-variate distribution. In layman terms, this allows us to know what is the distribution of the continuous $p$ parameter of a binomial distribution for which we have $\alpha$ positive and $\beta$ negative samples.
+
+\subsubsection{Probability Density Function}
+
+Given a variable $0 \leq x \leq 1$, which represents the unknown probability of having a \emph{Positive Sample} from the distribution, and the shape parameters $\alpha > 0$ and $\beta > 0$, the \emph{Probability Density Function} of the beta distribution can be described as in Equation~\ref{eq:beta_pdf}.
+
+\begin{equation}
+\label{eq:beta_pdf}
+\begin{aligned}
+f(x; \alpha, \beta) &= \kappa \cdot x^{\alpha - 1} {\left( 1 - x \right)}^{\beta - 1} \\
+&= \dsfrac{x^{\alpha - 1} {\displaystyle \left( 1 - x \right)}^{\beta - 1}}{\int^1_0 {u^{\alpha - 1} {\left( 1 - u \right)}^{\beta - 1} du}} \\
+&= \dsfrac{\Gamma \left( \alpha + \beta \right)}{\Gamma \left( \alpha \right) \Gamma \left( \beta \right)} \cdot x^{\alpha - 1} {\left( 1 - x\right)}^{\beta - 1} \\
+&= \dsfrac{1}{\Beta \left(\alpha, \beta\right)} \cdot x^{\alpha - 1} {\left(1 - x\right)}^{\beta - 1}
+\end{aligned}
+\end{equation}
 
 \begin{equation}
 \Beta \left( x; \alpha, \beta \right) = \frac{1}{\Beta \left( \alpha, \beta \right)} x^{\alpha - 1} \cdot {\left( 1 - x \right)}^{\beta - 1}
