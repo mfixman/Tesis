@@ -110,17 +110,22 @@ As we get more data from the sampling, the \emph{Beta distribution} turns more c
 
 \subsubsection{Cumulative Distribution Function}
 
-The \emph{Cumulative Distribution Function} of the \emph{Beta Distribution} is defined in Equation~\ref{eq:beta_cdf}.
+The \emph{Cumulative Distribution Function} of the \emph{Beta Distribution} is defined in Equation~\ref{eq:beta_cdf_formula}.
 
-\begin{equation}
+\begin{gather}
+\begin{gathered}
 \label{eq:beta_cdf}
+X \sim \Beta \left( \alpha, \beta \right) \\
+F \left( x; \alpha, \beta \right) = P \left( X \leq x \right)
+\end{gathered} \\
+\label{eq:beta_cdf_formula}
 \begin{aligned}
 F \left( x; \alpha, \beta \right)  &= \int_0^x f \left( t; \alpha, \beta \right) dt \\
 &= \int_0^x {\frac{1}{\Beta \left( \alpha, \beta \right)} t^{\alpha - 1} {\left( 1 - t \right)}^{\beta - 1} dt} \\
 &= \frac{1}{\Beta \left( \alpha, \beta \right)} \cdot \int_0^x {t^{\alpha - 1} {\left( 1 - t \right)}^{\beta - 1} dt} \\
 &= \frac{\Betainc \left( x; \alpha, \beta \right)}{\Beta \left( \alpha, \beta \right)}
 \end{aligned}
-\end{equation}
+\end{gather}
 
 $F$ is also known as the \emph{Regularized Incomplete Beta Function}, represented as $I_x(\alpha, \beta)$. This function is related to the \emph{Cumulative Distribution Function} of the \emph{Binomial Distribution}, as shown in Equation~\ref{eq:incomplete_beta_binomial}.
 
@@ -131,6 +136,18 @@ X \sim B \left( n, p \right)  \\
 P \left( X \leq k \right)  = I_{1 - p} \left( n - k, k + 1 \right)
 \end{gathered}
 \end{equation}
+
+\subsubsection{Inverse Cumulative Distribution Function}
+\label{subsec:beta_ppf}
+
+The problems solved in this thesis require the use of the \emph{Inverse Cumulative Distribution Function} (also known as the \emph{Quantile Function} or the \emph{Percent-Point Function}) of the \emph{Beta Distribution}, which returns a value such $x$ that meets the expression in Equation~\ref{eq:beta_cdf} is equal to some value $p$. It can also be expressed as in Equation~\ref{eq:quantile_function}.
+
+\begin{equation}
+\label{eq:quantile_function}
+Q \left( p \right)  = \inf \left\{ x \in \mathbb{R} \mid p \leq F \left( x \right)  \right\}
+\end{equation}
+
+Like with the \emph{Cumulative Distribution Function}, there is no closed form formula for expressing its inverse~\cite{kippingexoplanets2013}. However, there are fast and accurate ways of computing it using either \emph{Interval~Halving} or \emph{Newton's~Method}, such as the \texttt{incbi} implementation in the \emph{Cephes} library~\cite{cephes} which is use in this thesis via a wrapper from \texttt{sklearn}, as explained in Section~\ref{subset:machine_properties}.
 
 \subsection{Machine Learning Validation Metrics}
 \label{subsec:mlmetrics}
