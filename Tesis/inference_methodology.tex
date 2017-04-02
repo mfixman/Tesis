@@ -2,6 +2,7 @@
 \label{sec:inference_methodology}
 
 \subsection{Income Homophily}
+\label{subsec:income_homophily}
 
 \begin{figure}
 \centering
@@ -55,13 +56,14 @@ Another possible way to accumulate these values is discriminating them by the ca
 & \sms^{\high}_v = \sum_{\substack{e \in E \\ e_d = v \\ e_o \in H_2}}{e_s} + \sum_{\substack{e \in E \\ e_o = v \\ e_d \in H_2}}{e_s}
 \end{aligned} \\
 \begin{gathered}
-\contacts^{\low }_v = \left| \left\{ e \in E \; \middle| \begin{aligned} &e_o = v &\land &\quad e_d \in H_1 \\ &&\lor & \\ &e_d = v &\land &\quad e_o \in H_2 \end{aligned} \right\} \right| \\
-\contacts^{\high}_v = \left| \left\{ e \in E \; \middle| \begin{aligned} &e_o = v &\land &\quad e_d \in H_2 \\ &&\lor & \\ &e_d = v &\land &\quad e_o \in H_2 \end{aligned} \right\} \right|
+\contacts^{\low }_v = c^{\low}_v = \left| \left\{ e \in E \; \middle| \begin{aligned} &e_o = v &\land &\quad e_d \in H_1 \\ &&\lor & \\ &e_d = v &\land &\quad e_o \in H_2 \end{aligned} \right\} \right| \\
+\contacts^{\high}_v = c^{\high}_v = \left| \left\{ e \in E \; \middle| \begin{aligned} &e_o = v &\land &\quad e_d \in H_2 \\ &&\lor & \\ &e_d = v &\land &\quad e_o \in H_2 \end{aligned} \right\} \right|
 \end{gathered}
 \end{gathered}
 \end{equation}
 
 \subsubsection{Uncertainty}
+\label{subsec:uncertainty}
 
 One important thing to note is that the only nodes accumulated in \Cref{eq:bayesian_accum} for some node $v \in V$ are the neighbouring ones that belong to $S$. \Cref{eq:subset_neighbours} indicates how to build the subset $D \subseteq S$ of bank users who also have a neughbour in the \emph{Social Graph} $G$ which is also part of the bank.
 
@@ -75,7 +77,30 @@ D = E^D_o \cup E^D_d
 
 $D$ is defined as a subset of $S$, instead of one of $V$, because we cannot analyze the performance of a predictor on telco users who aren't part of the bank.
 
-There is an aditional level of uncertainty: while the data contains information about calls, and the inference assumes that callee and caller know each other (which is usually true after we remove outliers, as in \Cref{subsec:outlier}), there is simply no information about the socioeconomic level of acquaintances who don't share phone calls. However, the more calls a user names, and the more people it calls, the more \emph{Certain} we can be that the algorithm in this section is correct.
+There is an additional level of uncertainty: while the data contains information about calls, and the inference assumes that callee and caller know each other (which is usually true after we remove outliers, as in \Cref{subsec:outlier}), there is simply no information about the socioeconomic level of acquaintances who don't share phone calls. However, the more calls a user names, and the more people it calls, the more \emph{Certain} we can be that the algorithm in this section is correct.
+
+\subsubsection{Modelling Users}
+
+The final objecive of this thesis is to detect \emph{High Income} users in a dataset by just knowing their calls using the hypothesis, described in Section~\ref{subsec:income_homophily}, that a user will mostly call people from his same cincome category.
+
+As it was discussed in Section~\ref{subsec:uncertainty}, even having that data it's impossible to have complete information about a user's relationships. However, it's possible to create a \emph{Model} where we can predict the rate of \emph{High Income} to \emph{Low Income} contacts a user has, and with that data the Probability $p_v$ that this user $v \in V \setminus B$ is a \emph{High Income} user.
+
+The naïve way of solving this problem would be to assign this probability using only the current data, as in Equation~\ref{eq:naive_p}. However, this fails to account for the \emph{Certainty} that a user belongs to some category, which can be exemplified in scenarios where the probability of a user with only 1 \emph{High Income} contact being \emph{High Income} is slightly higher than one for another user with 100 \emph{High Income} contacts and 1 \emph{Low Income} contact.
+
+\begin{equation}
+\label{eq:naive_p}
+p_v = P \left( v \in H_2 \right) = \frac{c^{\high}_v}{c^{\high}_v + c^{\low}_v}
+\end{equation}
+
+A better way to define this model is to create, for each user $v \in V \setminus B$, a \emph{Beta Distribution} $\Beta_v$ which can define the probability of $p_v$ falling between two numbers. This approach is formalized in Equation~\ref{eq:beta}.
+
+\begin{equation}
+\label{eq:beta}
+\begin{gathered}
+p_v \sim \Beta \left( c^{\high}_v + 1, c^{\low}_v + 1 \right) \\
+P \left( p_v \leq x \right) = \frac{1}{\Beta \left( c^{\high} + 1, c^{\low} + 1 \right)} \cdot \int_0^x {t^{c^{\high}} {\left( 1 - t \right)}^{c^{\low}} dt}
+\end{gathered}
+\end{equation}
 
 % We define the set \( Q \) as the group of users having at least one connection link to bank clients. For each user \( q^j \in Q \), we compute the number of outgoing calls \( a^j_i \) to the category \( H_i \). Our hypothesis, given the observed homophily, is that if a user \( q^j \) has a higher number of calls \( a^j_i \) to the category \( H_i \) than the other category, it would be more likely to belong to the \( H_i \) income category. In other words, a person is usually in the same income category as the majority of people it calls.
 
