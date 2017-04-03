@@ -57,10 +57,10 @@ Another possible way to accumulate these values is discriminating them by the ca
 & \sms^{\low}_v = \sum_{\substack{e \in E \\ e_d = v \\ e_o \in H_1}}{e_s} + \sum_{\substack{e \in E \\ e_o = v \\ e_d \in H_1}}{e_s}
 & \sms^{\high}_v = \sum_{\substack{e \in E \\ e_d = v \\ e_o \in H_2}}{e_s} + \sum_{\substack{e \in E \\ e_o = v \\ e_d \in H_2}}{e_s}
 \end{aligned} \\
-\begin{gathered}
-\contacts^{\low }_v = c^{\low}_v = \left| \left\{ e \in E \; \middle| \begin{aligned} &e_o = v &\land &\quad e_d \in H_1 \\ &&\lor & \\ &e_d = v &\land &\quad e_o \in H_2 \end{aligned} \right\} \right| \\
-\contacts^{\high}_v = c^{\high}_v = \left| \left\{ e \in E \; \middle| \begin{aligned} &e_o = v &\land &\quad e_d \in H_2 \\ &&\lor & \\ &e_d = v &\land &\quad e_o \in H_2 \end{aligned} \right\} \right|
-\end{gathered}
+\begin{aligned}
+\contacts^{\low }_v &= c^{\low}_v &= &\left| \left\{ e \in E \; \middle| \begin{aligned} &e_o = v &\land &\quad e_d \in H_1 \\ &&\lor & \\ &e_d = v &\land &\quad e_o \in H_2 \end{aligned} \right\} \right| \\
+\contacts^{\high}_v &= c^{\high}_v &= &\left| \left\{ e \in E \; \middle| \begin{aligned} &e_o = v &\land &\quad e_d \in H_2 \\ &&\lor & \\ &e_d = v &\land &\quad e_o \in H_2 \end{aligned} \right\} \right|
+\end{aligned}
 \end{gathered}
 \end{equation}
 
@@ -82,6 +82,7 @@ $D$ is defined as a subset of $S$, instead of one of $V$, because we cannot anal
 There is an additional level of uncertainty: while the data contains information about calls, and the inference assumes that callee and caller know each other (which is usually true after we remove outliers, as in \Cref{subsec:outlier}), there is simply no information about the socioeconomic level of acquaintances who don't share phone calls. However, the more calls a user names, and the more people it calls, the more \emph{Certain} we can be that the algorithm in this section is correct.
 
 \subsubsection{Modelling Users}
+\label{subsec:modelling_users}
 
 The final objective of this thesis is to detect \emph{High Income} users in a dataset by just knowing their calls using the hypothesis, described in Section~\ref{subsec:income_homophily}, that a user will mostly call people from his same income category. For this, some calculated will be made on the low and high calculations for some property $\varpi$\footnotemark{}, which is one of the values defined in Equation~\ref{eq:property}. Part of the performance calculations in Section~\ref{sec:results} will imply finding the $\varpi$ which maximizes some score.
 

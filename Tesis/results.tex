@@ -87,3 +87,82 @@ $\Upsilon^{\sms}$ & \num{11909} & \num{6046} & \num{5863} \\
 \caption{Amount of users in the \emph{Testing Set} after trimming it several times to prevent overfitting while keeping the labels balanced}
 \label{tab:partition_numbers}
 \end{table}
+
+\subsection{Algorithm Performance}
+
+The \emph{Bayesian Algorithm} will be ran for every $\varpi \in \left\{ \contacts, \calls, \etime, \sms \right\}$. For every possible configuration, we present 3 plots for $\Theta = 0.005$.
+
+\begin{itemize}
+	\item A \textbf{histogram} presenting the distribution of the $p_v$ values which result from applying Equation~\ref{eq:beta_theta_ppf} presented in Section~\ref{subsec:modelling_users} to each distinct \emph{Beta Distribution}.
+	\item An \textbf{Receiver Operating Characteristic Curve}, showing the tradeoff of \emph{False Positive Rate} to \emph{True Positive Rate} when selecting every possible $\tau$. The \emph{Area Under the Curve} is marked, as this is the metric that is being maximized when selecting the correct $\varpi$.
+	\item An \textbf{Accuracy Curve}, which shows the \emph{Accuracy} of the predictor by its \emph{False Positive Rate}. $\tau$ is chosen as to maximize this value.
+\end{itemize}
+
+\subsubsection{Inferring by Calls}
+
+\begin{figure}[h]
+\centering
+\begin{subfigure}[t]{\textwidth}
+	\includegraphics[width=\textwidth]{figures/bayes/hist_calls.png}
+\end{subfigure}
+
+\begin{subfigure}[b]{.49\textwidth}
+	\includegraphics[width=\textwidth]{figures/bayes/roc_calls.png}
+\end{subfigure}
+\begin{subfigure}[b]{.49\textwidth}
+	\includegraphics[width=\textwidth]{figures/bayes/accuracy_calls.png}
+\end{subfigure}
+\caption{Graphics representing the performance of the data when $\varpi = \calls$, using \emph{Beta Distributions} from the data in $\Upsilon^{\calls}$}
+\end{figure}
+
+\subsubsection{Inferring by Time}
+
+\begin{figure}[h]
+\centering
+\begin{subfigure}[t]{\textwidth}
+	\includegraphics[width=\textwidth]{figures/bayes/hist_time.png}
+\end{subfigure}
+
+\begin{subfigure}[b]{.49\textwidth}
+	\includegraphics[width=\textwidth]{figures/bayes/roc_time.png}
+\end{subfigure}
+\begin{subfigure}[b]{.49\textwidth}
+	\includegraphics[width=\textwidth]{figures/bayes/accuracy_time.png}
+\end{subfigure}
+\caption{Graphics representing the performance of the data when $\varpi = \etime$, using \emph{Beta Distributions} from the data in $\Upsilon^{\calls}$}
+\end{figure}
+
+\subsubsection{Inferring by SMS}
+
+\begin{figure}[h]
+\centering
+\begin{subfigure}[t]{\textwidth}
+	\includegraphics[width=\textwidth]{figures/bayes/hist_sms.png}
+\end{subfigure}
+
+\begin{subfigure}[b]{.49\textwidth}
+	\includegraphics[width=\textwidth]{figures/bayes/roc_sms.png}
+\end{subfigure}
+\begin{subfigure}[b]{.49\textwidth}
+	\includegraphics[width=\textwidth]{figures/bayes/accuracy_sms.png}
+\end{subfigure}
+\caption{Graphics representing the performance of the data when $\varpi = \sms$, using \emph{Beta Distributions} from the data in $\Upsilon^{\sms}$}
+\end{figure}
+
+
+\subsubsection{Inferring by Contacts}
+
+\begin{figure}[h]
+\centering
+\begin{subfigure}[t]{\textwidth}
+	\includegraphics[width=\textwidth]{figures/bayes/hist_contacts.png}
+\end{subfigure}
+
+\begin{subfigure}[b]{.49\textwidth}
+	\includegraphics[width=\textwidth]{figures/bayes/roc_contacts.png}
+\end{subfigure}
+\begin{subfigure}[b]{.49\textwidth}
+	\includegraphics[width=\textwidth]{figures/bayes/accuracy_contacts.png}
+\end{subfigure}
+\caption{Graphics representing the performance of the data when $\varpi = \contacts$, using \emph{Beta Distributions} from the data in $\Upsilon$}
+\end{figure}
