@@ -102,6 +102,52 @@ P \left( p_v \leq x \right) = \frac{1}{\Beta \left( c^{\high} + 1, c^{\low} + 1 
 \end{gathered}
 \end{equation}
 
+Here it's also possible to assign the probability depending on the \emph{Mean} or the \emph{Mode} of the distribution. However, that would also fail to account for the \emph{Certainty} of the numbers.
+
+Instead, given the definition of an arbitrary $\Theta$, initially defined as $\Theta = 0.005$\maybe{Make sure this is true}, it's possible to use the formula presented in Section~\ref{subsec:beta_ppf} to define a suitable $p_v$, as shown in Equation~\ref{eq:beta_theta_ppf}.
+
+\todo{Test different $\Theta$s}
+
+\begin{equation}
+\label{eq:beta_theta_ppf}
+\begin{aligned}
+p_v &= Q(\Theta) \\
+&= \inf \left\{ x \in \left[ 0, 1 \right] \mid \Theta \leq F(x) \right\}
+\end{aligned}
+\end{equation}
+
+\subsubsection{Categorizing Users}
+
+In the previous section the probability of belonging of being a \emph{High Income} user $p_v$ was defined for every $v \in V \setminus B$. While this value alone doesn't give any information about whether user $v$ belongs which category, it does tell that his category will be higher or equal than users with a lower probability. This approach is formalized in Equation~\ref{eq:pv_minus}.
+
+\begin{equation}
+\label{eq:pv_minus}
+\begin{gathered}
+\left( \forall u, w \in V \setminus B \right) \\
+\begin{aligned}
+p_u > p_w \land u \in H_1 &\implies w \in H_1 \\
+p_u < p_w \land u \in H_2 &\implies w \in H_2 \\
+p_u = p_w \implies ( u \in H_1 &\iff w \in H_1 )
+\end{aligned}
+\end{gathered}
+\end{equation}
+
+Thanks to this approach we can define some limit, $\tau$, and categorize each user $v \in V \setminus B$ as either category depending on the magnitude of $p_v$ compared to $\tau$, as in Equation~\ref{eq:pv_tau}.
+
+\begin{equation}
+\label{eq:pv_tau}
+\begin{aligned}
+p_v \leq \tau &\implies v \in H_1 \\
+p_v > \tau &\implies v \in H_2
+\end{aligned}
+\end{equation}
+
+\subsubsection{Performance Evaluation}
+
+It's easy to evaluate the performance by calculating $p_v$ for all $v \in B$, which allows us to know whether each value is a \emph{True~Positive}, a \emph{False~Positive}, a \emph{False~Negative}, or a \emph{True~Negative}, and collecting any of the metrics described in Section~\ref{subsec:mlmetrics}.
+
+One advantage of this method is that it's possible to evaluate the method by calculating the \emph{Area Under the Curve} without having to specify a particular $tau$, since this follows the necessary pattern defined in Section~\ref{subsec:auc}.
+
 % We define the set \( Q \) as the group of users having at least one connection link to bank clients. For each user \( q^j \in Q \), we compute the number of outgoing calls \( a^j_i \) to the category \( H_i \). Our hypothesis, given the observed homophily, is that if a user \( q^j \) has a higher number of calls \( a^j_i \) to the category \( H_i \) than the other category, it would be more likely to belong to the \( H_i \) income category. In other words, a person is usually in the same income category as the majority of people it calls.
 
 % A straightforward approach would be to define the income category of a user as the category where most of its contacts belong. The problem with this approach is that it does not factor in the higher uncertainty in our estimates for users with fewer calls. To address this uncertainty, instead of using calling frequencies to define the probability of a user belonging to the high income category, we use the amount of calls \( a^j_i \) as parameters defining a Beta distribution for the probability of belonging to a given category. We have therefore taken a Bayesian rather than a frequentist approach to income prediction.
