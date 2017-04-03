@@ -1,76 +1,168 @@
-\section{Results}
+\section{Evaluating Performance}
 \label{sec:results}
 
-\subsection{Evaluation of Performance}
+In this section, we test the \emph{Prediction Algorithm} presented in Section~\ref{subsec:prediction_algorithm} with the data present on the graph.
 
-%We need to make sure that our inference algorithm correctly predicts users' income in each of the 5 categories \( H_1, \ldots, H_5 \). According to our hypothesis, the greater the amount of calls to , this increases the probability that both of them will belong to the same group.
+\subsection{Data Partitioning}
 
-%For each link \( p = \left< p_o, p_d, \ldots \right> \in P \), our hypothesis says that \( p_o \) and \( p_d \) will belong to the same income group.
+\subsubsection{Train Test Split}
+\label{subsec:train_test_split}
 
-%In order to validate our proposed methodology, we take advantage of the computed \( p_lower \) for each user and use this quantity as the predicition score that allow us to evaluate whether a given user belongs to one of the deffined categories. A standarized way to quantify the performace of the metodology is by computing Receiver Operating Characteristic Curve (ROC). This curve
+As with many other classification problems, the \emph{Bayesian Algorithm} is prone to overfitting~\cite{mitchellml1997}. In this particular case, since the information presented in Section~\ref{subsec:income_homophily} shows that users tend to communicated with users of the same socioeconomic level, by running the algorithm in the complete data and using the same users as part of the features and of the labels, we would erroneously be having more data per user than we would have when modelling the problem.
 
-We describe in this section the validation of our methodology.
-We examine the true positive (\( \TPR \)) and false positive (\( \FPR \)) rates, \( \TPR = \TP / \operatorname{P} \) and \( \FPR = \FP / \operatorname{N} \), where \( \TP \) is the number of correctly predicted users with high income, \( \operatorname{P} \) is the total number of users with high income, \( \FP \) is the number of users incorrectly classified as having high income, and \( \operatorname{N} \) is the total number of users with low income.
+An easy way to avoid this problem is by doing a simple \emph{Train Test Split}, where the data in $B$ is separated into two disjoint groups, $B = B_{\train} \cup B_{\test}$ and $B_{\train} \cap B_{\test} = \varnothing$, where $\left| B_{\train} \right| = \sfrac{4}{5} \cdot \left| B \right|$ and $\left| B_{\test} \right| = \sfrac{1}{5} \cdot \left| B \right|$.
 
-In \Cref{ROC_multiclass} we plot the ROC (\textit{Receiver Operating Characteristic}) curve, showing \( \TPR \) and \( \FPR \) for the set of possible values of \( \tau \). We see that our methodology clearly outperforms random guessing (dashed straight line). We can summarize our performance by calculating the \( \AUC \) (\textit{Area Under the Curve}) which in \Cref{ROC_multiclass} is \( \AUC = 0.74 \). Note that random guessing would give a value of \( \AUC \simeq 0.50 \).
+\subsubsection{Erasing Uninformative Data}
 
-%\vspace{1em}
-%
-%\begin{adjustwidth}{-1.5cm}{}
-%\begin{tabu} to \textwidth { r X[c] X[c] }
-%& \multicolumn{2}{ c }{\textbf{Classifier result for income group \( H_i \)}} \\
-%\\
-%& Caller in group & Caller not in group \\
-%Callee in group & \cellcolor{green} True Positive & \cellcolor{red} \makecell{False Negative \\ (Type II Error)} \\
-%Callee not in group & \cellcolor{red} \makecell{False Positive \\ (Type I Error)} & \cellcolor{green} True Negative \\
-%\end{tabu}
-%\end{adjustwidth}
+Given that $\left| B \right| \ll \left| V \right|$ and that $G$ is sparse, the vast majority of users don't have any kind of contact with users of the bank. For this reason it's useless to evaluate the performance of the algorithm using all the nodes, and therefore the \emph{Testing Set} used in this thesis will instead focus on the bank users that have at least one contact with another bank user. This approach is formalized in Equation~\ref{eq:inner_graph}.
 
-%To validate these classifiers, we use
+\begin{equation}
+\label{eq:inner_graph}
+\begin{gathered}
+\hat{E} = \left\{ e \in E \mid e_o \in B_{\train} \lor e_d \in B_{\train} \right\} \\
+\hat{B}_{\test} = B_{\test} \cap \left( \hat{E}_o \cup \hat{E}_d \right)
+\end{gathered}
+\end{equation}
 
-%a \textbf{Receiver Operating Characteristic Curve} (ROC) to plot the \textbf{True Positive Rate} and the \textbf{False Positive Rate} of each system. Since the amount of people in each group is almost equal, randonly guessing each user's income would result in a diagonal line.
+This approach works perfectly when $\varpi = \contacts$. However, it's possible that for other values of $\varpi$ there won't be any information available in $\hat{B}_{\test}$ in the case of users who either didn't receive any call from a bank user or didn't receive any message.
 
-%As an objective measurement, we can calculate the \textbf{Area under the curve} for each income group as the chance that the classifier would make a better prediction of the composition of this income group better than a random one. For this we define the density functions \( f_i(x) \) as the probability that a user will be considered part of the income group \( H_i \), and \( g_i(x) \) as the probability that it won't. This way we can characterize the True Positive Rate and the False Positive Rate for each group as
+The equations~\ref{eq:inner_graph_call} and~\ref{eq:inner_graph_sms} formalize new variables to use for informative data in those cases.
 
-%\vspace{-1em}
-%
-%\begin{align*}
-%\operatorname{TPR}_i(T) &= \int^{\infty}_T f_i(x) dx \\
-%\operatorname{FPR}_i(T) &= \int^{\infty}_T g_i(x) dx \\
-%\end{align*}
-%
-%\vspace{-1.5em}
+\begin{equation}
+\label{eq:inner_graph_call}
+\begin{gathered}
+\hat{E}^{\calls} = \left\{ e \in E \mid e_c > 0 \land \left( e_o \in B_{\train} \lor e_d \in B_{\train} \right) \right\} \\
+\hat{B}^{\calls}_{\test} = B_{\test} \cap \left( \hat{E}^{\calls}_o \cup \hat{E}^{\calls}_d \right) \\
+\end{gathered}
+\end{equation}
 
-%With this two functions, we can define the AUC for each category as as a simple integration:
+\begin{equation}
+\label{eq:inner_graph_sms}
+\begin{gathered}
+\hat{E}^{\sms} = \left\{ e \in E \mid e_s > 0 \land \left( e_o \in B_{\train} \lor e_d \in B_{\train} \right) \right\} \\
+\hat{B}^{\sms}_{\test} = B_{\test} \cap \left( \hat{E}^{\sms}_o \cup \hat{E}^{\sms}_d \right)
+\end{gathered}
+\end{equation}
 
-%\[
-%A_i = P(X_1 > X_0) = \int^{-\infty}_{\infty} \operatorname{TPR_i}(T) \operatorname{FPR_i}(T) dT
-%\]
+\subsubsection{Rebalancing Labels}
 
-%Where \( X_1 \) is the score for a positive instance, and \( X_0 \) is the score for a negative one.
+Since the testing data $B_{\test}$ was a random subsample of a balanced set (see Section~\ref{subsec:train_test_split} and Section~\ref{subsec:discrimination_by_wealth}), it was also balanced itself\maybe{Make sure $B$ refers only to bank users \textbf{in the telco}}. However, since \emph{High Income} users tend to communicate more often than \emph{Low Income} ones, $\hat{B}_{\test}$ is unbalanced and has a significant bias for high-income users.
 
-%\subsection{Results}
+Since the income categories tend to be balanced in the real world, this isn't wanted. However, since it's not necessary to use the entire \emph{Testing Set} for testing the algorithm, a simple way would be to create a new, balanced, and final testing set, $\Upsilon \subseteq \hat{B}_{\test}$ containing all users from $\hat{B}_{\test}$ \emph{Low Income}, along with a random sample of the same size with \emph{High Income}.
 
-\begin{figure}[p]
-\begin{center}
-{\includegraphics[width=0.9\columnwidth]
-{figures/ROC_BETA/ROC_Beta_based_approach_201504.png}}
-\caption{ROC curve for prediction procedure. We observed an \( \AUC = 0.74 \) indicating that our predictor is better than a random predictor (\( \AUC \simeq 0.50 \)).}
-\label{ROC_multiclass}
-\end{center}
+\begin{equation}
+\label{eq:upsilon}
+\begin{gathered}
+\begin{aligned}
+\Upsilon^{\low} &= \hat{B}_{\test} \cap H_1 \\
+\Upsilon^{\high} &\subseteq \hat{B}_{\test} \cap H_2
+\end{aligned} \\
+\left| \Upsilon^{\low} \right| = \left| \Upsilon^{\high} \right| \\
+\Upsilon = \Upsilon^{\low} \cup \Upsilon^{\high}
+\end{gathered}
+\end{equation}
+
+$\Upsilon$ will be the only \emph{Testing Set} used from now on, while $B_{\train}$ will be used as training set.
+
+Additionally, the sets $\Upsilon^{\calls}$ and $\Upsilon^{\sms}$ refer to similar sets which are taken from users from the \emph{Testing Set} that had at least one call or sent at least one SMS, respectively, to another user in the \emph{Training Set}.
+
+\subsubsection{Set Magnitudes}
+
+While the new set $\Upsilon$ contains significantly less users than the original set $B$, it still has a sufficient amount of people to make a prediction. Table~\ref{tab:partition_numbers} shows the number of users that remain after every trim used in this Subsection.
+
+\begin{table}
+\centering
+\begin{tabular}{l r r r}
+\toprule
+Set & Total Size & High Income & Low Income \\
+\midrule
+$B$ & \num{5402959} & \num{2702628} & \num{2700331} \\
+$B_{\test}$ & \num{1080592} & \num{540526} & \num{540066} \\
+$\hat{B}_{\test}$ & \num{53691} & \num{35215} & \num{18476} \\
+$\Upsilon$ & \num{36952} & \num{18476} & \num{18476} \\
+$\Upsilon^{\calls}$ & \num{30715} & \num{15653} & \num{15062} \\
+$\Upsilon^{\sms}$ & \num{11909} & \num{6046} & \num{5863} \\
+\bottomrule
+\end{tabular}
+\caption{Amount of users in the \emph{Testing Set} after trimming it several times to prevent overfitting while keeping the labels balanced}
+\label{tab:partition_numbers}
+\end{table}
+
+\subsection{Algorithm Performance}
+
+The \emph{Bayesian Algorithm} will be ran for every $\varpi \in \left\{ \contacts, \calls, \etime, \sms \right\}$. For every possible configuration, we present 3 plots for $\Theta = 0.005$.
+
+\begin{itemize}
+	\item A \textbf{histogram} presenting the distribution of the $p_v$ values which result from applying Equation~\ref{eq:beta_theta_ppf} presented in Section~\ref{subsec:modelling_users} to each distinct \emph{Beta Distribution}.
+	\item An \textbf{Receiver Operating Characteristic Curve}, showing the tradeoff of \emph{False Positive Rate} to \emph{True Positive Rate} when selecting every possible $\tau$. The \emph{Area Under the Curve} is marked, as this is the metric that is being maximized when selecting the correct $\varpi$.
+	\item An \textbf{Accuracy Curve}, which shows the \emph{Accuracy} of the predictor by its \emph{False Positive Rate}. $\tau$ is chosen as to maximize this value.
+\end{itemize}
+
+\subsubsection{Inferring by Calls}
+
+\begin{figure}[h]
+\centering
+\begin{subfigure}[t]{\textwidth}
+	\includegraphics[width=\textwidth]{figures/bayes/hist_calls.png}
+\end{subfigure}
+
+\begin{subfigure}[b]{.49\textwidth}
+	\includegraphics[width=\textwidth]{figures/bayes/roc_calls.png}
+\end{subfigure}
+\begin{subfigure}[b]{.49\textwidth}
+	\includegraphics[width=\textwidth]{figures/bayes/accuracy_calls.png}
+\end{subfigure}
+\caption{Graphics representing the performance of the data when $\varpi = \calls$, using \emph{Beta Distributions} from the data in $\Upsilon^{\calls}$}
 \end{figure}
 
-%We can define the accuracy of the model as the ratio between \(\TP\) and \(\TN\) to total population for a certain \(\FPR\), which gives us values between \num{0.42} and \num{0.71}. The maximum is achieved with an \(\FPR\) of \num{0.4}.
+\subsubsection{Inferring by Time}
 
-\begin{figure}[p]
-\begin{center}
-{\includegraphics[width=0.9\columnwidth]
-{figures/accuracy_vs_fpr.png}}
-\caption{Accuracy as a function of FPR\@. The best accuracy obtained is 0.71.}
-\label{fig:accuracy_vs_fpr}
-\end{center}
+\begin{figure}[h]
+\centering
+\begin{subfigure}[t]{\textwidth}
+	\includegraphics[width=\textwidth]{figures/bayes/hist_time.png}
+\end{subfigure}
+
+\begin{subfigure}[b]{.49\textwidth}
+	\includegraphics[width=\textwidth]{figures/bayes/roc_time.png}
+\end{subfigure}
+\begin{subfigure}[b]{.49\textwidth}
+	\includegraphics[width=\textwidth]{figures/bayes/accuracy_time.png}
+\end{subfigure}
+\caption{Graphics representing the performance of the data when $\varpi = \etime$, using \emph{Beta Distributions} from the data in $\Upsilon^{\calls}$}
 \end{figure}
 
-Alternatively we can evaluate the performance of our model by computing its accuracy for a given threshold \( \tau \) of FPR.\@
+\subsubsection{Inferring by SMS}
 
-\Cref{fig:accuracy_vs_fpr} shows the accuracy obtained as a function of FPR, where the accuracy is computed as the ratio between \(\TP\) and \(\TN\) over the total population for a certain \(\FPR\). The best accuracy obtained is \num{0.71} for \( \tau = 0.4 \).
+\begin{figure}[h]
+\centering
+\begin{subfigure}[t]{\textwidth}
+	\includegraphics[width=\textwidth]{figures/bayes/hist_sms.png}
+\end{subfigure}
+
+\begin{subfigure}[b]{.49\textwidth}
+	\includegraphics[width=\textwidth]{figures/bayes/roc_sms.png}
+\end{subfigure}
+\begin{subfigure}[b]{.49\textwidth}
+	\includegraphics[width=\textwidth]{figures/bayes/accuracy_sms.png}
+\end{subfigure}
+\caption{Graphics representing the performance of the data when $\varpi = \sms$, using \emph{Beta Distributions} from the data in $\Upsilon^{\sms}$}
+\end{figure}
+
+
+\subsubsection{Inferring by Contacts}
+
+\begin{figure}[h]
+\centering
+\begin{subfigure}[t]{\textwidth}
+	\includegraphics[width=\textwidth]{figures/bayes/hist_contacts.png}
+\end{subfigure}
+
+\begin{subfigure}[b]{.49\textwidth}
+	\includegraphics[width=\textwidth]{figures/bayes/roc_contacts.png}
+\end{subfigure}
+\begin{subfigure}[b]{.49\textwidth}
+	\includegraphics[width=\textwidth]{figures/bayes/accuracy_contacts.png}
+\end{subfigure}
+\caption{Graphics representing the performance of the data when $\varpi = \contacts$, using \emph{Beta Distributions} from the data in $\Upsilon$}
+\end{figure}
