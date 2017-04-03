@@ -32,7 +32,7 @@ The equations~\ref{eq:inner_graph_call} and~\ref{eq:inner_graph_sms} formalize n
 \label{eq:inner_graph_call}
 \begin{gathered}
 \hat{E}^{\calls} = \left\{ e \in E \mid e_c > 0 \land \left( e_o \in B_{\train} \lor e_d \in B_{\train} \right) \right\} \\
-\hat{B}^{\calls}_{\test} = \hat{B}^{\etime}_{\test} = B_{\test} \cap \left( \hat{E}^{\calls}_o \cup \hat{E}^{\calls}_d \right) \\
+\hat{B}^{\calls}_{\test} = B_{\test} \cap \left( \hat{E}^{\calls}_o \cup \hat{E}^{\calls}_d \right) \\
 \end{gathered}
 \end{equation}
 
@@ -64,6 +64,8 @@ Since the income categories tend to be balanced in the real world, this isn't wa
 
 $\Upsilon$ will be the only \emph{Testing Set} used from now on, while $B_{\train}$ will be used as training set.
 
+Additionally, the sets $\Upsilon^{\calls}$ and $\Upsilon^{\sms}$ refer to similar sets which are taken from users from the \emph{Testing Set} that had at least one call or sent at least one SMS, respectively, to another user in the \emph{Training Set}.
+
 \subsubsection{Set Magnitudes}
 
 While the new set $\Upsilon$ contains significantly less users than the original set $B$, it still has a sufficient amount of people to make a prediction. Table~\ref{tab:partition_numbers} shows the number of users that remain after every trim used in this Subsection.
@@ -78,6 +80,8 @@ $B$ & \num{5402959} & \num{2702628} & \num{2700331} \\
 $B_{\test}$ & \num{1080592} & \num{540526} & \num{540066} \\
 $\hat{B}_{\test}$ & \num{53691} & \num{35215} & \num{18476} \\
 $\Upsilon$ & \num{36952} & \num{18476} & \num{18476} \\
+$\Upsilon^{\calls}$ & \num{30715} & \num{15653} & \num{15062} \\
+$\Upsilon^{\sms}$ & \num{11909} & \num{6046} & \num{5863} \\
 \bottomrule
 \end{tabular}
 \caption{Amount of users in the \emph{Testing Set} after trimming it several times to prevent overfitting while keeping the labels balanced}
