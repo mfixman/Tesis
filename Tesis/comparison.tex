@@ -77,8 +77,8 @@ For each element of the set of users that belong to the telco $u \in U \subseteq
 \begin{equation}
 \label{eq:contacts}
 \begin{split}
-\operatorname{incontacts}_u  &= \left| \left\{ p_o \mid p \in P \and p_d = u \right\} \cup \left\{ s_o \mid s \in S \and s_d = u \right\} \right| \\
-\operatorname{outcontacts}_u &= \left| \left\{ p_d \mid p \in P \and p_o = u \right\} \cup \left\{ s_d \mid s \in S \and s_o = u \right\} \right|
+\operatorname{incontacts}_u  &= \left| \left\{ p_o \mid p \in P \land p_d = u \right\} \cup \left\{ s_o \mid s \in S \land s_d = u \right\} \right| \\
+\operatorname{outcontacts}_u &= \left| \left\{ p_d \mid p \in P \land p_o = u \right\} \cup \left\{ s_d \mid s \in S \land s_o = u \right\} \right|
 \end{split}
 \end{equation}
 
@@ -102,8 +102,8 @@ Another possible featureset consists of using of separating the data of the neig
 
 \begin{equation}
 \begin{split}
-	L_u &\subseteq H_1 \cap \left( \left\{ p_o \mid p \in P \and p_d = u \right\} \cup \left\{ p_d \mid p \in P \and p_d = u \right\} \right) \\
-	K_u &\subseteq H_2 \cap \left( \left\{ p_o \mid p \in P \and p_d = u \right\} \cup \left\{ p_d \mid p \in P \and p_d = u \right\} \right) \\
+	L_u &\subseteq H_1 \cap \left( \left\{ p_o \mid p \in P \land p_d = u \right\} \cup \left\{ p_d \mid p \in P \land p_d = u \right\} \right) \\
+	K_u &\subseteq H_2 \cap \left( \left\{ p_o \mid p \in P \land p_d = u \right\} \cup \left\{ p_d \mid p \in P \land p_d = u \right\} \right) \\
 \end{split}
 \end{equation}
 
@@ -121,9 +121,9 @@ Having these groups it's possible to define a set of features similar to the one
 \begin{equation}
 \label{eq:categoricaluserdata}
 \begin{split}
-	\operatorname{incallslow}_u &= \left| \left\{ p \in P \mid p_d = u \and \mathbf{p_o \in H_1} \right\} \right| \\
+	\operatorname{incallslow}_u &= \left| \left\{ p \in P \mid p_d = u \land \mathbf{p_o \in H_1} \right\} \right| \\
 	\operatorname{outtimelow}_u &= \sum_{\substack{p \in P \\ p_o = u \\ \mathbf{p_d \in H_1}}} \, p_s \\
-	\operatorname{outcontactshigh}_u &= \left| \mathbf{H_2 \, \cap} \, \left( \left\{ p_d \mid p \in P \and p_o = u \right\} \cup \left\{ s_d \mid s \in S \and s_o = u \right\} \right) \right|
+	\operatorname{outcontactshigh}_u &= \left| \mathbf{H_2 \, \cap} \, \left( \left\{ p_d \mid p \in P \land p_o = u \right\} \cup \left\{ s_d \mid s \in S \land s_o = u \right\} \right) \right|
 \end{split}
 \end{equation}
 
