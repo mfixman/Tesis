@@ -68,27 +68,28 @@ Additionally, the sets $\Upsilon^{\calls}$ and $\Upsilon^{\sms}$ refer to simila
 
 \subsubsection{Set Magnitudes}
 
-While the new set $\Upsilon$ contains significantly less users than the original set $B$, it still has a sufficient amount of people to make a prediction. Table~\ref{tab:partition_numbers} shows the number of users that remain after every trim used in this Subsection.
+While the new set $\Upsilon$ contains significantly less users than the original set $B$, it still has a sufficient amount of people to make a prediction. Table~\ref{tab:partition_numbers} shows the number of users that remain after every trim used in this Subsection, along with the ratio of users which we would be able to assign an \emph{Income Category} using these datasets assuming the real data is equally distributed from the \emph{Test Data}.
 
 \begin{table}
 \centering
-\begin{tabular}{l r r r}
+\begin{tabular}{l r r r c}
 \toprule
-Set & Total Size & High Income & Low Income \\
+Set & Total Size & High Income & Low Income & Ratio \\
 \midrule
-$B$ & \num{5402959} & \num{2702628} & \num{2700331} \\
-$B_{\test}$ & \num{1080592} & \num{540526} & \num{540066} \\
-$\hat{B}_{\test}$ & \num{53691} & \num{35215} & \num{18476} \\
-$\Upsilon$ & \num{36952} & \num{18476} & \num{18476} \\
-$\Upsilon^{\calls}$ & \num{30715} & \num{15653} & \num{15062} \\
-$\Upsilon^{\sms}$ & \num{11909} & \num{6046} & \num{5863} \\
+$B$ & \num{5402959} & \num{2702628} & \num{2700331} & \NA{} \\
+$B_{\test}$ & \num{1080592} & \num{540526} & \num{540066} & \NA{} \\
+$\hat{B}_{\test}$ & \num{53691} & \num{35215} & \num{18476} & \num{1.000} \\
+$\Upsilon$ & \num{36952} & \num{18476} & \num{18476} & 1.000 \\
+$\Upsilon^{\calls}$ & \num{30715} & \num{15653} & \num{15062} & 0.831 \\
+$\Upsilon^{\sms}$ & \num{11909} & \num{6046} & \num{5863} & 0.322 \\
 \bottomrule
 \end{tabular}
 \caption{Amount of users in the \emph{Testing Set} after trimming it several times to prevent overfitting while keeping the labels balanced}
 \label{tab:partition_numbers}
 \end{table}
 
-\subsection{Algorithm Performance}
+\subsection{Algorithm Performance on All Users}
+\label{subsec:algorithm_performance}
 
 The \emph{Bayesian Algorithm} will be ran for every $\varpi \in \left\{ \contacts, \calls, \etime, \sms \right\}$. For every possible configuration, we present 3 plots for $\Theta = 0.005$.
 
@@ -98,71 +99,64 @@ The \emph{Bayesian Algorithm} will be ran for every $\varpi \in \left\{ \contact
 	\item An \textbf{Accuracy Curve}, which shows the \emph{Accuracy} of the predictor by its \emph{False Positive Rate}. $\tau$ is chosen as to maximize this value.
 \end{itemize}
 
+\newpage
 \subsubsection{Inferring by Calls}
+\label{subsec:call_infer}
 
-\begin{figure}[h]
-\centering
-\begin{subfigure}[t]{\textwidth}
-	\includegraphics[width=\textwidth]{figures/bayes/hist_calls.png}
-\end{subfigure}
+\begin{center}
+\includegraphics[width=\textwidth]{figures/bayes/hist_calls.png}
+\includegraphics[width=.49\textwidth]{figures/bayes/roc_calls.png}
+\includegraphics[width=.49\textwidth]{figures/bayes/accuracy_calls.png}
+\end{center}
 
-\begin{subfigure}[b]{.49\textwidth}
-	\includegraphics[width=\textwidth]{figures/bayes/roc_calls.png}
-\end{subfigure}
-\begin{subfigure}[b]{.49\textwidth}
-	\includegraphics[width=\textwidth]{figures/bayes/accuracy_calls.png}
-\end{subfigure}
-\caption{Graphics representing the performance of the data when $\varpi = \calls$, using \emph{Beta Distributions} from the data in $\Upsilon^{\calls}$}
-\end{figure}
+When $\varpi = \calls$ and the data is analyzed using $\Upsilon^{\calls}$ as \emph{Testing Set}, the \emph{Inverse Cumulative Distribution Function} has several peaks containing groups of users with similar amount of calls, and the data has a significant bias towards calls towards calls to \emph{Low Income} users.
 
+After analyszing the data, we find that the \emph{Area Under the Curve} using this method is of \num{0.721}, which is significantly higher than all the naïve and \emph{Machine Learning} methods presented in the later Section~\ref{sec:comparison}.
+
+To maximize accuracy, setting $\tau = 0.224$ results in a predictor where $\Accuracy = 0.684$ and $\FPR = 123$. Additionally, that value of $\tau$ results in $\Precision = 123$, $\Recall = 123$, $F_1 = 123$, and $F_4 = 123$. \todo{Fill these values.}
+
+\newpage
 \subsubsection{Inferring by Time}
+\label{subsec:time_infer}
 
-\begin{figure}[h]
-\centering
-\begin{subfigure}[t]{\textwidth}
-	\includegraphics[width=\textwidth]{figures/bayes/hist_time.png}
-\end{subfigure}
+\begin{center}
+\includegraphics[width=\textwidth]{figures/bayes/hist_time.png}
+\includegraphics[width=.49\textwidth]{figures/bayes/roc_time.png}
+\includegraphics[width=.49\textwidth]{figures/bayes/accuracy_time.png}
+\end{center}
 
-\begin{subfigure}[b]{.49\textwidth}
-	\includegraphics[width=\textwidth]{figures/bayes/roc_time.png}
-\end{subfigure}
-\begin{subfigure}[b]{.49\textwidth}
-	\includegraphics[width=\textwidth]{figures/bayes/accuracy_time.png}
-\end{subfigure}
-\caption{Graphics representing the performance of the data when $\varpi = \etime$, using \emph{Beta Distributions} from the data in $\Upsilon^{\calls}$}
-\end{figure}
+When $\varpi = \etime$ and the data is analyzed using $\Upsilon^{\calls}$ as \emph{Testing Set}, there are two big clusters of data at the edges. The reason for these is that, as shown by Figure~\ref{fig:timeheatmap}, the majority of users only call either \emph{High Income} or \emph{Low Income} users. For completeness sake, this test is run again in Section~\ref{subsec:time_infer_positive} only for the subset $\hat{\Upsilon}^{\calls} \subseteq \Upsilon^{\calls}$ which have at least one call to users of each income category.
 
+The \emph{Area Under the Curve} of this inference mechanism is $\AUC = 0.719$, which is lower than the one for the calls in Section~\ref{subsec:call_infer}. The \emph{Accuracy Curve} is unsurprisingly similar to that one, and even the \emph{Accuracy} at $\tau = 0.721$ is the same. This is probably a result of using the same dataset as that section, and the fact that there is an obvious correlation between total talking time and total calls, shown in Figure~\ref{fig:call_time}.
+
+That value of $\tau$ also results in a predictor where $\Accuracy = 0.684$, $\FPR = 123$, $\Precision = 123$, $\Recall = 123$, $F_1 = 123$, and $F_4 = 123$. \todo{Fill these values.}
+
+\newpage
 \subsubsection{Inferring by SMS}
+\label{subsec:sms_infer}
 
-\begin{figure}[h]
-\centering
-\begin{subfigure}[t]{\textwidth}
-	\includegraphics[width=\textwidth]{figures/bayes/hist_sms.png}
-\end{subfigure}
+\begin{center}
+\includegraphics[width=\textwidth]{figures/bayes/hist_sms.png}
+\includegraphics[width=.49\textwidth]{figures/bayes/roc_sms.png}
+\includegraphics[width=.49\textwidth]{figures/bayes/accuracy_sms.png}
+\end{center}
 
-\begin{subfigure}[b]{.49\textwidth}
-	\includegraphics[width=\textwidth]{figures/bayes/roc_sms.png}
-\end{subfigure}
-\begin{subfigure}[b]{.49\textwidth}
-	\includegraphics[width=\textwidth]{figures/bayes/accuracy_sms.png}
-\end{subfigure}
-\caption{Graphics representing the performance of the data when $\varpi = \sms$, using \emph{Beta Distributions} from the data in $\Upsilon^{\sms}$}
-\end{figure}
+Since the total amount of SMS is much lower than the amount of calls, the peaks of the result of the \emph{Inverse Cumulative Functions} of the \emph{Beta Distribution} applied on $\Upsilon^{\sms}$ that happen with the majority of users that have few of both are located closer to the center than in Section~\ref{subsec:call_infer} and Section~\ref{subsec:time_infer}. This makes some interesting cases if $\varpi = \sms$ is chosen, since the distribution is different than in the other cases.
 
+In particular, this gives an $\AUC = 0.715$, which is lower than both in the case of \emph{Calls} and \emph{Time}. Interesingly, the maximum \emph{Accuracy} at $\tau = 0.224$ is slightly higher than both of the other cases; this is probably a side-effect of the fact that $\left| \Upsilon^{\sms} \right| < \left| \Upsilon^{\calls} \right|$.
 
+Additionally, $\FPR = 123$, $\Precision = 123$, $\Recall = 123$, $F_1 = 123$, and $F_4 = 123$. \todo{Fill these values.}
+
+\newpage
 \subsubsection{Inferring by Contacts}
+\label{subsec:contacts_infer}
 
-\begin{figure}[h]
-\centering
-\begin{subfigure}[t]{\textwidth}
-	\includegraphics[width=\textwidth]{figures/bayes/hist_contacts.png}
-\end{subfigure}
+\begin{center}
+\includegraphics[width=\textwidth]{figures/bayes/hist_contacts.png}
+\includegraphics[width=.49\textwidth]{figures/bayes/roc_contacts.png}
+\includegraphics[width=.49\textwidth]{figures/bayes/accuracy_contacts.png}
+\end{center}
 
-\begin{subfigure}[b]{.49\textwidth}
-	\includegraphics[width=\textwidth]{figures/bayes/roc_contacts.png}
-\end{subfigure}
-\begin{subfigure}[b]{.49\textwidth}
-	\includegraphics[width=\textwidth]{figures/bayes/accuracy_contacts.png}
-\end{subfigure}
-\caption{Graphics representing the performance of the data when $\varpi = \contacts$, using \emph{Beta Distributions} from the data in $\Upsilon$}
-\end{figure}
+When $\varpi = \contacts$ it's possible to get a pattern similar to the one shown in Section~\ref{subsec:sms_infer} when $\varpi = \sms$, where the majority of users have relatively few contacts and the peaks in the histogram. Additionally, since the total amount of contacts is logarithmically distributed (as shown in Figure~\ref{fig:contact_distribution}), and people with \emph{High Income} tend to have more contacts in general, there peaks are clustered in areas with low $p_v$ (where the majority of calls are made to \emph{Low Income} users), near the middle (where the calls are mostly equally distributed), but not at high $p_v$; this last section would belong to the few users with many calls to \emph{High Income} users.
+
+Using this method it's possible to find that $\AUC = 0.742$, which is higher than all the other methods presented in Section~\ref{subsec:algorithm_performance}. Additionally, when selecting $\tau = 0.224$, $\Accuracy = 0.691$ which is higher than the maximum \emph{Accuracy} in all other methods. These metrics, combined with the fact that $\Upsilon$ contains every user in the \emph{Testing Set}, result in the fact that $\varpi = \contacts$ is uambiguously the best way to classify the data for the algorithm. Additionally, $\FPR = 123$, $\Precision = 123$, $\Recall = 123$, $F_1 = 123$, and $F_4 = 123$.
