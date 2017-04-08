@@ -3,30 +3,11 @@
 
 In the following section, we compare the results of the Bayesian method with other classifiers.
 
-\begin{figure}
-	\begin{tabularx}{\textwidth}{>{\bfseries}X c c c c c c}
-		\toprule
-		\textbf{Classifier} & \textbf{Accuracy} & \textbf{Precision} & \textbf{Recall} & \textbf{AUC} & \textbf{$F_1$}-\textbf{score} & \textbf{$F_4$}-\textbf{score} \\
-		\midrule
-		Método Bayesiano & 0 & 0 & 0 & 0 & 0 & 0 \\
-		\midrule
-		Random Selection & 0.500 & 0.510 & 0.501 & 0.500 & 0.529 & 0.504 \\
-		Majority Voting & 0 & 0 & 0 & 0 & 0 & 0 \\
-		\midrule
-		Naïve Bayes & 0.569 & 0.550 & 0.711 & 0.550 & 0.649 & 0.703 \\
-		K Nearest Neighbors\footnote{Selecting $K = 9$} & 0.551 & 0.589 & 0.666 & 0.55 & 0.625 & 0.661 \\
-		SVM with RBF kernel\footnote{Selecting $C = 100$} & 0.559 & 0.561 & 0.947 & 0.571 & 0.705 & 0.910 \\
-		Logistic Regression\footnote{Selecting $C = 0.01$} & 0.563 & 0.563 & 0.991 & 0.569 & 0.718 & 0.949 \\
-		Stochastic Gradient Descent & 0.557 & 0.575 & 0.861 & 0.516 & 0.679 & 0.833 \\
-		Random Forest & 0.570 & 0.571 & 0.638 & 0.668 & 0.606 & 0.673 \\
-		\midrule
-		Categorized LR & 0 & 0 & 0 & 0 & 0 & 0 \\
-		Count Link Model & 0 & 0 & 0 & 0 & 0 & 0 \\
-		\bottomrule
-	\end{tabularx}
-\end{figure}
+\subsection{Basic Inference Method}
 
-\subsection{Random Selection}
+For completeness sake, this thesis will use two ``dummy'' classifiers for the socioeconomic category of each user.
+
+\subsubsection{Random Selection}
 
 For completeness sake we created a random classifier for the socioeconomic category of each user.
 

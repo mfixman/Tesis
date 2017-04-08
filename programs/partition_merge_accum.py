@@ -78,5 +78,9 @@ if __name__ == '__main__':
         full = chunk.merge(extra, left_on = args.merge_col, right_index = True).drop(args.merge_col, axis = 1)
         accum = full.groupby([full.index] + args.columns).sum()
 
-        accum.index.rename(extra.index.name, level = 0, inplace = True)
+        try:
+            accum.index.rename(extra.index.name, level = 0, inplace = True)
+        except TypeError:
+            accum.index.rename(extra.index.name, inplace = True)
+
         accum.to_csv(sys.stdout, sep = '|', index = True, header = e == 0)
