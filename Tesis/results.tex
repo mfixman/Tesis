@@ -45,6 +45,7 @@ The equations~\ref{eq:inner_graph_call} and~\ref{eq:inner_graph_sms} formalize n
 \end{equation}
 
 \subsubsection{Rebalancing Labels}
+\label{subsec:rebalancing_labels}
 
 Since the testing data $B_{\test}$ was a random subsample of a balanced set (see Section~\ref{subsec:train_test_split} and Section~\ref{subsec:discrimination_by_wealth}), it was also balanced itself\maybe{Make sure $B$ refers only to bank users \textbf{in the telco}}. However, since \emph{High Income} users tend to communicate more often than \emph{Low Income} ones, $\hat{B}_{\test}$ is unbalanced and has a significant bias for high-income users.
 

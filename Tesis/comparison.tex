@@ -1,79 +1,95 @@
 \section{Comparison with Other Inference Methods}
 \label{sec:comparison}
 
-In the following section, we compare the results of the Bayesian method with other classifiers.
+In the following section, we compare the results of the Bayesian method with other classifiers commonly used for this same problem.
 
-\subsection{Basic Inference Method}
+This classified creates a proper baseline for other comparisons. These will be used in the dataset $G = \left< V, E \right>$ with the bank data contained in $B^{\train}$, and will be used eihter to provite information about the users contained in $B^{\test}$ (the \emph{Outer Graph}), or the ones in $\Upsilon$ (the \emph{Inner Graph}). Those two sets of features are described with more detail in Section~\ref{subsec:train_test_split} and Section~\ref{subsec:rebalancing_labels}.
 
-For completeness sake, this thesis will use two ``dummy'' classifiers for the socioeconomic category of each user.
+For simplicity sake, the descriptions of the algorithm will refer to the \emph{Testing Set} as $\Upsilon$ regardless of whether it's using a subset or the data or not.
 
-\subsubsection{Random Selection}
+Table~\ref{tab:comparison} compares the results of these methods with the \emph{Bayesian Algorithm} described in Section~\ref{sec:inference_methodology} along several metrics.
 
-For completeness sake we created a random classifier for the socioeconomic category of each user.
+\subsection{Random Selection}
+\label{subsec:random_selection}
 
-We applied two other inference methods to the same data and compared their accuracies to our Bayesian model.
+For completeness sake we created a random ``dummy'' classifier which randomly chooses the socioeconomic index of each user.
 
-\begin{itemize}
-	\item \textbf{Random selection} which chooses randomly the category for each user.
-	\item \textbf{Majority voting} which decides whether a user is in the high or low income category depending on the category of the majority of its contacts. In case of a tie, the category is chosen randomly.
-\end{itemize}
+\begin{equation}
+\label{eq:random}
+\begin{aligned}
+	P \left( v \in H_1 \right) &= \sfrac{1}{2} \\
+	P \left( v \in H_2 \right) &= \sfrac{1}{2}
+\end{aligned}
+\end{equation}
 
-The \emph{accuracy} of the first method is as expected \num{0.5}, while the \emph{accuracy} for majority voting is \num{0.66}.
-With the Bayesian method we obtain an \emph{accuracy} of \num{0.71}.
+\subsection{Majority Voting}
+\label{subsec:majority_voting}
 
-\subsection{Graph Sampling}
+The method of \emph{Majory Voting} is a basic but powerful way of inferring to which category a user belongs. It simply chooses the category of each user $\upsilon \in \Upsilon$ as the category for which the majority of its contacts belong.
 
-The set $B$ is randomly sampled into two disjoint subsets, $T$ and $S$, such that $T \cup S = B$ and $T \cap S = \varnothing$. Additonally, $\left| T \right| = \sfrac{4}{5} \cdot \left| B \right|$ and $\left| S \right| = \sfrac{1}{5} \cdot \left| B \right|$. We use $T$ as the \emph{Training Set} of the data, while $S$ is considered the \emph{Testing Set}. This way, we can be sure of not having overfitting issues when applying \emph{Machine Learning} methods to the data.
+In case of a tie (which happens often when using the \emph{Outer Graph}, the category is chosen randomly.
 
-\subsection{User Data}
+\begin{equation}
+\label{eq:majority_voting}
+\begin{aligned}
+	\contacts^{\low}_{\upsilon} &> \contacts^{\high}_{\upsilon} \implies \upsilon \in H_1 \\
+	\contacts^{\low}_{\upsilon} &< \contacts^{\high}_{\upsilon} \implies \upsilon \in H_2 \\
+	\contacts^{\low}_{\upsilon} &= \contacts^{\high}_{\upsilon} \implies
+	\begin{cases}
+		\upsilon \in H_1 \  \text{with probability} \ \sfrac{1}{2} \\
+		\upsilon \in H_2 \  \text{with probability} \ \sfrac{1}{2}
+	\end{cases}
+\end{aligned}
+\end{equation}
+
+\subsection{Averaging Contacts' Incomes}
+
+\todo{Complete this}
+
+\subsection{Methods Based in Machine Learning}
+\label{subsec:methods_ml}
+
+The following methods use commonly used supervised Machine Learning algorithms described in Section~\ref{subsec:supervised_machine_learning} used with many similar \emph{Feature Extraction} methods on $G$.
+
+Each method is identified with an integer $n \in \mathbb{N}$ which represents the size of the \emph{Ego Network} used to get information for each node. Additionally, some categories have \emph{Category Data} from $B^{\train}$ to help identify the network.
+
+Additionally, the features of each method are merged with the ones from the immediate predecessor methods, as shown in the graph in Figure~\ref{fig:mlrelationships}.
+
+\begin{figure}
+\centering
+\includegraphicsmaybe{figures/mlrelationships.png}
+\caption{Relationships between the \emph{Feature Extraction} methods of Section~\ref{subsec:methods_ml}}
+\label{fig:mlrelationships}
+\end{figure}
+
+\subsection{User Data --- Level 0}
 \label{subsec:user_data}
 
-As explained in Section~\ref{subsec:mobiledatasource}, the set $P$ contains \emph{Call Detail Records}. Each element $p \in P$ contains the caller and the callee $\left< p_o, p_d \right>$ and call data (including the call duration $p_s$). Additionally, the set $S$ contains \emph{SMS Records}, which for each element $s \in S$ contain origin and destination data $\left< s_o, s_d \right>$.
+The features on the graph $G = \left< V, E \right>$ can be accumulated for all users in a manner similar to the one in Section~\ref{subsec:feature_accumulation} using the data generated in Equation~\ref{eq:graphconstruction}. However, this time we aren't constrained either by having only users which have contacts with other users with known \emph{Income Category}, nor with having to have only two features for each category (which was necessary due to using the \emph{Beta Distribution}).
 
-For each element of the set of users that belong to the telco $u \in U \subseteq P_o \cup P_d \cup S_o \cup S_d$, it's possible to define the following features.
-
-\begin{equation}
-\label{eq:calls}
-\begin{split}
-\operatorname{incalls}_u  &= \left| \left\{ p \in P \mid p_d = u \right\} \right| \\
-\operatorname{outcalls}_u &= \left| \left\{ p \in P \mid p_o = u \right\} \right|
-\end{split}
-\end{equation}
+This way, it's possible to accumulate features for each user $v \in V$ in the manner shown by Equation~\ref{eq:user_data}.
 
 \begin{equation}
-\label{eq:time}
-\begin{split}
-\operatorname{intime}_u  &= \sum_{\substack{p \in P \\ p_d = u}} \, p_s \\
-\operatorname{outtime}_u &= \sum_{\substack{p \in P \\ p_o = u}} \, p_s
-\end{split}
-\end{equation}
-
-\begin{equation}
-\label{eq:sms}
-\begin{split}
-\operatorname{insms}_u  &= \left| \left\{ s \in S \mid s_d = u \right\} \right| \\
-\operatorname{outsms}_u &= \left| \left\{ s \in S \mid s_o = u \right\} \right|
-\end{split}
-\end{equation}
-
-\begin{equation}
-\label{eq:contacts}
-\begin{split}
-\operatorname{incontacts}_u  &= \left| \left\{ p_o \mid p \in P \and p_d = u \right\} \cup \left\{ s_o \mid s \in S \and s_d = u \right\} \right| \\
-\operatorname{outcontacts}_u &= \left| \left\{ p_d \mid p \in P \and p_o = u \right\} \cup \left\{ s_d \mid s \in S \and s_o = u \right\} \right|
-\end{split}
+\label{eq:user_data}
+\begin{gathered}
+\begin{aligned}
+\incalls_v &= \sum_{\substack{e \in E \\ e_d = v}} \calls_e &
+\outcalls_v &= \sum_{\substack{e \in E \\ e_o = v}} \calls_e \\
+\intime_v &= \sum_{\substack{e \in E \\ e_d = v}} \etime_e &
+\outtime_v &= \sum_{\substack{e \in E \\ e_o = v}} \etime_e \\
+\insms_v &= \sum_{\substack{e \in E \\ e_d = v}} \sms_e &
+\outsms_v &= \sum_{\substack{e \in E \\ e_o = v}} \sms_e \\
+\end{aligned} \\
+\begin{aligned}
+\incontacts_v &= \left| \left\{ e \in E \mid e_d = v \right\} \right| \\
+\outcontacts_v &= \left| \left\{ e \in E \mid e_o = v \right\} \right|
+\end{aligned}
+\end{gathered}
 \end{equation}
 
 In particular, Equation~\ref{eq:calls} refers to the amount of in-calls and out-calls each user has, Equation~\ref{eq:time} to the total time in incoming calls and outgoing calls, Equation~\ref{eq:sms} the amount of incoming and outgoing SMS, and Equation~\ref{eq:contacts} to the total amount of different users where either a call of an SMS has been made or received. These last two features correspond to the \emph{In-Degree} and \emph{Out-Degree} of the node in the graph.
 
 These features will be referred as the \emph{User Data} of user $u$.
-
-\subsection{Higher Order User Data}
-\label{subsec:higherorderuserdata}
-
-Where \emph{User Data} contains data directly about the neighbours of each user, we can define \emph{User Data of Order $1$}, as the user data variables about the edges of the neighbours of each user $u$ where $u$ isn't any of the endpoints. In the case of cumulative data (calls, time, and SMS), this is equal to the sum of the \emph{User Data} of the neighbours of $u$ minus the \emph{User Data} os $u$ (since we aren't counting ``inner'' edges). This isn't true in the case of the contacts, since two neighbours of $u$ may have a contact in common, which should be counted only once.
-
-Additionally, for any $n \in \mathbb{N}$, we can inductively define the \emph{User Data of Order $n$} as the user data of the nodes at distance $n$ of a certain node.
 
 \subsection{Categorical User Data}
 \label{subsec:categoricaluserdata}
@@ -112,6 +128,14 @@ Having these groups it's possible to define a set of features similar to the one
 There are two distinct analyses done with \emph{Categorical User Data}: one with all the nodes in $T$, unambiguously called the ``outer graph'', and one that only contains the nodes in $T$ which are adjacent to at least one other node in $T$, unambiguously called the ``inner graph''. The latter should give a better or equal result, since the rest of the nodes contains no information in this category.
 
 The ``outer graph'' contains \todo{add amount of nodes here}, while the ``inner graph'' contains only \todo{same here}.
+
+
+\subsection{Higher Order User Data}
+\label{subsec:higherorderuserdata}
+
+Where \emph{User Data} contains data directly about the neighbours of each user, we can define \emph{User Data of Order $1$}, as the user data variables about the edges of the neighbours of each user $u$ where $u$ isn't any of the endpoints. In the case of cumulative data (calls, time, and SMS), this is equal to the sum of the \emph{User Data} of the neighbours of $u$ minus the \emph{User Data} os $u$ (since we aren't counting ``inner'' edges). This isn't true in the case of the contacts, since two neighbours of $u$ may have a contact in common, which should be counted only once.
+
+Additionally, for any $n \in \mathbb{N}$, we can inductively define the \emph{User Data of Order $n$} as the user data of the nodes at distance $n$ of a certain node.
 
 \subsection{Validation Metrics}
 \label{subsec:validationmetrics}
