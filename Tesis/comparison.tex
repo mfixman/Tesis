@@ -27,7 +27,7 @@ For completeness sake we created a random ``dummy'' classifier which randomly ch
 
 The method of \emph{Majory Voting} is a basic but powerful way of inferring to which category a user belongs. It simply chooses the category of each user $\upsilon \in \Upsilon$ as the category for which the majority of its contacts belong.
 
-In case of a tie (which happens often when using the \emph{Outer Graph}, the category is chosen randomly.
+In case of a tie (which happens often when using the \emph{Outer Graph}), the category is chosen randomly.
 
 \begin{equation}
 \label{eq:majority_voting}
@@ -87,25 +87,31 @@ This way, it's possible to accumulate features for each user $v \in V$ in the ma
 \end{gathered}
 \end{equation}
 
-In particular, Equation~\ref{eq:calls} refers to the amount of in-calls and out-calls each user has, Equation~\ref{eq:time} to the total time in incoming calls and outgoing calls, Equation~\ref{eq:sms} the amount of incoming and outgoing SMS, and Equation~\ref{eq:contacts} to the total amount of different users where either a call of an SMS has been made or received. These last two features correspond to the \emph{In-Degree} and \emph{Out-Degree} of the node in the graph.
+These features will be referred as the \emph{User Data} of user $v$.
 
-These features will be referred as the \emph{User Data} of user $u$.
-
-\subsection{Categorical User Data}
-\label{subsec:categoricaluserdata}
-
-Another possible featureset consists of using of separating the data of the neighbourhood of each user $u \in U$ into two disjoint groups, $L_u$ and $K_u$, which contain the neighours of $u$ in the low and high categories of income respectively\footnotemark{}.
-
-\footnotetext{Note that, since not all users have banking information, there may be nodes in the neighbourhood of $u$ which don't belong to either $L_u$ or $K_u$.}
+There features contain information about the \emph{Neighbourhood} of $\upsilon$, also referred to as the \emph{Ego Network of Distance 1}. This \emph{Neighbourhood} can be formally defined as in Equation~\ref{eq:neighbourhood}.
 
 \begin{equation}
-\begin{split}
-	L_u &\subseteq H_1 \cap \left( \left\{ p_o \mid p \in P \and p_d = u \right\} \cup \left\{ p_d \mid p \in P \and p_d = u \right\} \right) \\
-	K_u &\subseteq H_2 \cap \left( \left\{ p_o \mid p \in P \and p_d = u \right\} \cup \left\{ p_d \mid p \in P \and p_d = u \right\} \right) \\
-\end{split}
+\label{eq:neighbourhood}
+\neigh \left( \upsilon \right) = \left\{ e_o \mid e \in E \and e_d = \upsilon \right\} \cup \left\{ e_d \mid e \in E \and e_o = \upsilon \right\}
 \end{equation}
 
-Having these groups it's possible to define a set of features similar to the one in Section~\ref{subsec:user_data}, where each feature is separated by the category of the neighbour. Equation~\ref{eq:matcatuserdata} contains the possible forms of the new features, while Equation~\ref{eq:categoricaluserdata} contains the way to calculate some of them. The formula for the rest of the features comes trivially.
+\subsection{Categorical User Data --- Level 0'}
+\label{subsec:categoricaluserdata}
+
+A possible featureset consists of using of separating the data of the neighbourhood of each user $\upsilon \in \Upsilon$ into two disjoint groups, $L_{\upsilon}$ and $K_{\upsilon}$, which contain the neighours of $\upsilon$ in the \emph{Low Income} and \emph{High Income} categories of income respectively\footnotemark{}.
+
+\footnotetext{Note that, since not all users have banking information, there may be nodes in the neighbourhood of $\upsilon$ which don't belong to either $L_{\upsilon}$ or $K_{\upsilon}$.}
+
+\begin{equation}
+\label{eq:cud_categories}
+\begin{aligned}
+	L_{\upsilon} &= H_1 \cap \neigh \left( \upsilon \right) \\
+	K_{\upsilon} &= H_2 \cap \neigh \left( \upsilon \right)
+\end{aligned}
+\end{equation}
+
+Having these groups it's possible to define a set of features similar to the one in Section~\ref{subsec:user_data}, where each feature is separated by the category of the neighbour. Equation~\ref{eq:matcatuserdata} contains the names of the new features.
 
 \begin{equation}
 \label{eq:matcatuserdata}
@@ -116,19 +122,32 @@ Having these groups it's possible to define a set of features similar to the one
 	\begin{Bmatrix} low \\ high \end{Bmatrix}
 \end{equation}
 
+Equations~\ref{eq:categoricaluserdata} and~\ref{eq:categoricaluserdata2} contain the way to calculate those features. Since the number of individual features is high and the formulas are similar and repetitive, some generalizations were added for the simplest ones.
+
 \begin{equation}
 \label{eq:categoricaluserdata}
-\begin{split}
-	\operatorname{incallslow}_u &= \left| \left\{ p \in P \mid p_d = u \and \mathbf{p_o \in H_1} \right\} \right| \\
-	\operatorname{outtimelow}_u &= \sum_{\substack{p \in P \\ p_o = u \\ \mathbf{p_d \in H_1}}} \, p_s \\
-	\operatorname{outcontactshigh}_u &= \left| \mathbf{H_2 \, \cap} \, \left( \left\{ p_d \mid p \in P \and p_o = u \right\} \cup \left\{ s_d \mid s \in S \and s_o = u \right\} \right) \right|
-\end{split}
+\begin{gathered}
+	\left( \forall \varpi \in \left\{ \calls, \etime, \sms \right\} \right) \\
+\begin{aligned}
+	\underline{\text{in}{\varpi}\text{low}}_v = \sum_{\substack{e \in E \\ e_d \in L_v \\ e_o = v}} &\varpi_e &
+	\underline{\text{in}{\varpi}\text{high}}_v = \sum_{\substack{e \in E \\ e_d \in K_v \\ e_o = v}} &\varpi_e \\
+	\underline{\text{out}{\varpi}\text{low}}_v = \sum_{\substack{e \in E \\ e_o \in L_v \\ e_d = v}} &\varpi_e &
+	\underline{\text{out}{\varpi}\text{high}}_v = \sum_{\substack{e \in E \\ e_o \in K_v \\ e_d = v}} &\varpi_e \\
+\end{aligned}
+\end{gathered}
 \end{equation}
 
-There are two distinct analyses done with \emph{Categorical User Data}: one with all the nodes in $T$, unambiguously called the ``outer graph'', and one that only contains the nodes in $T$ which are adjacent to at least one other node in $T$, unambiguously called the ``inner graph''. The latter should give a better or equal result, since the rest of the nodes contains no information in this category.
+\begin{equation}
+\label{eq:categoricaluserdata2}
+\begin{aligned}
+	\incontactslow_v   &= \left| \left\{ e \in E \mid e_d = v \land e_o \in L_v \right\} \right| \\
+	\incontactshigh_v  &= \left| \left\{ e \in E \mid e_d = v \land e_o \in K_v \right\} \right| \\
+	\outcontactslow_v  &= \left| \left\{ e \in E \mid e_o = v \land e_d \in L_v \right\} \right| \\
+	\outcontactshigh_v &= \left| \left\{ e \in E \mid e_o = v \land e_d \in K_v \right\} \right|
+\end{aligned}
+\end{equation}
 
-The ``outer graph'' contains \todo{add amount of nodes here}, while the ``inner graph'' contains only \todo{same here}.
-
+Unlike the features in Section~\ref{subsec:user_data}, and like the method presented in Section~\ref{sec:inference_methodology}, the features in this section will be be different when testing between the nodes of $B_{\test}$ (the \emph{Outer Graph}) and $\Upsilon$ (the \emph{Inner Graph}).
 
 \subsection{Higher Order User Data}
 \label{subsec:higherorderuserdata}
