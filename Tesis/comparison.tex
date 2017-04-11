@@ -153,12 +153,32 @@ Equations~\ref{eq:categoricaluserdata} and~\ref{eq:categoricaluserdata2} contain
 
 Unlike the features in Section~\ref{subsec:user_data}, and like the method presented in Section~\ref{sec:inference_methodology}, the features in this section will be be different when testing between the nodes of $B_{\test}$ (the \emph{Outer Graph}) and $\Upsilon$ (the \emph{Inner Graph}).
 
-\subsection{Higher Order User Data}
+\subsection{Higher Order User Data --- Level 1}
 \label{subsec:higherorderuserdata}
 
-Where \emph{User Data} contains data directly about the neighbours of each user, we can define \emph{User Data of Order $1$}, as the user data variables about the edges of the neighbours of each user $u$ where $u$ isn't any of the endpoints. In the case of cumulative data (calls, time, and SMS), this is equal to the sum of the \emph{User Data} of the neighbours of $u$ minus the \emph{User Data} os $u$ (since we aren't counting ``inner'' edges). This isn't true in the case of the contacts, since two neighbours of $u$ may have a contact in common, which should be counted only once.
+The features described in Section~\ref{subsec:user_data} correspond to the information about calls and SMS from an user $\upsilon \in \Upsilon$ towards all of its neighbours, which is described as the \emph{Ego Network of Distance 1}. However, there's no reason why this information can't be extended to other nodes at a higher distance from $\upsilon$.
 
-Additionally, for any $n \in \mathbb{N}$, we can inductively define the \emph{User Data of Order $n$} as the user data of the nodes at distance $n$ of a certain node.
+If the distance between two nodes is defined using the intuitive definition presented in Equation~\ref{eq:distance}, it's possible to define the \emph{User Data of Order $n$} for any number $n \in \mathbb{N}$ as the accumulation of calls and SMS where one endpoint is on the border of the \emph{Ego Network of Order $n$} and the other one isn't. The \emph{Ego Network of Order $n$} or a certain node $\upsilon$ is the subgraph composed of the node $\upsilon$ and all the nodes which are at at most distance $n$ of $\upsilon$.
+
+\begin{equation}
+d \left( a, b \right) =
+\begin{cases}
+	0 & \text{if } a = b \\
+	1 + \min_{v \in \ego \left(b \right)} d \left( a, v \right) & \text{otherwise}
+\end{cases}
+\label{eq:distance}
+\end{equation}
+
+This definition can be seen more intuitively in the graph in Figure~\ref{fig:higherorderuserdata}.
+
+\begin{figure}
+\centering
+\framebox{%
+	\input{figures/ego.tikz}
+}
+\caption{Example of the edges present in the calculation of the \emph{Higher Order User Data} for a certain node $v$. \textcolor{red}{Red} edges represent edges whose features are accumulated in the \emph{User Data of Order 0}, \textcolor{blue}{blue} edges represent those of \emph{Order 1}, and \textcolor{ForestGreen}{green} those of \emph{Order 2}.}
+\label{fig:higherorderuserdata}
+\end{figure}
 
 \subsection{Validation Metrics}
 \label{subsec:validationmetrics}
