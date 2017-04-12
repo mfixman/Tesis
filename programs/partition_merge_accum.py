@@ -45,6 +45,7 @@ def parse_args():
     )
     parser.add_argument('-f', '--filterrows', help = 'Only rows processed ar the ones in this file.')
     parser.add_argument('-c', '--columns', nargs = '*', default = [], help = 'Columns to partition the file by, other than the first.')
+    parser.add_argument('-a', '--categories', help = 'Also separate the columns depending on these categories')
     parser.add_argument('merge_col', help = 'Column in the standard imput to do the merging.')
     parser.add_argument('merge_file', help = 'File to do the merging with.')
     return parser.parse_args()
@@ -62,6 +63,15 @@ if __name__ == '__main__':
         extra.append(chunk)
     extra = pandas.concat(extra)
 
+    if args.categories:
+        logging.debug('Reading categories file')
+        categories = pandas.read_csv(args.categories, sep = '|', index_col = [0], squeeze = True)
+
+        logging.debug('Merging with merge file')
+        extra = extra.merge(categories.to_frame(), left_index = True, right_index = True)
+
+        args.columns.append(categories.name)
+
     filterrows = None
     if args.filterrows:
         logging.debug('Reading filter file.')
@@ -76,11 +86,8 @@ if __name__ == '__main__':
             chunk = chunk[chunk.index.isin(filterrows)]
 
         full = chunk.merge(extra, left_on = args.merge_col, right_index = True).drop(args.merge_col, axis = 1)
-        accum = full.groupby([full.index] + args.columns).sum()
-
-        try:
-            accum.index.rename(extra.index.name, level = 0, inplace = True)
-        except TypeError:
-            accum.index.rename(extra.index.name, inplace = True)
+        accum = full.groupby([full.index] + args.columns).sum().unstack(level = range(1, len(args.columns)), fill_value = 0)
+        accum.columns = ['_'.join(x) for x in accum.columns]
+        accum.index.rename(extra.index.name, inplace = True)
 
         accum.to_csv(sys.stdout, sep = '|', index = True, header = e == 0)
