@@ -144,7 +144,7 @@ The problems solved in this thesis require the use of the \emph{Inverse Cumulati
 
 \begin{equation}
 \label{eq:quantile_function}
-Q \left( p \right)  = \inf \left\{ x \in \mathbb{R} \mid p \leq F \left( x \right)  \right\}
+Q \left( p \right)  = \inf \left\{ x \in \mathbb{R} \mid p \leq F \left( x \right) \right\}
 \end{equation}
 
 Like with the \emph{Cumulative Distribution Function}, there is no closed form formula for expressing its inverse~\cite{kippingexoplanets2013}. However, there are fast and accurate ways of computing it using either \emph{Interval~Halving} or \emph{Newton's~Method}, such as the \texttt{incbi} implementation in the \emph{Cephes} library~\cite{cephes} which is use in this thesis via a wrapper from \texttt{sklearn}, as explained in Section~\ref{subset:machine_properties}.
