@@ -291,45 +291,50 @@ C &\in \left\{ 0.01, 0.1, 1, 10, 100 \right\} \\
 \end{split}
 \end{equation}
 
+\setlength{\tabcolsep}{3pt}
 \begin{table}
-\begin{tabular*}{\textwidth}{>{\bfseries}l l l @{\extracolsep{\fill}} r r r r r r r}
+\centering
+\begin{tabular}{>{\bfseries}l >{\bfseries}l >{\bfseries}l >{\hspace{2ex}} r r r r r r r r}
 \toprule
-Level & Dataset & Method & Accuracy & Precision & Recall & AUC & F\textsubscript{1}-score & F\textsubscript{4}-score & Time \\
+	\ct{Dataset} & \ct{Model} & \ct{Level} & \ct{Acc.} & \ct{Prec.} & \ct{Recall} & \ct{AUC} & \ct{F\textsubscript{1}} & \ct{F\textsubscript{4}} & \ct{Fit} T & \ct{Pred} T \\
+\midrule
+\multirow{10}{*}{$B^{\test}$}
+
+& \multirow{5}{*}{LR} &
+0 & \num{0.534} & \num{0.586} & \num{0.234} & \num{0.534} & \num{0.335} & \num{0.243} & \SI{0.937}{\second} & \SI{0.016}{\second} \\
+&& 0' & \num{0.565} & \num{0.746} & \num{0.198} & \num{0.565} & \num{0.313} & \num{0.207} & \SI{1.871}{\second} & \SI{0.041}{\second} \\
+&& 1 & \num{0.547} & \num{0.617} & \num{0.250} & \num{0.547} & \num{0.356} & \num{0.260} & \SI{1.347}{\second} & \SI{0.035}{\second} \\
+&& 1' & \num{0.577} & \num{0.727} & \num{0.247} & \num{0.577} & \num{0.368} & \num{0.257} & \SI{9.816}{\second} & \SI{0.077}{\second} \\
+&& 2 & \num{0.577} & \num{0.727} & \num{0.247} & \num{0.577} & \num{0.368} & \num{0.257} & \SI{9.807}{\second} & \SI{0.077}{\second} \\
+\cmidrule{2-11}
+
+& \multirow{5}{*}{RF} &
+0 & \num{0.543} & \num{0.544} & \num{0.529} & \num{0.543} & \num{0.536} & \num{0.530} & \SI{25.789}{\second} & \SI{4.878}{\second} \\
+&& 0' & \num{0.568} & \num{0.573} & \num{0.536} & \num{0.568} & \num{0.554} & \num{0.538} & \SI{32.981}{\second} & \SI{5.371}{\second} \\
+&& 1 & \num{0.578} & \num{0.585} & \num{0.537} & \num{0.578} & \num{0.560} & \num{0.540} & \SI{102.961}{\second} & \SI{5.608}{\second} \\
+&& 1' & \num{0.613} & \num{0.634} & \num{0.533} & \num{0.613} & \num{0.579} & \num{0.538} & \SI{44.911}{\second} & \SI{6.002}{\second} \\
+&& 2 & \num{0.613} & \num{0.634} & \num{0.534} & \num{0.613} & \num{0.580} & \num{0.539} & \SI{75.035}{\second} & \SI{6.144}{\second} \\
+
 \midrule
 
-\multirow{2}{*}{0}
-& & LR & \num{0.541} & \num{0.580} & \num{0.299} & \num{0.541} & \num{0.395} & \num{0.308} & \SI{2.647}{\second} \\
-& & RF & \num{0.541} & \num{0.542} & \num{0.528} & \num{0.541} & \num{0.535} & \num{0.528} & \SI{11.396}{\second} \\
-\midrule
+\multirow{10}{*}{$\Upsilon$}
 
-\multirow{4}{*}{0.5}
-& \multirow{2}{*}{Outer} & LR &\num{0.570} & \num{0.749} & \num{0.212} & \num{0.570} & \num{0.330} & \num{0.221} & \SI{3.727}{\second} \\
-& & RF &\num{0.567} & \num{0.572} & \num{0.533} & \num{0.567} & \num{0.552} & \num{0.535} & \SI{8.528}{\second} \\
-\cmidrule{2-10}
-& \multirow{2}{*}{Inner} & LR &\num{0.720} & \num{0.747} & \num{0.842} & \num{0.675} & \num{0.792} & \num{0.836} & \SI{1.005}{\second} \\
-& & RF &\num{0.700} & \num{0.738} & \num{0.817} & \num{0.658} & \num{0.775} & \num{0.812} & \SI{2.146}{\second} \\
-\midrule
+& \multirow{5}{*}{LR} &
+0 & \num{0.536} & \num{0.531} & \num{0.625} & \num{0.536} & \num{0.574} & \num{0.619} & \SI{0.145}{\second} & \SI{0.002}{\second} \\
+&& 0' & \num{0.686} & \num{0.655} & \num{0.785} & \num{0.686} & \num{0.714} & \num{0.776} & \SI{0.167}{\second} & \SI{0.005}{\second} \\
+&& 1 & \num{0.535} & \num{0.525} & \num{0.730} & \num{0.535} & \num{0.611} & \num{0.714} & \SI{0.141}{\second} & \SI{0.011}{\second} \\
+&& 1' & \num{0.624} & \num{0.671} & \num{0.488} & \num{0.624} & \num{0.565} & \num{0.496} & \SI{0.237}{\second} & \SI{0.003}{\second} \\
+&& 2 & \num{0.624} & \num{0.671} & \num{0.488} & \num{0.624} & \num{0.565} & \num{0.496} & \SI{0.296}{\second} & \SI{0.004}{\second} \\
+\cmidrule{2-11}
 
-\multirow{2}{*}{1}
-& & LR & \num{0.552} & \num{0.597} & \num{0.326} & \num{0.553} & \num{0.422} & \num{0.335} & \SI{5.255}{\second} \\
-& & RF & \num{0.572} & \num{0.580} & \num{0.527} & \num{0.572} & \num{0.552} & \num{0.530} & \SI{22.523}{\second} \\
-\midrule
-
-\multirow{4}{*}{1.5}
-& \multirow{2}{*}{Outer} & LR & \num{0.598} & \num{0.726} & \num{0.358} & \num{0.606} & \num{0.479} & \num{0.369} & \SI{22.851}{\second} \\
-& & RF & \num{0.723} & \num{0.747} & \num{0.852} & \num{0.675} & \num{0.796} & \num{0.845} & \SI{4.780}{\second} \\
-\cmidrule{2-10}
-& \multirow{2}{*}{Inner} & LR & \num{0.643} & \num{0.668} & \num{0.617} & \num{0.644} & \num{0.642} & \num{0.620} & \SI{21.498}{\second} \\
-& & RF & \num{0.735} & \num{0.766} & \num{0.838} & \num{0.697} & \num{0.800} & \num{0.834} & \SI{6.706}{\second} \\
-\midrule
-
-\multirow{2}{*}{2}
-& & LR & \num{0} & \num{0} & \num{0} & \num{0} & \num{0} & \num{0} & \SI{0}{\second} \\
-& & RF & \num{0} & \num{0} & \num{0} & \num{0} & \num{0} & \num{0} & \SI{0}{\second} \\
+& \multirow{5}{*}{RF} &
+0 & \num{0.548} & \num{0.548} & \num{0.550} & \num{0.548} & \num{0.549} & \num{0.550} & \SI{5.986}{\second} & \SI{0.588}{\second} \\
+&& 0' & \num{0.671} & \num{0.665} & \num{0.690} & \num{0.671} & \num{0.677} & \num{0.688} & \SI{6.346}{\second} & \SI{0.539}{\second} \\
+&& 1 & \num{0.582} & \num{0.583} & \num{0.577} & \num{0.582} & \num{0.580} & \num{0.577} & \SI{56.548}{\second} & \SI{0.483}{\second} \\
+&& 1' & \num{0.681} & \num{0.683} & \num{0.675} & \num{0.681} & \num{0.679} & \num{0.676} & \SI{12.448}{\second} & \SI{0.487}{\second} \\
+&& 2 & \num{0.678} & \num{0.679} & \num{0.674} & \num{0.678} & \num{0.677} & \num{0.674} & \SI{12.125}{\second} & \SI{0.486}{\second} \\
 \bottomrule
-
-\end{tabular*}
-\caption{Results of running dataset with different feature extraction methods}
+\end{tabular}
+\caption{Resulting metrics of different methods used in Section~\ref{sec:results} and Section~\ref{sec:comparison}}
 \label{tab:comparison}
-\todo{Add level $\geq 2$}
 \end{table}
