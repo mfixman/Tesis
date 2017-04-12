@@ -55,6 +55,8 @@ Each method is identified with an integer $n \in \mathbb{N}$ which represents th
 
 Additionally, the features of each method are merged with the ones from the immediate predecessor methods, as shown in the graph in Figure~\ref{fig:mlrelationships}.
 
+The amount of features in each level is described in Table~\ref{tab:datasettable}.
+
 \begin{figure}
 \centering
 \resizebox{!}{.3\textheight}{%
@@ -65,6 +67,23 @@ Additionally, the features of each method are merged with the ones from the imme
 \caption{Relationships between the \emph{Feature Extraction} methods of Section~\ref{subsec:methods_ml}. \textcolor{Blue}{blue} edges represent a raise in \emph{Ego Network} size, a process which is describe in Section~\ref{subsec:higherorderuserdata}, while \textcolor{ForestGreen}{green} edges represent adding label information, which is described in Section~\ref{subsec:categoricaluserdata}}
 \label{fig:mlrelationships}
 \end{figure}
+
+\begin{table}
+\centering
+\begin{tabular}{>{\bfseries}l r}
+\toprule
+Level & Features \\
+\midrule
+0 & \num{8} \\
+0' & \num{24} \\
+1 & \num{16} \\
+1' & \num{48} \\
+2 & \num{24} \\
+\bottomrule
+\end{tabular}
+\caption{Number of features used for testing each Machine Learning model on each level}
+\label{tab:datasettable}
+\end{table}
 
 \subsection{User Data --- Level 0}
 \label{subsec:user_data}
@@ -255,29 +274,6 @@ There are several validation metrics used for each method.
 	\item[$\mathbf{F_4}$ Score] as described in Subsection~\ref{subsec:fmeasure}, which gives more weight to the Recall. This is usually wanted since the ultimate practical objective of this study is to find wealthier people, even if the result has low Precision.
 	\item[Time] can be used to break ties between similar models.
 \end{description}
-
-\subsection{Feature Extraction}
-\label{subsec:featureextraction}
-Using the previous graph, we can create features separated into different levels.
-
-\begin{table}
-\centering
-\begin{tabular}{>{\bfseries}l c c c c c c c}
-\toprule
-\textbf{Level} & 0 & \multicolumn{2}{c}{0.5} & 1 & \multicolumn{2}{c}{1.5} & 2 \\
-\cmidrule(lr){3-4} \cmidrule(lr){6-7}
-\textbf{Dataset} &   & inner     &    outer    &   & inner     &    outer    &   \\
-\midrule
-Features &\num{1234567}&\num{1234567}&\num{1234567}&\num{1234567}&\num{1234567}&\num{1234567}&\num{1234567}\\
-Samples  &\num{1234567}&\num{1234567}&\num{1234567}&\num{1234567}&\num{1234567}&\num{1234567}&\num{1234567}\\
-\bottomrule
-\end{tabular}
-\caption{Size of the datasets used for testing for each feature extraction method}
-\label{tab:datasettable}
-\todo{Change placeholders for actual numbers}
-\end{table}
-
-These datasets contain differing numbers of features and samples, as described in Table~\ref{tab:datasettable}.
 
 \subsection{Results}
 
