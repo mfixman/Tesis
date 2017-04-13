@@ -88,8 +88,8 @@ if __name__ == '__main__':
             chunk = chunk[chunk.index.isin(filterrows)]
 
         full = chunk.merge(extra, left_on = args.merge_col, right_index = True).drop(args.merge_col, axis = 1)
-        accum = full.groupby([full.index] + args.columns).sum().unstack(level = range(1, len(args.columns) + 1), fill_value = 0)
-        accum.columns = ['_'.join('{}{}'.format('' if type(x) == str else 'd', x) for y in x) for x in accum.columns]
+        accum = full.groupby([full.index] + args.columns).sum().unstack(level = range(1, len(args.columns) + 1)).fillna(0, downcast = 'infer')
+        accum.columns = ['_'.join('{}{}'.format('' if type(y) == str else 'd', y) for y in x) for x in accum.columns]
         accum.index.rename(extra.index.name, inplace = True)
 
         accum.to_csv(sys.stdout, sep = '|', index = True, header = e == 0)
