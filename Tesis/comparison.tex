@@ -272,30 +272,30 @@ There are several validation metrics used for each method.
 	\item[Area Under the Curve] as described in Subsection~\ref{subsec:auc}, which measures the general performance disregarding which threshold is used.
 	\item[$\mathbf{F_1}$ Score] as described in Subsection~\ref{subsec:fmeasure} which is generalized score balancing Precision and Recall.
 	\item[$\mathbf{F_4}$ Score] as described in Subsection~\ref{subsec:fmeasure}, which gives more weight to the Recall. This is usually wanted since the ultimate practical objective of this study is to find wealthier people, even if the result has low Precision.
-	\item[Time] can be used to break ties between similar models.
+	\item[Fit Time] is the time it takes to fit a model. It's particularly high in ensemble methods such as \emph{Random Forest}.
+	\item[Predict Time] can be used to break ties between similar models.
 \end{description}
 
 \subsection{Results}
 
-Applying the features from Section~\ref{subsec:featureextraction} to the \emph{Random Forest} model described in Section~\ref{subsec:randomforest} and the \emph{Logistic Regression} model described in Section~\ref{subsec:logisticregression}. Prior to applying each model, a \emph{Grid Search} was made with the parameter $C$ in the case of the \emph{Logistic Regression} as shown by Equation~\ref{eq:gridsearch}, and the \emph{Criterion} used in the \emph{Random Forest}, and the hyperparameter which results in the most \emph{Accuracy} after 5-fold cross validation was used.
-
-\begin{equation}
-\label{eq:gridsearch}
-\begin{split}
-C &\in \left\{ 0.01, 0.1, 1, 10, 100 \right\} \\
-\operatorname{Criterion} &\in \left\{ \text{Gini}, \text{Entropy} \right\}
-\end{split}
-\end{equation}
+Table~\ref{tab:comparison} shows various metrics which result from applying the methods described in this Section to the datasets presented in this thesis, after using the best hyperparameters shown in Table~/ref{tab:gridsearch} and applying 5-fold \emph{Cross Validation} to prevent \emph{Overfitting}. This result is compared to the \emph{Bayesian Algorithm} presented in Section~\ref{sec:inference_methodology}.
 
 \setlength{\tabcolsep}{3pt}
 \begin{table}
 \centering
 \begin{tabular}{>{\bfseries}l >{\bfseries}l >{\bfseries}l >{\hspace{2ex}} r r r r r r r r}
 \toprule
-	\ct{Dataset} & \ct{Model} & \ct{Level} & \ct{Acc.} & \ct{Prec.} & \ct{Recall} & \ct{AUC} & \ct{F\textsubscript{1}} & \ct{F\textsubscript{4}} & \ct{Fit Time} & \ct{Pred Time} \\
+\ct{Dataset} & \ct{Model} & \ct{Level} & \ct{Acc.} & \ct{Prec.} & \ct{Recall} & \ct{AUC} & \ct{F\textsubscript{1}} & \ct{F\textsubscript{4}} & \ct{t\textsubscript{fit}} & \ct{t\textsubscript{pred}} \\
 \midrule
 
-\multirow{10}{*}{$\Upsilon$}
+\multirow{12}{*}{$\Upsilon$}
+
+& \multicolumn{2}{>{\bfseries}l}{Random}
+&       \num{0.499} & \num{0.499} & \num{0.500} & \num{0.499} & \num{0.500} & \num{0.500} & \SI{0.131}{\second} & \SI{0.005}{\second} \\
+
+& \multicolumn{2}{>{\bfseries}l}{Majority}
+&       \num{0.681} & \num{0.640} & \num{0.826} & \num{0.681} & \num{0.721} & \num{0.812} & \SI{0.000}{\second} & \SI{0.059}{\second} \\
+\cmidrule{2-11}
 
 & \multirow{5}{*}{LR} &
    0  & \num{0.536} & \num{0.531} & \num{0.625} & \num{0.536} & \num{0.574} & \num{0.619} & \SI{0.145}{\second}   & \SI{0.002}{\second} \\
@@ -313,7 +313,14 @@ C &\in \left\{ 0.01, 0.1, 1, 10, 100 \right\} \\
 && 2  & \num{0.576} & \num{0.577} & \num{0.580} & \num{0.576} & \num{0.579} & \num{0.580} & \SI{50.197}{\second}  & \SI{0.253}{\second} \\
 \midrule
 
-\multirow{10}{*}{$B^{\test}$}
+\multirow{12}{*}{$B^{\test}$}
+
+& \multicolumn{2}{>{\bfseries}l}{Random}
+&       \num{0.499} & \num{0.499} & \num{0.500} & \num{0.499} & \num{0.500} & \num{0.500} & \SI{0.131}{\second} & \SI{0.005}{\second} \\
+
+& \multicolumn{2}{>{\bfseries}l}{Majority}
+&       \num{0.565} & \num{0.747} & \num{0.197} & \num{0.565} & \num{0.312} & \num{0.206} & \SI{0.000}{\second} & \SI{0.204}{\second} \\
+\cmidrule{2-11}
 
 & \multirow{5}{*}{LR} &
    0  & \num{0.534} & \num{0.586} & \num{0.234} & \num{0.534} & \num{0.335} & \num{0.243} & \SI{0.937}{\second}   & \SI{0.016}{\second} \\
