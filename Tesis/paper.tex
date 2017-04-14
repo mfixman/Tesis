@@ -28,6 +28,8 @@
 \usepackage{exscale}
 \usepackage{subcaption}
 \usepackage{capt-of}
+\usepackage[perpage]{footmisc}
+% \usepackage{perpage}
 
 \usepackage{tikz}
 \usetikzlibrary{shapes}
@@ -62,6 +64,9 @@
 
 \setcounter{secnumdepth}{3}
 \captionsetup[table]{skip = 2ex}
+
+\renewcommand*{\thefootnote}{\fnsymbol{footnote}}
+% \MakePerPage{footnote}
 
 \input{operators}
 
