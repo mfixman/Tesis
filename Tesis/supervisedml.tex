@@ -55,7 +55,7 @@ This model makes several assumptions about the data.
 	\item[Lack of multicollinearity] implies that the matrix $X$ must have full column rank; there can't be two perfectly correlated input variables. In this case there won't be a unique solution for the vector $\beta$.
 \end{description}
 
-There are many ways of effectively calculating the optimal \emph{Lineal Regression} for a particular pair $\left< X, y \right>$. One of them is using the \textbf{Least~Squares~Estimation}, which can be solved through the \emph{Least Squares Principle}.
+There are many ways of effectively calculating the optimal \emph{Lineal Regression} for a particular pair $\left< X, y \right>$. One of them is using the \textbf{Least Squares Estimation}, which can be solved through the \emph{Least Squares Principle}.
 
 \begin{equation}
 \label{eq:leastsquaresprinciple}
@@ -75,7 +75,52 @@ Additionally, Equation~\ref{eq:linearsquares} presents an unbiased estimator of 
 
 \subsubsection{Logistic Regression}
 \label{subsec:logisticregression}
-\todo{Describe Logistic Regression}
+
+The \emph{Logistic Regression}, also referred to as the \emph{Logit Model}~\cite{freedman2009statistical} is a regression model similar to the \emph{Linear Regression}, with the particularity that the \emph{Dependent Variable} $y$ is categorical. While it's possible to calculate the variable for sets of categories of several finite sizes (when it's referred to as a \emph{Multinomial Logistic Regression}~\cite{greene_econometric_2011}) or even for ordered sets of categories (an \emph{Ordinal Logistic Regression}~\cite{mccullagh1980ordinal}), this thesis will focus on the case where $y \in {\left\{ 0, 1 \right\}}^n$, that is, each variable in $y$ is binary.
+
+The model uses the results of a \emph{Linear Regression} on the data $\left< X, y \right>$, where coefficients that solve Equation~\ref{eq:linearregression} are found. The result of that regression is a real value, which is normalized using a function $f : \mathbb{R} \rightarrow \left[ 0, 1 \right]$, whose result is considered the probability that the result of some element is $1$.
+
+A commonly used function for $f$ is the \emph{Logistic Function} $\sigma : \mathbb{R} \rightarrow \left[ 0, 1 \right]$, defined in Equation~\ref{eq:logisticfunction} and plot in Figure~\ref{fig:logistic}.
+
+\begin{equation}
+\label{eq:logisticfunction}
+\sigma \left( t \right) = \frac{e^t}{e^t + 1} = \frac{1}{1 + e^{-t}}
+\end{equation}
+
+\begin{figure}
+\centering
+\includegraphicsmaybe{figures/logistic.png}
+\caption{The standard logistic sigmoid function $y = \sigma(x)$}
+\label{fig:logistic}
+\end{figure}
+
+This probability is used for estimating the value of $y$, namely as defined in Equation~\ref{eq:probit}.
+
+\begin{equation}
+\label{eq:probit}
+\begin{aligned}
+	P \left( y_i = 1 \mid X \right) &= \sigma \left( X_i \beta \right) \\
+	P \left( y_i = 0 \mid X \right) &= 1 - \sigma \left( X_i \beta \right)
+\end{aligned}
+\end{equation}
+
+The inverse of the \emph{Logistic Function}, referred to as the \emph{Logit Function}, gives the logarithm of the \emph{Odds} of a certain element belonging to some category.
+
+\begin{equation}
+\label{eq:logit}
+	\logit \left( x \right) = \log \left( \frac{\sigma \left( x \right)}{1 - \sigma \left( x \right)} \right)
+\end{equation}
+
+The logit model says that the vector $y$ is independent given the matrix $X$~\cite{freedman2009statistical}, and can be considered as inverse of the probability defined in Equation~\ref{eq:probit}.
+
+\begin{equation}
+\label{eq:prob_logit}
+	\logit P \left( y_i = 1 \mid X \right) = X_i \beta
+\end{equation}
+
+The regression is usually calculated using \emph{Maximum Likelihood Estimation}~\cite{fan2008liblinear} and, unlike the estimation of the \emph{Linear Regression} presented in Section~\ref{subsec:linearregression}, it's not possible to find a closed form expression of the coefficients that maximize the value of the likelihood function. Instead, the iterative \emph{Newton's Method} is used.
+
+The exact formulas used to ensure fast and correct conversed used in this thesis are the ones present in \texttt{LIBLINEAR}, which is presented in~\cite{hsiastudy}.
 
 \subsubsection{Decision Trees}
 \label{subsec:decisiontrees}
