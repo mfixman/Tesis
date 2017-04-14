@@ -55,12 +55,35 @@ Each method is identified with an integer $n \in \mathbb{N}$ which represents th
 
 Additionally, the features of each method are merged with the ones from the immediate predecessor methods, as shown in the graph in Figure~\ref{fig:mlrelationships}.
 
+The amount of features in each level is described in Table~\ref{tab:datasettable}.
+
 \begin{figure}
 \centering
-\includegraphicsmaybe{figures/mlrelationships.png}
-\caption{Relationships between the \emph{Feature Extraction} methods of Section~\ref{subsec:methods_ml}}
+\resizebox{!}{.3\textheight}{%
+	\framebox{%
+		\input{figures/mlrelationships.tikz}
+	}
+}
+\caption{Relationships between the \emph{Feature Extraction} methods of Section~\ref{subsec:methods_ml}. \textcolor{Blue}{blue} edges represent a raise in \emph{Ego Network} size, a process which is describe in Section~\ref{subsec:higherorderuserdata}, while \textcolor{ForestGreen}{green} edges represent adding label information, which is described in Section~\ref{subsec:categoricaluserdata}}
 \label{fig:mlrelationships}
 \end{figure}
+
+\begin{table}
+\centering
+\begin{tabular}{>{\bfseries}l r}
+\toprule
+Level & Features \\
+\midrule
+0 & \num{8} \\
+0' & \num{24} \\
+1 & \num{16} \\
+1' & \num{48} \\
+2 & \num{24} \\
+\bottomrule
+\end{tabular}
+\caption{Number of features used for testing each Machine Learning model on each level}
+\label{tab:datasettable}
+\end{table}
 
 \subsection{User Data --- Level 0}
 \label{subsec:user_data}
@@ -149,12 +172,94 @@ Equations~\ref{eq:categoricaluserdata} and~\ref{eq:categoricaluserdata2} contain
 
 Unlike the features in Section~\ref{subsec:user_data}, and like the method presented in Section~\ref{sec:inference_methodology}, the features in this section will be be different when testing between the nodes of $B_{\test}$ (the \emph{Outer Graph}) and $\Upsilon$ (the \emph{Inner Graph}).
 
-\subsection{Higher Order User Data}
+\subsection{Higher Order User Data --- Level 1}
 \label{subsec:higherorderuserdata}
 
-Where \emph{User Data} contains data directly about the neighbours of each user, we can define \emph{User Data of Order $1$}, as the user data variables about the edges of the neighbours of each user $u$ where $u$ isn't any of the endpoints. In the case of cumulative data (calls, time, and SMS), this is equal to the sum of the \emph{User Data} of the neighbours of $u$ minus the \emph{User Data} os $u$ (since we aren't counting ``inner'' edges). This isn't true in the case of the contacts, since two neighbours of $u$ may have a contact in common, which should be counted only once.
+The features described in Section~\ref{subsec:user_data} correspond to the information about calls and SMS from an user $\upsilon \in \Upsilon$ towards all of its neighbours, which is described as the \emph{Ego Network of Distance 1}. However, there's no reason why this information can't be extended to other nodes at a higher distance from $\upsilon$.
 
-Additionally, for any $n \in \mathbb{N}$, we can inductively define the \emph{User Data of Order $n$} as the user data of the nodes at distance $n$ of a certain node.
+If the distance between two nodes is defined using the intuitive definition presented in Equation~\ref{eq:distance}, it's possible to define the \emph{User Data of Order $n$} for any number $n \in \mathbb{N}$ as the accumulation of calls and SMS where one endpoint is on the border of the \emph{Ego Network of Order $n$} and the other one isn't. The \emph{Ego Network of Order $n$} or a certain node $\upsilon$ is the subgraph composed of the node $\upsilon$ and all the nodes which are at at most distance $n$ of $\upsilon$.
+
+\begin{equation}
+d \left( a, b \right) =
+\begin{cases}
+	0 & \text{if } a = b \\
+	1 + \min_{v \in \ego \left(b \right)} d \left( a, v \right) & \text{otherwise}
+\end{cases}
+\label{eq:distance}
+\end{equation}
+
+This definition can be seen more intuitively in the graph in Figure~\ref{fig:higherorderuserdata}.
+
+\begin{figure}
+\centering
+\framebox{%
+	\input{figures/ego.tikz}
+}
+\caption{Example of the edges present in the calculation of the \emph{Higher Order User Data} for a certain node $v$. \textcolor{red}{Red} edges represent edges whose features are accumulated in the \emph{User Data of Order 0}, \textcolor{blue}{blue} edges represent those of \emph{Order 1}, and \textcolor{ForestGreen}{green} those of \emph{Order 2}.}
+\label{fig:higherorderuserdata}
+\end{figure}
+
+\subsection{Machine Learning}
+
+All the feature sets described in the previous sections are individually going to be used as the input objects of the \emph{Training Data} and either the \emph{Outer Graph} $B^{\test}$ or the \emph{Inner Graph} $\Upsilon$ will be used as the output with several \emph{Supervised Machine Learning} methods. The result of these methods will be measured using many metrics of the results, described in Section~\ref{subsec:mlmetrics}, and compared against other methods (including the Bayesian Algorithm of Section~\ref{sec:inference_methodology}) in Table~\ref{tab:comparison}.
+
+To prevent the problem of \emph{Overfitting}\maybe{Add this to the theory}, the results are generated by using \emph{Cross-Validated} estimates of the data\maybe{Also add this to the theory} using \emph{K-Folds} with $K = 5$. This way, each quintile of the data is predicted using only data from the other four.
+
+These \emph{Machine Learning} methods used in this section contain many hyperparameters which may affect the result, and calculated them isn't trivial. For this reason this experiment includes a \emph{Grid Search}\maybe{Idem previous two} of the data against all possible hyperparameters. The resulting hyperparameters of the \emph{Grid Search} are presented in Table~\ref{tab:gridsearch}.
+
+\begin{table}
+\centering
+\begin{tabular}{>{\bfseries}c >{\bfseries}l >{\hspace{5em}}r r r >{\hspace{2em}}r r r}
+\toprule
+\multirow{2}{*}{Dataset} & \multirow{2}{*}{Level} & \multicolumn{3}{>{\hspace{2em}}c}{\textbf{Logistic Regression}} & \multicolumn{3}{>{\hspace{2em}}c}{\textbf{Random Forest}} \\
+&& \phantom & $\log_{10}{\left(C\right)}$ && Criterion & Max Features & Replacement \\
+\midrule
+\multirow{5}{*}{$\Upsilon$}
+& 0  & & $-2$ & & Entropy & $\sqrt{f}$ & True \\
+& 0' & & $-3$ & & Entropy & $\log_2{f}$ & True \\
+& 1  & & $-2$ & & Entropy & $f$ & True \\
+& 1' & &  $0$ & & Entropy & $f$ & True \\
+& 2  & & $-2$ & & Entropy & $f$ & True \\
+[2ex]
+\multirow{5}{*}{$B^{\test}$}
+& 0  & &  $0$ & & Gini & $\log_2{f}$ & True \\
+& 0' & & $-2$ & & Entropy & $\log_2{f}$ & True \\
+& 1  & &  $1$ & & Entropy & $\log_2{f}$ & True \\
+& 1' & &  $2$ & & Gini & $\sqrt{f}$ & True \\
+& 2  & &  $0$ & & Entropy & $\sqrt{f}$ & True \\
+\bottomrule
+\end{tabular}
+\caption{Best hyperparameters for each group of features in each model used for predicting the result.}
+\label{tab:gridsearch}
+\end{table}
+
+\subsubsection{Logistic Regression}
+
+The method of \emph{Logistic Regression}, which is described with more detail in Section~\ref{subsec:logisticregression}, consists of doing some regression analysis with the data after applying some \emph{Logistic Function} to normalize the data.
+
+The most important hyperparameter of this data is the \emph{Regularization Factor} $C$, which specifies the regularization of the input. As shown in Equation~\ref{eq:gridsearchlogreg}, this value is searched in exponential increments.
+
+\begin{equation}
+\label{eq:gridsearchlogreg}
+C \in \left\{ 10^{-3}, 10^{-2}, 10^{-1}, 10^0, 10^1, 10^2, 10^3 \right\}
+\end{equation}
+
+\subsubsection{Random Forest}
+
+The method of \emph{Random Forest}, which is described with more detain in Section~\ref{subsec:randomforest}, consists of constructing a multitude of \emph{Decision Trees} and outputting the class that is the \emph{mode} of the classes.
+
+There are several hyperparameters used in this method, namely the \emph{Criterion} to measure the quality of a split (\emph{Gini} uses Gini impurity, while \emph{entropy} uses information gain), the function of the amount of features $f$ used to calculate the \emph{Sample Size}, and whether the samples are taken with or without \emph{Replacement}. This is formalized in Equation~\ref{eq:gridsearchrandomforest}.
+
+Another possible hyperparameter would be the number of trees. However, it's been shown in~\cite{breiman2001random} that \emph{Random Forests} converge quickly for a high amount of trees, and since the objective of this section isn't to optimize by time, the value will be set to the sufficiently high $\text{\texttt{n\_estimators}} = 50$.
+
+\begin{equation}
+\label{eq:gridsearchrandomforest}
+\begin{aligned}
+	\operatorname{Criterion} &\in \left\{ \operatorname{Gini}, \operatorname{Entropy} \right\} \\
+	\operatorname{Features} &\in \left\{ f, \sqrt{f}, \log_2{f} \right\} \\
+	\operatorname{Replacement} &\in \left\{ \operatorname{True}, \operatorname{False} \right\}
+\end{aligned}
+\end{equation}
 
 \subsection{Validation Metrics}
 \label{subsec:validationmetrics}
@@ -167,120 +272,77 @@ There are several validation metrics used for each method.
 	\item[Area Under the Curve] as described in Subsection~\ref{subsec:auc}, which measures the general performance disregarding which threshold is used.
 	\item[$\mathbf{F_1}$ Score] as described in Subsection~\ref{subsec:fmeasure} which is generalized score balancing Precision and Recall.
 	\item[$\mathbf{F_4}$ Score] as described in Subsection~\ref{subsec:fmeasure}, which gives more weight to the Recall. This is usually wanted since the ultimate practical objective of this study is to find wealthier people, even if the result has low Precision.
-	\item[Time] can be used to break ties between similar models.
+	\item[Fit Time] is the time it takes to fit a model. It's particularly high in ensemble methods such as \emph{Random Forest}.
+	\item[Predict Time] can be used to break ties between similar models.
 \end{description}
-
-\subsection{Feature Extraction}
-\label{subsec:featureextraction}
-Using the previous graph, we can create features separated into different levels.
-
-\begin{enumerate}
-	\item[0] \emph{Local Features} as described in Section~\ref{subsec:user_data}.
-	\item[0.5] \emph{Classified Local Features} as described in Section~\ref{subsec:categoricaluserdata} (using only the adjacency information of the training set $T$), joined with the data on the previous item. There are two separate sets of sampels used for experiments on this level.
-	\begin{description}
-		\item[Outer Nodes] which contain all samples in $S$.
-		\item[Innter Nodes] which only contain samples in the testing set $S$ which have at least a neighbour in the training set $T$.
-	\end{description}
-	\item[1] \emph{Neighbour Features}, as described in Section~\ref{subsec:higherorderuserdata} for \emph{User Data of Order 1}, joined with data on \textbf{Level 0}.
-	\item[1.5] \emph{Classified Neighbouring Features}, which combine the feature extraction methods seen in Section~\ref{subsec:categoricaluserdata} and Section~\ref{subsec:higherorderuserdata}, and separate the accumulation of the \emph{User Data} of a node's neighbours along categorical features. This data is also joined with all previous levels, and discriminated between sets of \emph{Outer Nodes} and \emph{Inner Nodes}
-	\item[$\geq 2$] The method described in Section~\ref{subsec:higherorderuserdata}, with or without classification by the type of the other endpoint of the link. In this section, we'll prove that the accuracy of the methods before this one are similar enough to the ones in this level so that sacrificing speed is not worth the new features.
-\end{enumerate}
-
-\begin{table}
-\centering
-\begin{tabular}{>{\bfseries}l c c c c c c c}
-\toprule
-\textbf{Level} & 0 & \multicolumn{2}{c}{0.5} & 1 & \multicolumn{2}{c}{1.5} & 2 \\
-\cmidrule(lr){3-4} \cmidrule(lr){6-7}
-\textbf{Dataset} &   & inner     &    outer    &   & inner     &    outer    &   \\
-\midrule
-Features &\num{1234567}&\num{1234567}&\num{1234567}&\num{1234567}&\num{1234567}&\num{1234567}&\num{1234567}\\
-Samples  &\num{1234567}&\num{1234567}&\num{1234567}&\num{1234567}&\num{1234567}&\num{1234567}&\num{1234567}\\
-\bottomrule
-\end{tabular}
-\caption{Size of the datasets used for testing for each feature extraction method}
-\label{tab:datasettable}
-\todo{Change placeholders for actual numbers}
-\end{table}
-
-These datasets contain differing numbers of features and samples, as described in Table~\ref{tab:datasettable}.
 
 \subsection{Results}
 
-Applying the features from Section~\ref{subsec:featureextraction} to the \emph{Random Forest} model described in Section~\ref{subsec:randomforest} and the \emph{Logistic Regression} model described in Section~\ref{subsec:logisticregression}. Prior to applying each model, a \emph{Grid Search} was made with the parameter $C$ in the case of the \emph{Logistic Regression} as shown by Equation~\ref{eq:gridsearch}, and the \emph{Criterion} used in the \emph{Random Forest}, and the hyperparameter which results in the most \emph{Accuracy} after 5-fold cross validation was used.
+Table~\ref{tab:comparison} shows various metrics which result from applying the methods described in this Section to the datasets presented in this thesis, after using the best hyperparameters shown in Table~/ref{tab:gridsearch} and applying 5-fold \emph{Cross Validation} to prevent \emph{Overfitting}. This result is compared to the \emph{Bayesian Algorithm} presented in Section~\ref{sec:inference_methodology}.
 
-\begin{equation}
-\label{eq:gridsearch}
-\begin{split}
-C &\in \left\{ 0.01, 0.1, 1, 10, 100 \right\} \\
-\operatorname{Criterion} &\in \left\{ \text{Gini}, \text{Entropy} \right\}
-\end{split}
-\end{equation}
-
-The results of the \emph{Grid Search} are presented in Table~\ref{tab:gridsearch}, while the different metrics of the result are presented in Table~\ref{tab:comparison}.
-
+\setlength{\tabcolsep}{3pt}
 \begin{table}
 \centering
-\begin{tabular}{>{\bfseries}l l @{\hskip 2em} r r}
+\begin{tabular}{>{\bfseries}l >{\bfseries}l >{\bfseries}l >{\hspace{2ex}} r r r r r r r r}
 \toprule
-Level & Dataset & $C$ (LR) & Criterion (RF) \\
+\ct{Dataset} & \ct{Model} & \ct{Level} & \ct{Acc.} & \ct{Prec.} & \ct{Recall} & \ct{AUC} & \ct{F\textsubscript{1}} & \ct{F\textsubscript{4}} & \ct{t\textsubscript{fit}} & \ct{t\textsubscript{pred}} \\
 \midrule
 
-0 & & \num{10} & Entropy \\ [1.5ex]
+\multirow{13}{*}{$\Upsilon$}
 
-\multirow{2}{*}{0.5} & Outer & \num{0.01} & Gini \\
-& Inner & \num{1} & Gini \\ [1.5ex]
+& \multicolumn{2}{>{\bfseries}l}{Random}
+&       \num{0.499} & \num{0.499} & \num{0.500} & \num{0.499} & \num{0.500} & \num{0.500} & \SI{0.131}{\second} & \SI{0.005}{\second} \\
 
-1 & & \num{100} & Entropy \\ [1.5ex]
+& \multicolumn{2}{>{\bfseries}l}{Majority}
+&       \num{0.681} & \num{0.640} & \num{0.826} & \num{0.681} & \num{0.721} & \num{0.812} & \SI{0.000}{\second} & \SI{0.059}{\second} \\
 
-\multirow{2}{*}{1.5} & Outer & \num{100} & Entropy \\
-& Inner & \num{100} & Entropy \\
+& \multicolumn{2}{>{\bfseries}l}{Bayesian\footnotemark{}}
+&       \num{0.691} & \num{0.653} & \num{0.827} & \num{0.741} & \num{0.730} & \num{0.815} & \SI{0.000}{\second} & \SI{33.155}{\second} \\
+\cmidrule{2-11}
+
+& \multirow{5}{*}{LR} &
+   0  & \num{0.536} & \num{0.531} & \num{0.625} & \num{0.536} & \num{0.574} & \num{0.619} & \SI{0.145}{\second}   & \SI{0.002}{\second} \\
+&& 0' & \num{0.686} & \num{0.655} & \num{0.785} & \num{0.686} & \num{0.714} & \num{0.776} & \SI{0.167}{\second}   & \SI{0.005}{\second} \\
+&& 1  & \num{0.535} & \num{0.525} & \num{0.730} & \num{0.535} & \num{0.611} & \num{0.714} & \SI{0.141}{\second}   & \SI{0.011}{\second} \\
+&& 1' & \num{0.693} & \num{0.665} & \num{0.780} & \num{0.693} & \num{0.718} & \num{0.772} & \SI{1.588}{\second}   & \SI{0.011}{\second} \\
+&& 2  & \num{0.568} & \num{0.578} & \num{0.525} & \num{0.569} & \num{0.550} & \num{0.528} & \SI{0.119}{\second}   & \SI{0.003}{\second} \\
+\cmidrule{2-11}
+
+& \multirow{5}{*}{RF} &
+   0  & \num{0.548} & \num{0.548} & \num{0.550} & \num{0.548} & \num{0.549} & \num{0.550} & \SI{5.986}{\second}   & \SI{0.588}{\second} \\
+&& 0' & \num{0.671} & \num{0.665} & \num{0.690} & \num{0.671} & \num{0.677} & \num{0.688} & \SI{6.346}{\second}   & \SI{0.539}{\second} \\
+&& 1  & \num{0.582} & \num{0.583} & \num{0.577} & \num{0.582} & \num{0.580} & \num{0.577} & \SI{56.548}{\second}  & \SI{0.483}{\second} \\
+&& 1' & \num{0.714} & \num{0.713} & \num{0.716} & \num{0.714} & \num{0.714} & \num{0.716} & \SI{96.005}{\second}  & \SI{0.460}{\second} \\
+&& 2  & \num{0.576} & \num{0.577} & \num{0.580} & \num{0.576} & \num{0.579} & \num{0.580} & \SI{50.197}{\second}  & \SI{0.253}{\second} \\
+\midrule
+
+\multirow{12}{*}{$B^{\test}$}
+
+& \multicolumn{2}{>{\bfseries}l}{Random}
+&       \num{0.499} & \num{0.499} & \num{0.500} & \num{0.499} & \num{0.500} & \num{0.500} & \SI{0.131}{\second} & \SI{0.005}{\second} \\
+
+& \multicolumn{2}{>{\bfseries}l}{Majority}
+&       \num{0.565} & \num{0.747} & \num{0.197} & \num{0.565} & \num{0.312} & \num{0.206} & \SI{0.000}{\second} & \SI{0.204}{\second} \\
+\cmidrule{2-11}
+
+& \multirow{5}{*}{LR} &
+   0  & \num{0.534} & \num{0.586} & \num{0.234} & \num{0.534} & \num{0.335} & \num{0.243} & \SI{0.937}{\second}   & \SI{0.016}{\second} \\
+&& 0' & \num{0.565} & \num{0.746} & \num{0.198} & \num{0.565} & \num{0.313} & \num{0.207} & \SI{1.871}{\second}   & \SI{0.041}{\second} \\
+&& 1  & \num{0.547} & \num{0.617} & \num{0.250} & \num{0.547} & \num{0.356} & \num{0.260} & \SI{1.347}{\second}   & \SI{0.035}{\second} \\
+&& 1' & \num{0.577} & \num{0.727} & \num{0.247} & \num{0.577} & \num{0.368} & \num{0.257} & \SI{9.816}{\second}   & \SI{0.077}{\second} \\
+&& 2  & \num{0.563} & \num{0.586} & \num{0.430} & \num{0.563} & \num{0.496} & \num{0.437} & \SI{1.055}{\second}   & \SI{0.023}{\second} \\
+\cmidrule{2-11}
+
+& \multirow{5}{*}{RF} &
+   0  & \num{0.543} & \num{0.544} & \num{0.529} & \num{0.543} & \num{0.536} & \num{0.530} & \SI{25.789}{\second}  & \SI{4.878}{\second} \\
+&& 0' & \num{0.568} & \num{0.573} & \num{0.536} & \num{0.568} & \num{0.554} & \num{0.538} & \SI{32.981}{\second}  & \SI{5.371}{\second} \\
+&& 1  & \num{0.578} & \num{0.585} & \num{0.537} & \num{0.578} & \num{0.560} & \num{0.540} & \SI{102.961}{\second} & \SI{5.608}{\second} \\
+&& 1' & \num{0.613} & \num{0.634} & \num{0.533} & \num{0.613} & \num{0.579} & \num{0.538} & \SI{44.911}{\second}  & \SI{6.002}{\second} \\
+&& 2  & \num{0.583} & \num{0.590} & \num{0.541} & \num{0.583} & \num{0.564} & \num{0.543} & \SI{70.447}{\second}  & \SI{3.148}{\second} \\
 \bottomrule
-
 \end{tabular}
-\caption{Best hyperparameters for each group of features in each model used}
-\label{tab:gridsearch}
-\end{table}
-
-\begin{table}
-\begin{tabular*}{\textwidth}{>{\bfseries}l l l @{\extracolsep{\fill}} r r r r r r r}
-\toprule
-Level & Dataset & Method & Accuracy & Precision & Recall & AUC & F\textsubscript{1}-score & F\textsubscript{4}-score & Time \\
-\midrule
-
-\multirow{2}{*}{0}
-& & LR & \num{0.541} & \num{0.580} & \num{0.299} & \num{0.541} & \num{0.395} & \num{0.308} & \SI{2.647}{\second} \\
-& & RF & \num{0.541} & \num{0.542} & \num{0.528} & \num{0.541} & \num{0.535} & \num{0.528} & \SI{11.396}{\second} \\
-\midrule
-
-\multirow{4}{*}{0.5}
-& \multirow{2}{*}{Outer} & LR &\num{0.570} & \num{0.749} & \num{0.212} & \num{0.570} & \num{0.330} & \num{0.221} & \SI{3.727}{\second} \\
-& & RF &\num{0.567} & \num{0.572} & \num{0.533} & \num{0.567} & \num{0.552} & \num{0.535} & \SI{8.528}{\second} \\
-\cmidrule{2-10}
-& \multirow{2}{*}{Inner} & LR &\num{0.720} & \num{0.747} & \num{0.842} & \num{0.675} & \num{0.792} & \num{0.836} & \SI{1.005}{\second} \\
-& & RF &\num{0.700} & \num{0.738} & \num{0.817} & \num{0.658} & \num{0.775} & \num{0.812} & \SI{2.146}{\second} \\
-\midrule
-
-\multirow{2}{*}{1}
-& & LR & \num{0.552} & \num{0.597} & \num{0.326} & \num{0.553} & \num{0.422} & \num{0.335} & \SI{5.255}{\second} \\
-& & RF & \num{0.572} & \num{0.580} & \num{0.527} & \num{0.572} & \num{0.552} & \num{0.530} & \SI{22.523}{\second} \\
-\midrule
-
-\multirow{4}{*}{1.5}
-& \multirow{2}{*}{Outer} & LR & \num{0.598} & \num{0.726} & \num{0.358} & \num{0.606} & \num{0.479} & \num{0.369} & \SI{22.851}{\second} \\
-& & RF & \num{0.723} & \num{0.747} & \num{0.852} & \num{0.675} & \num{0.796} & \num{0.845} & \SI{4.780}{\second} \\
-\cmidrule{2-10}
-& \multirow{2}{*}{Inner} & LR & \num{0.643} & \num{0.668} & \num{0.617} & \num{0.644} & \num{0.642} & \num{0.620} & \SI{21.498}{\second} \\
-& & RF & \num{0.735} & \num{0.766} & \num{0.838} & \num{0.697} & \num{0.800} & \num{0.834} & \SI{6.706}{\second} \\
-\midrule
-
-\multirow{2}{*}{2}
-& & LR & \num{0} & \num{0} & \num{0} & \num{0} & \num{0} & \num{0} & \SI{0}{\second} \\
-& & RF & \num{0} & \num{0} & \num{0} & \num{0} & \num{0} & \num{0} & \SI{0}{\second} \\
-\bottomrule
-
-\end{tabular*}
-\caption{Results of running dataset with different feature extraction methods}
+\caption{Resulting metrics of different methods used in Section~\ref{sec:results} and Section~\ref{sec:comparison}}
 \label{tab:comparison}
-\todo{Add level $\geq 2$}
 \end{table}
+
+\footnotetext{Using the best parameters found in Section~\ref{subsec:performance_evaluation}, where $\varpi = \contacts$ and $\tau = 0.224$.}
