@@ -29,20 +29,18 @@
 \usepackage{subcaption}
 \usepackage{capt-of}
 \usepackage[perpage]{footmisc}
-% \usepackage{perpage}
 
 \usepackage{tikz}
 \usetikzlibrary{shapes}
 \usetikzlibrary{arrows}
 
-\bibliographystyle{plain}
+\bibliographystyle{alpha}
 
 \newcommand{\todo}[1]{\textbf{\color{red} TODO:\@ #1}}
 \newcommand{\maybe}[1]{\footnote{\color{red} #1}}
 
 \newcommand{\noimage}[1]{%
   \setlength{\fboxsep}{-\fboxrule}
-  % \fbox{\phantom{\rule{\columnwidth}{100pt}}}
   \framebox(300, 100){\texttt{#1}}
 }
 \newcommand{\includegraphicsmaybe}[1]{\IfFileExists{#1}{\includegraphics[width=\columnwidth]{#1}}{\noimage{#1}}}
