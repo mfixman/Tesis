@@ -288,13 +288,16 @@ Table~\ref{tab:comparison} shows various metrics which result from applying the 
 \ct{Dataset} & \ct{Model} & \ct{Level} & \ct{Acc.} & \ct{Prec.} & \ct{Recall} & \ct{AUC} & \ct{F\textsubscript{1}} & \ct{F\textsubscript{4}} & \ct{t\textsubscript{fit}} & \ct{t\textsubscript{pred}} \\
 \midrule
 
-\multirow{12}{*}{$\Upsilon$}
+\multirow{13}{*}{$\Upsilon$}
 
 & \multicolumn{2}{>{\bfseries}l}{Random}
 &       \num{0.499} & \num{0.499} & \num{0.500} & \num{0.499} & \num{0.500} & \num{0.500} & \SI{0.131}{\second} & \SI{0.005}{\second} \\
 
 & \multicolumn{2}{>{\bfseries}l}{Majority}
 &       \num{0.681} & \num{0.640} & \num{0.826} & \num{0.681} & \num{0.721} & \num{0.812} & \SI{0.000}{\second} & \SI{0.059}{\second} \\
+
+& \multicolumn{2}{>{\bfseries}l}{Bayesian\footnotemark{}}
+&       \num{0.691} & \num{0.653} & \num{0.827} & \num{0.741} & \num{0.730} & \num{0.815} & \SI{0.000}{\second} & \SI{33.155}{\second} \\
 \cmidrule{2-11}
 
 & \multirow{5}{*}{LR} &
@@ -341,3 +344,5 @@ Table~\ref{tab:comparison} shows various metrics which result from applying the 
 \caption{Resulting metrics of different methods used in Section~\ref{sec:results} and Section~\ref{sec:comparison}}
 \label{tab:comparison}
 \end{table}
+
+\footnotetext{Using the best parameters found in Section~\ref{subsec:performance_evaluation}, where $\varpi = \contacts$ and $\tau = 0.224$.}
