@@ -80,7 +80,7 @@ The \emph{Logistic Regression}, also referred to as the \emph{Logit Model}~\cite
 
 The model uses the results of a \emph{Linear Regression} on the data $\left< X, y \right>$, where coefficients that solve Equation~\ref{eq:linearregression} are found. The result of that regression is a real value, which is normalized using a function $f : \mathbb{R} \rightarrow \left[ 0, 1 \right]$, whose result is considered the probability that the result of some element is $1$.
 
-A commonly used function for $f$ is the \emph{Logistic Function} $\sigma : \mathbb{R} \rightarrow \left[ 0, 1 \right]$, defined in Equation~\ref{eq:logisticfunction} and plot in Figure~\ref{fig:logistic}.
+A commonly used function for $f$ is the \emph{Logistic Function} $\sigma : \mathbb{R} \rightarrow \left[ 0, 1 \right]$, defined in Equation~\ref{eq:logisticfunction} and plot in Figure~\ref{fig:sigmoid}.
 
 \begin{equation}
 \label{eq:logisticfunction}
@@ -89,9 +89,9 @@ A commonly used function for $f$ is the \emph{Logistic Function} $\sigma : \math
 
 \begin{figure}
 \centering
-\includegraphicsmaybe{figures/logistic.png}
+\includegraphicsmaybe{figures/sigmoid.png}
 \caption{The standard logistic sigmoid function $y = \sigma(x)$}
-\label{fig:logistic}
+\label{fig:sigmoid}
 \end{figure}
 
 This probability is used for estimating the value of $y$, namely as defined in Equation~\ref{eq:probit}.
