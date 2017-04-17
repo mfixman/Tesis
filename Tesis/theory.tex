@@ -190,6 +190,7 @@ Q \left( p \right)  = \inf \left\{ x \in \mathbb{R} \mid p \leq F \left( x \righ
 Like with the \emph{Cumulative Distribution Function}, there is no closed form formula for expressing its inverse~\cite{kippingexoplanets2013}. However, there are fast and accurate ways of computing it using either \emph{Interval~Halving} or \emph{Newton's~Method}, such as the \texttt{incbi} implementation in the \emph{Cephes} library~\cite{cephes} which is use in this thesis via a wrapper from \texttt{sklearn}, as explained in Section~\ref{subset:machine_properties}.
 
 \subsubsection{The Beta-Binomial Model}
+\label{subsec:betabin}
 
 In the \emph{Beta-Binomial Model} compromises a family of discrete probability distributions similar to the \emph{Binomial Distribution}, with the important difference that, instead of each trial having a constant probability of success, that probability is random and follows the \emph{Beta Distribution}~\cite{schervish1996statistics}.
 
@@ -213,7 +214,7 @@ $\theta$ is a random continuous probability distribution, which is defined using
 \end{gathered}
 \end{equation}
 
-Once the binary experiment is run, the model has additional information which may change the distribution of $\theta$. This can be modelled as a \emph{Posterior Distribution} using \emph{Bayes Theorem}.
+Once the binary experiment is run, the model has additional information which may change the distribution of $\theta$. This can be modelled as a \emph{Posterior Distribution} using \emph{Bayes Theorem}~\cite{betabinomialcmu}.
 
 \begin{equation}
 \label{eq:betabin_bayes}

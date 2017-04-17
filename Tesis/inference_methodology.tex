@@ -82,8 +82,8 @@ $D$ is defined as a subset of $S$, instead of one of $V$, because we cannot anal
 
 There is an additional level of uncertainty: while the data contains information about calls, and the inference assumes that callee and caller know each other (which is usually true after we remove outliers, as in \Cref{subsec:outlier}), there is simply no information about the socioeconomic level of acquaintances who don't share phone calls. However, the more calls a user names, and the more people it calls, the more \emph{Certain} we can be that the algorithm in this section is correct.
 
-\subsubsection{Modelling Users}
-\label{subsec:modelling_users}
+\subsubsection{Modelling Users --- Frequentist Approach}
+\label{subsec:modelling_users_frequentist}
 
 The final objective of this thesis is to detect \emph{High Income} users in a dataset by just knowing their calls using the hypothesis, described in Section~\ref{subsec:income_homophily}, that a user will mostly call people from his same income category. For this, some calculated will be made on the low and high calculations for some property $\varpi$\footnotemark{}, which is one of the values defined in Equation~\ref{eq:property}. Part of the performance calculations in Section~\ref{sec:results} will imply finding the $\varpi$ which maximizes some score.
 
@@ -103,21 +103,26 @@ The naïve way of solving this problem would be to assign this probability using
 p_v = P \left( v \in H_2 \right) = \frac{\varpi^{\high}_v}{\varpi^{\high}_v + \varpi^{\low}_v}
 \end{equation}
 
-A better way to define this model is to create, for each user $v \in V \setminus B$, a \emph{Beta Distribution} $\Beta_v$ which can define the probability of $p_v$ falling between two numbers. This approach is formalized in Equation~\ref{eq:beta}.
+\subsubsection{Modelling Users --- Bayesian Approach}
+\label{subsec:modelling_users}
+
+This section uses a variant of the \emph{Beta-Binomial Model} presented in Section~\ref{subsec:betabin}.
+
+For each user $v \in V \setminus B$ we define a \emph{Beta Distribution} $\Betadist_v$ which can define the probability of $p_v$ falling between two numbers. This approach is formalized in Equation~\ref{eq:beta}.
 
 \begin{equation}
 \label{eq:beta}
 \begin{gathered}
-p_v \sim \Beta \left( \varpi^{\high}_v + 1, \varpi^{\low}_v + 1 \right) \\
+p_v \sim \Betadist \left( \varpi^{\high}_v + 1, \varpi^{\low}_v + 1 \right) \\
 P \left( p_v \leq x \right) = \frac{1}{\Beta \left( \varpi^{\high} + 1, \varpi^{\low} + 1 \right)} \cdot \int_0^x {t^{\varpi^{\high}} {\left( 1 - t \right)}^{\varpi^{\low}} dt}
 \end{gathered}
 \end{equation}
 
-Here it's also possible to assign the probability depending on the \emph{Mean} or the \emph{Mode} of the distribution. However, that would also fail to account for the \emph{Certainty} of the numbers.
+Here it's also possible to assign the probability depending on the \emph{Mean} or the \emph{Mode} of the distribution. However, that would also fail to account for the \emph{Certainty} of the numbers, which is the disadvantage discussed in the method defined in Section~\ref{subsec:modelling_users_frequentist}.
 
-Instead, given the definition of an arbitrary $\Theta$, initially defined as $\Theta = 0.005$\maybe{Make sure this is true}, it's possible to use the formula presented in Section~\ref{subsec:beta_ppf} to define a suitable $p_v$, as shown in Equation~\ref{eq:beta_theta_ppf}.
+Instead, given the definition of an arbitrary $\Theta \in \left[ 0, 1 \right]$, initially defined as $\Theta = 0.05$, it's possible to use the formula presented in Section~\ref{subsec:beta_ppf} to define a suitable $p_v$, as shown in Equation~\ref{eq:beta_theta_ppf}.
 
-\todo{Test different $\Theta$s}
+\todo{Show that the result is the same $\left( \forall \ \Theta \in \left( 0, 1 \right) \right)$}
 
 \begin{equation}
 \label{eq:beta_theta_ppf}
@@ -126,6 +131,8 @@ p_v &= Q \left (\Theta \right) \\
 &= \inf \left\{ x \in \left[ 0, 1 \right] \mid \Theta \leq F(x) \right\}
 \end{aligned}
 \end{equation}
+
+This probability represents the \emph{Posterior Probability} of $p_v$ given the data. To adjust the prediction, the method compares the value for each user with the rest and assumes that, if $p_v > p_u$ for two users $v$ and $u$, then $v$ has a higher probability of being wealthy.
 
 \subsubsection{Categorizing Users}
 
