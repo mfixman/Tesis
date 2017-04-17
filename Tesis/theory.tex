@@ -34,32 +34,75 @@ r_s = \mathlarger{\rho}_{\rank(X) \rank(Y)} = \frac{\operatorname{cov}(\rank(x),
 Where \( \rho_{a,b} \) denotes the Pearson correlation between the variables \( a \) and \( b \). This value will be close to 1 when the variables are directly monotonic, close to -1 when they are inversely monotonic, and close to 0 when there is no tendency for either variable to increase or decrease when the other increases.
 
 \subsection{Bayesian Inference}
+
+\epigraph{``Given the number of times in which an unknown event has happened and failed: required the chance that the probability of its happening in a single trial lies somewhere between any two degrees of probability that can be named.''}{\textit{An Essay towards solving a Problem in the Doctrine of Changes~\cite{bayes1763} \\ Thomas Bayes}}
+
 This work uses a Bayesian approach to statistics instead of the usual Frequentist approach. In the Frequentist point of view, parameters are fixed and unknown: hypotheses are either true or false, and they cannot be described with a probability. In the Bayesian approach, anything unknown is described with a probability distribution since uncertainty must be described by probability~\cite{mackay}.
 
-The Bayesian approach connects the data \( x \) with a \emph{prior distribution} \( f \left( \theta \right) \) through the \emph{likelihood function} \( f \left( x \middle| \theta \right) \). Instead of estimating the value of \( \hat{\theta} \), the parameter that maximizes the likelihood, Bayesian inference is based on the evaluarion of the \emph{posterior distribution} \( f \left( \theta \middle| x \right) \).
+\subsubsection{Bayes Theorem}
 
-By Bayes Theorem, we can infer the \emph{posterior distribution} using the other parameters.
-
-\begin{equation}
-f \left( \theta \mid x \right) = \frac{f \left( x \mid \theta \right) f \left( \theta \right)}{f \left( x \right)}
-\label{bayes}
-\end{equation}
-
-$f(x)$, the \emph{Marginal Likelihood}, is the probability of observing the data $x$ averaged across the entire space, which acts as a normalizing constant so that the density integrates to 1.
+The base of \emph{Bayesian Inference} is \emph{Bayes' Theorem}, presented in Equation~\ref{eq:bayes}, which describes the probability of an event base on prior knowledge of conditions that may be related to it~\cite{gelman2003}.
 
 \begin{equation}
-f \left( x \right) = \int f \left( x \mid \theta \right) f \left( \theta \right) d \theta
-\label{marginal}
+\label{eq:bayes}
+	P \left( H \mid E \right) = \frac{P \left( E \mid H \right) \cdot P \left( H \right)}{P \left( E \right)}
 \end{equation}
 
-\subsection{Beta Distribution}
+Each one of the terms in Equation~\ref{eq:bayes} has a different definition and interpretation.
+
+\begin{itemize}
+	\item $P \left( H \mid E \right)$, the \textbf{Posterior Probability} is the conditional probability that is assigned after the relevant evidence is taken into account.
+	\item $P \left( H \right)$, the \textbf{Prior Probability}, expresses the assumptions made on the problem before the experiments. While these assumptions will be subjective, the same thing can be said about the other probabilities in this model.
+	\item $P \left( E \mid H \right)$, the \textbf{Likelihood}, is the degree of belief in $E$ given that $H$ is true. In most real world problems, this tends to be easier to define than the \emph{Prior}.
+	\item $P \left( E \right)$, the \textbf{Marginal Likelihood}, as the likelihood function where some parameter variables were marginalized. It's used as a normalizing constant to that the \emph{Posterior Probability} integrates to 1, thus making it a valid probability. Since it's constant on the perspective of $H$, it's usually ignored when taking proportionality, as in Equation~\ref{eq:bayes_propto}.
+\end{itemize}
+
+It can be proven in a simple way by using basic theorems of the probability, as seen in Equation~\ref{eq:bayes_proof}.
+
+\begin{equation}
+\label{eq:bayes_proof}
+\begin{aligned}
+	P \left( H \cap E \right)
+	&= P \left( H \mid E \right)P \left( E \right) \\
+	&= P \left( E \mid H \right)P \left( H \right) \\
+	P \left( H \mid E \right) P \left( E \right) &= P \left( E \mid H \right) P \left( H \right) \\
+	P \left( H \mid E \right) &= \frac{P \left( E \mid H \right) P \left( H \right)}{P \left( E \right)}
+\end{aligned}
+\end{equation}
+
+Most of the equations presented in this section deal with continuous probabilities, which by definition must integrate to 1~\cite{kolmogrov1956}. Therefore, the theorem is usually used in the version presented in Equation~\ref{eq:bayes_propto}, which defines the proportionality of the \emph{Posterior}.
+
+\begin{equation}
+\label{eq:bayes_propto}
+	P \left( H \mid E \right) \propto P \left( E \mid H \right) \cdot P \left( H \right)
+\end{equation}
+
+\begin{figure}
+\centering
+\includegraphics[width=.7\textwidth]{figures/Bayes_Theorem.png}
+\caption{Graphical visualization of \emph{Bayes Theorem} between two probabilities $A$ and $B$ by the superposition of two decision trees starting in hypothesis space $\Omega$.}
+\label{fig:Bayes_Theorem}
+\end{figure}
+
+\subsubsection{Conjugate Priors}
+\label{subsec:conjugate}
+
+For a single problem there may be many different possible \emph{Prior Probabilities}, which can be defined depending on the approach taken on defining the model to represent different measures of knowledge and certainty about the data\footnotemark{}. In particular, if the prior is less informative then the posterior is more likely to be determined by the data.
+
+\footnotetext{An extreme case is the \emph{Jeffreys Prior}, used to express total ignorance about the data~\cite{jeffreys453}.}
+
+A simple way to choose a correct prior is using a \emph{Conjugate Prior}. A distribution $P \left( H \right)$ is \emph{Conjugate} to $P \left( H \mid E \right)$ if multiplying the two distributions together and normalizing the results in another distribution has the form as $P \left( H \right)$\maybe{Check this}.
+
+The \emph{Conjugate Prior} has some philosophical significance in the context of \emph{Bayesian Estimator}. In the practical case, the \emph{Prior Probability} contains more or less information compared to the \emph{Posterior Probability} depending on the amount of data seen. In particular, if the experiment has seen little data, a single datapoint can influence your beliefs significantly. On the other hand, if the experiment has a lot of data, then one single extra datapoint shouldn't influence them as much~\cite{gelman2003}.
+
+\subsection{The Beta Distribution}
 \label{subsec:beta}
 
-The \emph{Beta Distribution} is a family of continuos probability distributions defined in the interval $\left[ 0, 1 \right]$ which is parametrized by two shape parameters, $\alpha$ and $\beta$.
+The \emph{Beta Distribution} is a family of continuous probability distributions defined in the interval $\left[ 0, 1 \right]$ which is parametrized by two shape parameters, $\alpha$ and $\beta$.
 
-The distribution can be used to model the behaviour of \emph{Random Variables} limited to intervals of a finite length. It is often used as a statistical funcion to model unknown data from a known sample, such as allele frequencies in population genetics~\cite{Balding1995}, Malaysian sunshine data~\cite{Sulaiman1999573}, and heterogeneity in the probability of HIV transmission~\cite{SIM:SIM4780080110}.
+The distribution can be used to model the behaviour of \emph{Random Variables} limited to intervals of a finite length. It is often used as a statistical function to model unknown data from a known sample, such as allele frequencies in population genetics~\cite{Balding1995}, Malaysian sunshine data~\cite{Sulaiman1999573}, and heterogeneity in the probability of HIV transmission~\cite{SIM:SIM4780080110}.
 
-In the context of \emph{Bayesian Inference}, the \emph{Beta Distribution} is the conjutate prior of the \emph{Binomial Distribution}, which allows us to describe initial knowledge concerning probability of success of a single bi-variate distribution. In layman terms, this allows us to know what is the distribution of the continuous $p$ parameter of a binomial distribution for which we have $\alpha$ positive and $\beta$ negative samples.
+In the context of \emph{Bayesian Inference}, the \emph{Beta Distribution} is the \emph{Conjugate Prior} of the \emph{Binomial Distribution}, which allows us to describe initial knowledge concerning probability of success of a single bi-variate distribution. In layman terms, this allows us to know what is the distribution of the continuous $p$ parameter of a binomial distribution for which we have $\alpha$ positive and $\beta$ negative samples.
 
 \subsubsection{Probability Density Function}
 
@@ -112,7 +155,7 @@ The \emph{Cumulative Distribution Function} of the \emph{Beta Distribution} is d
 \begin{gather}
 \begin{gathered}
 \label{eq:beta_cdf}
-X \sim \Beta \left( \alpha, \beta \right) \\
+X \sim \Betadist \left( \alpha, \beta \right) \\
 F \left( x; \alpha, \beta \right) = P \left( X \leq x \right)
 \end{gathered} \\
 \label{eq:beta_cdf_formula}
@@ -129,7 +172,7 @@ $F$ is also known as the \emph{Regularized Incomplete Beta Function}, represente
 \begin{equation}
 \label{eq:incomplete_beta_binomial}
 \begin{gathered}
-X \sim B \left( n, p \right)  \\
+X \sim \Betadist \left( n, p \right)  \\
 P \left( X \leq k \right)  = I_{1 - p} \left( n - k, k + 1 \right)
 \end{gathered}
 \end{equation}
@@ -145,6 +188,56 @@ Q \left( p \right)  = \inf \left\{ x \in \mathbb{R} \mid p \leq F \left( x \righ
 \end{equation}
 
 Like with the \emph{Cumulative Distribution Function}, there is no closed form formula for expressing its inverse~\cite{kippingexoplanets2013}. However, there are fast and accurate ways of computing it using either \emph{Interval~Halving} or \emph{Newton's~Method}, such as the \texttt{incbi} implementation in the \emph{Cephes} library~\cite{cephes} which is use in this thesis via a wrapper from \texttt{sklearn}, as explained in Section~\ref{subset:machine_properties}.
+
+\subsubsection{The Beta-Binomial Model}
+\label{subsec:betabin}
+
+In the \emph{Beta-Binomial Model} compromises a family of discrete probability distributions similar to the \emph{Binomial Distribution}, with the important difference that, instead of each trial having a constant probability of success, that probability is random and follows the \emph{Beta Distribution}~\cite{schervish1996statistics}.
+
+Given a binary experiment which is run $n$ times, and the probability of success of any of those experiment is some constant $\theta$, the \emph{Probability Distribution} of the amount of successes $k$ can be modelled with a \emph{Binomial Distribution}, as shown in Equation~\ref{eq:betabin_binomial}.
+
+\begin{equation}
+\label{eq:betabin_binomial}
+\begin{gathered}
+	k \mid n, \theta \sim \Binomial \left( \theta, n \right) \\
+	P \left( k = x \mid n, \theta \right) = \binom{n}{k} \cdot \theta^k {\left( 1 - \theta \right)}^{n - k}
+\end{gathered}
+\end{equation}
+
+$\theta$ is a random continuous probability distribution, which is defined using the \emph{Beta Distribution} in Equation~\ref{eq:betabin_beta}.
+
+\begin{equation}
+\label{eq:betabin_beta}
+\begin{gathered}
+	\theta \mid \alpha, \beta \sim \Beta \left( \alpha, \beta \right) \\
+	P \left( \theta \mid \alpha, \beta \right) = \frac{1}{\Beta \left( \alpha, \beta \right)} \cdot \theta^{\alpha - 1} {\left( 1 - \theta \right)}^{\beta - 1}
+\end{gathered}
+\end{equation}
+
+Once the binary experiment is run, the model has additional information which may change the distribution of $\theta$. This can be modelled as a \emph{Posterior Distribution} using \emph{Bayes Theorem}~\cite{betabinomialcmu}.
+
+\begin{equation}
+\label{eq:betabin_bayes}
+\begin{aligned}
+	P \left( \theta \mid n, k, \alpha, \beta \right)
+	&= \frac{P \left( k \mid n, \theta \right) P \left( \theta \mid n, \alpha, \beta \right)}{P \left( k \mid n, \alpha, \beta \right)} \\
+	&\propto P \left( k \mid n, theta \right) P \left( \theta \mid n, \alpha, \beta \right) \\
+	&= P \left( k \mid n, \theta \right) P \left( \theta \mid \alpha, \beta \right) \\[1em]
+	P \left( \theta \mid n, k, \alpha, \beta \right)
+	&= \binom{n}{k} \theta^k {\left( 1 - \theta \right)}^{n - k} \cdot \frac{1}{\Beta \left( \alpha, \beta \right) } \theta^{\alpha - 1} {\left( 1 - \theta \right)}^{\beta - 1} \\
+	&\propto \theta^k {\left( 1 - \theta \right)}^{n - k} \cdot \theta^{\alpha - 1} {\left( 1 - \theta \right)}^{\beta - 1} \\
+	&= \theta^{k + \alpha - 1} {\left( 1 - \theta \right)}^{n - k + \beta - 1}
+\end{aligned}
+\end{equation}
+
+This is exactly the same function as the one in Equation~\ref{eq:betabin_beta}. That is, the \emph{Posterior Distribution} of this model is also a \emph{Beta Distribution}.
+
+\begin{equation}
+\label{eq:betabin_posteriorbeta}
+	\theta \mid k, n, \alpha, \beta \sim \Betadist \left( \alpha + k, \beta + n - k \right)
+\end{equation}
+
+This way it's possible to see that the \emph{Beta Distribution} has the properties of a \emph{Conjugate Prior Distribution} seen in Section~\ref{subsec:conjugate} to the \emph{Binomial Likelihood}. This makes it extremely desiderable for \emph{Bayesian Analysis}, and for this reason it's used as the main model of this thesis. This is seen in more detail Section~\ref{subsec:modelling_users}.
 
 \subsection{Machine Learning Validation Metrics}
 \label{subsec:mlmetrics}
