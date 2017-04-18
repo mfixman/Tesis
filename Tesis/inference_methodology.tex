@@ -194,12 +194,12 @@ For simplicity, other two new categorical variables are defined for this model f
 \begin{minipage}[l]{0.45\textwidth}
 \begin{tikzpicture}
 	\node[obsDisc] (n) {$n_v$};
-	\node[obsDisc, below = 1 of n] (k) {$k_v$};
-	\node[latentCont, below = 1 of k] (pi) {$\pi_v$};
-	\node[detCont, below = 1 of pi] (p) {$p_v$};
+	\node[obsDisc, below = 0.75 of n] (k) {$k_v$};
+	\node[latentCont, below = 0.75 of k] (pi) {$\pi_v$};
+	\node[detCont, below = 0.75 of pi] (p) {$p_v$};
 	\node[latentCont, left = 1 of p] (theta) {$\Theta$};
-	\node[detDisc, below = 1 of p] (hkappa) {$\hat{\kappa}_v$};
-	\node[obsDisc, below = 1 of hkappa] (kappa) {$\kappa_v$};
+	\node[detDisc, below = 0.75 of p] (hkappa) {$\hat{\kappa}_v$};
+	\node[obsDisc, below = 0.75 of hkappa] (kappa) {$\kappa_v$};
 	\node[detCont, right = 1 of p] (tau) {$\tau$};
 
 	\edge {n} {k};
