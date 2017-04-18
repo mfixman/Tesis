@@ -112,17 +112,19 @@ For each user $v \in V \setminus B$ we define a \emph{Beta Distribution} $\Betad
 
 \begin{equation}
 \label{eq:beta}
-\begin{gathered}
-p_v \sim \Betadist \left( \varpi^{\high}_v + 1, \varpi^{\low}_v + 1 \right) \\
-P \left( p_v \leq x \right) = \frac{1}{\Beta \left( \varpi^{\high} + 1, \varpi^{\low} + 1 \right)} \cdot \int_0^x {t^{\varpi^{\high}} {\left( 1 - t \right)}^{\varpi^{\low}} dt}
-\end{gathered}
+	\Betasim_v \sim \Betadist_v \left( \varpi^{\high}_v + 1, \varpi^{\low}_v + 1 \right)
+\end{equation}
+
+The previous equation allows us to define a formula for the probability of each users $p_v$, as shown in Equation~\ref{eq:betaleq}.
+
+\begin{equation}
+\label{eq:betaleq}
+	P \left( \Betasim_v \leq x \right) = \frac{1}{\Beta \left( \varpi^{\high}_v + 1, \varpi^{\low}_v + 1 \right)} \cdot \int_0^x {t^{\varpi^{\high}_v} {\left( 1 - t \right)}^{\varpi^{\low}_v} dt}
 \end{equation}
 
 Here it's also possible to assign the probability depending on the \emph{Mean} or the \emph{Mode} of the distribution. However, that would also fail to account for the \emph{Certainty} of the numbers, which is the disadvantage discussed in the method defined in Section~\ref{subsec:modelling_users_frequentist}.
 
-Instead, given the definition of an arbitrary $\Theta \in \left[ 0, 1 \right]$, initially defined as $\Theta = 0.05$, it's possible to use the formula presented in Section~\ref{subsec:beta_ppf} to define a suitable $p_v$, as shown in Equation~\ref{eq:beta_theta_ppf}.
-
-\todo{Show that the result is the same $\left( \forall \ \Theta \in \left( 0, 1 \right) \right)$}
+Instead, given the definition of an arbitrary $\Theta \in \left[ 0, 1 \right]$, it's possible to use the formula presented in Section~\ref{subsec:beta_ppf} to define a suitable $p_v$, as shown in Equation~\ref{eq:beta_theta_ppf}.
 
 \begin{equation}
 \label{eq:beta_theta_ppf}
@@ -134,6 +136,15 @@ p_v &= Q \left (\Theta \right) \\
 
 This probability represents the \emph{Posterior Probability} of $p_v$ given the data. To adjust the prediction, the method compares the value for each user with the rest and assumes that, if $p_v > p_u$ for two users $v$ and $u$, then $v$ has a higher probability of being wealthy.
 
+Since we don't have any prior information about a good value of $\Theta$, we initially take a value from \emph{Jeffrey's Prior}. This distribution, which was defined by Harold Jeffreys in 1946~\cite{jeffreys46}, is a completely uninformative prior distribution for a parameter that makes it possible to parametrize prior ignorance about values in a Bernoulli model.
+
+The \emph{Probability Density Function} of the prior for a parameter $\gamma$ is presented in Equation~\ref{eq:jeffreys}. It's important to note that this is the same PDF than in the one for a \emph{Beta Distribution} with parameters $\alpha = \sfrac{1}{2}, \beta = \sfrac{1}{2}$.
+
+\begin{equation}
+\label{eq:jeffreys}
+	P \left( \gamma \right) = \frac{1}{\sqrt{\gamma \left( 1 - \gamma \right)}}
+\end{equation}
+
 \subsubsection{Categorizing Users}
 
 In the previous section the probability of belonging of being a \emph{High Income} user $p_v$ was defined for every $v \in V \setminus B$. While this value alone doesn't give any information about whether user $v$ belongs which category, it does tell that his category will be higher or equal than users with a lower probability. This approach is formalized in Equation~\ref{eq:pv_minus}.
@@ -141,12 +152,12 @@ In the previous section the probability of belonging of being a \emph{High Incom
 \begin{equation}
 \label{eq:pv_minus}
 \begin{gathered}
-\left( \forall u, w \in V \setminus B \right) \\
-\begin{aligned}
-p_u > p_w \land u \in H_1 &\implies w \in H_1 \\
-p_u < p_w \land u \in H_2 &\implies w \in H_2 \\
-p_u = p_w \implies ( u \in H_1 &\iff w \in H_1 )
-\end{aligned}
+	\left( \forall u, w \in V \setminus B \right) \\
+	\begin{aligned}
+		p_u > p_w \land u \in H_1 &\implies w \in H_1 \\
+		p_u < p_w \land u \in H_2 &\implies w \in H_2 \\
+		p_u = p_w \implies ( u \in H_1 &\iff w \in H_1 )
+	\end{aligned}
 \end{gathered}
 \end{equation}
 
@@ -160,7 +171,7 @@ p_v > \tau &\implies v \in H_2
 \end{aligned}
 \end{equation}
 
-\subsubsection{Performance Evaluation}
+\subsection{Performance Evaluation}
 \label{subsec:performance_evaluation}
 
 It's easy to evaluate the performance by calculating $p_v$ for all $v \in B$, which allows us to know whether each value is a \emph{True~Positive}, a \emph{False~Positive}, a \emph{False~Negative}, or a \emph{True~Negative}, and collecting any of the metrics described in Section~\ref{subsec:mlmetrics}.
@@ -169,16 +180,54 @@ One advantage of this method is that it's possible to evaluate the method by cal
 
 Additionally, after defining a $\varpi$, it's easy to select a $\tau$ so that the final \emph{Accuracy} is maximized.
 
-% We define the set \( Q \) as the group of users having at least one connection link to bank clients. For each user \( q^j \in Q \), we compute the number of outgoing calls \( a^j_i \) to the category \( H_i \). Our hypothesis, given the observed homophily, is that if a user \( q^j \) has a higher number of calls \( a^j_i \) to the category \( H_i \) than the other category, it would be more likely to belong to the \( H_i \) income category. In other words, a person is usually in the same income category as the majority of people it calls.
+\subsection{Bayesian Graphical Model}
+\label{subsec:bayesiangm}
 
-% A straightforward approach would be to define the income category of a user as the category where most of its contacts belong. The problem with this approach is that it does not factor in the higher uncertainty in our estimates for users with fewer calls. To address this uncertainty, instead of using calling frequencies to define the probability of a user belonging to the high income category, we use the amount of calls \( a^j_i \) as parameters defining a Beta distribution for the probability of belonging to a given category. We have therefore taken a Bayesian rather than a frequentist approach to income prediction.
+An alternative way of seeing this problem is through a \emph{Bayesian Graphical Model}, which are explained with more detail in~\cite{wagenmakerslee}.
 
-% We define \(\Beta^j\) as the Beta probability distribution function for each user, which defines a distinct distribution for each user. Having obtained the Beta distribution for the probability of belonging to the high income category, we then find the lowest 5\textsuperscript{th} percentile \( p_{\operatorname{lower}} \) for this probability. If \( p_{\operatorname{lower}} \) is above a given threshold \( \tau \), we set the user's income to \( H_2 \), otherwise we set his income category to \( H_1 \). We note that this criteria takes into account both the mean and the broadness (uncertainty) of the distribution. We also note that the category assigned to a user depends not only on its Beta distribution but also on our choice of \( \tau \).
+In the model, shown in Figure~\ref{fig:bayesnetwork}, instead of defining a Beta distribution $\Betasim_v \sim \Betadist(\varpi^{\high}_v + 1, \varpi^{\low}_v + 1)$ for every user $v$, the problem is defined as a \emph{Binomial Distribution} which should have the respective parameters.
 
-%We therefore choose a value for \( \tau \) which maximizes the trade off between true positive (\( TPR \)) and false positive (\( FPR \)) rates: \( TPR=TP/P \) and \( FPR=FP/N \) where \( TP \) is the number of correctly predicted users with high income, \( P \) is the total number of users with high income, \( FP \) is the number of users incorrectly classified as having high income, and \( N \) is the total number of users with low income.
+For simplicity, other two new categorical variables are defined for this model for each user $v$: $\kappa_v$, which is 1 if and only if $v$ is part of the high category of income, and $\hat{\kappa}_v$, which is 1 if and only if $v$ is predicted to be of the high category of income.
 
-%For each user \( q^j \) we estimate and the corresIn this way we obtained a Dirichlet distribution for each user \( q^j \) and compute
+\begin{figure}
+\centering
+\begin{minipage}[l]{0.45\textwidth}
+\begin{tikzpicture}
+	\node[obsDisc] (n) {$n_v$};
+	\node[obsDisc, below = 0.75 of n] (k) {$k_v$};
+	\node[latentCont, below = 0.75 of k] (pi) {$\pi_v$};
+	\node[detCont, below = 0.75 of pi] (p) {$p_v$};
+	\node[latentCont, left = 1 of p] (theta) {$\Theta$};
+	\node[detDisc, below = 0.75 of p] (hkappa) {$\hat{\kappa}_v$};
+	\node[obsDisc, below = 0.75 of hkappa] (kappa) {$\kappa_v$};
+	\node[detCont, right = 1 of p] (tau) {$\tau$};
 
-%According to the Dirichlet Distibution, each user has a caller income category probability density function of the form
+	\edge {n} {k};
+	\edge {pi} {k};
+	\edge {pi} {p};
+	\edge {theta} {p};
+	\edge {p} {tau};
+	\edge {p} {hkappa};
+	\edge {tau} {hkappa};
 
-%For all the other users in the telco having at least one link to any other telco user with a defined income \( q \in Q = \left\{x \in \left( N \setminus B \right) \mid (\exists y \in G) \left< x, y \right> \in P \vee \left< y, x \right> \in P \right\} \), we can use this distribution to infer the probabilities of being part of each group \( H_1, \ldots, H_5 \), and this way approximate the economic status.
+	\draw[->, rounded corners = 10pt] (kappa) -| (tau);
+
+	\plate [xshift = 1.1em] {} {(n) (k) (pi) (p) (hkappa) (kappa)} {$v \in V \cap B$};
+\end{tikzpicture}
+\end{minipage}
+\begin{minipage}[r]{0.4\textwidth}
+\begin{align*}
+	n_v &= \varpi^{\high}_v + \varpi^{\low}_v \\
+	k_v &= \varpi^{\high}_v \\
+	\kappa_v &= \begin{cases} 0 \ \text{if} \ v \in H_1 \\ 1 \ \text{if} \ v \in H_2 \end{cases} \\[1em]
+	\pi_v &\sim \Binom \left( n, v \right) \\
+	\Theta &\sim \Betadist(\sfrac{1}{2}, \sfrac{1}{2}) \\
+	p_v &= \inf_{x \in \left[ 0, 1 \right]} \left\{ \Theta \leq P \left( \pi_v \leq x \right) \right\} \\
+	\tau &= \argmax_{t \in \left[ 0, 1 \right]} \left| \bigl\{ \vspace{4em} v \in V \cap B \mid p_v \geq t \iff k_v \bigr\} \right| \\[1em]
+	\hat{\kappa}_v &= \begin{cases} 0 \ \text{if} \ p_v < \tau \\ 1 \ \text{if} \ p_v \geq \tau \end{cases}
+\end{align*}
+\end{minipage}
+\caption{A Bayes Graphical Model representing an interesting alternative approach to the problem, using a \emph{Binomial Distribution} instead of a \emph{Beta Distribution}. If this model was applied with a program such as \texttt{Jags}, the results would be the same.}
+\label{fig:bayesnetwork}
+\end{figure}
+
