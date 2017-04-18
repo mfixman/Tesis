@@ -124,9 +124,7 @@ The previous equation allows us to define a formula for the probability of each 
 
 Here it's also possible to assign the probability depending on the \emph{Mean} or the \emph{Mode} of the distribution. However, that would also fail to account for the \emph{Certainty} of the numbers, which is the disadvantage discussed in the method defined in Section~\ref{subsec:modelling_users_frequentist}.
 
-Instead, given the definition of an arbitrary $\Theta \in \left[ 0, 1 \right]$, initially defined as $\Theta = 0.05$, it's possible to use the formula presented in Section~\ref{subsec:beta_ppf} to define a suitable $p_v$, as shown in Equation~\ref{eq:beta_theta_ppf}.
-
-\todo{Show that the result is the same $\left( \forall \ \Theta \in \left( 0, 1 \right) \right)$}
+Instead, given the definition of an arbitrary $\Theta \in \left[ 0, 1 \right]$, it's possible to use the formula presented in Section~\ref{subsec:beta_ppf} to define a suitable $p_v$, as shown in Equation~\ref{eq:beta_theta_ppf}.
 
 \begin{equation}
 \label{eq:beta_theta_ppf}
@@ -137,6 +135,15 @@ p_v &= Q \left (\Theta \right) \\
 \end{equation}
 
 This probability represents the \emph{Posterior Probability} of $p_v$ given the data. To adjust the prediction, the method compares the value for each user with the rest and assumes that, if $p_v > p_u$ for two users $v$ and $u$, then $v$ has a higher probability of being wealthy.
+
+Since we don't have any prior information about a good value of $\Theta$, we initially take a value from \emph{Jeffrey's Prior}. This distribution, which was defined by Harold Jeffreys in 1946~\cite{jeffreys46}, is a completely uninformative prior distribution for a parameter that makes it possible to parametrize prior ignorance about values in a Bernoulli model.
+
+The \emph{Probability Density Function} of the prior for a parameter $\gamma$ is presented in Equation~\ref{eq:jeffreys}. It's important to note that this is the same PDF than in the one for a \emph{Beta Distribution} with parameters $\alpha = \sfrac{1}{2}, \beta = \sfrac{1}{2}$.
+
+\begin{equation}
+\label{eq:jeffreys}
+	P \left( \gamma \right) = \frac{1}{\sqrt{\gamma \left( 1 - \gamma \right)}}
+\end{equation}
 
 \subsubsection{Categorizing Users}
 
@@ -214,7 +221,7 @@ For simplicity, other two new categorical variables are defined for this model f
 	k_v &= \varpi^{\high}_v \\
 	\kappa_v &= \begin{cases} 0 \ \text{if} \ v \in H_1 \\ 1 \ \text{if} \ v \in H_2 \end{cases} \\[1em]
 	\pi_v &\sim \Binom \left( n, v \right) \\
-	\Theta &\sim \mathcal{U} \left[ 0, 1 \right] \\
+	\Theta &\sim \Betadist(\sfrac{1}{2}, \sfrac{1}{2}) \\
 	p_v &= \inf_{x \in \left[ 0, 1 \right]} \left\{ \Theta \leq P \left( \pi_v \leq x \right) \right\} \\
 	\tau &= \argmax_{t \in \left[ 0, 1 \right]} \left| \bigl\{ \vspace{4em} v \in V \cap B \mid p_v \geq t \iff k_v \bigr\} \right| \\[1em]
 	\hat{\kappa}_v &= \begin{cases} 0 \ \text{if} \ p_v < \tau \\ 1 \ \text{if} \ p_v \geq \tau \end{cases}
