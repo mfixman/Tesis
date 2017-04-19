@@ -291,57 +291,57 @@ Table~\ref{tab:comparison} shows various metrics which result from applying the 
 \multirow{13}{*}{$\Upsilon$}
 
 & \multicolumn{2}{>{\bfseries}l}{Random}
-&       \num{0.499} & \num{0.499} & \num{0.500} & \num{0.499} & \num{0.500} & \num{0.500} & \SI{0.131}{\second} & \SI{0.005}{\second} \\
+&       0.499 & 0.499 & 0.500 & 0.499 & 0.500 & 0.500 & \SI{0.131}{\second} & \SI{0.005}{\second} \\
 
 & \multicolumn{2}{>{\bfseries}l}{Majority}
-&       \num{0.681} & \num{0.640} & \num{0.826} & \num{0.681} & \num{0.721} & \num{0.812} & \SI{0.000}{\second} & \SI{0.059}{\second} \\
+&       0.681 & 0.640 & \textbf{0.826} & 0.681 & 0.721 & 0.712 & \SI{0.000}{\second} & \SI{0.059}{\second} \\
 
 & \multicolumn{2}{>{\bfseries}l}{Bayesian\protect\footnotemark{}}
-&       \num{0.691} & \num{0.653} & \num{0.827} & \num{0.741} & \num{0.730} & \num{0.815} & \SI{0.000}{\second} & \SI{33.155}{\second} \\
+&       0.693 & 0.665 & 0.792 & \textbf{0.746} & \textbf{0.723} & \textbf{0.783} & \SI{0.000}{\second} & \SI{33.155}{\second} \\
 \cmidrule{2-11}
 
 & \multirow{5}{*}{LR} &
-   0  & \num{0.536} & \num{0.531} & \num{0.625} & \num{0.536} & \num{0.574} & \num{0.619} & \SI{0.145}{\second}   & \SI{0.002}{\second} \\
-&& 0' & \num{0.686} & \num{0.655} & \num{0.785} & \num{0.686} & \num{0.714} & \num{0.776} & \SI{0.167}{\second}   & \SI{0.005}{\second} \\
-&& 1  & \num{0.535} & \num{0.525} & \num{0.730} & \num{0.535} & \num{0.611} & \num{0.714} & \SI{0.141}{\second}   & \SI{0.011}{\second} \\
-&& 1' & \num{0.693} & \num{0.665} & \num{0.780} & \num{0.693} & \num{0.718} & \num{0.772} & \SI{1.588}{\second}   & \SI{0.011}{\second} \\
-&& 2  & \num{0.568} & \num{0.578} & \num{0.525} & \num{0.569} & \num{0.550} & \num{0.528} & \SI{0.119}{\second}   & \SI{0.003}{\second} \\
+   0  & 0.536 & 0.531 & 0.625 & 0.536 & 0.574 & 0.619 & \SI{0.145}{\second}   & \SI{0.002}{\second} \\
+&& 0' & 0.686 & 0.655 & 0.785 & 0.686 & 0.714 & 0.776 & \SI{0.167}{\second}   & \SI{0.005}{\second} \\
+&& 1  & 0.535 & 0.525 & 0.730 & 0.535 & 0.611 & 0.714 & \SI{0.141}{\second}   & \SI{0.011}{\second} \\
+&& 1' & 0.693 & 0.665 & 0.780 & 0.693 & 0.718 & 0.772 & \SI{1.588}{\second}   & \SI{0.011}{\second} \\
+&& 2  & 0.568 & 0.578 & 0.525 & 0.569 & 0.550 & 0.528 & \SI{0.119}{\second}   & \SI{0.003}{\second} \\
 \cmidrule{2-11}
 
 & \multirow{5}{*}{RF} &
-   0  & \num{0.548} & \num{0.548} & \num{0.550} & \num{0.548} & \num{0.549} & \num{0.550} & \SI{5.986}{\second}   & \SI{0.588}{\second} \\
-&& 0' & \num{0.671} & \num{0.665} & \num{0.690} & \num{0.671} & \num{0.677} & \num{0.688} & \SI{6.346}{\second}   & \SI{0.539}{\second} \\
-&& 1  & \num{0.582} & \num{0.583} & \num{0.577} & \num{0.582} & \num{0.580} & \num{0.577} & \SI{56.548}{\second}  & \SI{0.483}{\second} \\
-&& 1' & \num{0.714} & \num{0.713} & \num{0.716} & \num{0.714} & \num{0.714} & \num{0.716} & \SI{96.005}{\second}  & \SI{0.460}{\second} \\
-&& 2  & \num{0.576} & \num{0.577} & \num{0.580} & \num{0.576} & \num{0.579} & \num{0.580} & \SI{50.197}{\second}  & \SI{0.253}{\second} \\
+   0  & 0.548 & 0.548 & 0.550 & 0.548 & 0.549 & 0.550 & \SI{5.986}{\second}   & \SI{0.588}{\second} \\
+&& 0' & 0.671 & 0.665 & 0.690 & 0.671 & 0.677 & 0.688 & \SI{6.346}{\second}   & \SI{0.539}{\second} \\
+&& 1  & 0.582 & 0.583 & 0.577 & 0.582 & 0.580 & 0.577 & \SI{56.548}{\second}  & \SI{0.483}{\second} \\
+&& 1' & \textbf{0.714} & \textbf{0.713} & 0.716 & 0.714 & 0.714 & 0.716 & \SI{96.005}{\second}  & \SI{0.460}{\second} \\
+&& 2  & 0.576 & 0.577 & 0.580 & 0.576 & 0.579 & 0.580 & \SI{50.197}{\second}  & \SI{0.253}{\second} \\
 \midrule
 
 \multirow{12}{*}{$B^{\test}$}
 
 & \multicolumn{2}{>{\bfseries}l}{Random}
-&       \num{0.499} & \num{0.499} & \num{0.500} & \num{0.499} & \num{0.500} & \num{0.500} & \SI{0.131}{\second} & \SI{0.005}{\second} \\
+&       0.499 & 0.499 & 0.500 & 0.499 & 0.500 & 0.500 & \SI{0.131}{\second} & \SI{0.005}{\second} \\
 
 & \multicolumn{2}{>{\bfseries}l}{Majority}
-&       \num{0.565} & \num{0.747} & \num{0.197} & \num{0.565} & \num{0.312} & \num{0.206} & \SI{0.000}{\second} & \SI{0.204}{\second} \\
+&       0.565 & 0.747 & 0.197 & 0.565 & 0.312 & 0.206 & \SI{0.000}{\second} & \SI{0.204}{\second} \\
 \cmidrule{2-11}
 
 & \multirow{5}{*}{LR} &
-   0  & \num{0.534} & \num{0.586} & \num{0.234} & \num{0.534} & \num{0.335} & \num{0.243} & \SI{0.937}{\second}   & \SI{0.016}{\second} \\
-&& 0' & \num{0.565} & \num{0.746} & \num{0.198} & \num{0.565} & \num{0.313} & \num{0.207} & \SI{1.871}{\second}   & \SI{0.041}{\second} \\
-&& 1  & \num{0.547} & \num{0.617} & \num{0.250} & \num{0.547} & \num{0.356} & \num{0.260} & \SI{1.347}{\second}   & \SI{0.035}{\second} \\
-&& 1' & \num{0.577} & \num{0.727} & \num{0.247} & \num{0.577} & \num{0.368} & \num{0.257} & \SI{9.816}{\second}   & \SI{0.077}{\second} \\
-&& 2  & \num{0.563} & \num{0.586} & \num{0.430} & \num{0.563} & \num{0.496} & \num{0.437} & \SI{1.055}{\second}   & \SI{0.023}{\second} \\
+   0  & 0.534 & 0.586 & 0.234 & 0.534 & 0.335 & 0.243 & \SI{0.937}{\second}   & \SI{0.016}{\second} \\
+&& 0' & 0.565 & 0.746 & 0.198 & 0.565 & 0.313 & 0.207 & \SI{1.871}{\second}   & \SI{0.041}{\second} \\
+&& 1  & 0.547 & 0.617 & 0.250 & 0.547 & 0.356 & 0.260 & \SI{1.347}{\second}   & \SI{0.035}{\second} \\
+&& 1' & 0.577 & 0.727 & 0.247 & 0.577 & 0.368 & 0.257 & \SI{9.816}{\second}   & \SI{0.077}{\second} \\
+&& 2  & 0.563 & 0.586 & 0.430 & 0.563 & 0.496 & 0.437 & \SI{1.055}{\second}   & \SI{0.023}{\second} \\
 \cmidrule{2-11}
 
 & \multirow{5}{*}{RF} &
-   0  & \num{0.543} & \num{0.544} & \num{0.529} & \num{0.543} & \num{0.536} & \num{0.530} & \SI{25.789}{\second}  & \SI{4.878}{\second} \\
-&& 0' & \num{0.568} & \num{0.573} & \num{0.536} & \num{0.568} & \num{0.554} & \num{0.538} & \SI{32.981}{\second}  & \SI{5.371}{\second} \\
-&& 1  & \num{0.578} & \num{0.585} & \num{0.537} & \num{0.578} & \num{0.560} & \num{0.540} & \SI{102.961}{\second} & \SI{5.608}{\second} \\
-&& 1' & \num{0.613} & \num{0.634} & \num{0.533} & \num{0.613} & \num{0.579} & \num{0.538} & \SI{44.911}{\second}  & \SI{6.002}{\second} \\
-&& 2  & \num{0.583} & \num{0.590} & \num{0.541} & \num{0.583} & \num{0.564} & \num{0.543} & \SI{70.447}{\second}  & \SI{3.148}{\second} \\
+   0  & 0.543 & 0.544 & 0.529 & 0.543 & 0.536 & 0.530 & \SI{25.789}{\second}  & \SI{4.878}{\second} \\
+&& 0' & 0.568 & 0.573 & 0.536 & 0.568 & 0.554 & 0.538 & \SI{32.981}{\second}  & \SI{5.371}{\second} \\
+&& 1  & 0.578 & 0.585 & 0.537 & 0.578 & 0.560 & 0.540 & \SI{102.961}{\second} & \SI{5.608}{\second} \\
+&& 1' & 0.613 & 0.634 & 0.533 & 0.613 & 0.579 & 0.538 & \SI{44.911}{\second}  & \SI{6.002}{\second} \\
+&& 2  & 0.583 & 0.590 & 0.541 & 0.583 & 0.564 & 0.543 & \SI{70.447}{\second}  & \SI{3.148}{\second} \\
 \bottomrule
 \end{tabular}
-\caption{Resulting metrics of different methods used in Section~\ref{sec:results} and Section~\ref{sec:comparison}}
+\caption{Resulting metrics of different methods used in Section~\ref{sec:results} and Section~\ref{sec:comparison}. \textbf{Bolded} items represent the highest value for each metric.}
 \label{tab:comparison}
 \end{table}
 

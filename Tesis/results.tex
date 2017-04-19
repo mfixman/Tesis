@@ -160,7 +160,7 @@ When $\varpi = \calls$ and the data is analyzed using $\Upsilon^{\calls}$ as \em
 
 After analyszing the data, we find that the \emph{Area Under the Curve} using this method is of \num{0.724}, which is significantly higher than all the naïve and \emph{Machine Learning} methods presented in the later Section~\ref{sec:comparison}.
 
-To maximize accuracy, setting $\tau = 0.654$ results in a predictor where $\Accuracy = 0.687$ and $\FPR = 123$. Additionally, that value of $\tau$ results in $\Precision = 123$, $\Recall = 123$, $F_1 = 123$, and $F_4 = 123$. \todo{Fill these values.}
+To maximize accuracy, setting $\tau = 0.654$ results in a predictor where $\Accuracy = 0.687$. Additionally, that value of $\tau$ results in $\Precision = 0.653$, $\Recall = 0.815$, $F_1 = 0.725$, and $F_4 = 0.804$.
 
 \subsubsection{Inferring by Time}
 \label{subsec:time_infer}
@@ -175,7 +175,7 @@ When $\varpi = \etime$ and the data is analyzed using $\Upsilon^{\calls}$ as \em
 
 The \emph{Area Under the Curve} of this inference mechanism is $\AUC = 0.718$, which is lower than the one for the calls in Section~\ref{subsec:calls_infer}. The \emph{Accuracy Curve} is unsurprisingly similar to that one, and even the \emph{Accuracy} at $\tau = 0.722$ is the same. This is probably a result of using the same dataset as that section, and the fact that there is an obvious correlation between total talking time and total calls, shown in Figure~\ref{fig:call_time}.
 
-That value of $\tau$ also results in a predictor where $\Accuracy = 0.684$, $\FPR = 123$, $\Precision = 123$, $\Recall = 123$, $F_1 = 123$, and $F_4 = 123$. \todo{Fill these values.}
+That value of $\tau$ also results in a predictor where $\Accuracy = 0.684$, $\Precision = 0.649$, $\Recall = 0.819$, $F_1 = 724$, and $F_4 = 807$.
 
 \subsubsection{Inferring by SMS}
 \label{subsec:sms_infer}
@@ -190,7 +190,7 @@ Since the total amount of SMS is much lower than the amount of calls, the peaks 
 
 In particular, this gives an $\AUC = 0.715$, which is lower than both in the case of \emph{Calls} and \emph{Time}. Interesingly, the maximum \emph{Accuracy} at $\tau = 0.299$ is slightly higher than both of the other cases; this is probably a side-effect of the fact that $\left| \Upsilon^{\sms} \right| < \left| \Upsilon^{\calls} \right|$.
 
-Additionally, $\FPR = 123$, $\Precision = 123$, $\Recall = 123$, $F_1 = 123$, and $F_4 = 123$. \todo{Fill these values.}
+Additionally, $\Precision = 0.696$, $\Recall = 0.186$, $F_1 = 0.293$, and $F_4 = 0.194$.
 
 \subsubsection{Inferring by Contacts}
 \label{subsec:contacts_infer}
@@ -203,7 +203,29 @@ Additionally, $\FPR = 123$, $\Precision = 123$, $\Recall = 123$, $F_1 = 123$, an
 
 When $\varpi = \contacts$ it's possible to get a pattern similar to the one shown in Section~\ref{subsec:sms_infer} when $\varpi = \sms$, where the majority of users have relatively few contacts and the peaks in the histogram. Additionally, since the total amount of contacts is logarithmically distributed (as shown in Figure~\ref{fig:contact_distribution}), and people with \emph{High Income} tend to have more contacts in general, there peaks are clustered in areas with low $p_v$ (where the majority of calls are made to \emph{Low Income} users), near the middle (where the calls are mostly equally distributed), but not at high $p_v$; this last section would belong to the few users with many calls to \emph{High Income} users.
 
-Using this method it's possible to find that $\AUC = 0.746$, which is higher than all the other methods presented in Section~\ref{subsec:algorithm_performance}. Additionally, when selecting $\tau = 0.514$, $\Accuracy = 0.694$ which is higher than the maximum \emph{Accuracy} in all other methods. These metrics, combined with the fact that $\Upsilon$ contains every user in the \emph{Testing Set}, result in the fact that $\varpi = \contacts$ is uambiguously the best way to classify the data for the algorithm. Additionally, $\FPR = 123$, $\Precision = 123$, $\Recall = 123$, $F_1 = 123$, and $F_4 = 123$.
+Using this method it's possible to find that $\AUC = 0.746$, which is higher than all the other methods presented in Section~\ref{subsec:algorithm_performance}. Additionally, when selecting $\tau = 0.514$, $\Accuracy = 0.694$ which is higher than the maximum \emph{Accuracy} in all other methods. These metrics, combined with the fact that $\Upsilon$ contains every user in the \emph{Testing Set}, result in the fact that $\varpi = \contacts$ is uambiguously the best way to classify the data for the algorithm. Additionally, $\Precision = 0.556$, $\Recall = 0.792$, $F_1 = 0.723$, and $F_4 = 0.783$.
+
+\subsubsection{Final Results}
+
+Table~\ref{tab:bayesresults} presents every metric discussed in Section~\ref{subsec:mlmetrics} for the optimal $\Theta$ and $\tau$ for every $\varpi$.
+
+\begin{table}
+\centering
+\begin{tabular}{>{\bfseries}l >{\hspace{1em}}r r >{\hspace{1em}}r r r r r r}
+\toprule
+\ct{$\varpi$} & \ct{Opt. $\Theta$} & \ct{Opt. $\tau$} & \ct{Acc.} & \ct{Prec.} & \ct{Rec.} & \ct{AUC} & \ct{F\textsubscript{1}} & \ct{F\textsubscript{4}} \\
+\midrule
+calls    & \num{0.428} & \num{0.654} & \num{0.686} & \num{0.654} & \num{0.816} & \num{0.724} & \num{0.726} & \num{0.804} \\
+time     & \num{0.001} & \num{0.722} & \num{0.681} & \num{0.652} & \num{0.806} & \num{0.718} & \num{0.721} & \num{0.795} \\
+sms      & \num{0.428} & \num{0.299} & \num{0.688} & \num{0.648} & \num{0.789} & \num{0.715} & \num{0.712} & \num{0.779} \\
+contacts & \num{0.394} & \num{0.514} & \num{0.693} & \num{0.665} & \num{0.792} & \num{0.746} & \num{0.723} & \num{0.783} \\
+\bottomrule
+\end{tabular}
+\caption{Metrics for the Bayesian algorithm using every user in $\Upsilon$}
+\label{tab:bayesresults}
+\end{table}
+
+In particular, the results show that using \emph{Contacts} as the predictor for the \emph{Bayesian Algorithm} results in a signicantly higher \emph{Area Under the Curve} and a higher \emph{Accuracy}.
 
 \subsection{Algorithm Performance of Users with at least 3 Contacts}
 
