@@ -43,9 +43,9 @@ H_1 \cup H_2 = S \\
 \subsubsection{Feature Accumulation}
 \label{subsec:feature_accumulation}
 
-Given the \emph{Social Graph} $G = \left< V, E \right>$, as defined in \Cref{sec:dataset}, contains information about the \emph{Calls}, \emph{SMS}, and \emph{Total Time} of each link between two users. These can be accumulated for each user, along with its \emph{Degree}, to produce the \emph{User Data}, which is used for another evaluation in \Cref{subsec:user_data}.
+Given the \emph{Social Graph} $G = \left< V, E \right>$, as defined in \Cref{sec:dataset}, contains information about the \emph{Calls}, \emph{SMS}, and \emph{Total Time} of each link between two users. These can be accumulated for each user, along with its \emph{Degree}, to produce the \emph{User Data}, which is used for another evaluation in other lines of work.
 
-Another possible way to accumulate these values is discriminating them by the category to which the other endpoint belong. That is, for every edge feature $F$ and for the \emph{Degree}, it's possible to define two features $F_{\low}$ and $F_{\high}$ that only accumulate features from edges whose other endpoint is a user with \emph{Low Income} or \emph{High Income}, respectively. This approach is formalized in \Cref{eq:bayesian_accum}\maybe{Redo formulas so they look nicer}.
+Another possible way to accumulate these values is discriminating them by the category to which the other endpoint belong. That is, for every edge feature $F$ and for the \emph{Degree}, it's possible to define two features $F_{\low}$ and $F_{\high}$ that only accumulate features from edges whose other endpoint is a user with \emph{Low Income} or \emph{High Income}, respectively. This approach is formalized in \Cref{eq:bayesian_accum}.
 
 \begin{equation}
 \label{eq:bayesian_accum}
@@ -80,7 +80,7 @@ D = E^D_o \cup E^D_d
 
 $D$ is defined as a subset of $S$, instead of one of $V$, because we cannot analyze the performance of a predictor on telco users who aren't part of the bank.
 
-There is an additional level of uncertainty: while the data contains information about calls, and the inference assumes that callee and caller know each other (which is usually true after we remove outliers, as in \Cref{subsec:outlier}), there is simply no information about the socioeconomic level of acquaintances who don't share phone calls. However, the more calls a user names, and the more people it calls, the more \emph{Certain} we can be that the algorithm in this section is correct.
+There is an additional level of uncertainty: while the data contains information about calls, and the inference assumes that callee and caller know each other (which is usually true after we remove outliers, as in \Cref{subsec:outlier_filtering}), there is simply no information about the socioeconomic level of acquaintances who don't share phone calls. However, the more calls a user names, and the more people it calls, the more \emph{Certain} we can be that the algorithm in this section is correct.
 
 \subsubsection{Modelling Users --- Frequentist Approach}
 \label{subsec:modelling_users_frequentist}
@@ -136,7 +136,7 @@ p_v &= Q \left (\Theta \right) \\
 
 This probability represents the \emph{Posterior Probability} of $p_v$ given the data. To adjust the prediction, the method compares the value for each user with the rest and assumes that, if $p_v > p_u$ for two users $v$ and $u$, then $v$ has a higher probability of being wealthy.
 
-Since we don't have any prior information about a good value of $\Theta$, we initially take a value from \emph{Jeffrey's Prior}. This distribution, which was defined by Harold Jeffreys in 1946~\cite{jeffreys46}, is a completely uninformative prior distribution for a parameter that makes it possible to parametrize prior ignorance about values in a Bernoulli model.
+Since we don't have any prior information about a good value of $\Theta$, we initially take a value from \emph{Jeffrey's Prior}. This distribution, which was defined by Harold Jeffreys in 1946~\cite{jeffreys453}, is a completely uninformative prior distribution for a parameter that makes it possible to parametrize prior ignorance about values in a Bernoulli model.
 
 The \emph{Probability Density Function} of the prior for a parameter $\gamma$ is presented in Equation~\ref{eq:jeffreys}. It's important to note that this is the same PDF than in the one for a \emph{Beta Distribution} with parameters $\alpha = \sfrac{1}{2}, \beta = \sfrac{1}{2}$.
 
@@ -187,7 +187,9 @@ An alternative way of seeing this problem is through a \emph{Bayesian Graphical 
 
 In the model, shown in Figure~\ref{fig:bayesnetwork}, instead of defining a Beta distribution $\Betasim_v \sim \Betadist(\varpi^{\high}_v + 1, \varpi^{\low}_v + 1)$ for every user $v$, the problem is defined as a \emph{Binomial Distribution} which should have the respective parameters.
 
-For simplicity, other two new categorical variables are defined for this model for each user $v$: $\varkappa_v$, which is 1 if and only if $v$ is part of the high category of income, and $\hat{\varkappa}_v$, which is 1 if and only if $v$ is predicted to be of the high category of income.
+For simplicity, other two new categorical variables are defined for this model for each user $v$: $\varkappa_v$\footnotemark{}, which is 1 if and only if $v$ is part of the high category of income, and $\hat{\varkappa}_v$, which is 1 if and only if $v$ is predicted to be of the high category of income.
+
+\footnotetext{$\varkappa$ is a variant of the greek letter $\kappa$, which represents the \textbf{C}ategory.}
 
 \begin{figure}
 \centering
