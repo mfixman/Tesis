@@ -187,7 +187,7 @@ An alternative way of seeing this problem is through a \emph{Bayesian Graphical 
 
 In the model, shown in Figure~\ref{fig:bayesnetwork}, instead of defining a Beta distribution $\Betasim_v \sim \Betadist(\varpi^{\high}_v + 1, \varpi^{\low}_v + 1)$ for every user $v$, the problem is defined as a \emph{Binomial Distribution} which should have the respective parameters.
 
-For simplicity, other two new categorical variables are defined for this model for each user $v$: $\kappa_v$, which is 1 if and only if $v$ is part of the high category of income, and $\hat{\kappa}_v$, which is 1 if and only if $v$ is predicted to be of the high category of income.
+For simplicity, other two new categorical variables are defined for this model for each user $v$: $\varkappa_v$, which is 1 if and only if $v$ is part of the high category of income, and $\hat{\varkappa}_v$, which is 1 if and only if $v$ is predicted to be of the high category of income.
 
 \begin{figure}
 \centering
@@ -198,8 +198,8 @@ For simplicity, other two new categorical variables are defined for this model f
 	\node[latentCont, below = 0.75 of k] (pi) {$\pi_v$};
 	\node[detCont, below = 0.75 of pi] (p) {$p_v$};
 	\node[latentCont, left = 1 of p] (theta) {$\Theta$};
-	\node[detDisc, below = 0.75 of p] (hkappa) {$\hat{\kappa}_v$};
-	\node[obsDisc, below = 0.75 of hkappa] (kappa) {$\kappa_v$};
+	\node[detDisc, below = 0.75 of p] (hkappa) {$\hat{\varkappa}_v$};
+	\node[obsDisc, below = 0.75 of hkappa] (kappa) {$\varkappa_v$};
 	\node[detCont, right = 1 of p] (tau) {$\tau$};
 
 	\edge {n} {k};
@@ -219,12 +219,12 @@ For simplicity, other two new categorical variables are defined for this model f
 \begin{align*}
 	n_v &= \varpi^{\high}_v + \varpi^{\low}_v \\
 	k_v &= \varpi^{\high}_v \\
-	\kappa_v &= \begin{cases} 0 \ \text{if} \ v \in H_1 \\ 1 \ \text{if} \ v \in H_2 \end{cases} \\[1em]
+	\varkappa_v &= \begin{cases} 0 \ \text{if} \ v \in H_1 \\ 1 \ \text{if} \ v \in H_2 \end{cases} \\[1em]
 	\pi_v &\sim \Binom \left( n, v \right) \\
 	\Theta &\sim \Betadist(\sfrac{1}{2}, \sfrac{1}{2}) \\
 	p_v &= \inf_{x \in \left[ 0, 1 \right]} \left\{ \Theta \leq P \left( \pi_v \leq x \right) \right\} \\
 	\tau &= \argmax_{t \in \left[ 0, 1 \right]} \left| \bigl\{ \vspace{4em} v \in V \cap B \mid p_v \geq t \iff k_v \bigr\} \right| \\[1em]
-	\hat{\kappa}_v &= \begin{cases} 0 \ \text{if} \ p_v < \tau \\ 1 \ \text{if} \ p_v \geq \tau \end{cases}
+	\hat{\varkappa}_v &= \begin{cases} 0 \ \text{if} \ p_v < \tau \\ 1 \ \text{if} \ p_v \geq \tau \end{cases}
 \end{align*}
 \end{minipage}
 \caption{A Bayesian Graphical Model representing an interesting alternative approach to the problem, using a \emph{Binomial Distribution} instead of a \emph{Beta Distribution}. If this model was applied with a program such as \texttt{Jags}, the results would be the same.}
