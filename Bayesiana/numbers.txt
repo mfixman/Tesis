@@ -1,0 +1,69 @@
+dc.cool_table('random', user_data, sei)
+\num{0.499} & \num{0.499} & \num{0.500} & \num{0.499} & \num{0.500} & \num{0.500} & \num{0.131} & \num{0.005}
+
+mv.cool_table('majority_voter', inner_ud05, sei)
+\num{0.565} & \num{0.747} & \num{0.197} & \num{0.565} & \num{0.312} & \num{0.206} & \num{0.000} & \num{0.204}
+
+lr.cool_table('linear_outer', user_data, sei, **params)
+\num{0.534} & \num{0.586} & \num{0.234} & \num{0.534} & \num{0.335} & \num{0.243} & \num{0.937} & \num{0.016}
+
+lr.cool_table('linear', outer_ud05, sei, **params)
+\num{0.565} & \num{0.746} & \num{0.198} & \num{0.565} & \num{0.313} & \num{0.207} & \num{1.871} & \num{0.041}
+
+lr.cool_table('linear', user_data_d1, sei, **params)
+\num{0.547} & \num{0.617} & \num{0.250} & \num{0.547} & \num{0.356} & \num{0.260} & \num{1.347} & \num{0.035}
+
+lr.cool_table('linear', outer_ud15, sei, **params)
+\num{0.577} & \num{0.727} & \num{0.247} & \num{0.577} & \num{0.368} & \num{0.257} & \num{9.816} & \num{0.077}
+
+lr.cool_table('linear', outer_ud15, sei, **params)
+\num{0.577} & \num{0.727} & \num{0.247} & \num{0.577} & \num{0.368} & \num{0.257} & \num{9.807} & \num{0.077}
+
+rf.cool_table('random_forest_outer', user_data, sei, **params)
+\num{0.543} & \num{0.544} & \num{0.529} & \num{0.543} & \num{0.536} & \num{0.530} & \num{25.789} & \num{4.878}
+
+rf.cool_table('random_forest', outer_ud05, sei, **params)
+\num{0.568} & \num{0.573} & \num{0.536} & \num{0.568} & \num{0.554} & \num{0.538} & \num{32.981} & \num{5.371}
+
+rf.cool_table('random_forest', user_data_d1, sei, **params)
+\num{0.578} & \num{0.585} & \num{0.537} & \num{0.578} & \num{0.560} & \num{0.540} & \num{102.961} & \num{5.608}
+
+rf.cool_table('random_forest', outer_ud15, sei, **params)
+\num{0.613} & \num{0.634} & \num{0.533} & \num{0.613} & \num{0.579} & \num{0.538} & \num{44.911} & \num{6.002}
+
+rf.cool_table('random_forest', outer_ud15, sei, **params)
+\num{0.613} & \num{0.634} & \num{0.534} & \num{0.613} & \num{0.580} & \num{0.539} & \num{75.035} & \num{6.144}
+
+lr.cool_table('linear_inner', user_data, seii, **params)
+\num{0.536} & \num{0.531} & \num{0.625} & \num{0.536} & \num{0.574} & \num{0.619} & \num{0.145} & \num{0.002}
+
+lr.cool_table('linear', inner_ud05, seii, **params)
+\num{0.686} & \num{0.655} & \num{0.785} & \num{0.686} & \num{0.714} & \num{0.776} & \num{0.167} & \num{0.005}
+
+lr.cool_table('linear', user_data_d1, seii, **params)
+\num{0.535} & \num{0.525} & \num{0.730} & \num{0.535} & \num{0.611} & \num{0.714} & \num{0.141} & \num{0.011}
+
+lr.cool_table('linear', inner_ud15, seii, **params)
+\num{0.624} & \num{0.671} & \num{0.488} & \num{0.624} & \num{0.565} & \num{0.496} & \num{0.237} & \num{0.003}
+
+lr.cool_table('linear', inner_ud15, seii, **params)
+\num{0.624} & \num{0.671} & \num{0.488} & \num{0.624} & \num{0.565} & \num{0.496} & \num{0.296} & \num{0.004}
+
+rf.cool_table('random_forest_inner', user_data, seii, **params)
+\num{0.548} & \num{0.548} & \num{0.550} & \num{0.548} & \num{0.549} & \num{0.550} & \num{5.986} & \num{0.588}
+
+rf.cool_table('random_forest', inner_ud05, seii, **params)
+\num{0.671} & \num{0.665} & \num{0.690} & \num{0.671} & \num{0.677} & \num{0.688} & \num{6.346} & \num{0.539}
+
+rf.cool_table('random_forest', user_data_d1, seii, **params)
+\num{0.582} & \num{0.583} & \num{0.577} & \num{0.582} & \num{0.580} & \num{0.577} & \num{56.548} & \num{0.483}
+
+rf.cool_table('random_forest', inner_ud15, seii, **params)
+\num{0.681} & \num{0.683} & \num{0.675} & \num{0.681} & \num{0.679} & \num{0.676} & \num{12.448} & \num{0.487}
+
+rf.cool_table('random_forest', inner_ud15, seii, **params)
+\num{0.678} & \num{0.679} & \num{0.674} & \num{0.678} & \num{0.677} & \num{0.674} & \num{12.125} & \num{0.486}
+
+mv.cool_table('majority_voter', inner_ud05, seii)
+\num{0.681} & \num{0.640} & \num{0.826} & \num{0.681} & \num{0.721} & \num{0.812} & \num{0.000} & \num{0.059}
+
