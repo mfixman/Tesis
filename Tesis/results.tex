@@ -89,6 +89,53 @@ $\Upsilon^{\sms}$ & \num{11909} & \num{6046} & \num{5863} & 0.322 \\
 \label{tab:partition_numbers}
 \end{table}
 
+\newpage
+
+\subsection{Choosing the best $\Theta$}
+
+Choosing a good value of $\Theta$ is an essential step in creating a correct algorithm since it's the most important constant of Equation~\ref{eq:beta_theta_ppf}, one of the crucial parts for finding the category of an user.
+
+As explained in Section~\ref{subsec:modelling_users}, it's convenient to use \emph{Jeffrey's Prior} as the prior distribution for this variable. However, knowing how it will affect the prediction of the category of each $v$ for every $\varpi$ will allow us to get a good posterior value.
+
+The main hypotheses tested in this part of the theses were two assumptions.
+
+\begin{enumerate}
+	\item The optimal value of $\Theta$ will be the same for any $\varpi$.
+	\item Overlooking extreme values, the value of $\Theta$ won't improve or deteriorate the prediction.
+\end{enumerate}
+
+As Table~\ref{tab:besttheta} and Figure~\ref{fig:theta} show, both hypotheses are false.
+
+\begin{figure}
+\centering
+\includegraphicsmaybe{figures/theta.png}
+\caption{The \emph{Area Under the Curve} for different $\Theta$ and every possible $\varpi$. This is the preliminary version of the analysis seen in Section~\ref{subsec:algorithm_performance}}.
+\label{fig:theta}
+\end{figure}
+
+\setlength{\tabcolsep}{3pt}
+\begin{table}
+\centering
+\begin{tabular}{>{\bfseries}l r r}
+	\toprule
+	$\varpi$ & Opt. $\Theta$ & AUC \\
+	\midrule
+	contacts & \num{0.394} & \num{0.746} \\
+	calls & \num{0.428} & \num{0.724} \\
+	time & \num{0.001} & \num{0.718} \\
+	sms & \num{0.428} & \num{0.715} \\
+	\bottomrule
+\end{tabular}
+\caption{Optimal $\Theta$ for each $\varpi$}
+\label{tab:besttheta}
+\end{table}
+
+The \emph{Area Under the Curve} is a good way to analyze the performance of the algorithm with given hyperparameters since it provides a good equillibrium between \emph{Precision} and \emph{Recall}, and it's not necessary to establish a $\tau$ to get these values.
+
+In this analysis we can see that there are different optimal $\Theta$ for every $\varpi$, contradicting the first hypothesis althrough the best value seems to be the same for $\varpi = \calls$ and $\varpi = \sms$. The reason for this equality remains a mystery.
+
+Additionally, there is a significant difference between the values of $\Theta$ on all input types, contradicting the second one, except for $\varpi = \etime$. This is probably caused because the calling time is a lot more varied than with the other statistics, as is shown in Section~\ref{subsec:time_infer}.
+
 \subsection{Algorithm Performance on All Users}
 \label{subsec:algorithm_performance}
 

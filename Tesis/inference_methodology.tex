@@ -142,7 +142,7 @@ The \emph{Probability Density Function} of the prior for a parameter $\gamma$ is
 
 \begin{equation}
 \label{eq:jeffreys}
-	P \left( \gamma \right) = \frac{1}{\sqrt{\gamma \left( 1 - \gamma \right)}}
+	P \left( \Theta = \gamma \right) \propto \frac{1}{\sqrt{\gamma \left( 1 - \gamma \right)}}
 \end{equation}
 
 \subsubsection{Categorizing Users}
@@ -227,7 +227,7 @@ For simplicity, other two new categorical variables are defined for this model f
 	\hat{\kappa}_v &= \begin{cases} 0 \ \text{if} \ p_v < \tau \\ 1 \ \text{if} \ p_v \geq \tau \end{cases}
 \end{align*}
 \end{minipage}
-\caption{A Bayes Graphical Model representing an interesting alternative approach to the problem, using a \emph{Binomial Distribution} instead of a \emph{Beta Distribution}. If this model was applied with a program such as \texttt{Jags}, the results would be the same.}
+\caption{A Bayesian Graphical Model representing an interesting alternative approach to the problem, using a \emph{Binomial Distribution} instead of a \emph{Beta Distribution}. If this model was applied with a program such as \texttt{Jags}, the results would be the same.}
 \label{fig:bayesnetwork}
 \end{figure}
 
