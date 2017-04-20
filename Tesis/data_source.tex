@@ -41,22 +41,22 @@ As a corollary, $G_N$ can be defined as the graph $\left< N, E_N \right>$, where
 
 The amount of each data contained in the dataset is described in Figure~\ref{tab:datasetnumbers}.
 
-\begin{figure}
+\begin{table}
 \centering
-\begin{tabular}{>{\bfseries}l c c c}
+\begin{tabular}{>{\bfseries}l r r r}
 \toprule
-Dataset & Total Users & Telco Users & Located Users \\
-Set & $G$ & $G_N$ & $G'$ \\
+Dataset & \ct{Total Users} & \ct{Telco Users} & \ct{Located Users} \\
+Set & \ct{$G$} & \ct{$G_N$} & \ct{$G'$} \\
 \midrule
-Calls & \num{168287484} & \num{123456} & \num{123456} \\
-SMS & \num{123456} & \num{123456} & \num{123456} \\
-Time & \num{123456} & \num{123456} & \num{123456} \\
-Contacts & \num{123456} & \num{123456} & \num{123456} \\
+Calls & \num{1024232445} & \num{551468102} & \\
+SMS & \num{415693655} & \num{222179195} & \\
+Time & \num{141271073893} & \num{81997400646} & \\
+Contacts & \num{249011358} & \num{110074848} & \\
 \bottomrule
 \end{tabular}
-\caption{Magnitudes of data about the different datasets. \todo{Complete this}}
+\caption{Magnitudes of data about the different datasets.}
 \label{tab:datasetnumbers}
-\end{figure}
+\end{table}
 
 Both the amount of calls and the amount of contacts per user are distributed logarithmically with a formula similar to Equation~\ref{eq:logdist}.
 
