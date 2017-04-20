@@ -1,0 +1,122 @@
+\documentclass[runningheads, a4paper]{llncs}
+
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[]{changepage}
+\usepackage[compatibility=false]{caption}
+\usepackage{float}
+\usepackage[T1]{fontenc}
+\usepackage[]{graphicx}
+\usepackage[utf8]{inputenc}
+\usepackage{makecell}
+\usepackage{multirow}
+\usepackage{pbox}
+\usepackage{relsize}
+\usepackage[group-separator={,}]{siunitx}
+\usepackage{soul}
+\usepackage{tabularx}
+\usepackage{booktabs}
+\usepackage{tabu}
+\usepackage[normalem]{ulem}
+\usepackage[table,dvipsnames]{xcolor}
+\usepackage{epigraph}
+\usepackage{multirow}
+\usepackage{makecell}
+\usepackage{xfrac}
+\usepackage{exscale}
+\usepackage{subcaption}
+\usepackage{capt-of}
+\usepackage[perpage]{footmisc}
+\usepackage[hidelinks=true]{hyperref}
+\numberwithin{equation}{section}
+\usepackage{cleveref}
+\usepackage{enumitem}
+
+\usepackage{tikz}
+\usetikzlibrary{shapes}
+\usetikzlibrary{arrows}
+\usetikzlibrary{bayesnetWLee}
+
+\bibliographystyle{alpha}
+
+\newcommand{\todo}[1]{\textbf{\color{red} TODO:\@ #1}}
+\newcommand{\maybe}[1]{\footnote{\color{red} #1}}
+
+\newcommand{\noimage}[1]{%
+  \setlength{\fboxsep}{-\fboxrule}
+  \framebox(300, 100){\texttt{#1}}
+}
+\newcommand{\includegraphicsmaybe}[1]{\IfFileExists{#1}{\includegraphics[width=\columnwidth]{#1}}{\noimage{#1}}}
+
+\newcommand{\closeopen}[2]{\left[ #1, #2 \right)}
+\newcommand{\mathmuchlarger}[1]{\mathlarger{\mathlarger{#1}}}
+
+\newcommand{\Beta}{B}
+\newcommand{\mathA}{\mathcal{A}}
+\newcommand{\mathB}{\mathcal{B}}
+\newcommand{\mathC}{\mathcal{C}}
+\newcommand{\mathG}{\mathcal{G}}
+\newcommand{\mathP}{\mathcal{P}}
+
+\newcommand{\dsfrac}[2]{\frac{\displaystyle{} #1}{\displaystyle{} #2}}
+\newcommand{\NA}{---}
+
+\newcommand{\ct}[1]{\multicolumn{1}{c}{#1}}
+
+\setcounter{secnumdepth}{3}
+\captionsetup[table]{skip = 2ex}
+
+\renewcommand*{\thefootnote}{\fnsymbol{footnote}}
+
+\input{operators}
+
+\title{Inferencia Bayesiana \\ Trabajo Práctico 2 \\ \vspace{1em} Inference of Socioeconomic Status in a Communications Graph: A Bayesian Approach}
+
+\author{%
+       Martin Fixman
+}
+
+\date{2016}
+
+\authorrunning{Fixman}
+\titlerunning{Inference of Socioeconomic Status in a Communication Graph}
+
+\institute{Universidad de Buenos Aires --- Facultad de Ciencias Exactas y Naturales}
+
+\begin{document}
+
+\maketitle
+
+\begin{center}
+\normalsize{%
+	Primer Cuatrimestre de 2016
+}
+\end{center}
+
+\begin{abstract}
+	\input{abstract}
+\end{abstract}
+
+\setcounter{tocdepth}{3}
+\tableofcontents
+
+\newpage
+
+\input{introduction}
+
+\input{theory}
+
+\input{data_source}
+
+\input{inference_methodology}
+
+\input{results}
+
+\input{conclusion}
+
+\input{figures}
+
+\bibliography{bibliography/sna}{}
+
+\end{document}
