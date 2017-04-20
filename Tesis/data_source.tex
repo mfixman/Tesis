@@ -48,7 +48,7 @@ The amount of each data contained in the dataset is described in Figure~\ref{tab
 Dataset & Total Users & Telco Users & Located Users \\
 Set & $G$ & $G_N$ & $G'$ \\
 \midrule
-Calls & \num{123456} & \num{123456} & \num{123456} \\
+Calls & \num{168287484} & \num{123456} & \num{123456} \\
 SMS & \num{123456} & \num{123456} & \num{123456} \\
 Time & \num{123456} & \num{123456} & \num{123456} \\
 Contacts & \num{123456} & \num{123456} & \num{123456} \\
@@ -58,20 +58,34 @@ Contacts & \num{123456} & \num{123456} & \num{123456} \\
 \label{tab:datasetnumbers}
 \end{figure}
 
-The distributions of the initial times of both calls and SMS, as shown in Figure~\ref{fig:callsmsstartdatetime} present a predictable periodic pattern\maybe{Really? Investigate} which is repeated every weekday. This is consistent with measurements done with similar datasets\todo{Source this}.
+Both the amount of calls and the amount of contacts per user are distributed logarithmically with a formula similar to Equation~\ref{eq:logdist}.
 
-Additionally, the distribution of calling times present a logarithmic pattern\maybe{Really?}, as can be seen in Figure~\ref{fig:callduration}.
+\begin{equation}
+\label{eq:logdist}
+	\left[ \left( \forall n \right) \frac{\left| \left\{ u \in G \mid \calls_u = n \right\} \right|}{\left| \left\{ u \in G \mid \calls_u = n + 1 \right\} \right|} \approx \kappa \right] \qquad \text{for some constant} \ \kappa
+\end{equation}
+
+This form of graph can be seen in Figure~\ref{fig:outcalls_dist} and Figure~\ref{fig:outcontacts_dist}.
 
 \begin{figure}
 \centering
-\includegraphicsmaybe{figures/callsmsstartdatetime.png}
-\caption{Distribution of start dates of the calls for a month of the data.}
-\label{fig:callsmsstartdatetime}
+\includegraphics[width=.75\textwidth]{figures/outcontacts_dist.png}
+\caption{Distribution of amount of outgoing calls per user.}
+\label{fig:outcalls_dist}
 \end{figure}
 
 \begin{figure}
 \centering
-\includegraphicsmaybe{figures/callduration.png}
+\includegraphics[width=.75\textwidth]{figures/outcalls_dist.png}
+\caption{Distribution of amount of outgoing calls per user.}
+\label{fig:outcontacts_dist}
+\end{figure}
+
+Since, unlike with the amount of calls, the \emph{Average Call Time} isn't anywhere near 0, the pattern of \emph{Call Durations} follows a \emph{Negative Binomial Distribution}\maybe{Prove this} where a mean $\mu = 75$.
+
+\begin{figure}
+\centering
+\includegraphics[width=.75\textwidth]{figures/callduration.png}
 \caption{Distribution of the durations of calls.}
 \label{fig:callduration}
 \end{figure}
@@ -87,7 +101,7 @@ The bank also provided us demographic information for a subset of its clients $A
 
 \begin{figure}
 \centering
-\includegraphics[width=0.9\columnwidth]{figures/gender_age_bar3/gender_age_bar3.png}
+\includegraphics[width=0.75\columnwidth]{figures/gender_age_bar3/gender_age_bar3.png}
 \caption{Amount of users in $B$ by gender and age.}
 \label{fig:gender_age_bar}
 \end{figure}
@@ -98,7 +112,7 @@ In another line of work, homophily with respect to age has been observed and use
 
 \begin{figure}
 \centering
-\includegraphics[width=0.9\columnwidth]{figures/income_age_boxplot4/income_age_boxplot4.png}
+\includegraphics[width=0.75\columnwidth]{figures/income_age_boxplot4/income_age_boxplot4.png}
 \caption{Distribution of income $a_s$ as a factor of age $a_a$. This is consistent with data from median house income in Mexico~\cite{gallup2013}.}
 \label{fig:income_age_boxplot}
 \end{figure}
@@ -132,24 +146,22 @@ The distribution of bank users in $S$ is similar to the one in $B$, as shown in~
 
 \begin{figure}
 \centering
-\includegraphicsmaybe{figures/matchdistribution.png}
+\includegraphics[width=.75\textwidth]{figures/matchdistribution.png}
 \caption{Distribution of incomes for users of both the bank and telco, represented by the set $S$.}
 \label{fig:matchdistribution}
 \end{figure}
 
+\subsection{Outlier Filtering}
+\label{subsec:outlier_filtering}
 
-% \subsection{Outlier Filtering}
-% 
-% The dataset contains information about bank and telco users, some of which may not directly correspond to a human user, % who exclusively users the telco and the bank used in this study,
-% or may not have useful information for our research.
-% Most of the telco users in the first case are already filtered by the intersection (\textsc{inner join}). To make sure the users are relevant enough for this study, we only keep the users which have:
-% 
-% \begin{itemize}
-% 	\item More than 5 calls in either direction.
-% 	\item A monthly income of at least \$\num{1000}.
-% 	The value is expressed in Mexican pesos (MXN)\footnote{At the time of writing (July 14, 2016), 1000 Mexican pesos are equivalent to 54 US dollars.}.
-% 	\item A monthly income in the \num{99}th percentile (i.e.\ we filter users with a monthly income in the top 1\%).
-% \end{itemize}
+The dataset contains information about bank and telco users, some of which may not directly correspond to a human user, or may not have useful information for our research.
+
+Most of the telco users in the first case are already filtered by the intersection between the bank and the telco data. However, to make sure the users are relevant enough for this study, we only keep the users which have a minimum amount of information, defined in the following items.
+
+\begin{itemize}
+	\item A monthly income of at least \$\num{1000}.
+	\item A monthly income in the \num{99}th percentile (i.e.\ we filter users with a monthly income in the top 1\%).
+\end{itemize}
 
 \subsection{Unequal Distribution of Income}
 
@@ -159,7 +171,7 @@ We provide here some observations of the distribution of income of the bank clie
 
 \begin{figure}
 \centering
-\includegraphics[width=0.9\columnwidth]{figures/cumulative_income.png}
+\includegraphics[width=0.75\columnwidth]{figures/cumulative_income.png}
 \caption{Lorenz curve representing the distribution of income of bank clients.}
 \label{fig:lorenz}
 \end{figure}

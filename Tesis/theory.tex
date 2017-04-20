@@ -12,9 +12,9 @@ There are two overall types of homophily that can be distriguished in groups\cit
 
 One of the most common homophily patterns in human relations is related to the people's ages\cite{ugander2011}\cite{mcpherson2001birds}. This result is expected because of the many societal reasons that explain the homophily: schools tend to group people according to age into the sane classroooms, work opportunities tend to be clustered into age groups, which affects work environments and neighbourhood composition, and people have a strong tendency to confide in someone of one's own age.
 
-This correlation has a waterfall effect. Since this kind of homophily is present since early into people's life, the producded connections are closer, longer lived, have a larger number of exchanges, and tend to be more personal than other kinds of connections. Indeed, people have a strong tendency to confide in someone of one's own age\cite{mcpherson2001birds}\todo{find better cite}.
+This correlation has a waterfall effect. Since this kind of homophily is present since early into people's life, the producded connections are closer, longer lived, have a larger number of exchanges, and tend to be more personal than other kinds of connections. Indeed, people have a strong tendency to confide in someone of one's own age\cite{mcpherson2001birds}
 
-There's an interesting exception to this homophily: there is a significant number of connections between parents and their younger children\cite{sarraute2014}\todo{check this}. This exception is addressed later in this paper.
+There's an interesting exception to this homophily: there is a significant number of connections between parents and their younger children\cite{sarraute2014}. This exception is addressed later in this paper.
 
 \subsubsection{Gender Homophily}
 
@@ -250,7 +250,7 @@ There are many metrics that can be used to measure the performance of a classifi
 
 \subsubsection{Classification of individual results}
 
-Once we define out classifier $g$ and run it against a matrix\maybe{Set?} of features\maybe{Should I explain train/test split before this subsubsection?}, we get a predicted result $\ypred$ which, when compared to the actual result $\ytrue = y$, can be classified as the one in Table~\ref{tab:confusion}.
+Once we define out classifier $g$ and run it against a matrix of features, we get a predicted result $\ypred$ which, when compared to the actual result $\ytrue = y$, can be classified as the one in Table~\ref{tab:confusion}.
 
 \begin{table}[h]
 \begin{tabularx}{\textwidth}{| c | X | X X |}
@@ -282,7 +282,7 @@ Additionally, this table can be easily seen in a graphical way in figure~\ref{fi
 \centering
 \includegraphics[width=15em]{figures/TrueFalseNegativePositive.png}
 \caption{Visual explanation of \emph{Precision} and \emph{Recall}}
-\label{fig:truefalsenegativepositiv}
+\label{fig:truefalsenegativepositive}
 \end{figure}
 
 \subsubsection{Precision and Recall}
@@ -337,7 +337,8 @@ A \emph{Receiver Operating Characteristing} graph is a technique for visualizing
 This allows to compare different classifiers before having to select a particular threshold value for them. In particular, a random classifier will score near the positive diagonal ($\FPR = \TPR$), while a perfect classifier will score in the top left hand corner ($\FPR = 1, \TPR = 0$) and a worst case classifier will score in the bottom right hand corner\footnote{Note that, for any binary classifier, it's trivial to transpose the entire ROC curve (or a part of it) to the other part of the diagonal; therefore the worst ``realistic'' case is the random one}\cite{binaryevaluation}.
 
 \begin{figure}
-\todo{Add figure of ROC with AUC}
+\centering
+\includegraphics[width=.50\textwidth]{figures/ROC_example.png}
 \caption{A \emph{ROC Curve}, where the \emph{Area Under the Curve} is marked}
 \label{fig:roc}
 \end{figure}
@@ -347,10 +348,10 @@ This allows to compare different classifiers before having to select a particula
 The \emph{ROC Curve} allows us to compare classifiers and choose the one which is closer to optimal in some sense. While there are many possible parametrizations, the most common is to minimize the \emph{Area Under the Curve}, which is equal to the probability that a classifier will rank a randomly chosen positive instance higher than a randomly chosen negative one\cite{fawcett2005}. This can be formulated as shown in formula~\ref{eq:auc}.
 
 \begin{equation}
-\begin{split}
+\begin{aligned}
 \AUC &= P\left(X_1 > X_0\right) \\
-&= \todo{Something something}
-\end{split}
+&= \int_0^1 \TPR \left( t \right) \FPR' \left( t \right) dt
+\end{aligned}
 \label{eq:auc}
 \end{equation}
 
