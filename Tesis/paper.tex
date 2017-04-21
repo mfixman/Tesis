@@ -1,4 +1,4 @@
-\documentclass[runningheads, a4paper]{llncs}
+\documentclass[runningheads, a4paper]{dalthesis/dalthesis}
 
 \usepackage{amsfonts}
 \usepackage{amsmath}
@@ -71,45 +71,39 @@
 
 \input{operators}
 
-\title{Inference of Socioeconomic Status in a Communications Graph \\ A Bayesian Approach}
+\title{Inference of Socioeconomic Status \\ in a Communications Graph \\ A Bayesian Approach}
+\author{Martin Fixman}
+\mcs
 
-\author{%
-       Martin Fixman\inst{1,2}
-       \and
-       Carlos Sarraute\inst{2}
-       \and
-       Ariel Berenstein\inst{2}
-       \and
-       Jorge Brea\inst{2}
-}
+\degree{Master of Computer Science}
+\degreeinitial{M. C. Sc.}
+\faculty{Computer Science}
+\dept{Faculty of Science}
 
-\authorrunning{Fixman, Sarraute, Berenstein, Brea}
-\titlerunning{Inference of Socioeconomic Status in a Communication Graph}
+\defencemonth{Smarch}\defenceyear{2017}
 
-\institute{%
-	FCEyN, Universidad de Buenos Aires, Argentina
-\and
-	Grandata Labs, Argentina
-}
+\dedicate{To my dog Tobías ``Droopy'' Fixman}
+
+% \authorrunning{Fixman, Sarraute, Berenstein, Brea}
+% \titlerunning{Inference of Socioeconomic Status in a Communication Graph}
+
+% \institute{FCEyN, Universidad de Buenos Aires, Argentina}
 
 \begin{document}
 
-\maketitle
+\frontmatter
 
 \begin{abstract}
 	\input{abstract}
 \end{abstract}
 
-\setcounter{tocdepth}{3}
-\tableofcontents
-
-\newpage
+\mainmatter
 
 \input{introduction}
 
 \input{theory}
 
-\section{Related Work}
+\input{related_work}
 
 \input{data_source}
 
@@ -118,8 +112,6 @@
 \input{results}
 
 \input{comparison}
-
-\section{Real World Observations}
 
 \input{conclusion}
 
