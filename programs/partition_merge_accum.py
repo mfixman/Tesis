@@ -70,8 +70,6 @@ if __name__ == '__main__':
         logging.debug('Merging with merge file')
         extra = extra.merge(categories.to_frame(), left_index = True, right_index = True)
 
-        logging.debug('Shape {}'.format(extra.shape))
-
         args.columns.append(categories.name)
 
     filterrows = None
@@ -79,6 +77,7 @@ if __name__ == '__main__':
         logging.debug('Reading filter file.')
         filterrows = pandas.read_csv(args.filterrows, sep = '|', usecols = [0], squeeze = True).values
 
+    columns = None
     data = OrderedDF(pandas.read_csv(sys.stdin, sep = '|', index_col = [0], chunksize = 1000000))
     for e, chunk in enumerate(data):
         if e & (e - 1) == 0:
@@ -89,7 +88,14 @@ if __name__ == '__main__':
 
         full = chunk.merge(extra, left_on = args.merge_col, right_index = True).drop(args.merge_col, axis = 1)
         accum = full.groupby([full.index] + args.columns).sum().unstack(level = range(1, len(args.columns) + 1)).fillna(0, downcast = 'infer')
+
         accum.columns = ['_'.join('{}{}'.format('' if type(y) == str else 'd', y) for y in x) for x in accum.columns]
         accum.index.rename(extra.index.name, inplace = True)
+
+        if columns is None:
+            columns = accum.columns
+        else:
+            assert accum.columns.difference(columns).size == 0, "First chunk doesn't contain all columns"
+            accum = accum.reindex(columns = columns, fill_value = 0)
 
         accum.to_csv(sys.stdout, sep = '|', index = True, header = e == 0)
