@@ -74,19 +74,19 @@ The amount of features in each level is described in Table~\ref{tab:datasettable
 \toprule
 Level & Features \\
 \midrule
-0  & \num{8}  \\
-0' & \num{24} \\
-1  & \num{16} \\
-1' & \num{48} \\
-2  & \num{24} \\
-2' & \num{72} \\
+$\ego_0$ & \num{8}  \\
+$\ego_1$ & \num{16} \\
+$\ego_2$ & \num{24} \\
+$\cat_0$ & \num{24} \\
+$\cat_1$ & \num{48} \\
+$\cat_2$ & \num{72} \\
 \bottomrule
 \end{tabular}
 \caption{Number of features used for testing each Machine Learning model on each level}
 \label{tab:datasettable}
 \end{table}
 
-\subsection{User Data --- Level 0}
+\subsection{User Data --- Level $\ego_0$}
 \label{subsec:user_data}
 
 The features on the graph $G = \left< V, E \right>$ can be accumulated for all users in a manner similar to the one in Section~\ref{subsec:feature_accumulation} using the data generated in Equation~\ref{eq:graphconstruction}. However, this time we aren't constrained either by having only users which have contacts with other users with known \emph{Income Category}, nor with having to have only two features for each category (which was necessary due to using the \emph{Beta Distribution}).
@@ -120,7 +120,7 @@ There features contain information about the \emph{Neighbourhood} of $\upsilon$,
 \neigh \left( \upsilon \right) = \left\{ e_o \mid e \in E \and e_d = \upsilon \right\} \cup \left\{ e_d \mid e \in E \and e_o = \upsilon \right\}
 \end{equation}
 
-\subsection{Categorical User Data --- Level 0'}
+\subsection{Categorical User Data --- Level $\cat_n$}
 \label{subsec:categoricaluserdata}
 
 A possible featureset consists of using of separating the data of the neighbourhood of each user $\upsilon \in \Upsilon$ into two disjoint groups, $L_{\upsilon}$ and $K_{\upsilon}$, which contain the neighours of $\upsilon$ in the \emph{Low Income} and \emph{High Income} categories of income respectively\footnotemark{}.
@@ -173,7 +173,7 @@ Equations~\ref{eq:categoricaluserdata} and~\ref{eq:categoricaluserdata2} contain
 
 Unlike the features in Section~\ref{subsec:user_data}, and like the method presented in Section~\ref{sec:inference_methodology}, the features in this section will be be different when testing between the nodes of $B_{\test}$ (the \emph{Outer Graph}) and $\Upsilon$ (the \emph{Inner Graph}).
 
-\subsection{Higher Order User Data --- Level 1}
+\subsection{Higher Order User Data --- Level $\ego_{n > 0}$}
 \label{subsec:higherorderuserdata}
 
 The features described in Section~\ref{subsec:user_data} correspond to the information about calls and SMS from an user $\upsilon \in \Upsilon$ towards all of its neighbours, which is described as the \emph{Ego Network of Distance 1}. However, there's no reason why this information can't be extended to other nodes at a higher distance from $\upsilon$.
@@ -216,20 +216,20 @@ These \emph{Machine Learning} methods used in this section contain many hyperpar
 && \phantom & $\log_{10}{\left(C\right)}$ && Criterion & Max Features & Replacement \\
 \midrule
 \multirow{5}{*}{$\Upsilon$}
-& 0  & & $-2$ & & Entropy &  $\sqrt{f}$ & True \\
-& 0' & & $-3$ & & Entropy & $\log_2{f}$ & True \\
-& 1  & & $-2$ & & Entropy &         $f$ & True \\
-& 1' & &  $0$ & & Entropy &         $f$ & True \\
-& 2  & & $-2$ & & Entropy &         $f$ & True \\
-& 2' & & $-1$ & & Entropy &         $f$ & True \\
+& $\ego_0$ & & $-2$ & & Entropy &  $\sqrt{f}$ & True \\
+& $\ego_1$ & & $-2$ & & Entropy &         $f$ & True \\
+& $\ego_2$ & & $-2$ & & Entropy &         $f$ & True \\
+& $\cat_0$ & & $-3$ & & Entropy & $\log_2{f}$ & True \\
+& $\cat_1$ & &  $0$ & & Entropy &         $f$ & True \\
+& $\cat_2$ & & $-1$ & & Entropy &         $f$ & True \\
 [2ex]
 \multirow{5}{*}{$B^{\test}$}
-& 0  & &  $0$ & & Gini    & $\log_2{f}$ & True \\
-& 0' & & $-2$ & & Entropy & $\log_2{f}$ & True \\
-& 1  & &  $1$ & & Entropy & $\log_2{f}$ & True \\
-& 1' & &  $2$ & & Gini    &  $\sqrt{f}$ & True \\
-& 2  & &  $0$ & & Entropy &  $\sqrt{f}$ & True \\
-& 2' & &  $2$ & & Entropy & $\log_2{f}$ & True \\
+& $\ego_0$ & &  $0$ & & Gini    & $\log_2{f}$ & True \\
+& $\ego_1$ & &  $1$ & & Entropy & $\log_2{f}$ & True \\
+& $\ego_2$ & &  $0$ & & Entropy &  $\sqrt{f}$ & True \\
+& $\cat_0$ & & $-2$ & & Entropy & $\log_2{f}$ & True \\
+& $\cat_1$ & &  $2$ & & Gini    &  $\sqrt{f}$ & True \\
+& $\cat_2$ & &  $2$ & & Entropy & $\log_2{f}$ & True \\
 \bottomrule
 \end{tabular}
 \caption{Best hyperparameters for each group of features in each model used for predicting the result.}
@@ -304,21 +304,21 @@ Table~\ref{tab:comparison} shows various metrics which result from applying the 
 \cmidrule{2-11}
 
 & \multirow{5}{*}{LR} &
-   0  & 0.536 & 0.531 & 0.625 & 0.536 & 0.574 & 0.619 & \SI{0.145}{\second}   & \SI{0.002}{\second} \\
-&& 0' & 0.686 & 0.655 & 0.785 & 0.686 & 0.714 & 0.776 & \SI{0.167}{\second}   & \SI{0.005}{\second} \\
-&& 1  & 0.535 & 0.525 & 0.730 & 0.535 & 0.611 & 0.714 & \SI{0.141}{\second}   & \SI{0.011}{\second} \\
-&& 1' & 0.693 & 0.665 & 0.780 & 0.693 & 0.718 & 0.772 & \SI{1.588}{\second}   & \SI{0.011}{\second} \\
-&& 2  & 0.568 & 0.578 & 0.525 & 0.569 & 0.550 & 0.528 & \SI{0.119}{\second}   & \SI{0.003}{\second} \\
-&& 2' & 0.693 & 0.670 & 0.764 & 0.692 & 0.714 & 0.758 & \SI{0.956}{\second}   & \SI{0.009}{\second} \\
+   $\ego_0$ & 0.536 & 0.531 & 0.625 & 0.536 & 0.574 & 0.619 & \SI{0.145}{\second}   & \SI{0.002}{\second} \\
+&& $\ego_1$ & 0.535 & 0.525 & 0.730 & 0.535 & 0.611 & 0.714 & \SI{0.141}{\second}   & \SI{0.011}{\second} \\
+&& $\ego_2$ & 0.568 & 0.578 & 0.525 & 0.569 & 0.550 & 0.528 & \SI{0.119}{\second}   & \SI{0.003}{\second} \\
+&& $\cat_0$ & 0.686 & 0.655 & 0.785 & 0.686 & 0.714 & 0.776 & \SI{0.167}{\second}   & \SI{0.005}{\second} \\
+&& $\cat_1$ & 0.693 & 0.665 & 0.780 & 0.693 & 0.718 & 0.772 & \SI{1.588}{\second}   & \SI{0.011}{\second} \\
+&& $\cat_2$ & 0.693 & 0.670 & 0.764 & 0.692 & 0.714 & 0.758 & \SI{0.956}{\second}   & \SI{0.009}{\second} \\
 \cmidrule{2-11}
 
 & \multirow{5}{*}{RF} &
-   0  & 0.548 & 0.548 & 0.550 & 0.548 & 0.549 & 0.550 & \SI{5.986}{\second}   & \SI{0.588}{\second} \\
-&& 0' & 0.671 & 0.665 & 0.690 & 0.671 & 0.677 & 0.688 & \SI{6.346}{\second}   & \SI{0.539}{\second} \\
-&& 1  & 0.582 & 0.583 & 0.577 & 0.582 & 0.580 & 0.577 & \SI{56.548}{\second}  & \SI{0.483}{\second} \\
-&& 1' & \textbf{0.714} & \textbf{0.713} & 0.716 & 0.714 & 0.714 & 0.716 & \SI{96.005}{\second}  & \SI{0.460}{\second} \\
-&& 2  & 0.576 & 0.577 & 0.580 & 0.576 & 0.579 & 0.580 & \SI{50.197}{\second}  & \SI{0.253}{\second} \\
-&& 2' & 0.709 & 0.710 & 0.711 & 0.709 & 0.711 & 0.711 & \SI{81.528}{\second}  & \SI{0.242}{\second} \\
+   $\ego_0$ & 0.548 & 0.548 & 0.550 & 0.548 & 0.549 & 0.550 & \SI{5.986}{\second}   & \SI{0.588}{\second} \\
+&& $\ego_1$ & 0.582 & 0.583 & 0.577 & 0.582 & 0.580 & 0.577 & \SI{56.548}{\second}  & \SI{0.483}{\second} \\
+&& $\ego_2$ & 0.576 & 0.577 & 0.580 & 0.576 & 0.579 & 0.580 & \SI{50.197}{\second}  & \SI{0.253}{\second} \\
+&& $\cat_0$ & 0.671 & 0.665 & 0.690 & 0.671 & 0.677 & 0.688 & \SI{6.346}{\second}   & \SI{0.539}{\second} \\
+&& $\cat_1$ & \textbf{0.714} & \textbf{0.713} & 0.716 & 0.714 & 0.714 & 0.716 & \SI{96.005}{\second}  & \SI{0.460}{\second} \\
+&& $\cat_2$ & 0.709 & 0.710 & 0.711 & 0.709 & 0.711 & 0.711 & \SI{81.528}{\second}  & \SI{0.242}{\second} \\
 \midrule
 
 \multirow{12}{*}{$B^{\test}$}
@@ -331,21 +331,21 @@ Table~\ref{tab:comparison} shows various metrics which result from applying the 
 \cmidrule{2-11}
 
 & \multirow{5}{*}{LR} &
-   0  & 0.534 & 0.586 & 0.234 & 0.534 & 0.335 & 0.243 & \SI{0.937}{\second}   & \SI{0.016}{\second} \\
-&& 0' & 0.565 & 0.746 & 0.198 & 0.565 & 0.313 & 0.207 & \SI{1.871}{\second}   & \SI{0.041}{\second} \\
-&& 1  & 0.547 & 0.617 & 0.250 & 0.547 & 0.356 & 0.260 & \SI{1.347}{\second}   & \SI{0.035}{\second} \\
-&& 1' & 0.577 & 0.727 & 0.247 & 0.577 & 0.368 & 0.257 & \SI{9.816}{\second}   & \SI{0.077}{\second} \\
-&& 2  & 0.563 & 0.586 & 0.430 & 0.563 & 0.496 & 0.437 & \SI{1.055}{\second}   & \SI{0.023}{\second} \\
-&& 2' & 0.589 & 0.636 & 0.415 & 0.589 & 0.503 & 0.424 & \SI{9.456}{\second}   & \SI{0.065}{\second} \\
+   $\ego_0$ & 0.534 & 0.586 & 0.234 & 0.534 & 0.335 & 0.243 & \SI{0.937}{\second}   & \SI{0.016}{\second} \\
+&& $\ego_1$ & 0.547 & 0.617 & 0.250 & 0.547 & 0.356 & 0.260 & \SI{1.347}{\second}   & \SI{0.035}{\second} \\
+&& $\ego_2$ & 0.563 & 0.586 & 0.430 & 0.563 & 0.496 & 0.437 & \SI{1.055}{\second}   & \SI{0.023}{\second} \\
+&& $\cat_0$ & 0.565 & 0.746 & 0.198 & 0.565 & 0.313 & 0.207 & \SI{1.871}{\second}   & \SI{0.041}{\second} \\
+&& $\cat_1$ & 0.577 & 0.727 & 0.247 & 0.577 & 0.368 & 0.257 & \SI{9.816}{\second}   & \SI{0.077}{\second} \\
+&& $\cat_2$ & 0.589 & 0.636 & 0.415 & 0.589 & 0.503 & 0.424 & \SI{9.456}{\second}   & \SI{0.065}{\second} \\
 \cmidrule{2-11}
 
 & \multirow{5}{*}{RF} &
-   0  & 0.543 & 0.544 & 0.529 & 0.543 & 0.536 & 0.530 & \SI{25.789}{\second}  & \SI{4.878}{\second} \\
-&& 0' & 0.568 & 0.573 & 0.536 & 0.568 & 0.554 & 0.538 & \SI{32.981}{\second}  & \SI{5.371}{\second} \\
-&& 1  & 0.578 & 0.585 & 0.537 & 0.578 & 0.560 & 0.540 & \SI{102.961}{\second} & \SI{5.608}{\second} \\
-&& 1' & 0.613 & 0.634 & 0.533 & 0.613 & 0.579 & 0.538 & \SI{44.911}{\second}  & \SI{6.002}{\second} \\
-&& 2  & 0.583 & 0.590 & 0.541 & 0.583 & 0.564 & 0.543 & \SI{70.447}{\second}  & \SI{3.148}{\second} \\
-&& 2' & 0.614 & 0.635 & 0.534 & 0.614 & 0.580 & 0.539 & \SI{50.589}{\second}  & \SI{3.484}{\second} \\
+   $\ego_0$ & 0.543 & 0.544 & 0.529 & 0.543 & 0.536 & 0.530 & \SI{25.789}{\second}  & \SI{4.878}{\second} \\
+&& $\ego_1$ & 0.578 & 0.585 & 0.537 & 0.578 & 0.560 & 0.540 & \SI{102.961}{\second} & \SI{5.608}{\second} \\
+&& $\ego_2$ & 0.583 & 0.590 & 0.541 & 0.583 & 0.564 & 0.543 & \SI{70.447}{\second}  & \SI{3.148}{\second} \\
+&& $\cat_0$ & 0.568 & 0.573 & 0.536 & 0.568 & 0.554 & 0.538 & \SI{32.981}{\second}  & \SI{5.371}{\second} \\
+&& $\cat_1$ & 0.613 & 0.634 & 0.533 & 0.613 & 0.579 & 0.538 & \SI{44.911}{\second}  & \SI{6.002}{\second} \\
+&& $\cat_2$ & 0.614 & 0.635 & 0.534 & 0.614 & 0.580 & 0.539 & \SI{50.589}{\second}  & \SI{3.484}{\second} \\
 \bottomrule
 \end{tabular}
 \caption{Resulting metrics of different methods used in Section~\ref{sec:results} and Section~\ref{sec:comparison}. \textbf{Bolded} items represent the highest value for each metric.}
