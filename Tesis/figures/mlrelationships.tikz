@@ -7,6 +7,7 @@
   \pgfsetstrokecolor{strokecol}
   \definecolor{fillcol}{rgb}{1.0,1.0,1.0};
   \pgfsetfillcolor{fillcol}
+  \filldraw (0.0bp,0.0bp) -- (0.0bp,168.0bp) -- (90.0bp,168.0bp) -- (90.0bp,0.0bp) -- cycle;
 \end{scope}
 \begin{scope}
   \pgfsetstrokecolor{black}
@@ -14,6 +15,7 @@
   \pgfsetstrokecolor{strokecol}
   \definecolor{fillcol}{rgb}{1.0,1.0,1.0};
   \pgfsetfillcolor{fillcol}
+  \filldraw (0.0bp,0.0bp) -- (0.0bp,168.0bp) -- (90.0bp,168.0bp) -- (90.0bp,0.0bp) -- cycle;
 \end{scope}
 \begin{scope}
   \pgfsetstrokecolor{black}
@@ -21,6 +23,7 @@
   \pgfsetstrokecolor{strokecol}
   \definecolor{fillcol}{rgb}{1.0,1.0,1.0};
   \pgfsetfillcolor{fillcol}
+  \filldraw (0.0bp,0.0bp) -- (0.0bp,168.0bp) -- (90.0bp,168.0bp) -- (90.0bp,0.0bp) -- cycle;
 \end{scope}
 \begin{scope}
   \pgfsetstrokecolor{black}
@@ -28,29 +31,30 @@
   \pgfsetstrokecolor{strokecol}
   \definecolor{fillcol}{rgb}{1.0,1.0,1.0};
   \pgfsetfillcolor{fillcol}
+  \filldraw (0.0bp,0.0bp) -- (0.0bp,168.0bp) -- (90.0bp,168.0bp) -- (90.0bp,0.0bp) -- cycle;
 \end{scope}
-  \node (d1p) at (73.0bp,64.545bp) [draw,ellipse] {1'};
-  \node (d0p) at (73.0bp,110.24bp) [draw,ellipse] {0'};
-  \node (d2p) at (73.0bp,18.848bp) [draw,ellipse] {2'};
-  \coordinate (inv2) at (18.0bp,18.848bp);
-  \coordinate (inv0) at (73.0bp,155.09bp);
-  \node (1) at (18.0bp,110.24bp) [draw,ellipse] {1};
-  \node (0) at (19.0bp,155.09bp) [draw,ellipse] {0};
-  \node (2) at (18.0bp,64.545bp) [draw,ellipse] {2};
+  \node (d1p) at (72.0bp,62.0bp) [draw,circle] {$cat_1$};
+  \node (d0p) at (72.0bp,106.0bp) [draw,circle] {$cat_0$};
+  \node (d2p) at (72.0bp,18.0bp) [draw,circle] {$cat_2$};
+  \coordinate (inv2) at (18.0bp,18.0bp);
+  \coordinate (inv0) at (72.0bp,150.0bp);
+  \node (1) at (18.0bp,106.0bp) [draw,circle] {$ego_1$};
+  \node (0) at (18.0bp,150.0bp) [draw,circle] {$ego_0$};
+  \node (2) at (18.0bp,62.0bp) [draw,circle] {$ego_2$};
   \definecolor{strokecolor}{rgb}{0.0,0.25,0.0};
-  \draw [strokecolor,-stealth'] (2) ..controls (37.392bp,48.433bp) and (43.883bp,43.04bp)  .. (d2p);
+  \draw [strokecolor,-stealth'] (2) ..controls (37.602bp,46.028bp) and (43.91bp,40.888bp)  .. (d2p);
   \definecolor{strokecolor}{rgb}{0.0,0.0,0.25};
-  \draw [strokecolor,-stealth'] (d1p) ..controls (73.0bp,45.535bp) and (73.0bp,45.375bp)  .. (d2p);
+  \draw [strokecolor,-stealth'] (d1p) ..controls (72.0bp,43.69bp) and (72.0bp,43.53bp)  .. (d2p);
   \definecolor{strokecolor}{rgb}{0.0,0.25,0.0};
-  \draw [strokecolor,-stealth'] (1) ..controls (37.392bp,94.13bp) and (43.883bp,88.737bp)  .. (d1p);
+  \draw [strokecolor,-stealth'] (1) ..controls (37.602bp,90.028bp) and (43.91bp,84.888bp)  .. (d1p);
   \definecolor{strokecolor}{rgb}{0.0,0.25,0.0};
-  \draw [strokecolor,-stealth'] (0) ..controls (38.234bp,139.12bp) and (44.46bp,133.94bp)  .. (d0p);
+  \draw [strokecolor,-stealth'] (0) ..controls (37.602bp,134.03bp) and (43.91bp,128.89bp)  .. (d0p);
   \definecolor{strokecolor}{rgb}{0.0,0.0,0.25};
-  \draw [strokecolor,-stealth'] (d0p) ..controls (73.0bp,91.231bp) and (73.0bp,91.071bp)  .. (d1p);
+  \draw [strokecolor,-stealth'] (d0p) ..controls (72.0bp,87.69bp) and (72.0bp,87.53bp)  .. (d1p);
   \definecolor{strokecolor}{rgb}{0.0,0.0,0.25};
-  \draw [strokecolor,-stealth'] (0) ..controls (18.591bp,136.76bp) and (18.589bp,136.67bp)  .. (1);
+  \draw [strokecolor,-stealth'] (0) ..controls (18.0bp,131.69bp) and (18.0bp,131.53bp)  .. (1);
   \definecolor{strokecolor}{rgb}{0.0,0.0,0.25};
-  \draw [strokecolor,-stealth'] (1) ..controls (18.0bp,92.084bp) and (18.0bp,91.988bp)  .. (2);
+  \draw [strokecolor,-stealth'] (1) ..controls (18.0bp,87.69bp) and (18.0bp,87.53bp)  .. (2);
 %
 \end{tikzpicture}
 
