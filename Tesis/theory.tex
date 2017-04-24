@@ -24,14 +24,14 @@ Lorem ipsum dolor sit amet.
 
 Spearman's Rank Correlation Coefficient (also known as Spearman's rho) is a nonparametric measure of rank correlation which measures how well the relationship between two variables can be described using a monotonic function\cite{statistical_analysis}. Unlike Pearson's Correlation Coefficient, which measures lineal relationship between variables, Spearman's Coefficient uses the \emph{rank} of the variables in its calculations; therefore is measures its monotonicity.
 
-For a sample of size \( n \) with scores \( X_i \) and \( Y_i \), the Spearman Coefficient \( r_s \) is defined as
+For a sample of size \( n \) with scores \( X_i \) and \( Y_i \), the Spearman Coefficient \( r_s \) is defined as in Equation~\ref{eq:spearman}.
 
 \begin{equation}
 r_s = \mathlarger{\rho}_{\rank(X) \rank(Y)} = \frac{\operatorname{cov}(\rank(x), \rank(y))}{\sigma_{\rank(X)} \sigma_{\rank(Y)}}
-\label{spearman}
+\label{eq:spearman}
 \end{equation}
 
-Where \( \rho_{a,b} \) denotes the Pearson correlation between the variables \( a \) and \( b \). This value will be close to 1 when the variables are directly monotonic, close to -1 when they are inversely monotonic, and close to 0 when there is no tendency for either variable to increase or decrease when the other increases.
+Where \( \rho_{a,b} \) denotes the \emph{Pearson Correlation} between the variables \( a \) and \( b \). This value will be closer to 1 when the variables are directly monotonic, closer to -1 when they are inversely monotonic, and closer to 0 when there is no tendency for either variable to increase or decrease when the other increases.
 
 \section{Bayesian Inference}
 
@@ -143,7 +143,7 @@ As we get more data from the sampling, the \emph{Beta distribution} turns more c
 
 \begin{figure}
 \centering
-\includegraphics[width=\textwidth]{figures/beta.png}
+\includegraphicsmaybe{figures/beta.png}
 \caption{Beta distribution with different parameters}
 \label{fig:betagraph}
 \end{figure}

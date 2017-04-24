@@ -306,7 +306,7 @@ These results show that, when using the data from the labelled users $\Upsilon$,
 \ct{Dataset} & \ct{Model} & \ct{Level} & \ct{Acc.} & \ct{Prec.} & \ct{Rec.} & \ct{AUC} & \ct{F\textsubscript{1}} & \ct{F\textsubscript{4}} & \ct{t\textsubscript{fit}} & \ct{t\textsubscript{pred}} \\
 \midrule
 
-\multirow{13}{4em}{\centering\small{Inner Graph}\newline\newline$\Upsilon$}
+\multirow{15}{*}{\centering$\Upsilon$}
 
 & \multicolumn{2}{>{\bfseries}l}{Random}
 & 0.499 & 0.499 & 0.500 & 0.499 & 0.500 & 0.500 & \ct{\NA} & \SI{0.005}{\second} \\
@@ -337,7 +337,7 @@ These results show that, when using the data from the labelled users $\Upsilon$,
 && $\cat_2$ & 0.709 & 0.710 & 0.711 & 0.709 & 0.711 & 0.711 & \SI{81.528}{\second}  & \SI{0.242}{\second} \\
 \midrule
 
-\multirow{12}{4em}{\centering\small{Outer Graph}\newline\newline$B^{\test}$}
+\multirow{14}{*}{\centering$B^{\test}$}
 
 & \multicolumn{2}{>{\bfseries}l}{Random}
 &       0.499 & 0.499 & 0.500 & 0.499 & 0.500 & 0.500 & \ct{\NA} & \SI{0.005}{\second} \\
@@ -364,7 +364,7 @@ These results show that, when using the data from the labelled users $\Upsilon$,
 && $\cat_2$ & 0.614 & 0.635 & 0.534 & 0.614 & 0.580 & 0.539 & \SI{50.589}{\second}  & \SI{3.484}{\second} \\
 \bottomrule
 \end{tabular}
-\caption{Resulting metrics of different methods used in Section~\ref{sec:results} and Section~\ref{sec:comparison}. \textbf{Bolded} items represent the highest value for each metric.}
+\caption{Resulting metrics of different methods used in Section~\ref{sec:results} and Section~\ref{sec:comparison} tested on both the \emph{Inner Graph} $\Upsilon$, which contains only nodes which have at least one neighbour with socioeconomic information, and the \emph{Outer Graph} $B^{\test}$, which includes all nodes. \textbf{Bolded} items represent the highest value for each metric.}
 \label{tab:comparison}
 \end{table}
 

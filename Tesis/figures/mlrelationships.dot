@@ -2,10 +2,10 @@ digraph G {
 	ratio = "compress"
 	ranksep = 0
 	
-	node[shape=circle, fixedsize = true]
+	node[shape = circle, fixedsize = true]
 	edge[arrowhead="vee"]
 
-	0[label = "ego_0", shape = circle]
+	0[label = "ego_0"]
 	1[label = "ego_1"]
 	2[label = "ego_2"]
 
