@@ -1,4 +1,4 @@
-\subsection{Supervised Machine Learning Models}
+\section{Supervised Machine Learning Models}
 \label{subsec:supervised_machine_learning}
 
 This section presents several \emph{Supervised Machine Learning} models that are used in the paper.
@@ -10,7 +10,7 @@ Models are separated into two different groups depending on how they describe th
 	\item[Categorical Models] take a matrix $X \in \mathbb{R}^{n \times f}$ and a vector $y \in \mathbb{S}^n$, for some set of \emph{Categories} $\mathbb{S}$, and predicts the correct category each of the users in $y$ belongs to. Its accuracy is measured according to several metrics which are explained in Section~\ref{subsec:mlmetrics}.
 \end{description}
 
-\subsubsection{Linear Regression}
+\subsection{Linear Regression}
 \label{subsec:linearregression}
 
 A \emph{Linear Regression} is an approach for modeling the relationship between the matrix $X$ and the real vector $y$. While it's possible to predict many variables in what's known as the \emph{Multivariate Linear Regression}~\cite{multivariate1979}, this thesis will focus in the single-dimensional variant.
@@ -73,7 +73,7 @@ Assuming $\left( X^T X \right)$ is a non-singular matrix, the \emph{Least Square
 
 Additionally, Equation~\ref{eq:linearsquares} presents an unbiased estimator of $\beta$~\cite{yan2009linear}.
 
-\subsubsection{Logistic Regression}
+\subsection{Logistic Regression}
 \label{subsec:logisticregression}
 
 The \emph{Logistic Regression}, also referred to as the \emph{Logit Model}~\cite{freedman2009statistical} is a regression model similar to the \emph{Linear Regression}, with the particularity that the \emph{Dependent Variable} $y$ is categorical. While it's possible to calculate the variable for sets of categories of several finite sizes (when it's referred to as a \emph{Multinomial Logistic Regression}~\cite{greene_econometric_2011}) or even for ordered sets of categories (an \emph{Ordinal Logistic Regression}~\cite{mccullagh1980ordinal}), this thesis will focus on the case where $y \in {\left\{ 0, 1 \right\}}^n$, that is, each variable in $y$ is binary.
@@ -122,14 +122,14 @@ The regression is usually calculated using \emph{Maximum Likelihood Estimation}~
 
 The exact formulas used to ensure fast and correct conversed used in this thesis are the ones present in \texttt{LIBLINEAR}, which is presented in~\cite{hsiastudy}.
 
-\subsubsection{Decision Trees}
+\subsection{Decision Trees}
 \label{subsec:decisiontrees}
 
 A \emph{Decision Tree} is a decision support tool that uses a tree of decisions and their possible consequencs, influding change event outcomes. They are commonly used in decision analysis to help identify the most optimal strategy to reach a goal.
 
 In the context of \emph{Machine Learning}, it can be used as a supervised predictive model which matches properties about the list of features $X$ to the likeliest cagegory $y$~\cite{oded2008decisiontrees}. In the binary case, which is the focus of this thesis,
 
-\subsubsection{Random Forest}
+\subsection{Random Forest}
 \label{subsec:randomforest}
 \todo{Add Random Forest}
 

@@ -1,4 +1,4 @@
-\section{Comparison with Other Inference Methods}
+\chapter{Comparison with Other Inference Methods}
 \label{sec:comparison}
 
 In the following section, we compare the results of the Bayesian method with other classifiers commonly used for this same problem.
@@ -9,7 +9,7 @@ For simplicity sake, the descriptions of the algorithm will refer to the \emph{T
 
 Table~\ref{tab:comparison} compares the results of these methods with the \emph{Bayesian Algorithm} described in Section~\ref{sec:inference_methodology} along several metrics.
 
-\subsection{Random Selection}
+\section{Random Selection}
 \label{subsec:random_selection}
 
 For completeness sake we created a random ``dummy'' classifier which randomly chooses the socioeconomic index of each user.
@@ -22,7 +22,7 @@ For completeness sake we created a random ``dummy'' classifier which randomly ch
 \end{aligned}
 \end{equation}
 
-\subsection{Majority Voting}
+\section{Majority Voting}
 \label{subsec:majority_voting}
 
 The method of \emph{Majory Voting} is a basic but powerful way of inferring to which category a user belongs. It simply chooses the category of each user $\upsilon \in \Upsilon$ as the category for which the majority of its contacts belong.
@@ -42,11 +42,11 @@ In case of a tie (which happens often when using the \emph{Outer Graph}), the ca
 \end{aligned}
 \end{equation}
 
-\subsection{Averaging Contacts' Incomes}
+\section{Averaging Contacts' Incomes}
 
 \todo{Complete this}
 
-\subsection{Methods Based in Machine Learning}
+\section{Methods Based in Machine Learning}
 \label{subsec:methods_ml}
 
 The following methods use commonly used supervised Machine Learning algorithms described in Section~\ref{subsec:supervised_machine_learning} used with many similar \emph{Feature Extraction} methods on $G$.
@@ -85,7 +85,7 @@ Level & Features \\
 \label{tab:datasettable}
 \end{table}
 
-\subsection{User Data --- Level 0}
+\section{User Data --- Level 0}
 \label{subsec:user_data}
 
 The features on the graph $G = \left< V, E \right>$ can be accumulated for all users in a manner similar to the one in Section~\ref{subsec:feature_accumulation} using the data generated in Equation~\ref{eq:graphconstruction}. However, this time we aren't constrained either by having only users which have contacts with other users with known \emph{Income Category}, nor with having to have only two features for each category (which was necessary due to using the \emph{Beta Distribution}).
@@ -119,7 +119,7 @@ There features contain information about the \emph{Neighbourhood} of $\upsilon$,
 \neigh \left( \upsilon \right) = \left\{ e_o \mid e \in E \land e_d = \upsilon \right\} \cup \left\{ e_d \mid e \in E \land e_o = \upsilon \right\}
 \end{equation}
 
-\subsection{Categorical User Data --- Level 0'}
+\section{Categorical User Data --- Level 0'}
 \label{subsec:categoricaluserdata}
 
 A possible featureset consists of using of separating the data of the neighbourhood of each user $\upsilon \in \Upsilon$ into two disjoint groups, $L_{\upsilon}$ and $K_{\upsilon}$, which contain the neighours of $\upsilon$ in the \emph{Low Income} and \emph{High Income} categories of income respectively\footnotemark{}.
@@ -172,7 +172,7 @@ Equations~\ref{eq:categoricaluserdata} and~\ref{eq:categoricaluserdata2} contain
 
 Unlike the features in Section~\ref{subsec:user_data}, and like the method presented in Section~\ref{sec:inference_methodology}, the features in this section will be be different when testing between the nodes of $B_{\test}$ (the \emph{Outer Graph}) and $\Upsilon$ (the \emph{Inner Graph}).
 
-\subsection{Higher Order User Data --- Level 1}
+\section{Higher Order User Data --- Level 1}
 \label{subsec:higherorderuserdata}
 
 The features described in Section~\ref{subsec:user_data} correspond to the information about calls and SMS from an user $\upsilon \in \Upsilon$ towards all of its neighbours, which is described as the \emph{Ego Network of Distance 1}. However, there's no reason why this information can't be extended to other nodes at a higher distance from $\upsilon$.
@@ -199,7 +199,7 @@ This definition can be seen more intuitively in the graph in Figure~\ref{fig:hig
 \label{fig:higherorderuserdata}
 \end{figure}
 
-\subsection{Machine Learning}
+\section{Machine Learning}
 
 All the feature sets described in the previous sections are individually going to be used as the input objects of the \emph{Training Data} and either the \emph{Outer Graph} $B^{\test}$ or the \emph{Inner Graph} $\Upsilon$ will be used as the output with several \emph{Supervised Machine Learning} methods. The result of these methods will be measured using many metrics of the results, described in Section~\ref{subsec:mlmetrics}, and compared against other methods (including the Bayesian Algorithm of Section~\ref{sec:inference_methodology}) in Table~\ref{tab:comparison}.
 
@@ -233,7 +233,7 @@ These \emph{Machine Learning} methods used in this section contain many hyperpar
 \label{tab:gridsearch}
 \end{table}
 
-\subsubsection{Logistic Regression}
+\subsection{Logistic Regression}
 
 The method of \emph{Logistic Regression}, which is described with more detail in Section~\ref{subsec:logisticregression}, consists of doing some regression analysis with the data after applying some \emph{Logistic Function} to normalize the data.
 
@@ -244,7 +244,7 @@ The most important hyperparameter of this data is the \emph{Regularization Facto
 C \in \left\{ 10^{-3}, 10^{-2}, 10^{-1}, 10^0, 10^1, 10^2, 10^3 \right\}
 \end{equation}
 
-\subsubsection{Random Forest}
+\subsection{Random Forest}
 
 The method of \emph{Random Forest}, which is described with more detain in Section~\ref{subsec:randomforest}, consists of constructing a multitude of \emph{Decision Trees} and outputting the class that is the \emph{mode} of the classes.
 
@@ -261,7 +261,7 @@ Another possible hyperparameter would be the number of trees. However, it's been
 \end{aligned}
 \end{equation}
 
-\subsection{Validation Metrics}
+\section{Validation Metrics}
 \label{subsec:validationmetrics}
 There are several validation metrics used for each method.
 
@@ -276,7 +276,7 @@ There are several validation metrics used for each method.
 	\item[Predict Time] can be used to break ties between similar models.
 \end{description}
 
-\subsection{Results}
+\section{Results}
 
 Table~\ref{tab:comparison} shows various metrics which result from applying the methods described in this Section to the datasets presented in this thesis, after using the best hyperparameters shown in Table~/ref{tab:gridsearch} and applying 5-fold \emph{Cross Validation} to prevent \emph{Overfitting}. This result is compared to the \emph{Bayesian Algorithm} presented in Section~\ref{sec:inference_methodology}.
 

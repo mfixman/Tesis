@@ -1,18 +1,18 @@
-\section{Evaluating Performance}
+\chapter{Evaluating Performance}
 \label{sec:results}
 
 In this section, we test the \emph{Prediction Algorithm} presented in Section~\ref{subsec:prediction_algorithm} with the data present on the graph.
 
-\subsection{Data Partitioning}
+\section{Data Partitioning}
 
-\subsubsection{Train Test Split}
+\subsection{Train Test Split}
 \label{subsec:train_test_split}
 
 As with many other classification problems, the \emph{Bayesian Algorithm} is prone to overfitting~\cite{mitchellml1997}. In this particular case, since the information presented in Section~\ref{subsec:income_homophily} shows that users tend to communicated with users of the same socioeconomic level, by running the algorithm in the complete data and using the same users as part of the features and of the labels, we would erroneously be having more data per user than we would have when modelling the problem.
 
 An easy way to avoid this problem is by doing a simple \emph{Train Test Split}, where the data in $B$ is separated into two disjoint groups, $B = B_{\train} \cup B_{\test}$ and $B_{\train} \cap B_{\test} = \varnothing$, where $\left| B_{\train} \right| = \sfrac{4}{5} \cdot \left| B \right|$ and $\left| B_{\test} \right| = \sfrac{1}{5} \cdot \left| B \right|$.
 
-\subsubsection{Erasing Uninformative Data}
+\subsection{Erasing Uninformative Data}
 
 Given that $\left| B \right| \ll \left| V \right|$ and that $G$ is sparse, the vast majority of users don't have any kind of contact with users of the bank. For this reason it's useless to evaluate the performance of the algorithm using all the nodes, and therefore the \emph{Testing Set} used in this thesis will instead focus on the bank users that have at least one contact with another bank user. This approach is formalized in Equation~\ref{eq:inner_graph}.
 
@@ -44,7 +44,7 @@ The equations~\ref{eq:inner_graph_call} and~\ref{eq:inner_graph_sms} formalize n
 \end{gathered}
 \end{equation}
 
-\subsubsection{Rebalancing Labels}
+\subsection{Rebalancing Labels}
 \label{subsec:rebalancing_labels}
 
 Since the testing data $B_{\test}$ was a random subsample of a balanced set (see Section~\ref{subsec:train_test_split} and Section~\ref{subsec:discrimination_by_wealth}), it was also balanced itself. However, since \emph{High Income} users tend to communicate more often than \emph{Low Income} ones, $\hat{B}_{\test}$ is unbalanced and has a significant bias for high-income users.
@@ -67,7 +67,7 @@ $\Upsilon$ will be the only \emph{Testing Set} used from now on, while $B_{\trai
 
 Additionally, the sets $\Upsilon^{\calls}$ and $\Upsilon^{\sms}$ refer to similar sets which are taken from users from the \emph{Testing Set} that had at least one call or sent at least one SMS, respectively, to another user in the \emph{Training Set}.
 
-\subsubsection{Set Magnitudes}
+\subsection{Set Magnitudes}
 
 While the new set $\Upsilon$ contains significantly less users than the original set $B$, it still has a sufficient amount of people to make a prediction. Table~\ref{tab:partition_numbers} shows the number of users that remain after every trim used in this Subsection, along with the ratio of users which we would be able to assign an \emph{Income Category} using these datasets assuming the real data is equally distributed from the \emph{Test Data}.
 
@@ -91,7 +91,7 @@ $\Upsilon^{\sms}$ & \num{11909} & \num{6046} & \num{5863} & 0.322 \\
 
 \newpage
 
-\subsection{Choosing the best $\Theta$}
+\section{Choosing the best $\Theta$}
 
 Choosing a good value of $\Theta$ is an essential step in creating a correct algorithm since it's the most important constant of Equation~\ref{eq:beta_theta_ppf}, one of the crucial parts for finding the category of an user.
 
@@ -136,7 +136,7 @@ In this analysis we can see that there are different optimal $\Theta$ for every 
 
 Additionally, there is a significant difference between the values of $\Theta$ on all input types, contradicting the second one, except for $\varpi = \etime$. This is probably caused because the calling time is a lot more varied than with the other statistics, as is shown in Section~\ref{subsec:time_infer}.
 
-\subsection{Algorithm Performance on All Users}
+\section{Algorithm Performance on All Users}
 \label{subsec:algorithm_performance}
 
 The \emph{Bayesian Algorithm} will be ran for every $\varpi \in \left\{ \contacts, \calls, \etime, \sms \right\}$. For every possible configuration, we present 3 plots for the optimal $\Theta$.
@@ -148,7 +148,7 @@ The \emph{Bayesian Algorithm} will be ran for every $\varpi \in \left\{ \contact
 \end{itemize}
 
 \newpage
-\subsubsection{Inferring by Calls}
+\subsection{Inferring by Calls}
 \label{subsec:calls_infer}
 
 \begin{center}
@@ -164,7 +164,7 @@ After analyszing the data, we find that the \emph{Area Under the Curve} using th
 To maximize accuracy, setting $\tau = 0.654$ results in a predictor where $\Accuracy = 0.687$. Additionally, that value of $\tau$ results in $\Precision = 0.653$, $\Recall = 0.815$, $F_1 = 0.725$, and $F_4 = 0.804$.
 
 \newpage
-\subsubsection{Inferring by Time}
+\subsection{Inferring by Time}
 \label{subsec:time_infer}
 
 \begin{center}
@@ -180,7 +180,7 @@ The \emph{Area Under the Curve} of this inference mechanism is $\AUC = 0.718$, w
 That value of $\tau$ also results in a predictor where $\Accuracy = 0.684$, $\Precision = 0.649$, $\Recall = 0.819$, $F_1 = 724$, and $F_4 = 807$.
 
 \newpage
-\subsubsection{Inferring by SMS}
+\subsection{Inferring by SMS}
 \label{subsec:sms_infer}
 
 \begin{center}
@@ -196,7 +196,7 @@ In particular, this gives an $\AUC = 0.715$, which is lower than both in the cas
 Additionally, $\Precision = 0.696$, $\Recall = 0.186$, $F_1 = 0.293$, and $F_4 = 0.194$.
 
 \newpage
-\subsubsection{Inferring by Contacts}
+\subsection{Inferring by Contacts}
 \label{subsec:contacts_infer}
 
 \begin{center}
@@ -209,7 +209,7 @@ When $\varpi = \contacts$ it's possible to get a pattern similar to the one show
 
 Using this method it's possible to find that $\AUC = 0.746$, which is higher than all the other methods presented in Section~\ref{subsec:algorithm_performance}. Additionally, when selecting $\tau = 0.514$, $\Accuracy = 0.694$ which is higher than the maximum \emph{Accuracy} in all other methods. These metrics, combined with the fact that $\Upsilon$ contains every user in the \emph{Testing Set}, result in the fact that $\varpi = \contacts$ is uambiguously the best way to classify the data for the algorithm. Additionally, $\Precision = 0.556$, $\Recall = 0.792$, $F_1 = 0.723$, and $F_4 = 0.783$.
 
-\subsubsection{Final Results}
+\subsection{Final Results}
 
 Table~\ref{tab:bayesresults} presents every metric discussed in Section~\ref{subsec:mlmetrics} for the optimal $\Theta$ and $\tau$ for every $\varpi$.
 
@@ -231,7 +231,7 @@ contacts & 0.394 & 0.514 & 0.693 & 0.665 & 0.792 & 0.746 & 0.723 & 0.783 \\
 
 In particular, the results show that using \emph{Contacts} as the predictor for the \emph{Bayesian Algorithm} results in a signicantly higher \emph{Area Under the Curve} and a higher \emph{Accuracy}.
 
-\subsection{Algorithm Performance of Users with at least 3 Contacts}
+\section{Algorithm Performance of Users with at least 3 Contacts}
 
 The algorithm tends to be a better predictor of the \emph{Socioeconomic Level} for users with high amount of information on the graph $G$, namely that the amount of users in their neighbourhood that also belong to $B$ is big.
 
@@ -262,7 +262,7 @@ $I^{\calls}$ & \num{7910} & \num{4627} & \num{3283} & \num{0.214} \\
 The same procedure applied in Section~\ref{subsec:calls_infer} and Section~\ref{subsec:contacts_infer} will be applied to this data.
 
 \newpage
-\subsubsection{Inferring by Calls on Users with at least 3 Contacts}
+\subsection{Inferring by Calls on Users with at least 3 Contacts}
 
 \begin{center}
 \includegraphics[width=\textwidth]{figures/bayes/3contacts/hist_calls.png}
@@ -273,7 +273,7 @@ The same procedure applied in Section~\ref{subsec:calls_infer} and Section~\ref{
 Using $I^{\calls} \subseteq \Upsilon^{\calls}$ and $\varpi = \calls$ results in a predictor where both the \emph{Area Under the Curve} and the \emph{Accuracy} are higher than in all predictors that use every possible user. However, this data predicts less users and is strictly worse than the one predicting by Contacts presented in the following section.
 
 \newpage
-\subsubsection{Inferring by Degree on Users with at least 3 Contacts}
+\subsection{Inferring by Degree on Users with at least 3 Contacts}
 
 \begin{center}
 \includegraphics[width=\textwidth]{figures/bayes/3contacts/hist_contacts.png}

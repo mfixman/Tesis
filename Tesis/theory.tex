@@ -1,6 +1,6 @@
-\section{Theoretical Introduction}
+\chapter{Theoretical Introduction}
 
-\subsection{Social Homophily}
+\section{Social Homophily}
 
 \epigraph{``People love those who are like themselves.''}{\textit{Rhetoric \\ Aristotle}}
 
@@ -8,7 +8,7 @@ Similarity breeds connection\cite{mcpherson2001birds}. People have several visib
 
 There are two overall types of homophily that can be distriguished in groups\cite{lazarsfeld1954}: \textit{status homophily}, in which similarity is based on status, and \textit{value homophily}, which is based on values, attitudes, and beliefs. Status homophily, a part of which is the main study of this thesis, includes the major sociodemographic dimensions that stratify society --- ascribed characteristics like race, ethnicity, sex, or age, and acquired characteristics like religion, education, occupation, and behaviour patterns.
 
-\subsubsection{Age Homophily}
+\subsection{Age Homophily}
 
 One of the most common homophily patterns in human relations is related to the people's ages\cite{ugander2011}\cite{mcpherson2001birds}. This result is expected because of the many societal reasons that explain the homophily: schools tend to group people according to age into the sane classroooms, work opportunities tend to be clustered into age groups, which affects work environments and neighbourhood composition, and people have a strong tendency to confide in someone of one's own age.
 
@@ -16,11 +16,11 @@ This correlation has a waterfall effect. Since this kind of homophily is present
 
 There's an interesting exception to this homophily: there is a significant number of connections between parents and their younger children\cite{sarraute2014}. This exception is addressed later in this paper.
 
-\subsubsection{Gender Homophily}
+\subsection{Gender Homophily}
 
 Lorem ipsum dolor sit amet.
 
-\subsection{Spearman's Coefficient}
+\section{Spearman's Coefficient}
 
 Spearman's Rank Correlation Coefficient (also known as Spearman's rho) is a nonparametric measure of rank correlation which measures how well the relationship between two variables can be described using a monotonic function\cite{statistical_analysis}. Unlike Pearson's Correlation Coefficient, which measures lineal relationship between variables, Spearman's Coefficient uses the \emph{rank} of the variables in its calculations; therefore is measures its monotonicity.
 
@@ -33,13 +33,13 @@ r_s = \mathlarger{\rho}_{\rank(X) \rank(Y)} = \frac{\operatorname{cov}(\rank(x),
 
 Where \( \rho_{a,b} \) denotes the Pearson correlation between the variables \( a \) and \( b \). This value will be close to 1 when the variables are directly monotonic, close to -1 when they are inversely monotonic, and close to 0 when there is no tendency for either variable to increase or decrease when the other increases.
 
-\subsection{Bayesian Inference}
+\section{Bayesian Inference}
 
 \epigraph{``Given the number of times in which an unknown event has happened and failed: required the chance that the probability of its happening in a single trial lies somewhere between any two degrees of probability that can be named.''}{\textit{An Essay towards solving a Problem in the Doctrine of Changes~\cite{bayes1763} \\ Thomas Bayes}}
 
 This work uses a Bayesian approach to statistics instead of the usual Frequentist approach. In the Frequentist point of view, parameters are fixed and unknown: hypotheses are either true or false, and they cannot be described with a probability. In the Bayesian approach, anything unknown is described with a probability distribution since uncertainty must be described by probability~\cite{mackay}.
 
-\subsubsection{Bayes Theorem}
+\subsection{Bayes Theorem}
 
 The base of \emph{Bayesian Inference} is \emph{Bayes' Theorem}, presented in Equation~\ref{eq:bayes}, which describes the probability of an event base on prior knowledge of conditions that may be related to it~\cite{gelman2003}.
 
@@ -84,7 +84,7 @@ Most of the equations presented in this section deal with continuous probabiliti
 \label{fig:Bayes_Theorem}
 \end{figure}
 
-\subsubsection{Conjugate Priors}
+\subsection{Conjugate Priors}
 \label{subsec:conjugate}
 
 For a single problem there may be many different possible \emph{Prior Probabilities}, which can be defined depending on the approach taken on defining the model to represent different measures of knowledge and certainty about the data\footnotemark{}. In particular, if the prior is less informative then the posterior is more likely to be determined by the data.
@@ -95,7 +95,7 @@ A simple way to choose a correct prior is using a \emph{Conjugate Prior}. A dist
 
 The \emph{Conjugate Prior} has some philosophical significance in the context of \emph{Bayesian Estimator}. In the practical case, the \emph{Prior Probability} contains more or less information compared to the \emph{Posterior Probability} depending on the amount of data seen. In particular, if the experiment has seen little data, a single datapoint can influence your beliefs significantly. On the other hand, if the experiment has a lot of data, then one single extra datapoint shouldn't influence them as much~\cite{gelman2003}.
 
-\subsection{The Beta Distribution}
+\section{The Beta Distribution}
 \label{subsec:beta}
 
 The \emph{Beta Distribution} is a family of continuous probability distributions defined in the interval $\left[ 0, 1 \right]$ which is parametrized by two shape parameters, $\alpha$ and $\beta$.
@@ -104,7 +104,7 @@ The distribution can be used to model the behaviour of \emph{Random Variables} l
 
 In the context of \emph{Bayesian Inference}, the \emph{Beta Distribution} is the \emph{Conjugate Prior} of the \emph{Binomial Distribution}, which allows us to describe initial knowledge concerning probability of success of a single bi-variate distribution. In layman terms, this allows us to know what is the distribution of the continuous $p$ parameter of a binomial distribution for which we have $\alpha$ positive and $\beta$ negative samples.
 
-\subsubsection{Probability Density Function}
+\subsection{Probability Density Function}
 
 Given a variable $0 \leq x \leq 1$, which represents the unknown probability of having a \emph{Positive Sample} from the distribution, and the shape parameters $\alpha > 0$ and $\beta > 0$, the \emph{Probability Density Function} of the beta distribution can be described as in Equation~\ref{eq:beta_pdf}, where $\kappa$ represents some constant.
 
@@ -148,7 +148,7 @@ As we get more data from the sampling, the \emph{Beta distribution} turns more c
 \label{fig:betagraph}
 \end{figure}
 
-\subsubsection{Cumulative Distribution Function}
+\subsection{Cumulative Distribution Function}
 
 The \emph{Cumulative Distribution Function} of the \emph{Beta Distribution} is defined in Equation~\ref{eq:beta_cdf_formula}.
 
@@ -177,7 +177,7 @@ P \left( X \leq k \right)  = I_{1 - p} \left( n - k, k + 1 \right)
 \end{gathered}
 \end{equation}
 
-\subsubsection{Inverse Cumulative Distribution Function}
+\subsection{Inverse Cumulative Distribution Function}
 \label{subsec:beta_ppf}
 
 The problems solved in this thesis require the use of the \emph{Inverse Cumulative Distribution Function} (also known as the \emph{Quantile Function} or the \emph{Percent-Point Function}) of the \emph{Beta Distribution}, which returns a value such $x$ that meets the expression in Equation~\ref{eq:beta_cdf} is equal to some value $p$. It can also be expressed as in Equation~\ref{eq:quantile_function}.
@@ -189,7 +189,7 @@ Q \left( p \right)  = \inf \left\{ x \in \mathbb{R} \mid p \leq F \left( x \righ
 
 Like with the \emph{Cumulative Distribution Function}, there is no closed form formula for expressing its inverse~\cite{kippingexoplanets2013}. However, there are fast and accurate ways of computing it using either \emph{Interval~Halving} or \emph{Newton's~Method}, such as the \texttt{incbi} implementation in the \emph{Cephes} library~\cite{cephes} which is use in this thesis via a wrapper from \texttt{sklearn}, as explained in Section~\ref{subset:machine_properties}.
 
-\subsubsection{The Beta-Binomial Model}
+\subsection{The Beta-Binomial Model}
 \label{subsec:betabin}
 
 In the \emph{Beta-Binomial Model} compromises a family of discrete probability distributions similar to the \emph{Binomial Distribution}, with the important difference that, instead of each trial having a constant probability of success, that probability is random and follows the \emph{Beta Distribution}~\cite{schervish1996statistics}.
@@ -239,7 +239,7 @@ This is exactly the same function as the one in Equation~\ref{eq:betabin_beta}. 
 
 This way it's possible to see that the \emph{Beta Distribution} has the properties of a \emph{Conjugate Prior Distribution} seen in Section~\ref{subsec:conjugate} to the \emph{Binomial Likelihood}. This makes it extremely desiderable for \emph{Bayesian Analysis}, and for this reason it's used as the main model of this thesis. This is seen in more detail Section~\ref{subsec:modelling_users}.
 
-\subsection{Machine Learning Validation Metrics}
+\section{Machine Learning Validation Metrics}
 \label{subsec:mlmetrics}
 
 In the following subsections we present the outline of several supervised machine learning algorithms which are used to compare the Bayesian method to a more realistic baseline. First, we'll present several ways to validate the different algorithms when applied to the data. In the following section, we'll present many of the algorithms used for comparison.
@@ -248,7 +248,7 @@ Given a set of fatures $Z$, all of which belong to members of a population which
 
 There are many metrics that can be used to measure the performance of a classifier or a predictor~\cite{binaryevaluation}; different fields have different preferences due to different goals. In this section, we present many metrics to evaluate different results that are commonly used in the area of mobile phone data analysis~\cite{oskardottir2016}.
 
-\subsubsection{Classification of individual results}
+\subsection{Classification of individual results}
 
 Once we define out classifier $g$ and run it against a matrix of features, we get a predicted result $\ypred$ which, when compared to the actual result $\ytrue = y$, can be classified as the one in Table~\ref{tab:confusion}.
 
@@ -285,7 +285,7 @@ Additionally, this table can be easily seen in a graphical way in figure~\ref{fi
 \label{fig:truefalsenegativepositive}
 \end{figure}
 
-\subsubsection{Precision and Recall}
+\subsection{Precision and Recall}
 \label{subsec:precisionrecall}
 \emph{Precision} denotes the proportion of predicted positive cases that are correctly real positive. Trying to maximize this would allow us to adjust a particular predictor so that the majority of the predicted cases are actually positive. Conversely, \emph{recall} is the proportion of real positive cases that are correctly predicted positive, and maximizing it would allow us to adjust a predictor so that the majority of positive cases are predicted.
 
@@ -299,7 +299,7 @@ Additionally, this table can be easily seen in a graphical way in figure~\ref{fi
 
 These two measures and their combinations focus only on the positive examples and predictions, althrough between them they capture some information about the rates and kind of errors made\cite{binaryevaluation}. While the \emph{recall} has been shown to have a major weight in working with machine translation\cite{fraser2007}, they aren't particularly useful to use alone since they don't take into account many factors of the prediction\cite{binaryevaluation}.
 
-\subsubsection{Inverse~Precision and Inverse~Recall}
+\subsection{Inverse~Precision and Inverse~Recall}
 
 As a corollary of the previous metrics, we can add metrics that measure the proportion of real negative cases that are correctly predicted negative, referred as the \emph{Inverse~Recall}, and the proportion of predicted negatives that are real negatives, referreed as the \emph{Inverse~Precision}\cite{binaryevaluation}. We can see that these are equivalent to finding the \emph{Precision} and \emph{Recall} of the negative category.
 
@@ -311,7 +311,7 @@ As a corollary of the previous metrics, we can add metrics that measure the prop
 \label{negativeprecisionrecall}
 \end{equation}
 
-\subsubsection{Accuracy}
+\subsection{Accuracy}
 \label{subsec:accuracy}
 The \emph{accuracy}, commonly referred in te context of binary classifiers as \textbf{Rand~Accuracy}\cite{powers15}, is used as a statistical measure of how well a binary classification test identifies or excludes a condition. Unlike the \emph{precision}, it takes into account the negatives, and it's expressible\cite{binaryevaluation} both as a weighted average of \emph{precision} and inverse \emph{precision} or \emph{recall} and \emph{inverse recall}.
 
@@ -330,7 +330,7 @@ This can be more simply expressed using the weighted average of either the \emph
 \label{accuracy2}
 \end{equation}
 
-\subsubsection{ROC Curve}
+\subsection{ROC Curve}
 
 A \emph{Receiver Operating Characteristing} graph is a technique for visualizing, organizing, and selecting classifiers based on their performance\cite{fawcett2005}. The curve is created by plotting the \emph{True Positive Rate} against the \emph{False Positive Rate} at various threshold settings.
 
@@ -343,7 +343,7 @@ This allows to compare different classifiers before having to select a particula
 \label{fig:roc}
 \end{figure}
 
-\subsubsection{Area Under the Curve}
+\subsection{Area Under the Curve}
 \label{subsec:auc}
 The \emph{ROC Curve} allows us to compare classifiers and choose the one which is closer to optimal in some sense. While there are many possible parametrizations, the most common is to minimize the \emph{Area Under the Curve}, which is equal to the probability that a classifier will rank a randomly chosen positive instance higher than a randomly chosen negative one\cite{fawcett2005}. This can be formulated as shown in formula~\ref{eq:auc}.
 
@@ -355,7 +355,7 @@ The \emph{ROC Curve} allows us to compare classifiers and choose the one which i
 \label{eq:auc}
 \end{equation}
 
-\subsubsection{F-measure}
+\subsection{F-measure}
 \label{subsec:fmeasure}
 The \emph{F-measure} is another measure of a tests accuracy. It considers both the \emph{Precision} and the \emph{Recall} of the test to compute the score. It can be considered the weighted average of both values for some weight $\beta$, where $F_\beta$ reaches the best score 1 when both precision and recall are 1.
 
