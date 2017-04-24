@@ -89,8 +89,6 @@ $\Upsilon^{\sms}$ & \num{11909} & \num{6046} & \num{5863} & 0.322 \\
 \label{tab:partition_numbers}
 \end{table}
 
-\newpage
-
 \section{Choosing the best $\Theta$}
 
 Choosing a good value of $\Theta$ is an essential step in creating a correct algorithm since it's the most important constant of Equation~\ref{eq:beta_theta_ppf}, one of the crucial parts for finding the category of an user.
@@ -147,7 +145,6 @@ The \emph{Bayesian Algorithm} will be ran for every $\varpi \in \left\{ \contact
 	\item An \textbf{Accuracy Curve}, which shows the \emph{Accuracy} of the predictor by its \emph{False Positive Rate}. $\tau$ is chosen as to maximize this value.
 \end{itemize}
 
-\newpage
 \subsection{Inferring by Calls}
 \label{subsec:calls_infer}
 
@@ -163,7 +160,6 @@ After analyszing the data, we find that the \emph{Area Under the Curve} using th
 
 To maximize accuracy, setting $\tau = 0.654$ results in a predictor where $\Accuracy = 0.687$. Additionally, that value of $\tau$ results in $\Precision = 0.653$, $\Recall = 0.815$, $F_1 = 0.725$, and $F_4 = 0.804$.
 
-\newpage
 \subsection{Inferring by Time}
 \label{subsec:time_infer}
 
@@ -179,7 +175,6 @@ The \emph{Area Under the Curve} of this inference mechanism is $\AUC = 0.718$, w
 
 That value of $\tau$ also results in a predictor where $\Accuracy = 0.684$, $\Precision = 0.649$, $\Recall = 0.819$, $F_1 = 724$, and $F_4 = 807$.
 
-\newpage
 \subsection{Inferring by SMS}
 \label{subsec:sms_infer}
 
@@ -195,7 +190,6 @@ In particular, this gives an $\AUC = 0.715$, which is lower than both in the cas
 
 Additionally, $\Precision = 0.696$, $\Recall = 0.186$, $F_1 = 0.293$, and $F_4 = 0.194$.
 
-\newpage
 \subsection{Inferring by Contacts}
 \label{subsec:contacts_infer}
 
@@ -261,7 +255,6 @@ $I^{\calls}$ & \num{7910} & \num{4627} & \num{3283} & \num{0.214} \\
 
 The same procedure applied in Section~\ref{subsec:calls_infer} and Section~\ref{subsec:contacts_infer} will be applied to this data.
 
-\newpage
 \subsection{Inferring by Calls on Users with at least 3 Contacts}
 
 \begin{center}
@@ -272,7 +265,6 @@ The same procedure applied in Section~\ref{subsec:calls_infer} and Section~\ref{
 
 Using $I^{\calls} \subseteq \Upsilon^{\calls}$ and $\varpi = \calls$ results in a predictor where both the \emph{Area Under the Curve} and the \emph{Accuracy} are higher than in all predictors that use every possible user. However, this data predicts less users and is strictly worse than the one predicting by Contacts presented in the following section.
 
-\newpage
 \subsection{Inferring by Degree on Users with at least 3 Contacts}
 
 \begin{center}
