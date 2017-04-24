@@ -209,9 +209,9 @@ These \emph{Machine Learning} methods used in this section contain many hyperpar
 
 \begin{table}
 \centering
-\begin{tabular}{>{\bfseries}c >{\bfseries}l >{\hspace{5em}}r r r >{\hspace{2em}}r r r}
+\begin{tabular}{>{\bfseries}c >{\bfseries}l >{\hspace{3em}}r r r >{\hspace{1em}}r r r}
 \toprule
-\multirow{2}{*}{Dataset} & \multirow{2}{*}{Level} & \multicolumn{3}{>{\hspace{2em}}c}{\textbf{Logistic Regression}} & \multicolumn{3}{>{\hspace{2em}}c}{\textbf{Random Forest}} \\
+\multirow{2}{*}{Dataset} & \multirow{2}{*}{Level} & \multicolumn{3}{>{\hspace{1em}}c}{\textbf{Logistic Regression}} & \multicolumn{3}{>{\hspace{2em}}c}{\textbf{Random Forest}} \\
 && \phantom & $\log_{10}{\left(C\right)}$ && Criterion & Max Features & Replacement \\
 \midrule
 \multirow{5}{*}{$\Upsilon$}
@@ -280,7 +280,6 @@ There are several validation metrics used for each method.
 
 Table~\ref{tab:comparison} shows various metrics which result from applying the methods described in this Section to the datasets presented in this thesis, after using the best hyperparameters shown in Table~/ref{tab:gridsearch} and applying 5-fold \emph{Cross Validation} to prevent \emph{Overfitting}. This result is compared to the \emph{Bayesian Algorithm} presented in Section~\ref{sec:inference_methodology}.
 
-\setlength{\tabcolsep}{3pt}
 \begin{table}
 \centering
 \begin{tabular}{>{\bfseries}l >{\bfseries}l >{\bfseries}l >{\hspace{2ex}} r r r r r r r r}
