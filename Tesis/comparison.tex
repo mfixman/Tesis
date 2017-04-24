@@ -25,20 +25,16 @@ For completeness sake we created a random ``dummy'' classifier which randomly ch
 \subsection{Majority Voting}
 \label{subsec:majority_voting}
 
-The method of \emph{Majory Voting} is a basic but powerful way of inferring to which category a user belongs. It simply chooses the category of each user $\upsilon \in \Upsilon$ as the category for which the majority of its contacts belong.
+The method of \emph{Majority Voting} is a basic but powerful way of inferring to which category a user belongs. It simply chooses the category of each user $\upsilon \in \Upsilon$ as the category for which the majority of its contacts belong.
 
 In case of a tie (which happens often when using the \emph{Outer Graph}), the category is chosen randomly.
 
 \begin{equation}
 \label{eq:majority_voting}
 \begin{aligned}
-	\contacts^{\low}_{\upsilon} &> \contacts^{\high}_{\upsilon} \implies \upsilon \in H_1 \\
-	\contacts^{\low}_{\upsilon} &< \contacts^{\high}_{\upsilon} \implies \upsilon \in H_2 \\
-	\contacts^{\low}_{\upsilon} &= \contacts^{\high}_{\upsilon} \implies
-	\begin{cases}
-		\upsilon \in H_1 \  \text{with probability} \ \sfrac{1}{2} \\
-		\upsilon \in H_2 \  \text{with probability} \ \sfrac{1}{2}
-	\end{cases}
+	\contacts^{\low}_{\upsilon} &> \contacts^{\high}_{\upsilon} \implies P \left( \upsilon \in H_1 \right) = 1 \\
+	\contacts^{\low}_{\upsilon} &= \contacts^{\high}_{\upsilon} \implies P \left( \upsilon \in H_1 \right) = \sfrac{1}{2} \\
+	\contacts^{\low}_{\upsilon} &< \contacts^{\high}_{\upsilon} \implies P \left( \upsilon \in H_2 \right) = 0
 \end{aligned}
 \end{equation}
 
@@ -51,11 +47,11 @@ In case of a tie (which happens often when using the \emph{Outer Graph}), the ca
 
 The following methods use commonly used supervised Machine Learning algorithms described in Section~\ref{subsec:supervised_machine_learning} used with many similar \emph{Feature Extraction} methods on $G$.
 
-Each method is identified with an integer $n \in \mathbb{N}$ which represents the size of the \emph{Ego Network} used to get information for each node. Additionally, some categories have \emph{Category Data} from $B^{\train}$ to help identify the network.
+The initial feature extraction method, \emph{User Data}, which is described in Section~\ref{subsec:user_data} and marked as $\ego_0$, consists of accumulating the total information about the links neighbouring some user $v \in V$. Later, as shown in Section~\ref{subsec:higherorderuserdata}, it's possible to accumulate links from more levels of the \emph{Ego Network} to create featuresets that be used to build a better prediction of the data.
 
-Additionally, the features of each method are merged with the ones from the immediate predecessor methods, as shown in the graph in Figure~\ref{fig:mlrelationships}.
+An extra method for feature extraction is presented in Section~\ref{subsec:categoricaluserdata}, which in addition to doing the extraction of other methods it accumulates separately edges that go to \emph{High Income} and \emph{Low Income} users.
 
-The amount of features in each level is described in Table~\ref{tab:datasettable}.
+The features of each method are merged with the ones from the immediate predecessor methods, as shown in the graph in Figure~\ref{fig:mlrelationships}.
 
 \begin{figure}
 \centering
@@ -68,24 +64,27 @@ The amount of features in each level is described in Table~\ref{tab:datasettable
 \label{fig:mlrelationships}
 \end{figure}
 
+The amount of features in each level is described in Table~\ref{tab:datasettable}.
+
 \begin{table}
 \centering
 \begin{tabular}{>{\bfseries}l r}
 \toprule
 Level & Features \\
 \midrule
-0 & \num{8} \\
-0' & \num{24} \\
-1 & \num{16} \\
-1' & \num{48} \\
-2 & \num{24} \\
+$\ego_0$ & \num{8}  \\
+$\ego_1$ & \num{16} \\
+$\ego_2$ & \num{24} \\
+$\cat_0$ & \num{24} \\
+$\cat_1$ & \num{48} \\
+$\cat_2$ & \num{72} \\
 \bottomrule
 \end{tabular}
 \caption{Number of features used for testing each Machine Learning model on each level}
 \label{tab:datasettable}
 \end{table}
 
-\subsection{User Data --- Level 0}
+\subsection{User Data --- Level $\ego_0$}
 \label{subsec:user_data}
 
 The features on the graph $G = \left< V, E \right>$ can be accumulated for all users in a manner similar to the one in Section~\ref{subsec:feature_accumulation} using the data generated in Equation~\ref{eq:graphconstruction}. However, this time we aren't constrained either by having only users which have contacts with other users with known \emph{Income Category}, nor with having to have only two features for each category (which was necessary due to using the \emph{Beta Distribution}).
@@ -119,7 +118,7 @@ There features contain information about the \emph{Neighbourhood} of $\upsilon$,
 \neigh \left( \upsilon \right) = \left\{ e_o \mid e \in E \and e_d = \upsilon \right\} \cup \left\{ e_d \mid e \in E \and e_o = \upsilon \right\}
 \end{equation}
 
-\subsection{Categorical User Data --- Level 0'}
+\subsection{Categorical User Data --- Level $\cat_n$}
 \label{subsec:categoricaluserdata}
 
 A possible featureset consists of using of separating the data of the neighbourhood of each user $\upsilon \in \Upsilon$ into two disjoint groups, $L_{\upsilon}$ and $K_{\upsilon}$, which contain the neighours of $\upsilon$ in the \emph{Low Income} and \emph{High Income} categories of income respectively\footnotemark{}.
@@ -172,7 +171,7 @@ Equations~\ref{eq:categoricaluserdata} and~\ref{eq:categoricaluserdata2} contain
 
 Unlike the features in Section~\ref{subsec:user_data}, and like the method presented in Section~\ref{sec:inference_methodology}, the features in this section will be be different when testing between the nodes of $B_{\test}$ (the \emph{Outer Graph}) and $\Upsilon$ (the \emph{Inner Graph}).
 
-\subsection{Higher Order User Data --- Level 1}
+\subsection{Higher Order User Data --- Level $\ego_{n > 0}$}
 \label{subsec:higherorderuserdata}
 
 The features described in Section~\ref{subsec:user_data} correspond to the information about calls and SMS from an user $\upsilon \in \Upsilon$ towards all of its neighbours, which is described as the \emph{Ego Network of Distance 1}. However, there's no reason why this information can't be extended to other nodes at a higher distance from $\upsilon$.
@@ -205,6 +204,8 @@ All the feature sets described in the previous sections are individually going t
 
 To prevent the problem of \emph{Overfitting} the results are generated by using \emph{Cross-Validated} estimates of the data using \emph{K-Folds} with $K = 5$. This way, each quintile of the data is predicted using only data from the other four.
 
+The two methods used in this thesis, \emph{Logistic Regression} and \emph{Random Forest} tend to have different variance in the results~\cite{ting2016}, therefore different sources of errors may end up decreasing the models accuracy in different ways. This is a good for our model, since it means that a single source of errors has less probabilities of affecting either predictor.
+
 These \emph{Machine Learning} methods used in this section contain many hyperparameters which may affect the result, and calculated them isn't trivial. For this reason this experiment includes a \emph{Grid Search}\maybe{Add this to the theory} of the data against all possible hyperparameters. The resulting hyperparameters of the \emph{Grid Search} are presented in Table~\ref{tab:gridsearch}.
 
 \begin{table}
@@ -215,18 +216,20 @@ These \emph{Machine Learning} methods used in this section contain many hyperpar
 && \phantom & $\log_{10}{\left(C\right)}$ && Criterion & Max Features & Replacement \\
 \midrule
 \multirow{5}{*}{$\Upsilon$}
-& 0  & & $-2$ & & Entropy & $\sqrt{f}$ & True \\
-& 0' & & $-3$ & & Entropy & $\log_2{f}$ & True \\
-& 1  & & $-2$ & & Entropy & $f$ & True \\
-& 1' & &  $0$ & & Entropy & $f$ & True \\
-& 2  & & $-2$ & & Entropy & $f$ & True \\
+& $\ego_0$ & & $-2$ & & Entropy &  $\sqrt{f}$ & True \\
+& $\ego_1$ & & $-2$ & & Entropy &         $f$ & True \\
+& $\ego_2$ & & $-2$ & & Entropy &         $f$ & True \\
+& $\cat_0$ & & $-3$ & & Entropy & $\log_2{f}$ & True \\
+& $\cat_1$ & &  $0$ & & Entropy &         $f$ & True \\
+& $\cat_2$ & & $-1$ & & Entropy &         $f$ & True \\
 [2ex]
 \multirow{5}{*}{$B^{\test}$}
-& 0  & &  $0$ & & Gini & $\log_2{f}$ & True \\
-& 0' & & $-2$ & & Entropy & $\log_2{f}$ & True \\
-& 1  & &  $1$ & & Entropy & $\log_2{f}$ & True \\
-& 1' & &  $2$ & & Gini & $\sqrt{f}$ & True \\
-& 2  & &  $0$ & & Entropy & $\sqrt{f}$ & True \\
+& $\ego_0$ & &  $0$ & & Gini    & $\log_2{f}$ & True \\
+& $\ego_1$ & &  $1$ & & Entropy & $\log_2{f}$ & True \\
+& $\ego_2$ & &  $0$ & & Entropy &  $\sqrt{f}$ & True \\
+& $\cat_0$ & & $-2$ & & Entropy & $\log_2{f}$ & True \\
+& $\cat_1$ & &  $2$ & & Gini    &  $\sqrt{f}$ & True \\
+& $\cat_2$ & &  $2$ & & Entropy & $\log_2{f}$ & True \\
 \bottomrule
 \end{tabular}
 \caption{Best hyperparameters for each group of features in each model used for predicting the result.}
@@ -243,6 +246,8 @@ The most important hyperparameter of this data is the \emph{Regularization Facto
 \label{eq:gridsearchlogreg}
 C \in \left\{ 10^{-3}, 10^{-2}, 10^{-1}, 10^0, 10^1, 10^2, 10^3 \right\}
 \end{equation}
+
+Since the different datum aren't linearly distributed, the input is \emph{Standardized} before using this method so that, when running the model, each column has its mean in $\mu = 0$ and its variance $\sigma^2 = 1$. This makes the model more robust~\cite{mitchellml1997}.
 
 \subsubsection{Random Forest}
 
@@ -278,67 +283,86 @@ There are several validation metrics used for each method.
 
 \subsection{Results}
 
-Table~\ref{tab:comparison} shows various metrics which result from applying the methods described in this Section to the datasets presented in this thesis, after using the best hyperparameters shown in Table~/ref{tab:gridsearch} and applying 5-fold \emph{Cross Validation} to prevent \emph{Overfitting}. This result is compared to the \emph{Bayesian Algorithm} presented in Section~\ref{sec:inference_methodology}.
+Table~\ref{tab:comparison} shows various metrics which result from applying the methods described in this Section to the datasets presented in this thesis, after using the best hyperparameters shown in Table~\ref{tab:gridsearch} and applying 5-fold \emph{Cross Validation} to prevent \emph{Overfitting}. This result is compared to the \emph{Bayesian Algorithm} presented in Section~\ref{sec:inference_methodology}.
+
+By comparing the methods based in \emph{Machine Learning} we can reach a conclusion consistent with~\cite{muchlinski2016}, where the methods based in \emph{Random Forest} tend to perform better in real-world scenarios than the ones based in \emph{Logistic Regression}.
+
+Increasing the breadth of the \emph{Ego Network} by one level slightly improves the metrics on the \emph{Machine Learning} methods\footnotemark[1]{} when using with \emph{Random Forest} learning, which is more versatile to odd cases and non-linear data~\cite{logisticvsdecision}, however the model isn't improved further by going further in the \emph{Ego Network} since it would add noise to the features, making the prediction less accurate\footnotemark[2]{}. Indeed, it's possible to see the fallibility of common \emph{Random Forest} fitting methods, since the fact that $\ego_2 \supset \ego_1$ should be enough to create a model that at least as good as the previous one.
+
+\footnotetext[1]{Compare the rows of $\ego_0$ to the ones with $\ego_1$}
+\footnotetext[2]{Compare the rows of $\ego_1$ to the ones with $\ego_2$}
+
+Additionally, adding categorical information to the feature extraction as in Section~\ref{subsec:categoricaluserdata} to the \emph{Ego Network} of distance 1 and distance 2\footnotemark[3]{} results in the greatest improvement in most metrics. These improvements don't hold up when going one level further in the \emph{Ego Network}, as can be seen that the rows referring to the accumulated categorical data on that level has lower metrics than the previous one\footnotemark[4]{}. We hypothesize with strong certainty that the metrics will keep decreasing when adding more levels to the \emph{Ego Network}.
+
+\footnotetext[3]{Compare the rows of $\cat_0$ to the ones with $\cat_1$}
+\footnotetext[4]{Compare the rows of $\cat_1$ to the ones with $\cat_2$}
+
+These results show that, when using the data from the labelled users $\Upsilon$, the \emph{Bayesian Algorithm} presented in Section~\ref{sec:inference_methodology} has a significantly higher \emph{Area Under the Curve} than both the naïve algorithms and the ones based in \emph{Machine Learning}. This, in addition to the fact that making a prediction in the algorithm is faster than fitting the \emph{Random Forest} methods (which give the best metrics for the \emph{Machine Learning} ones), and that the amount of data needed for running the algorithm is much lower (2 columns vs.\ the amounts shown in Table~\ref{tab:datasettable}) and much simpler to construct, makes it more suitable for production than any of the more ``common'' methods.
 
 \setlength{\tabcolsep}{3pt}
 \begin{table}
 \centering
-\begin{tabular}{>{\bfseries}l >{\bfseries}l >{\bfseries}l >{\hspace{2ex}} r r r r r r r r}
+\begin{tabular}{>{\bfseries}l >{\bfseries}l >{\bfseries}l >{\hspace{1ex}} r r r r r r r r}
 \toprule
 \ct{Dataset} & \ct{Model} & \ct{Level} & \ct{Acc.} & \ct{Prec.} & \ct{Rec.} & \ct{AUC} & \ct{F\textsubscript{1}} & \ct{F\textsubscript{4}} & \ct{t\textsubscript{fit}} & \ct{t\textsubscript{pred}} \\
 \midrule
 
-\multirow{13}{*}{$\Upsilon$}
+\multirow{13}{4em}{\centering\small{Inner Graph}\newline\newline$\Upsilon$}
 
 & \multicolumn{2}{>{\bfseries}l}{Random}
-&       0.499 & 0.499 & 0.500 & 0.499 & 0.500 & 0.500 & \SI{0.131}{\second} & \SI{0.005}{\second} \\
+& 0.499 & 0.499 & 0.500 & 0.499 & 0.500 & 0.500 & \ct{\NA} & \SI{0.005}{\second} \\
 
 & \multicolumn{2}{>{\bfseries}l}{Majority}
-&       0.681 & 0.640 & \textbf{0.826} & 0.681 & 0.721 & 0.712 & \SI{0.000}{\second} & \SI{0.059}{\second} \\
+& 0.681 & 0.640 & \textbf{0.826} & 0.681 & 0.721 & 0.712 & \ct{\NA} & \SI{0.059}{\second} \\
 
 & \multicolumn{2}{>{\bfseries}l}{Bayesian\protect\footnotemark{}}
-&       0.693 & 0.665 & 0.792 & \textbf{0.746} & \textbf{0.723} & \textbf{0.783} & \SI{0.000}{\second} & \SI{33.155}{\second} \\
+
+& 0.693 & 0.665 & 0.792 & \textbf{0.746} & \textbf{0.723} & \textbf{0.783} & \ct{\NA} & \SI{33.155}{\second} \\
 \cmidrule{2-11}
 
 & \multirow{5}{*}{LR} &
-   0  & 0.536 & 0.531 & 0.625 & 0.536 & 0.574 & 0.619 & \SI{0.145}{\second}   & \SI{0.002}{\second} \\
-&& 0' & 0.686 & 0.655 & 0.785 & 0.686 & 0.714 & 0.776 & \SI{0.167}{\second}   & \SI{0.005}{\second} \\
-&& 1  & 0.535 & 0.525 & 0.730 & 0.535 & 0.611 & 0.714 & \SI{0.141}{\second}   & \SI{0.011}{\second} \\
-&& 1' & 0.693 & 0.665 & 0.780 & 0.693 & 0.718 & 0.772 & \SI{1.588}{\second}   & \SI{0.011}{\second} \\
-&& 2  & 0.568 & 0.578 & 0.525 & 0.569 & 0.550 & 0.528 & \SI{0.119}{\second}   & \SI{0.003}{\second} \\
+   $\ego_0$ & 0.536 & 0.531 & 0.625 & 0.536 & 0.574 & 0.619 & \SI{0.145}{\second}   & \SI{0.002}{\second} \\
+&& $\ego_1$ & 0.535 & 0.525 & 0.730 & 0.535 & 0.611 & 0.714 & \SI{0.141}{\second}   & \SI{0.011}{\second} \\
+&& $\ego_2$ & 0.568 & 0.578 & 0.525 & 0.569 & 0.550 & 0.528 & \SI{0.119}{\second}   & \SI{0.003}{\second} \\
+&& $\cat_0$ & 0.686 & 0.655 & 0.785 & 0.686 & 0.714 & 0.776 & \SI{0.167}{\second}   & \SI{0.005}{\second} \\
+&& $\cat_1$ & 0.693 & 0.665 & 0.780 & 0.693 & 0.718 & 0.772 & \SI{1.588}{\second}   & \SI{0.011}{\second} \\
+&& $\cat_2$ & 0.693 & 0.670 & 0.764 & 0.692 & 0.714 & 0.758 & \SI{0.956}{\second}   & \SI{0.009}{\second} \\
 \cmidrule{2-11}
 
 & \multirow{5}{*}{RF} &
-   0  & 0.548 & 0.548 & 0.550 & 0.548 & 0.549 & 0.550 & \SI{5.986}{\second}   & \SI{0.588}{\second} \\
-&& 0' & 0.671 & 0.665 & 0.690 & 0.671 & 0.677 & 0.688 & \SI{6.346}{\second}   & \SI{0.539}{\second} \\
-&& 1  & 0.582 & 0.583 & 0.577 & 0.582 & 0.580 & 0.577 & \SI{56.548}{\second}  & \SI{0.483}{\second} \\
-&& 1' & \textbf{0.714} & \textbf{0.713} & 0.716 & 0.714 & 0.714 & 0.716 & \SI{96.005}{\second}  & \SI{0.460}{\second} \\
-&& 2  & 0.576 & 0.577 & 0.580 & 0.576 & 0.579 & 0.580 & \SI{50.197}{\second}  & \SI{0.253}{\second} \\
+   $\ego_0$ & 0.548 & 0.548 & 0.550 & 0.548 & 0.549 & 0.550 & \SI{5.986}{\second}   & \SI{0.588}{\second} \\
+&& $\ego_1$ & 0.582 & 0.583 & 0.577 & 0.582 & 0.580 & 0.577 & \SI{56.548}{\second}  & \SI{0.483}{\second} \\
+&& $\ego_2$ & 0.576 & 0.577 & 0.580 & 0.576 & 0.579 & 0.580 & \SI{50.197}{\second}  & \SI{0.253}{\second} \\
+&& $\cat_0$ & 0.671 & 0.665 & 0.690 & 0.671 & 0.677 & 0.688 & \SI{6.346}{\second}   & \SI{0.539}{\second} \\
+&& $\cat_1$ & \textbf{0.714} & \textbf{0.713} & 0.716 & 0.714 & 0.714 & 0.716 & \SI{96.005}{\second}  & \SI{0.460}{\second} \\
+&& $\cat_2$ & 0.709 & 0.710 & 0.711 & 0.709 & 0.711 & 0.711 & \SI{81.528}{\second}  & \SI{0.242}{\second} \\
 \midrule
 
-\multirow{12}{*}{$B^{\test}$}
+\multirow{12}{4em}{\centering\small{Outer Graph}\newline\newline$B^{\test}$}
 
 & \multicolumn{2}{>{\bfseries}l}{Random}
-&       0.499 & 0.499 & 0.500 & 0.499 & 0.500 & 0.500 & \SI{0.131}{\second} & \SI{0.005}{\second} \\
+&       0.499 & 0.499 & 0.500 & 0.499 & 0.500 & 0.500 & \ct{\NA} & \SI{0.005}{\second} \\
 
 & \multicolumn{2}{>{\bfseries}l}{Majority}
-&       0.565 & 0.747 & 0.197 & 0.565 & 0.312 & 0.206 & \SI{0.000}{\second} & \SI{0.204}{\second} \\
+&       0.565 & 0.747 & 0.197 & 0.565 & 0.312 & 0.206 & \ct{\NA} & \SI{0.204}{\second} \\
 \cmidrule{2-11}
 
 & \multirow{5}{*}{LR} &
-   0  & 0.534 & 0.586 & 0.234 & 0.534 & 0.335 & 0.243 & \SI{0.937}{\second}   & \SI{0.016}{\second} \\
-&& 0' & 0.565 & 0.746 & 0.198 & 0.565 & 0.313 & 0.207 & \SI{1.871}{\second}   & \SI{0.041}{\second} \\
-&& 1  & 0.547 & 0.617 & 0.250 & 0.547 & 0.356 & 0.260 & \SI{1.347}{\second}   & \SI{0.035}{\second} \\
-&& 1' & 0.577 & 0.727 & 0.247 & 0.577 & 0.368 & 0.257 & \SI{9.816}{\second}   & \SI{0.077}{\second} \\
-&& 2  & 0.563 & 0.586 & 0.430 & 0.563 & 0.496 & 0.437 & \SI{1.055}{\second}   & \SI{0.023}{\second} \\
+   $\ego_0$ & 0.534 & 0.586 & 0.234 & 0.534 & 0.335 & 0.243 & \SI{0.937}{\second}   & \SI{0.016}{\second} \\
+&& $\ego_1$ & 0.547 & 0.617 & 0.250 & 0.547 & 0.356 & 0.260 & \SI{1.347}{\second}   & \SI{0.035}{\second} \\
+&& $\ego_2$ & 0.563 & 0.586 & 0.430 & 0.563 & 0.496 & 0.437 & \SI{1.055}{\second}   & \SI{0.023}{\second} \\
+&& $\cat_0$ & 0.565 & 0.746 & 0.198 & 0.565 & 0.313 & 0.207 & \SI{1.871}{\second}   & \SI{0.041}{\second} \\
+&& $\cat_1$ & 0.577 & 0.727 & 0.247 & 0.577 & 0.368 & 0.257 & \SI{9.816}{\second}   & \SI{0.077}{\second} \\
+&& $\cat_2$ & 0.589 & 0.636 & 0.415 & 0.589 & 0.503 & 0.424 & \SI{9.456}{\second}   & \SI{0.065}{\second} \\
 \cmidrule{2-11}
 
 & \multirow{5}{*}{RF} &
-   0  & 0.543 & 0.544 & 0.529 & 0.543 & 0.536 & 0.530 & \SI{25.789}{\second}  & \SI{4.878}{\second} \\
-&& 0' & 0.568 & 0.573 & 0.536 & 0.568 & 0.554 & 0.538 & \SI{32.981}{\second}  & \SI{5.371}{\second} \\
-&& 1  & 0.578 & 0.585 & 0.537 & 0.578 & 0.560 & 0.540 & \SI{102.961}{\second} & \SI{5.608}{\second} \\
-&& 1' & 0.613 & 0.634 & 0.533 & 0.613 & 0.579 & 0.538 & \SI{44.911}{\second}  & \SI{6.002}{\second} \\
-&& 2  & 0.583 & 0.590 & 0.541 & 0.583 & 0.564 & 0.543 & \SI{70.447}{\second}  & \SI{3.148}{\second} \\
+   $\ego_0$ & 0.543 & 0.544 & 0.529 & 0.543 & 0.536 & 0.530 & \SI{25.789}{\second}  & \SI{4.878}{\second} \\
+&& $\ego_1$ & 0.578 & 0.585 & 0.537 & 0.578 & 0.560 & 0.540 & \SI{102.961}{\second} & \SI{5.608}{\second} \\
+&& $\ego_2$ & 0.583 & 0.590 & 0.541 & 0.583 & 0.564 & 0.543 & \SI{70.447}{\second}  & \SI{3.148}{\second} \\
+&& $\cat_0$ & 0.568 & 0.573 & 0.536 & 0.568 & 0.554 & 0.538 & \SI{32.981}{\second}  & \SI{5.371}{\second} \\
+&& $\cat_1$ & 0.613 & 0.634 & 0.533 & 0.613 & 0.579 & 0.538 & \SI{44.911}{\second}  & \SI{6.002}{\second} \\
+&& $\cat_2$ & 0.614 & 0.635 & 0.534 & 0.614 & 0.580 & 0.539 & \SI{50.589}{\second}  & \SI{3.484}{\second} \\
 \bottomrule
 \end{tabular}
 \caption{Resulting metrics of different methods used in Section~\ref{sec:results} and Section~\ref{sec:comparison}. \textbf{Bolded} items represent the highest value for each metric.}
