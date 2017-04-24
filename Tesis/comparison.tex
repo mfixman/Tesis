@@ -32,13 +32,9 @@ In case of a tie (which happens often when using the \emph{Outer Graph}), the ca
 \begin{equation}
 \label{eq:majority_voting}
 \begin{aligned}
-	\contacts^{\low}_{\upsilon} &> \contacts^{\high}_{\upsilon} \implies \upsilon \in H_1 \\
-	\contacts^{\low}_{\upsilon} &< \contacts^{\high}_{\upsilon} \implies \upsilon \in H_2 \\
-	\contacts^{\low}_{\upsilon} &= \contacts^{\high}_{\upsilon} \implies
-	\begin{cases}
-		\upsilon \in H_1 \  \text{with probability} \ \sfrac{1}{2} \\
-		\upsilon \in H_2 \  \text{with probability} \ \sfrac{1}{2}
-	\end{cases}
+	\contacts^{\low}_{\upsilon} &> \contacts^{\high}_{\upsilon} \implies P \left( \upsilon \in H_1 \right) = 1 \\
+	\contacts^{\low}_{\upsilon} &= \contacts^{\high}_{\upsilon} \implies P \left( \upsilon \in H_1 \right) = \sfrac{1}{2} \\
+	\contacts^{\low}_{\upsilon} &< \contacts^{\high}_{\upsilon} \implies P \left( \upsilon \in H_2 \right) = 0
 \end{aligned}
 \end{equation}
 
