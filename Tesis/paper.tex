@@ -1,4 +1,4 @@
-\documentclass[runningheads, a4paper]{llncs}
+\documentclass[runningheads, a4paper]{dalthesis/dalthesis}
 
 \usepackage{amsfonts}
 \usepackage{amsmath}
@@ -48,7 +48,7 @@
   \setlength{\fboxsep}{-\fboxrule}
   \framebox(300, 100){\texttt{#1}}
 }
-\newcommand{\includegraphicsmaybe}[1]{\IfFileExists{#1}{\includegraphics[width=\columnwidth]{#1}}{\noimage{#1}}}
+\newcommand{\includegraphicsmaybe}[1]{\IfFileExists{#1}{\includegraphics[width=\textwidth, height=.4\textheight, keepaspectratio]{#1}}{\noimage{#1}}}
 
 \newcommand{\closeopen}[2]{\left[ #1, #2 \right)}
 \newcommand{\mathmuchlarger}[1]{\mathlarger{\mathlarger{#1}}}
@@ -68,49 +68,45 @@
 \setcounter{secnumdepth}{3}
 \captionsetup[table]{skip = 2ex}
 
+\setlength{\tabcolsep}{3pt}
+
 \renewcommand*{\thefootnote}{\fnsymbol{footnote}}
 
 \input{operators}
 
-\title{Inference of Socioeconomic Status in a Communications Graph \\ A Bayesian Approach}
+\title{Inference of Socioeconomic Status \\ in a Communications Graph: \\ A Bayesian Approach}
+\author{Martin Fixman}
 
-\author{%
-       Martin Fixman\inst{1,2}
-       \and
-       Carlos Sarraute\inst{2}
-       \and
-       Ariel Berenstein\inst{2}
-       \and
-       Jorge Brea\inst{2}
-}
+\degree{Licenciatura en Ciencias de la Computación}
+\degreeinitial{L.C.C.}
+\faculty{Ciencias Exactas y Naturales}
+\dept{Facultad de Ciencias Exactas y Naturales}
 
-\authorrunning{Fixman, Sarraute, Berenstein, Brea}
-\titlerunning{Inference of Socioeconomic Status in a Communication Graph}
+\university{Universidad de Buenos Aires}
+\address{Buenos Aires, Argentina}
 
-\institute{%
-	FCEyN, Universidad de Buenos Aires, Argentina
-\and
-	Grandata Labs, Argentina
-}
+\defencemonth{Smarch}\defenceyear{2017}
+
+\dedicate{To the time I spent thinking of a dedication to use as a placeholder.}
+
+\nolistoftables
+\nolistoffigures
 
 \begin{document}
 
-\maketitle
+\frontmatter
 
 \begin{abstract}
 	\input{abstract}
 \end{abstract}
 
-\setcounter{tocdepth}{3}
-\tableofcontents
-
-\newpage
+\mainmatter
 
 \input{introduction}
 
 \input{theory}
 
-\section{Related Work}
+\input{related_work}
 
 \input{data_source}
 
@@ -119,8 +115,6 @@
 \input{results}
 
 \input{comparison}
-
-\section{Real World Observations}
 
 \input{conclusion}
 

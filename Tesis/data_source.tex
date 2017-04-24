@@ -1,10 +1,10 @@
-\section{Experimental Dataset}
+\chapter{Experimental Dataset}
 \label{sec:dataset}
 
-\subsection{Mobile Phone Data Source}
+\section{Mobile Phone Data Source}
 \label{subsec:mobiledatasource}
 
-\subsubsection{Dataset Description}
+\subsection{Dataset Description}
 
 The data used in this study consist of a multiset $P$ of composed of voice calls, and another multiset $S$ composed of text messages from a Mexican telecommunication company (\textit{telco}) for a 3 month period. These two sets are referred as the \emph{Call Detail Records}, or CDRs.
 
@@ -34,7 +34,7 @@ The set $E$ can be formally constructed with the instructions of the Equation~\r
 
 For simplicity sake, this paper will also refer to the elements of these three sets as $\calls_e$, $\sms_e$, and $\etime_e$ respectively.
 
-\subsubsection{Magnitudes and Distributions}
+\subsection{Magnitudes and Distributions}
 \label{subsec:telco_magnitude}
 
 As a corollary, $G_N$ can be defined as the graph $\left< N, E_N \right>$, where $E_N$ contains only calls between users of the telco, and $G'$ as $\left< V', E' \right>$, where $E'$ contains the calls from and to users whose calls are located.
@@ -69,14 +69,14 @@ This form of graph can be seen in Figure~\ref{fig:outcalls_dist} and Figure~\ref
 
 \begin{figure}
 \centering
-\includegraphics[width=.75\textwidth]{figures/outcontacts_dist.png}
+\includegraphicsmaybe{figures/outcontacts_dist.png}
 \caption{Distribution of amount of outgoing calls per user.}
 \label{fig:outcalls_dist}
 \end{figure}
 
 \begin{figure}
 \centering
-\includegraphics[width=.75\textwidth]{figures/outcalls_dist.png}
+\includegraphicsmaybe{figures/outcalls_dist.png}
 \caption{Distribution of amount of outgoing calls per user.}
 \label{fig:outcontacts_dist}
 \end{figure}
@@ -85,15 +85,13 @@ Since, unlike with the amount of calls, the \emph{Average Call Time} isn't anywh
 
 \begin{figure}
 \centering
-\includegraphics[width=.75\textwidth]{figures/callduration.png}
+\includegraphicsmaybe{figures/callduration.png}
 \caption{Distribution of the durations of calls.}
 \label{fig:callduration}
 \end{figure}
 
-\subsection{Banking Information}
+\section{Banking Information}
 \label{subsec:bank_source}
-
-\subsubsection{Dataset Description}
 
 For this study we also obtained the set $B$ of account balanced of over 10 million clients of a bank in Mexico for a period of 6 months, which finishes at the same date as the period used in Section~\ref{subsec:mobiledatasource}. This dataset is represented by the set $B$, and each client $b \in B$ contains the phone number $b_p$, anonymized with the same hash as the datasets in the previous section, along with the reported income of this person in over 6 months $b_{s_0}, \ldots, b_{s_5}$. We average these 6 values to obtain $b_s$, the estimate of each users' monthly income.
 
@@ -101,7 +99,7 @@ The bank also provided us demographic information for a subset of its clients $A
 
 \begin{figure}
 \centering
-\includegraphics[width=0.75\columnwidth]{figures/gender_age_bar3/gender_age_bar3.png}
+\includegraphicsmaybe{figures/gender_age_bar3/gender_age_bar3.png}
 \caption{Amount of users in $B$ by gender and age.}
 \label{fig:gender_age_bar}
 \end{figure}
@@ -112,7 +110,7 @@ In another line of work, homophily with respect to age has been observed and use
 
 \begin{figure}
 \centering
-\includegraphics[width=0.75\columnwidth]{figures/income_age_boxplot4/income_age_boxplot4.png}
+\includegraphicsmaybe{figures/income_age_boxplot4/income_age_boxplot4.png}
 \caption{Distribution of income $a_s$ as a factor of age $a_a$. This is consistent with data from median house income in Mexico~\cite{gallup2013}.}
 \label{fig:income_age_boxplot}
 \end{figure}
@@ -127,7 +125,7 @@ The income distribution, as shown in \Cref{fig:incomedistribution} presents a si
 \label{fig:incomedistribution}
 \end{figure}
 
-\subsection{Matching of Bank and Telco Information}
+\section{Matching of Bank and Telco Information}
 \label{subsec:banktencomathing}
 
 Since the phone numbers in each call in the list of users $V$ are anonymized with the same hash function as the phone number in the bank data in the set $B$, the users can be matched to their unique phone to augment the \emph{Social Graph} $G$, where the elements in the set $S = V \cap B$ contain banking information.
@@ -146,12 +144,12 @@ The distribution of bank users in $S$ is similar to the one in $B$, as shown in~
 
 \begin{figure}
 \centering
-\includegraphics[width=.75\textwidth]{figures/matchdistribution.png}
+\includegraphicsmaybe{figures/matchdistribution.png}
 \caption{Distribution of incomes for users of both the bank and telco, represented by the set $S$.}
 \label{fig:matchdistribution}
 \end{figure}
 
-\subsection{Outlier Filtering}
+\section{Outlier Filtering}
 \label{subsec:outlier_filtering}
 
 The dataset contains information about bank and telco users, some of which may not directly correspond to a human user, or may not have useful information for our research.
@@ -163,7 +161,7 @@ Most of the telco users in the first case are already filtered by the intersecti
 	\item A monthly income in the \num{99}th percentile (i.e.\ we filter users with a monthly income in the top 1\%).
 \end{itemize}
 
-\subsection{Unequal Distribution of Income}
+\section{Unequal Distribution of Income}
 
 We provide here some observations of the distribution of income of the bank clients. These observations correspond to the filtered dataset, obtained after applying the filters of the previous section.
 
@@ -171,7 +169,7 @@ We provide here some observations of the distribution of income of the bank clie
 
 \begin{figure}
 \centering
-\includegraphics[width=0.75\columnwidth]{figures/cumulative_income.png}
+\includegraphicsmaybe{figures/cumulative_income.png}
 \caption{Lorenz curve representing the distribution of income of bank clients.}
 \label{fig:lorenz}
 \end{figure}
@@ -184,7 +182,7 @@ By simple analyzing \Cref{fig:incomedistribution}, we can reach the conclusion t
 
 Analyzing \Cref{fig:incomedistribution}, we can observe that the top 10\% of the clients accumulate 33\% of the total income, while the top 20\% accumulate 50.5\% and the top 30\% accumulate 63.1\%; the rest of the income is distributed among the remaining 70\% of the population.
 
-\subsection{Regional Distribution of Income}
+\section{Regional Distribution of Income}
 
 Given the have locations of the calls in the subset $G' \subseteq G$, we can infer the home of each user in $V'$ using the method described in~\cite{csaji2013}. This is extremely useful when doing analyses, since it allows us to find differences in income distribution between areas of Mexico. In particular, \Cref{fig:regions} shows the average income per Mexican State in our dataset, which is compared to the data in Mexico in \Cref{tab:regions}.
 
