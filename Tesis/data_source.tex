@@ -69,14 +69,14 @@ This form of graph can be seen in Figure~\ref{fig:outcalls_dist} and Figure~\ref
 
 \begin{figure}
 \centering
-\includegraphics[width=.75\textwidth]{figures/outcontacts_dist.png}
+\includegraphicsmaybe{figures/outcontacts_dist.png}
 \caption{Distribution of amount of outgoing calls per user.}
 \label{fig:outcalls_dist}
 \end{figure}
 
 \begin{figure}
 \centering
-\includegraphics[width=.75\textwidth]{figures/outcalls_dist.png}
+\includegraphicsmaybe{figures/outcalls_dist.png}
 \caption{Distribution of amount of outgoing calls per user.}
 \label{fig:outcontacts_dist}
 \end{figure}
@@ -85,7 +85,7 @@ Since, unlike with the amount of calls, the \emph{Average Call Time} isn't anywh
 
 \begin{figure}
 \centering
-\includegraphics[width=.75\textwidth]{figures/callduration.png}
+\includegraphicsmaybe{figures/callduration.png}
 \caption{Distribution of the durations of calls.}
 \label{fig:callduration}
 \end{figure}
@@ -93,15 +93,13 @@ Since, unlike with the amount of calls, the \emph{Average Call Time} isn't anywh
 \section{Banking Information}
 \label{subsec:bank_source}
 
-\subsection{Dataset Description}
-
 For this study we also obtained the set $B$ of account balanced of over 10 million clients of a bank in Mexico for a period of 6 months, which finishes at the same date as the period used in Section~\ref{subsec:mobiledatasource}. This dataset is represented by the set $B$, and each client $b \in B$ contains the phone number $b_p$, anonymized with the same hash as the datasets in the previous section, along with the reported income of this person in over 6 months $b_{s_0}, \ldots, b_{s_5}$. We average these 6 values to obtain $b_s$, the estimate of each users' monthly income.
 
 The bank also provided us demographic information for a subset of its clients $A \subseteq B$. For each user $a \in A$, we are given the age $a_a$ and the gender $a_g$ of the user, which allows us to observe differences in the income distribution according to the age. The distribution is shown in Figure~\ref{fig:gender_age_bar}, 
 
 \begin{figure}
 \centering
-\includegraphics[width=0.75\columnwidth]{figures/gender_age_bar3/gender_age_bar3.png}
+\includegraphicsmaybe{figures/gender_age_bar3/gender_age_bar3.png}
 \caption{Amount of users in $B$ by gender and age.}
 \label{fig:gender_age_bar}
 \end{figure}
@@ -112,7 +110,7 @@ In another line of work, homophily with respect to age has been observed and use
 
 \begin{figure}
 \centering
-\includegraphics[width=0.75\columnwidth]{figures/income_age_boxplot4/income_age_boxplot4.png}
+\includegraphicsmaybe{figures/income_age_boxplot4/income_age_boxplot4.png}
 \caption{Distribution of income $a_s$ as a factor of age $a_a$. This is consistent with data from median house income in Mexico~\cite{gallup2013}.}
 \label{fig:income_age_boxplot}
 \end{figure}
@@ -146,7 +144,7 @@ The distribution of bank users in $S$ is similar to the one in $B$, as shown in~
 
 \begin{figure}
 \centering
-\includegraphics[width=.75\textwidth]{figures/matchdistribution.png}
+\includegraphicsmaybe{figures/matchdistribution.png}
 \caption{Distribution of incomes for users of both the bank and telco, represented by the set $S$.}
 \label{fig:matchdistribution}
 \end{figure}
@@ -171,7 +169,7 @@ We provide here some observations of the distribution of income of the bank clie
 
 \begin{figure}
 \centering
-\includegraphics[width=0.75\columnwidth]{figures/cumulative_income.png}
+\includegraphicsmaybe{figures/cumulative_income.png}
 \caption{Lorenz curve representing the distribution of income of bank clients.}
 \label{fig:lorenz}
 \end{figure}

@@ -47,7 +47,7 @@
   \setlength{\fboxsep}{-\fboxrule}
   \framebox(300, 100){\texttt{#1}}
 }
-\newcommand{\includegraphicsmaybe}[1]{\IfFileExists{#1}{\includegraphics[width=\columnwidth]{#1}}{\noimage{#1}}}
+\newcommand{\includegraphicsmaybe}[1]{\IfFileExists{#1}{\includegraphics[width=\textwidth, height=.4\textheight, keepaspectratio]{#1}}{\noimage{#1}}}
 
 \newcommand{\closeopen}[2]{\left[ #1, #2 \right)}
 \newcommand{\mathmuchlarger}[1]{\mathlarger{\mathlarger{#1}}}
@@ -73,7 +73,6 @@
 
 \title{Inference of Socioeconomic Status \\ in a Communications Graph: \\ A Bayesian Approach}
 \author{Martin Fixman}
-\bcshon
 
 \degree{Licenciatura en Ciencias de la Computación}
 \degreeinitial{L.C.C.}
@@ -86,6 +85,9 @@
 \defencemonth{Smarch}\defenceyear{2017}
 
 \dedicate{To the time I spent thinking of a dedication to use as a placeholder.}
+
+\nolistoftables
+\nolistoffigures
 
 \begin{document}
 
