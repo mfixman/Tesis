@@ -221,7 +221,8 @@ For simplicity, other two new categorical variables are defined for this model f
 	k_v &= \varpi^{\high}_v \\
 	\varkappa_v &= \begin{cases} 0 \ \text{if} \ v \in H_1 \\ 1 \ \text{if} \ v \in H_2 \end{cases} \\[1em]
 	\pi_v &\sim \Binom \left( n, v \right) \\
-	\Theta &\sim \Betadist(\sfrac{1}{2}, \sfrac{1}{2}) \\
+	\Theta &\sim \Betadist \left( \sfrac{1}{2}, \sfrac{1}{2} \right) \\
+	% \Theta &\sim \Betadist \left( 0.5, 0.5 \right) \\
 	p_v &= \inf_{x \in \left[ 0, 1 \right]} \left\{ \Theta \leq P \left( \pi_v \leq x \right) \right\} \\
 	\tau &= \argmax_{t \in \left[ 0, 1 \right]} \left| \bigl\{ \vspace{4em} v \in V \cap B \mid p_v \geq t \iff k_v \bigr\} \right| \\[1em]
 	\hat{\varkappa}_v &= \begin{cases} 0 \ \text{if} \ p_v < \tau \\ 1 \ \text{if} \ p_v \geq \tau \end{cases}

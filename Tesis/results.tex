@@ -10,7 +10,7 @@ In this section, we test the \emph{Prediction Algorithm} presented in Section~\r
 
 As with many other classification problems, the \emph{Bayesian Algorithm} is prone to overfitting~\cite{mitchellml1997}. In this particular case, since the information presented in Section~\ref{subsec:income_homophily} shows that users tend to communicated with users of the same socioeconomic level, by running the algorithm in the complete data and using the same users as part of the features and of the labels, we would erroneously be having more data per user than we would have when modelling the problem.
 
-An easy way to avoid this problem is by doing a simple \emph{Train Test Split}, where the data in $B$ is separated into two disjoint groups, $B = B_{\train} \cup B_{\test}$ and $B_{\train} \cap B_{\test} = \varnothing$, where $\left| B_{\train} \right| = \sfrac{4}{5} \cdot \left| B \right|$ and $\left| B_{\test} \right| = \sfrac{1}{5} \cdot \left| B \right|$.
+An easy way to avoid this problem is by doing a simple \emph{Train Test Split}, where the data in $B$ is separated into two disjoint groups, $B = B_{\train} \cup B_{\test}$ and $B_{\train} \cap B_{\test} = \varnothing$, where $\left| B_{\train} \right| = 0.8 \cdot \left| B \right|$ and $\left| B_{\test} \right| = 0.2 \cdot \left| B \right|$.
 
 \subsection{Erasing Uninformative Data}
 
