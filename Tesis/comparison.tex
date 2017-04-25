@@ -31,16 +31,13 @@ In case of a tie (which happens often when using the \emph{Outer Graph}), the ca
 
 \begin{equation}
 \label{eq:majority_voting}
-\begin{aligned}
-	\contacts^{\low}_{\upsilon} &> \contacts^{\high}_{\upsilon} \implies P \left( \upsilon \in H_1 \right) = 1 \\
-	\contacts^{\low}_{\upsilon} &= \contacts^{\high}_{\upsilon} \implies P \left( \upsilon \in H_1 \right) = \sfrac{1}{2} \\
-	\contacts^{\low}_{\upsilon} &< \contacts^{\high}_{\upsilon} \implies P \left( \upsilon \in H_2 \right) = 0
-\end{aligned}
+	P \left( \upsilon \in H_2 \right) =
+\begin{cases}
+	0   & \text{if} \ \contacts^{\low}_{\upsilon} < \contacts^{\high}_{\upsilon} \\
+	0.5 & \text{if} \ \contacts^{\low}_{\upsilon} = \contacts^{\high}_{\upsilon} \\
+	1   & \text{if} \ \contacts^{\low}_{\upsilon} > \contacts^{\high}_{\upsilon}
+\end{cases}
 \end{equation}
-
-\section{Averaging Contacts' Incomes}
-
-\todo{Complete this}
 
 \section{Methods Based in Machine Learning}
 \label{subsec:methods_ml}
