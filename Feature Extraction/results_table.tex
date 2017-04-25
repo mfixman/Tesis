@@ -1,45 +1,67 @@
 \begin{table*}[t]
-\begin{tabular*}{\textwidth}{>{\bfseries}l l l @{\extracolsep{\fill}} r r r r r r r r}
+\begin{tabular*}{\textwidth}{>{\bfseries}l >{\bfseries}l >{\bfseries}{l @{\extracolsep{\fill}}} r r r r r r r r}
 \toprule
-Method & Dataset & Level & Accuracy & Precision & Recall & AUC & F\textsubscript{1}-score & F\textsubscript{4}-score & Fit Time & Predict Time \\
+\ct{Dataset} & \ct{Model} & \ct{Level} & \ct{Acc.} & \ct{Prec.} & \ct{Rec.} & \ct{AUC} & \ct{F\textsubscript{1}} & \ct{F\textsubscript{4}} & \ct{t\textsubscript{fit}} & \ct{t\textsubscript{pred}} \\
 \midrule
 
-Random Selection & & & \num{0.499} & \num{0.499} & \num{0.499} & \num{0.499} & \num{0.499} & \num{0.499} & \SI{0.000}{\second} & \SI{0.005}{\second} \\
-Majority Voting & & & \num{0.543} & \num{0.540} & \num{0.585} & \num{0.543} & \num{0.561} & \num{0.582} & \SI{0.000}{\second} & \SI{0.273}{\second} \\
-Bayesian Method & & & \num{1} & \num{1} & \num{1} & \num{1} & \num{1} & \num{1} & \SI{1}{\second} & \SI{1}{\second} \\
+\multirow{15}{*}{\centering Inner Graph}
 
-\midrule
+& \multicolumn{2}{>{\bfseries}l}{Random}
+& 0.499 & 0.499 & 0.500 & 0.499 & 0.500 & 0.500 & \ct{\NA} & \SI{0.005}{\second} \\
 
-\multirow{7}{*}{Logistic Regression}
-& \multirow{5}{*}{Outer}
-  & 0 & \num{0.541} & \num{0.580} & \num{0.299} & \num{0.541} & \num{0.395} & \num{0.308} & \SI{4.976}{\second} & \SI{0.028}{\second} \\
-& & 0.5 &\num{0.570} & \num{0.749} & \num{0.212} & \num{0.570} & \num{0.330} & \num{0.221} & \SI{4.108}{\second} & \SI{0.061}{\second} \\
-& & 1 & \num{0.552} & \num{0.597} & \num{0.326} & \num{0.553} & \num{0.422} & \num{0.335} & \SI{6.213}{\second} & \SI{0.45}{\second} \\
-& & 1.5 & \num{0.598} & \num{0.726} & \num{0.358} & \num{0.606} & \num{0.479} & \num{0.369} & \SI{62.745}{\second} & \SI{0.084}{\second} \\
-& & 2 & \num{0} & \num{0} & \num{0} & \num{0} & \num{0} & \num{0} & \SI{0}{\second} & \SI{0}{\second} \\
+& \multicolumn{2}{>{\bfseries}l}{Majority}
+& 0.681 & 0.640 & \textbf{0.826} & 0.681 & 0.721 & 0.712 & \ct{\NA} & \SI{0.059}{\second} \\
+
+& \multicolumn{2}{>{\bfseries}l}{Bayesian\protect\footnotemark{}}
+
+& 0.693 & 0.665 & 0.792 & \textbf{0.746} & \textbf{0.723} & \textbf{0.783} & \ct{\NA} & \SI{33.155}{\second} \\
 \cmidrule{2-11}
-& \multirow{2}{*}{Inner}
-  & 0.5 &\num{0.720} & \num{0.747} & \num{0.842} & \num{0.675} & \num{0.792} & \num{0.836} & \SI{0.821}{\second} & \SI{0.20}{\second} \\
-& & 1.5 & \num{0.723} & \num{0.746} & \num{0.857} & \num{0.672} & \num{0.797} & \num{0.849} & \SI{4.960}{\second} & \SI{0.021}{\second} \\
 
+& \multirow{5}{*}{LR} &
+   $\ego_0$ & 0.536 & 0.531 & 0.625 & 0.536 & 0.574 & 0.619 & \SI{0.145}{\second}   & \SI{0.002}{\second} \\
+&& $\ego_1$ & 0.535 & 0.525 & 0.730 & 0.535 & 0.611 & 0.714 & \SI{0.141}{\second}   & \SI{0.011}{\second} \\
+&& $\ego_2$ & 0.568 & 0.578 & 0.525 & 0.569 & 0.550 & 0.528 & \SI{0.119}{\second}   & \SI{0.003}{\second} \\
+&& $\cat_0$ & 0.686 & 0.655 & 0.785 & 0.686 & 0.714 & 0.776 & \SI{0.167}{\second}   & \SI{0.005}{\second} \\
+&& $\cat_1$ & 0.693 & 0.665 & 0.780 & 0.693 & 0.718 & 0.772 & \SI{1.588}{\second}   & \SI{0.011}{\second} \\
+&& $\cat_2$ & 0.693 & 0.670 & 0.764 & 0.692 & 0.714 & 0.758 & \SI{0.956}{\second}   & \SI{0.009}{\second} \\
+\cmidrule{2-11}
+
+& \multirow{5}{*}{RF} &
+   $\ego_0$ & 0.548 & 0.548 & 0.550 & 0.548 & 0.549 & 0.550 & \SI{5.986}{\second}   & \SI{0.588}{\second} \\
+&& $\ego_1$ & 0.582 & 0.583 & 0.577 & 0.582 & 0.580 & 0.577 & \SI{56.548}{\second}  & \SI{0.483}{\second} \\
+&& $\ego_2$ & 0.576 & 0.577 & 0.580 & 0.576 & 0.579 & 0.580 & \SI{50.197}{\second}  & \SI{0.253}{\second} \\
+&& $\cat_0$ & 0.671 & 0.665 & 0.690 & 0.671 & 0.677 & 0.688 & \SI{6.346}{\second}   & \SI{0.539}{\second} \\
+&& $\cat_1$ & \textbf{0.714} & \textbf{0.713} & 0.716 & 0.714 & 0.714 & 0.716 & \SI{96.005}{\second}  & \SI{0.460}{\second} \\
+&& $\cat_2$ & 0.709 & 0.710 & 0.711 & 0.709 & 0.711 & 0.711 & \SI{81.528}{\second}  & \SI{0.242}{\second} \\
 \midrule
 
-\multirow{7}{*}{Random Forest}
-& \multirow{5}{*}{Outer}
-  & 0 & \num{0.541} & \num{0.542} & \num{0.528} & \num{0.541} & \num{0.535} & \num{0.528} & \SI{24.066}{\second} & \SI{4.732}{\second} \\
-& & 0.5 & \num{0.567} & \num{0.572} & \num{0.533} & \num{0.567} & \num{0.552} & \num{0.535} & \SI{31.870}{\second} & \SI{4.442}{\second} \\
-& & 1 & \num{0.572} & \num{0.580} & \num{0.527} & \num{0.572} & \num{0.552} & \num{0.530} & \SI{68.472}{\second}  & \SI{4.568}{\second} \\
-& & 1.5 & \num{0.723} & \num{0.747} & \num{0.852} & \num{0.675} & \num{0.796} & \num{0.845} & \SI{64.757}{\second} & \SI{3.939}{\second}  \\
-& & 2 & \num{0} & \num{0} & \num{0} & \num{0} & \num{0} & \num{0} & \SI{0}{\second} & \SI{0}{\second} \\
+\multirow{14}{*}{\centering Outer Graph}
+
+& \multicolumn{2}{>{\bfseries}l}{Random}
+&       0.499 & 0.499 & 0.500 & 0.499 & 0.500 & 0.500 & \ct{\NA} & \SI{0.005}{\second} \\
+
+& \multicolumn{2}{>{\bfseries}l}{Majority}
+&       0.565 & 0.747 & 0.197 & 0.565 & 0.312 & 0.206 & \ct{\NA} & \SI{0.204}{\second} \\
 \cmidrule{2-11}
-& \multirow{2}{*}{Inner}
-  & 0.5 &\num{0.700} & \num{0.738} & \num{0.817} & \num{0.658} & \num{0.775} & \num{0.812} & \SI{8.537}{\second} & \SI{0.551}{\second} \\
-& & 1.5 & \num{0.735} & \num{0.766} & \num{0.838} & \num{0.697} & \num{0.800} & \num{0.834} & \SI{15.597}{\second} & \SI{0.570}{\second}  \\
+
+& \multirow{5}{*}{LR} &
+   $\ego_0$ & 0.534 & 0.586 & 0.234 & 0.534 & 0.335 & 0.243 & \SI{0.937}{\second}   & \SI{0.016}{\second} \\
+&& $\ego_1$ & 0.547 & 0.617 & 0.250 & 0.547 & 0.356 & 0.260 & \SI{1.347}{\second}   & \SI{0.035}{\second} \\
+&& $\ego_2$ & 0.563 & 0.586 & 0.430 & 0.563 & 0.496 & 0.437 & \SI{1.055}{\second}   & \SI{0.023}{\second} \\
+&& $\cat_0$ & 0.565 & 0.746 & 0.198 & 0.565 & 0.313 & 0.207 & \SI{1.871}{\second}   & \SI{0.041}{\second} \\
+&& $\cat_1$ & 0.577 & 0.727 & 0.247 & 0.577 & 0.368 & 0.257 & \SI{9.816}{\second}   & \SI{0.077}{\second} \\
+&& $\cat_2$ & 0.589 & 0.636 & 0.415 & 0.589 & 0.503 & 0.424 & \SI{9.456}{\second}   & \SI{0.065}{\second} \\
+\cmidrule{2-11}
+
+& \multirow{5}{*}{RF} &
+   $\ego_0$ & 0.543 & 0.544 & 0.529 & 0.543 & 0.536 & 0.530 & \SI{25.789}{\second}  & \SI{4.878}{\second} \\
+&& $\ego_1$ & 0.578 & 0.585 & 0.537 & 0.578 & 0.560 & 0.540 & \SI{102.961}{\second} & \SI{5.608}{\second} \\
+&& $\ego_2$ & 0.583 & 0.590 & 0.541 & 0.583 & 0.564 & 0.543 & \SI{70.447}{\second}  & \SI{3.148}{\second} \\
+&& $\cat_0$ & 0.568 & 0.573 & 0.536 & 0.568 & 0.554 & 0.538 & \SI{32.981}{\second}  & \SI{5.371}{\second} \\
+&& $\cat_1$ & 0.613 & 0.634 & 0.533 & 0.613 & 0.579 & 0.538 & \SI{44.911}{\second}  & \SI{6.002}{\second} \\
+&& $\cat_2$ & 0.614 & 0.635 & 0.534 & 0.614 & 0.580 & 0.539 & \SI{50.589}{\second}  & \SI{3.484}{\second} \\
 \bottomrule
 \end{tabular*}
-
-\caption{Results of running dataset with different feature extraction methods and different predictors, along with other methods for comparison.}
+\caption{Resulting metrics of different methods used in Section~\ref{sec:results} and Section~\ref{sec:comparison} tested on both the \emph{Inner Graph} $\Upsilon$, which contains only nodes which have at least one neighbour with socioeconomic information, and the \emph{Outer Graph} $B^{\test}$, which includes all nodes. \textbf{Bolded} items represent the highest value for each metric.}
 \label{tab:comparison}
-\todo{Add level $\geq 2$}
-\todo{Add alternative methods}
 \end{table*}
