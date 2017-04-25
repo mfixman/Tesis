@@ -1,20 +1,20 @@
 \begin{table*}[t]
-\begin{tabular*}{\textwidth}{>{\bfseries}l >{\bfseries}l >{\bfseries}{l @{\extracolsep{\fill}}} r r r r r r r r}
+\begin{tabular*}{\textwidth}{>{\bfseries}l >{\bfseries}l >{\bfseries}l @{\extracolsep{\fill}}>{\hspace{2em}}r r r r r r >{\hspace{2em}}r r}
 \toprule
-\ct{Dataset} & \ct{Model} & \ct{Level} & \ct{Acc.} & \ct{Prec.} & \ct{Rec.} & \ct{AUC} & \ct{F\textsubscript{1}} & \ct{F\textsubscript{4}} & \ct{t\textsubscript{fit}} & \ct{t\textsubscript{pred}} \\
+Dataset & Model & Level & Accuracy & Precision & Recall & AUC & F\textsubscript{1}-score & F\textsubscript{4}-score & t\textsubscript{fit} & t\textsubscript{pred} \\
 \midrule
 
 \multirow{15}{*}{\centering Inner Graph}
 
-& \multicolumn{2}{>{\bfseries}l}{Random}
-& 0.499 & 0.499 & 0.500 & 0.499 & 0.500 & 0.500 & \ct{\NA} & \SI{0.005}{\second} \\
+& \multicolumn{2}{>{\bfseries}l}{Random Selection}
+& 0.499 & 0.499 & 0.500 & 0.499 & 0.500 & 0.500 & \NA{} & \SI{0.005}{\second} \\
 
-& \multicolumn{2}{>{\bfseries}l}{Majority}
-& 0.681 & 0.640 & \textbf{0.826} & 0.681 & 0.721 & 0.712 & \ct{\NA} & \SI{0.059}{\second} \\
+& \multicolumn{2}{>{\bfseries}l}{Majority Voting}
+& 0.681 & 0.640 & \textbf{0.826} & 0.681 & 0.721 & 0.712 & \NA{} & \SI{0.059}{\second} \\
 
-& \multicolumn{2}{>{\bfseries}l}{Bayesian\protect\footnotemark{}}
+& \multicolumn{2}{>{\bfseries}l}{Bayesian Algorithm}
 
-& 0.693 & 0.665 & 0.792 & \textbf{0.746} & \textbf{0.723} & \textbf{0.783} & \ct{\NA} & \SI{33.155}{\second} \\
+& 0.693 & 0.665 & 0.792 & \textbf{0.746} & \textbf{0.723} & \textbf{0.783} & \NA{} & \SI{33.155}{\second} \\
 \cmidrule{2-11}
 
 & \multirow{5}{*}{LR} &
@@ -37,11 +37,11 @@
 
 \multirow{14}{*}{\centering Outer Graph}
 
-& \multicolumn{2}{>{\bfseries}l}{Random}
-&       0.499 & 0.499 & 0.500 & 0.499 & 0.500 & 0.500 & \ct{\NA} & \SI{0.005}{\second} \\
+& \multicolumn{2}{>{\bfseries}l}{Random Selection}
+&       0.499 & 0.499 & 0.500 & 0.499 & 0.500 & 0.500 & \NA{} & \SI{0.005}{\second} \\
 
-& \multicolumn{2}{>{\bfseries}l}{Majority}
-&       0.565 & 0.747 & 0.197 & 0.565 & 0.312 & 0.206 & \ct{\NA} & \SI{0.204}{\second} \\
+& \multicolumn{2}{>{\bfseries}l}{Majority Voting}
+&       0.565 & 0.747 & 0.197 & 0.565 & 0.312 & 0.206 & \NA{} & \SI{0.204}{\second} \\
 \cmidrule{2-11}
 
 & \multirow{5}{*}{LR} &
