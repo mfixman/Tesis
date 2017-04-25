@@ -19,27 +19,22 @@ The regression assumes that the relationship between the sum of some linear comb
 
 The model takes the form of Equation~\ref{eq:linearregression}.
 
-\begin{equation}
-\label{eq:linearregression}
-	y = X \beta + \varepsilon
-\end{equation}
-
-where
-
-\begin{equation*}
-\begin{gathered}
-	X = \begin{pmatrix} x_1^T \\ x_2^T \\ \vdots \\ x_n^T \end{pmatrix} =
-	\begin{pmatrix}
-		1 & x_{1 1} & \cdots & x_{1 f} \\
-		1 & x_{2 1} & \cdots & x_{2 f} \\
-		\vdots & \vdots & \ddots & \vdots \\
-		1 & x_{n 1} & \cdots & x_{n f} \\
-	\end{pmatrix} \\
-	y = \begin{pmatrix} y_1 \\ y_2 \\ \vdots \\ y_n \end{pmatrix}, \;
-	\beta = \begin{pmatrix} \beta_0 \\ \beta_1 \\ \vdots \\ \beta_f \end{pmatrix}, \;
-	\varepsilon = \begin{pmatrix} \varepsilon_1 \\ \varepsilon_2 \\ \vdots \\ \varepsilon_n \end{pmatrix}
-\end{gathered}
-\end{equation*}
+\begin{gather}
+	y = X \beta + \varepsilon \label{eq:linearregression} \\
+	\intertext{where}
+	\begin{gathered}
+		X = \begin{pmatrix} x_1^T \\ x_2^T \\ \vdots \\ x_n^T \end{pmatrix} =
+		\begin{pmatrix}
+			1 & x_{1 1} & \cdots & x_{1 f} \\
+			1 & x_{2 1} & \cdots & x_{2 f} \\
+			\vdots & \vdots & \ddots & \vdots \\
+			1 & x_{n 1} & \cdots & x_{n f} \\
+		\end{pmatrix} \\
+		y = \begin{pmatrix} y_1 \\ y_2 \\ \vdots \\ y_n \end{pmatrix}, \;
+		\beta = \begin{pmatrix} \beta_0 \\ \beta_1 \\ \vdots \\ \beta_f \end{pmatrix}, \;
+		\varepsilon = \begin{pmatrix} \varepsilon_1 \\ \varepsilon_2 \\ \vdots \\ \varepsilon_n \end{pmatrix}
+	\end{gathered}
+\end{gather}
 
 $\beta$ is a vector with size $f + 1$, where $\beta_0$ is called the \emph{Constant Term}. The statistical estimation and inference focuses in this variable, as two different models of \emph{Linear Regression} will give different results where this parameter is different~\cite{yan2009linear}.
 
