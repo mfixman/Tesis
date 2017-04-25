@@ -1,14 +1,13 @@
-\input{results_table}
 \section{Results and Conclusion}
 \label{sec:results}
 
 % The results table should have been included earlier, so that the figure can be presented in two columns in this page. Due to limitations on my knowledge of LaTeX, I don't know how to do this inline.
 
-The predictors were run in a computer with a single core of 2.00 GHz Intel Xeon CPU using \texttt{sklearn 0.18} under \texttt{Python 2.7}, and enough RAM to not need caching in any calculationg. The results of the inference can be found in Table~\ref{tab:comparison}.
+The predictors were run in a computer with a single core of 2.00 GHz Intel Xeon CPU using \texttt{sklearn 0.18} under \texttt{Python 2.7}, and enough RAM to not need caching in any calculationg. The results of the inference can be found in Table~\ref{tab:innergraphresults} for the \emph{Inner Graph} and on Table~\ref{tab:outergraphresults} for the \emph{Outer Graph}.
 
 % We can reach the conclusion than both adding features of a larger \emph{Ego Network} and separating those links via the labels can improve every metric, but the latter features tend to improve them even furtherm, even when taking the entire graph. Additionally, and particularly when comparing predictors with large amount of features, the \emph{Random Forest} tends to be more accurate and much faster than a \emph{Logistic Regression}.
 
-Table~\ref{tab:comparison} shows various metrics which result from applying the methods described in Section~\ref{sec:inference_methodology} with the hyperparameteters that result in the highest \emph{Accuracy} according to the \emph{Grid Search}.
+Both tables show various metrics which result from applying the methods described in Section~\ref{sec:inference_methodology} with the hyperparameteters that result in the highest \emph{Accuracy} according to the \emph{Grid Search}.
 
 One of the possible conclusions is consistent with~\cite{muchlinski2016}, where the methods based in \emph{Random Forest} tend to perform better in real-world sociolofy scenarios than the ones based in \emph{Logistic Regression}, due to it being more versatile to non-linear the data~\cite{logisticvsdecision}.
 
