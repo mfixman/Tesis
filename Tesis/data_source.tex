@@ -58,30 +58,23 @@ Contacts & \num{249011358} & \num{110074848} & \\
 \label{tab:datasetnumbers}
 \end{table}
 
-Both the amount of calls and the amount of contacts per user are distributed logarithmically with a formula similar to Equation~\ref{eq:logdist}.
-
-\begin{equation}
-\label{eq:logdist}
-	\left[ \left( \forall n \right) \frac{\left| \left\{ u \in G \mid \calls_u = n \right\} \right|}{\left| \left\{ u \in G \mid \calls_u = n + 1 \right\} \right|} \approx \kappa \right] \qquad \text{for some constant} \ \kappa
-\end{equation}
-
 This form of graph can be seen in Figure~\ref{fig:outcalls_dist} and Figure~\ref{fig:outcontacts_dist}.
 
 \begin{figure}
 \centering
 \includegraphicsmaybe{figures/outcontacts_dist.png}
-\caption{Distribution of amount of outgoing calls per user.}
+\caption{Distribution of amount of total contacts per user.}
 \label{fig:outcalls_dist}
 \end{figure}
 
 \begin{figure}
 \centering
 \includegraphicsmaybe{figures/outcalls_dist.png}
-\caption{Distribution of amount of outgoing calls per user.}
+\caption{Distribution of amount of total calls per user.}
 \label{fig:outcontacts_dist}
 \end{figure}
 
-Since, unlike with the amount of calls, the \emph{Average Call Time} isn't anywhere near 0, the pattern of \emph{Call Durations} follows a \emph{Negative Binomial Distribution}\maybe{Prove this} where a mean $\mu = 75$.
+Both the amount of calls and the amount of contacts per user are distrubuted roughly in a negative exponential distribution. Since the \emph{Average Call Time} isn't anywhere near 0, the pattern of \emph{Call Durations} follows a \emph{Gamma Distribution} $\Gamma \left( 3.8, -8.4 \right)$, where $\Gamma$ corresponds to the standard version of the distribution with location and shape parameters.
 
 \begin{figure}
 \centering
