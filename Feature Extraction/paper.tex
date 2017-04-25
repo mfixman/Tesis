@@ -16,6 +16,7 @@
 
 \usepackage{tikz}
 \usetikzlibrary{shapes}
+\usetikzlibrary{arrows}
 
 \bibliographystyle{alpha}
 
@@ -52,6 +53,9 @@
 \DeclareMathOperator{\train}{train}
 \DeclareMathOperator{\test}{test}
 
+\DeclareMathOperator{\low}{low}
+\DeclareMathOperator{\high}{high}
+
 \newcommand{\noimage}{%
   \setlength{\fboxsep}{-\fboxrule}
   \fbox{\phantom{\rule{\columnwidth}{100pt}}}
@@ -86,8 +90,6 @@
 \input{data_sources}
 
 \input{basic_features}
-
-\input{results_table}
 
 \input{accumulated_features}
 
