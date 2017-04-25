@@ -1,36 +1,56 @@
 \section{Inference Methodology}
+\label{sec:inference_methodology}
 
-As previously explained in Section~\ref{subsec:categoricaluserdata}, the nodes in $T \subseteq V$ are separated into two disjoint subgroups, $G$ and $H$, so that $G \cup H = T$, $G \cap H = \varnothing$, $\left| G \right| = \sfrac{3}{4} \cdot \left| T \right|$, and $\left| H \right| = \sfrac{1}{4} \cdot \left| T \right|$. Furthemore, the subset $H_{\inner} \subseteq H$ is defined so that a node $h \in H$ is part of it if and only if there is an edge $\left< h, x \right> \in E$ or $\left< x, h \right> \in E$ such that $x \in H$\footnotemark{}. This later definition becomes important when doing inferences on features using the \emph{Categorical User Data} dataset.
+As previously explained in Section~\ref{subsec:categoricaluserdata}, the nodes in $T \subseteq V$ are separated into two disjoint subgroups, $G$ and $H$, so that $G \cup H = T$, $G \cap H = \varnothing$, $\left| G \right| = 0.75 \cdot \left| T \right|$, and $\left| H \right| = 0.25 \cdot \left| T \right|$. Furthemore, the subset $H_{\inner} \subseteq H$ is defined so that a node $h \in H$ is part of it if and only if there is an edge $\left< h, x \right> \in E$ or $\left< x, h \right> \in E$ such that $x \in H$\footnotemark{}. This later definition becomes important when doing inferences on features using the \emph{Categorical User Data} dataset.
 
 \footnotetext{Reciprocally, this also implies $x \in H_{\inner}$.}
 
-The inferences will be attempted with both a \emph{Logistic Regression} and a \emph{Random Forest} classifier, both of which are solid classifiers commonly used for cases like this~\cite{binaryevaluation}, using of the features of different presented in Section~\ref{sec:accumulatedfeatures} merged with all the previous levels with the data on $G$. This way we can assure that no possibly useful information will be lost when adding new data, and ideally every prediction should be better or equal than the one in the previous level. Table~\ref{tab:features} shows the amount of features in each level after merging.
+The inferences will be attempted with both a \emph{Logistic Regression} and a \emph{Random Forest} classifier, both of which are solid classifiers commonly used for cases like this~\cite{binaryevaluation}, and since they tend to have different variance in the results~\cite{ting2016} noise from different sources doesn't tend to affect either predictor.
 
-\begin{table}[t]
-\centering
-\begin{tabular}{>{\bfseries}l r}
-\toprule
-Level & Features \\
-\midrule
-0 & \num{8} \\
-0.5 & \num{24} \\
-1 & \num{16} \\
-1.5 & \num{48} \\
-2 & \num{1234} \\
-\bottomrule
-\end{tabular}
-\caption{Amount of total features per level.}
-\label{tab:features}
-\end{table}
+The features used were presented in Section~\ref{sec:accumulatedfeatures}, where each level is merged with all the previous levels with the data on $G$. This way we can assure that no possibly useful information will be lost when adding new data, and ideally every prediction should be better or equal than the one in the previous level. Table~\ref{tab:features} shows the amount of features in each level after merging.
 
 The classifiers are trained using those features and the labels in $H$ doing a \emph{Grid Search} on different hyperparameters of the predictors with \emph{5-fold cross-validation} to prevent cases of overfitting. Since we don't want to measure only \emph{Accuracy} we present several different comparison metrics, and since in most real life cases it's more interesting to find high income users than to be accurate\footnotemark{}, we measure the \emph{F\textsubscript{4} score} of each prediction.
 
 \footnotetext{This means we care more about having high \emph{Recall} than high \emph{Precision}.}
 
-In addition, the methods are compared against three dummy methods.
+In addition, the methods are compared against three other methods to use as a base.
 
-\begin{itemize}
-	\item \textbf{Random Selection} where the category of each one of the output nodes is chosen at random.
-	\item \textbf{Majority Voting} where each node gets the category of the majority of the nodes in its neighborhood.
-	\item \textbf{Bayesian Inference}, as presented in~\cite{fixman2016inference}, which uses a Bayesian approach to model the probability of each node belonging to some category.
-\end{itemize}
+\subsection{Random Selection}
+
+The method of \emph{Random Selection} simply chooses a category randomly for every user $v \in V$. The probability of success can be formalized with Equation~\ref{eq:randomselection}.
+
+\begin{equation}
+\label{eq:randomselection}
+\begin{aligned}
+	P \left( H_v = \text{Low} \right) &= \sfrac{1}{2} \\
+	P \left( H_v = \text{High} \right) &= \sfrac{1}{2}
+\end{aligned}
+\end{equation}
+
+\subsection{Majority Voting}
+
+The category of each user $v \in V$ depends on whether the majority of its contacts are of high or of low category. If the user has the exact same number of contacts of each category, a result is chosen randomly.
+
+\begin{equation}
+\label{eq:majorityvoting}
+	P \left( H_v = \text{Low} \right) =
+	\begin{cases}
+		1 & \text{if} \ \contacts^{\low}_v > \contacts^{\high}_v \\
+		0.5 & \text{if} \ \contacts^{\low}_v = \contacts^{\high}_v \\
+		0 & \text{if} \ \contacts^{\low}_v > \contacts^{\high}_v
+	\end{cases}
+\end{equation}
+
+\subsection{Bayesian Method}
+
+We compare the results an improved version of the \emph{Bayesian Method} presented in~\cite{fixmanasonam2016}. In this method, which only works for users with at least one labelled contact (and thus are part of the \emph{Inner Graph}), a \emph{Beta Distribution} is defined for each user $v \in V$ where the parameters depend on the amount of \emph{High Income} and \emph{Low Income} users. Later, the \emph{Inverse Cumulative Distribution Function} is applied with some argument $\Theta \in \left[ 0, 1 \right]$, and this value is used to define whether a user belongs to either category for whether it's larger than some parameter $\tau$ defined to maximize \emph{Accuracy}.
+
+The \emph{Area Under the Curve} for a run of this algorithm is shown in Figure~\ref{fig:bayesian_roc}.
+
+\begin{figure}
+\centering
+\includegraphics[height=.24\textheight]{figures/bayesian_roc.png}
+\caption{The \emph{ROC Curve} for the \emph{Bayesian Method} used as a comparison for the methods presented in this paper.}
+\label{fig:bayesian_roc}
+\end{figure}
+

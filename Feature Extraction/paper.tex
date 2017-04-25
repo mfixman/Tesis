@@ -11,11 +11,14 @@
 \usepackage[group-separator={,}]{siunitx}
 \usepackage[x11names, rgb, dvipsnames]{xcolor}
 \usepackage{xfrac}
+\usepackage[perpage]{footmisc}
+\usepackage[hidelinks=true]{hyperref}
 
 \usepackage{tikz}
 \usetikzlibrary{shapes}
+\usetikzlibrary{arrows}
 
-\bibliographystyle{plain}
+\bibliographystyle{alpha}
 
 \DeclareMathOperator{\orig}{orig}
 \DeclareMathOperator{\dest}{dest}
@@ -35,12 +38,23 @@
 \DeclareMathOperator{\outsms}{outsms}
 \DeclareMathOperator{\outcontacts}{outcontacts}
 
-\DeclareMathOperator{\ego}{Ego}
 \DeclareMathOperator{\inner}{inner}
 % \DeclareMathOperator{\outer}{outer}
 
 \newcommand{\todo}[1]{\textbf{\color{red} TODO:\@ #1}}
 \newcommand{\maybe}[1]{\footnote{\color{red} #1}}
+
+\newcommand{\NA}{---}
+\newcommand{\ct}[1]{\multicolumn{1}{c}{#1}}
+
+\DeclareMathOperator{\ego}{Ego}
+\DeclareMathOperator{\cat}{Cat}
+
+\DeclareMathOperator{\train}{train}
+\DeclareMathOperator{\test}{test}
+
+\DeclareMathOperator{\low}{low}
+\DeclareMathOperator{\high}{high}
 
 \newcommand{\noimage}{%
   \setlength{\fboxsep}{-\fboxrule}
@@ -79,12 +93,10 @@
 
 \input{accumulated_features}
 
-\input{results_table}
-
 \input{inference_methodology}
 
 \input{results}
 
-\bibliography{bibliography/sna}{}
+\bibliography{../Tesis/bibliography/sna}{}
 
 \end{document}
