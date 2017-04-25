@@ -1,7 +1,7 @@
 \begin{table*}[t]
-\begin{tabular*}{\textwidth}{>{\bfseries}l >{\bfseries}l >{\bfseries}l @{\extracolsep{\fill}}>{\hspace{2em}}r r r r r r >{\hspace{2em}}r r}
+\begin{tabular*}{\textwidth}{>{\bfseries}l >{\bfseries}l >{\bfseries}l @{\extracolsep{\fill}}>{\hspace{2em}}r r r r r r >{\hspace{2em}}r >{\hspace{-1em}}r}
 \toprule
-Dataset & Model & Level & Accuracy & Precision & Recall & AUC & F\textsubscript{1}-score & F\textsubscript{4}-score & t\textsubscript{fit} & t\textsubscript{pred} \\
+Dataset & Model & Level & Accuracy & Precision & Recall & AUC & F\textsubscript{1}-score & F\textsubscript{4}-score & Fit Time & Predict Time \\
 \midrule
 
 \multirow{15}{*}{\centering Inner Graph}
@@ -10,11 +10,11 @@ Dataset & Model & Level & Accuracy & Precision & Recall & AUC & F\textsubscript{
 & 0.499 & 0.499 & 0.500 & 0.499 & 0.500 & 0.500 & \NA{} & \SI{0.005}{\second} \\
 
 & \multicolumn{2}{>{\bfseries}l}{Majority Voting}
-& 0.681 & 0.640 & \textbf{0.826} & 0.681 & 0.721 & 0.712 & \NA{} & \SI{0.059}{\second} \\
+& 0.681 & 0.640 & 0.826 & 0.681 & 0.721 & 0.712 & \NA{} & \SI{0.059}{\second} \\
 
 & \multicolumn{2}{>{\bfseries}l}{Bayesian Algorithm}
 
-& 0.693 & 0.665 & 0.792 & \textbf{0.746} & \textbf{0.723} & \textbf{0.783} & \NA{} & \SI{33.155}{\second} \\
+& 0.693 & 0.665 & 0.792 & 0.746 & 0.723 & 0.783 & \NA{} & \SI{33.155}{\second} \\
 \cmidrule{2-11}
 
 & \multirow{5}{*}{LR} &
@@ -31,7 +31,7 @@ Dataset & Model & Level & Accuracy & Precision & Recall & AUC & F\textsubscript{
 && $\ego_1$ & 0.582 & 0.583 & 0.577 & 0.582 & 0.580 & 0.577 & \SI{56.548}{\second}  & \SI{0.483}{\second} \\
 && $\ego_2$ & 0.576 & 0.577 & 0.580 & 0.576 & 0.579 & 0.580 & \SI{50.197}{\second}  & \SI{0.253}{\second} \\
 && $\cat_0$ & 0.671 & 0.665 & 0.690 & 0.671 & 0.677 & 0.688 & \SI{6.346}{\second}   & \SI{0.539}{\second} \\
-&& $\cat_1$ & \textbf{0.714} & \textbf{0.713} & 0.716 & 0.714 & 0.714 & 0.716 & \SI{96.005}{\second}  & \SI{0.460}{\second} \\
+&& $\cat_1$ & \textbf{0.714} & \textbf{0.713} & \textbf{0.716} & \textbf{0.714} & \textbf{0.714} & \textbf{0.716} & \SI{96.005}{\second}  & \SI{0.460}{\second} \\
 && $\cat_2$ & 0.709 & 0.710 & 0.711 & 0.709 & 0.711 & 0.711 & \SI{81.528}{\second}  & \SI{0.242}{\second} \\
 \midrule
 
@@ -62,6 +62,6 @@ Dataset & Model & Level & Accuracy & Precision & Recall & AUC & F\textsubscript{
 && $\cat_2$ & 0.614 & 0.635 & 0.534 & 0.614 & 0.580 & 0.539 & \SI{50.589}{\second}  & \SI{3.484}{\second} \\
 \bottomrule
 \end{tabular*}
-\caption{Resulting metrics of different methods used in Section~\ref{sec:results} and Section~\ref{sec:comparison} tested on both the \emph{Inner Graph} $\Upsilon$, which contains only nodes which have at least one neighbour with socioeconomic information, and the \emph{Outer Graph} $B^{\test}$, which includes all nodes. \textbf{Bolded} items represent the highest value for each metric.}
+\caption{Resulting metrics of different methods used in Section~\ref{sec:results} tested on both the \emph{Inner Graph}, which contains only nodes which have at least one neighbour with socioeconomic information, and the \emph{Outer Graph}, which includes all nodes. \textbf{Bolded} items represent the highest value for each metric which is being presented in this paper.}
 \label{tab:comparison}
 \end{table*}

@@ -1,12 +1,34 @@
 \section{Accumulated Graph Features}
 \label{sec:accumulatedfeatures}
 
-\subsection{User Data}
+This section presents several ways of transforming data from the graph $G = \left< V, E \right>$ into individual features for each user $v \in V$.
+
+The inferences are classified into named levels depending on the transformation done to $G$, and they are merged with levels containg less information as specified in Figure~\ref{fig:mlrelationships}. The total amount of columns in each featureset is presented in Table~\ref{tab:features}.
+
+\begin{table}
+\centering
+\begin{tabular}{>{\bfseries}l r}
+\toprule
+Level & Features \\
+\midrule
+$\ego_0$ & \num{8}  \\
+$\ego_1$ & \num{16} \\
+$\ego_2$ & \num{24} \\
+$\cat_0$ & \num{24} \\
+$\cat_1$ & \num{48} \\
+$\cat_2$ & \num{72} \\
+\bottomrule
+\end{tabular}
+\caption{Amount of total features per level.}
+\label{tab:features}
+\end{table}
+
+\subsection{User Data --- Level $\ego_0$}
 \label{subsec:user_data}
 
 The first accumulated features consist of accumulating the three quantifiable features described in Section~\ref{sec:graphfeatures} for every node, separated on whether those features are incoming or outgoing.
 
-Additionally, we add two features corresponding to the \emph{In-Degree} and \emph{Out-Degree} of each node. This can be seen as the sum of an imaginary feature on each link, \textbf{Contacts}, which is always exactly $1$ when the link exists.
+Additionally, we add two features corresponding to the \emph{In-Degree} and \emph{Out-Degree} of each node. This can be seen as the sum of an imaginary feature on each link $e \in E$, \textbf{Contacts}, which is always exactly $1$ when the link exists.
 
 These features are defined mathematically for each node $v \in V$ in Equation~\ref{eq:user_data}.
 
@@ -28,11 +50,11 @@ These features are defined mathematically for each node $v \in V$ in Equation~\r
 \label{eq:user_data}
 \end{equation}
 
-These accumulated patterns present interesting distributions which are similar in all telcos \todo{Citation Needed}. These distributions are presented in Figure~\ref{fig:callsms}, Figure~\ref{fig:time}, and Figure~\ref{fig:contacts}.
+These accumulated patterns present interesting distributions which are similar in all telcos. These distributions are presented in Figure~\ref{fig:callsms}, Figure~\ref{fig:time}, and Figure~\ref{fig:contacts}.
 
 \begin{figure}
 \includegraphicsmaybe{figures/outcalls_dist.png}
-\caption{Distribution of the amount of outgoing calls in the graph.}
+\caption{Distribution of the amount of calls in the graph.}
 \label{fig:callsms}
 \end{figure}
 
@@ -44,16 +66,16 @@ These accumulated patterns present interesting distributions which are similar i
 
 \begin{figure}
 \includegraphicsmaybe{figures/outcontacts_dist.png}
-\caption{Distribution of \emph{Out-Degree}.}
+\caption{Distribution of degree for all users.}
 \label{fig:contacts}
 \end{figure}
 
-\subsection{Higher Order User Data}
+\subsection{Higher Order User Data --- Level $\ego_{n > 0}$}
 \label{subsec:higherorderuserdata}
 
 The features described in Section~\ref{subsec:user_data} correspond to the information about calls and SMS from a user $v \in V$ towards all of its neighbours. However, there's no reason why this information can't be extended to nodes at a higher distance from $v$.
 
-The \emph{Ego Network} of the node $v$ is defined as the graph consisting of $v$ and its neighbors. A simple way to get more features about that node is to accumulate the call and SMS information about the edges which are \textbf{not} part of the \emph{Ego Network}, but one endpoint on the border\maybe{Formal definition of border of ego network?} of this.
+The \emph{Ego Network} of the node $v$ is defined as the graph consisting of $v$ and its neighbors. A simple way to get more features about that node is to accumulate the call and SMS information about the edges which are \textbf{not} part of the \emph{Ego Network}, but one endpoint on the border of this.
 
 Additionally, if we define the distance between two nodes using the intuitive definition which is presented on Equation~\ref{eq:distance}, we can define the \emph{User Data of Order $n$}, for any natural number $n$, as the accumulation of call and SMS information where one endpoint is on the border of the \emph{Ego Network of Order $n$}, and the other one isn't. The \emph{Ego Network of Order $n$} of a certain node $v$ is the subgraph composed of the node $v$, plus all the nodes which are at most at distance $n$ of $v$.
 
@@ -66,9 +88,9 @@ d \left( a, b \right) =
 \label{eq:distance}
 \end{equation}
 
-This definition can be seen intuitively in Figure~\ref{fig:higherorderuserdata}. For reference purposes, we assign \emph{Level 0} to the information to the regular \emph{User Data} from Section~\ref{subsec:user_data}, while the user data from the \emph{Ego Network of Order $n$} is assigned \emph{Level $n$}\footnotemark{}.
+This definition can be seen intuitively in Figure~\ref{fig:higherorderuserdata}. For reference purposes, we assign the level $\ego_0$ to the information of the regular \emph{User Data} from Section~\ref{subsec:user_data}, while the user data from the \emph{Ego Network of Order $n$} is assigned $ego_n$ for some $n > 0$\footnotemark{}.
 
-\footnotetext{Note that the first definition isn't necessary; we could just say that the \emph{User Data of Order 0} contains information about the edges adjacent to \emph{Ego Network of Order 0}, which are the edges user in the regular User Data.}
+\footnotetext{Note that the first definition isn't necessary; we could just say that the \emph{User Data of Order 0} contains information about the edges adjacent to \emph{Ego Network of Order 0}, which are the edges user in the regular User Data. This is the reason why the \emph{User Data} has level $\ego_0$.}
 
 \begin{figure}
 \centering
@@ -79,7 +101,7 @@ This definition can be seen intuitively in Figure~\ref{fig:higherorderuserdata}.
 \label{fig:higherorderuserdata}
 \end{figure}
 
-\subsection{Categorical User Data}
+\subsection{Categorical User Data --- Level $\cat_n$}
 \label{subsec:categoricaluserdata}
 
 Another approach to building features for the test is to combine the information contained in $E$, the list of edges, with the one in the ground truth $T \subseteq V$, which says whether a certain node represents a person of \emph{High Income} or a person of \emph{Low Income}.
@@ -97,8 +119,8 @@ A simple way to do that is to do an approach similar to the \emph{User Data} pre
 
 It's important to keep in mind that not all edges of $G$ will be accumulated to these features. Indeed, the majority of users in the testing set $T$ don't have any neighbour that's also in $T$, and thus every feature in this category ends up being $0$.
 
-For completeness sake, we create a set of nodes, $F \subseteq T$, which we call the nodes in the \emph{Inner Graph} (in contrast to the \emph{Outer Graph}, that contains all nodes in $T$), where $F$ only contains nodes which have at least one neighbour with socioeconomic information. In Section~\ref{sec:results} we'll include information about both graphs, and naturally the results on the \emph{Inner Graph} will be better than the ones in the \emph{Outer Graph}, since it contains more information.
+For completeness sake the set of nodes $F \subseteq T$ is defined as the nodes in the \emph{Inner Graph} (in contrast to the \emph{Outer Graph}, that contains all nodes in $T$), where $F$ only contains nodes which have at least one neighbour with socioeconomic information. In Section~\ref{sec:results} we'll include information about both graphs, and naturally the results on the \emph{Inner Graph} will be better than the ones in the \emph{Outer Graph}, since it contains more information.
 
 Creating these features naïvely will occur in overfitting, since the features are generated by data that's also used for training the supervised learning models. To solve this, the set $T$ is partitioned into two disjoint sets, $G$ and $H$, where $G$ contains roughly \sfrac{3}{4} of the nodes in $T$ is used to calculate the features, while $H$ contains the other \sfrac{1}{4} and is used to train the models.
 
-For reference purposes, we refer to the features generated in this Subsection as features of \emph{Level 0.5}. Additionally, we can use the method presented in Section~\ref{subsec:higherorderuserdata} generate an \emph{Ego Network of level $n$} of a certain node $v$, and accumulate the adjacent nodes to that network by socioeconomic level before accumulating their data. We refer to these as the features of \emph{Level $n + 0.5$}.
+It's possible to use the method presented in Section~\ref{subsec:higherorderuserdata} generate an \emph{Ego Network of level $n$} of a certain node $v$, and accumulate the adjacent nodes to that network by socioeconomic level before accumulating their data. We refer to the level of these features as $\cat_n$.
