@@ -36,6 +36,7 @@
 \usepackage[export]{adjustbox}
 \usepackage{mathtools}
 \usepackage{microtype}
+\usepackage{fancyhdr}
 
 \usepackage{tikz}
 \usetikzlibrary{shapes}
@@ -100,6 +101,12 @@
 \def\codirector{Carlos Sarraute}
 
 \dedicate{To the time I spent thinking of a dedication to use as a placeholder.}
+
+\renewcommand{\chaptermark}[1]{\markboth{\MakeUppercase{#1}}{}}
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{\leftmark{}}
+\cfoot{\thepage}
 
 \begin{document}
 

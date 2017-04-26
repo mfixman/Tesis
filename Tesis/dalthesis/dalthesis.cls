@@ -265,8 +265,9 @@
 \flushbottom
 \setlength{\marginparwidth}{40pt}
 \setlength{\marginparsep}{10pt}
+\usepackage{fancyhdr} % mine
 \newcommand{\properpagestyle}{%
-   \pagestyle{myheadings}\markboth{}{}\markright{}}
+   \pagestyle{fancy}\markboth{}{}\markright{}} % mine
 \brokenpenalty=10000
 \linespread{1.37}\normalsize
 \renewenvironment{figure}
