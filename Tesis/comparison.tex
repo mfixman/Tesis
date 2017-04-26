@@ -3,11 +3,11 @@
 
 In the following section, we compare the results of the Bayesian method with other classifiers commonly used for this same problem.
 
-This classified creates a proper baseline for other comparisons. These will be used in the dataset $G = \left< V, E \right>$ with the bank data contained in $B^{\train}$, and will be used eihter to provite information about the users contained in $B^{\test}$ (the \emph{Outer Graph}), or the ones in $\Upsilon$ (the \emph{Inner Graph}). Those two sets of features are described with more detail in Section~\ref{subsec:train_test_split} and Section~\ref{subsec:rebalancing_labels}.
+This classified creates a proper baseline for other comparisons. These will be used in the dataset $G = \left< V, E \right>$ with the bank data contained in $B^{\train}$, and will be used eihter to provite information about the users contained in $B^{\test}$ (the \emph{Outer Graph}), or the ones in $\Upsilon$ (the \emph{Inner Graph}). Those two sets of features are described with more detail in \cref{subsec:train_test_split,subsec:rebalancing_labels}.
 
 For simplicity sake, the descriptions of the algorithm will refer to the \emph{Testing Set} as $\Upsilon$ regardless of whether it's using a subset or the data or not.
 
-Table~\ref{tab:comparison} compares the results of these methods with the \emph{Bayesian Algorithm} described in Section~\ref{sec:inference_methodology} along several metrics.
+\Cref{tab:comparison} compares the results of these methods with the \emph{Bayesian Algorithm} described in \cref{sec:inference_methodology} along several metrics.
 
 \section{Random Selection}
 \label{subsec:random_selection}
@@ -27,7 +27,7 @@ For completeness sake we created a random ``dummy'' classifier which randomly ch
 
 The method of \emph{Majority Voting} is a basic but powerful way of inferring to which category a user belongs. It simply chooses the category of each user $\upsilon \in \Upsilon$ as the category for which the majority of its contacts belong.
 
-In case of a tie (which happens often when using the \emph{Outer Graph}), the category is chosen randomly. Theis approach can be formalized as in Equation~\ref{eq:majority_voting}.
+In case of a tie (which happens often when using the \emph{Outer Graph}), the category is chosen randomly. Theis approach can be formalized as in \cref{eq:majority_voting}.
 
 \begin{equation}
 \label{eq:majority_voting}
@@ -42,13 +42,13 @@ In case of a tie (which happens often when using the \emph{Outer Graph}), the ca
 \section{Methods Based in Machine Learning}
 \label{subsec:methods_ml}
 
-The following methods use commonly used supervised Machine Learning algorithms described in Section~\ref{subsec:supervised_machine_learning} used with many similar \emph{Feature Extraction} methods on $G$.
+The following methods use commonly used supervised Machine Learning algorithms described in \cref{subsec:supervised_machine_learning} used with many similar \emph{Feature Extraction} methods on $G$.
 
-The initial feature extraction method, \emph{User Data}, which is described in Section~\ref{subsec:user_data} and marked as $\ego_0$, consists of accumulating the total information about the links neighbouring some user $v \in V$. Later, as shown in Section~\ref{subsec:higherorderuserdata}, it's possible to accumulate links from more levels of the \emph{Ego Network} to create featuresets that be used to build a better prediction of the data.
+The initial feature extraction method, \emph{User Data}, which is described in \cref{subsec:user_data} and marked as $\ego_0$, consists of accumulating the total information about the links neighbouring some user $v \in V$. Later, as shown in \cref{subsec:higherorderuserdata}, it's possible to accumulate links from more levels of the \emph{Ego Network} to create featuresets that be used to build a better prediction of the data.
 
-An extra method for feature extraction is presented in Section~\ref{subsec:categoricaluserdata}, which in addition to doing the extraction of other methods it accumulates separately edges that go to \emph{High Income} and \emph{Low Income} users.
+An extra method for feature extraction is presented in \cref{subsec:categoricaluserdata}, which in addition to doing the extraction of other methods it accumulates separately edges that go to \emph{High Income} and \emph{Low Income} users.
 
-The features of each method are merged with the ones from the immediate predecessor methods, as shown in the graph in Figure~\ref{fig:mlrelationships}.
+The features of each method are merged with the ones from the immediate predecessor methods, as shown in the graph in \cref{fig:mlrelationships}.
 
 \begin{figure}
 \centering
@@ -57,11 +57,11 @@ The features of each method are merged with the ones from the immediate predeces
 		\input{figures/mlrelationships.tikz}
 	}
 }
-\caption{Relationships between the \emph{Feature Extraction} methods of Section~\ref{subsec:methods_ml}. \textcolor{Blue}{blue} edges represent a raise in \emph{Ego Network} size, a process which is describe in Section~\ref{subsec:higherorderuserdata}, while \textcolor{ForestGreen}{green} edges represent adding label information, which is described in Section~\ref{subsec:categoricaluserdata}}
+\caption{Relationships between the \emph{Feature Extraction} methods of \cref{subsec:methods_ml}. \textcolor{Blue}{blue} edges represent a raise in \emph{Ego Network} size, a process which is describe in \cref{subsec:higherorderuserdata}, while \textcolor{ForestGreen}{green} edges represent adding label information, which is described in \cref{subsec:categoricaluserdata}}
 \label{fig:mlrelationships}
 \end{figure}
 
-The amount of features in each level is described in Table~\ref{tab:datasettable}.
+The amount of features in each level is described in \cref{tab:datasettable}.
 
 \begin{table}
 \centering
@@ -84,9 +84,9 @@ $\cat_2$ & \num{72} \\
 \section{User Data --- Level $\ego_0$}
 \label{subsec:user_data}
 
-The features on the graph $G = \left< V, E \right>$ can be accumulated for all users in a manner similar to the one in Section~\ref{subsec:feature_accumulation} using the data generated in Equation~\ref{eq:graphconstruction}. However, this time we aren't constrained either by having only users which have contacts with other users with known \emph{Income Category}, nor with having to have only two features for each category (which was necessary due to using the \emph{Beta Distribution}).
+The features on the graph $G = \left< V, E \right>$ can be accumulated for all users in a manner similar to the one in \cref{subsec:feature_accumulation} using the data generated in \cref{eq:graphconstruction}. However, this time we aren't constrained either by having only users which have contacts with other users with known \emph{Income Category}, nor with having to have only two features for each category (which was necessary due to using the \emph{Beta Distribution}).
 
-This way, it's possible to accumulate features for each user $v \in V$ in the manner shown by Equation~\ref{eq:user_data}.
+This way, it's possible to accumulate features for each user $v \in V$ in the manner shown by \cref{eq:user_data}.
 
 \begin{equation}
 \label{eq:user_data}
@@ -108,7 +108,7 @@ This way, it's possible to accumulate features for each user $v \in V$ in the ma
 
 These features will be referred as the \emph{User Data} of user $v$.
 
-There features contain information about the \emph{Neighbourhood} of $\upsilon$, also referred to as the \emph{Ego Network of Distance 1}. This \emph{Neighbourhood} can be formally defined as in Equation~\ref{eq:neighbourhood}.
+There features contain information about the \emph{Neighbourhood} of $\upsilon$, also referred to as the \emph{Ego Network of Distance 1}. This \emph{Neighbourhood} can be formally defined as in \cref{eq:neighbourhood}.
 
 \begin{equation}
 \label{eq:neighbourhood}
@@ -130,7 +130,7 @@ A possible featureset consists of using of separating the data of the neighbourh
 \end{aligned}
 \end{equation}
 
-Having these groups it's possible to define a set of features similar to the one in Section~\ref{subsec:user_data}, where each feature is separated by the category of the neighbour. Equation~\ref{eq:matcatuserdata} contains the names of the new features.
+Having these groups it's possible to define a set of features similar to the one in \cref{subsec:user_data}, where each feature is separated by the category of the neighbour. \Cref{eq:matcatuserdata} contains the names of the new features.
 
 \begin{equation}
 \label{eq:matcatuserdata}
@@ -141,7 +141,7 @@ Having these groups it's possible to define a set of features similar to the one
 	\begin{Bmatrix} low \\ high \end{Bmatrix}
 \end{equation}
 
-Equations~\ref{eq:categoricaluserdata} and~\ref{eq:categoricaluserdata2} contain the way to calculate those features. Since the number of individual features is high and the formulas are similar and repetitive, some generalizations were added for the simplest ones.
+\Cref{eq:categoricaluserdata,eq:categoricaluserdata2} contain the way to calculate those features. Since the number of individual features is high and the formulas are similar and repetitive, some generalizations were added for the simplest ones.
 
 \begin{equation}
 \label{eq:categoricaluserdata}
@@ -166,14 +166,14 @@ Equations~\ref{eq:categoricaluserdata} and~\ref{eq:categoricaluserdata2} contain
 \end{aligned}
 \end{equation}
 
-Unlike the features in Section~\ref{subsec:user_data}, and like the method presented in Section~\ref{sec:inference_methodology}, the features in this section will be be different when testing between the nodes of $B_{\test}$ (the \emph{Outer Graph}) and $\Upsilon$ (the \emph{Inner Graph}).
+Unlike the features in \cref{subsec:user_data}, and like the method presented in \cref{sec:inference_methodology}, the features in this section will be be different when testing between the nodes of $B_{\test}$ (the \emph{Outer Graph}) and $\Upsilon$ (the \emph{Inner Graph}).
 
 \section{Higher Order User Data --- Level $\ego_{n > 0}$}
 \label{subsec:higherorderuserdata}
 
-The features described in Section~\ref{subsec:user_data} correspond to the information about calls and SMS from an user $\upsilon \in \Upsilon$ towards all of its neighbours, which is described as the \emph{Ego Network of Distance 1}. However, there's no reason why this information can't be extended to other nodes at a higher distance from $\upsilon$.
+The features described in \cref{subsec:user_data} correspond to the information about calls and SMS from an user $\upsilon \in \Upsilon$ towards all of its neighbours, which is described as the \emph{Ego Network of Distance 1}. However, there's no reason why this information can't be extended to other nodes at a higher distance from $\upsilon$.
 
-If the distance between two nodes is defined using the intuitive definition presented in Equation~\ref{eq:distance}, it's possible to define the \emph{User Data of Order $n$} for any number $n \in \mathbb{N}$ as the accumulation of calls and SMS where one endpoint is on the border of the \emph{Ego Network of Order $n$} and the other one isn't. The \emph{Ego Network of Order $n$} or a certain node $\upsilon$ is the subgraph composed of the node $\upsilon$ and all the nodes which are at at most distance $n$ of $\upsilon$.
+If the distance between two nodes is defined using the intuitive definition presented in \cref{eq:distance}, it's possible to define the \emph{User Data of Order $n$} for any number $n \in \mathbb{N}$ as the accumulation of calls and SMS where one endpoint is on the border of the \emph{Ego Network of Order $n$} and the other one isn't. The \emph{Ego Network of Order $n$} or a certain node $\upsilon$ is the subgraph composed of the node $\upsilon$ and all the nodes which are at at most distance $n$ of $\upsilon$.
 
 \begin{equation}
 d \left( a, b \right) =
@@ -184,7 +184,7 @@ d \left( a, b \right) =
 \label{eq:distance}
 \end{equation}
 
-This definition can be seen more intuitively in the graph in Figure~\ref{fig:higherorderuserdata}.
+This definition can be seen more intuitively in the graph in \cref{fig:higherorderuserdata}.
 
 \begin{figure}
 \centering
@@ -197,13 +197,13 @@ This definition can be seen more intuitively in the graph in Figure~\ref{fig:hig
 
 \section{Machine Learning}
 
-All the feature sets described in the previous sections are individually going to be used as the input objects of the \emph{Training Data} and either the \emph{Outer Graph} $B^{\test}$ or the \emph{Inner Graph} $\Upsilon$ will be used as the output with several \emph{Supervised Machine Learning} methods. The result of these methods will be measured using many metrics of the results, described in Section~\ref{subsec:mlmetrics}, and compared against other methods (including the Bayesian Algorithm of Section~\ref{sec:inference_methodology}) in Table~\ref{tab:comparison}.
+All the feature sets described in the previous sections are individually going to be used as the input objects of the \emph{Training Data} and either the \emph{Outer Graph} $B^{\test}$ or the \emph{Inner Graph} $\Upsilon$ will be used as the output with several \emph{Supervised Machine Learning} methods. The result of these methods will be measured using many metrics of the results, described in \cref{subsec:mlmetrics}, and compared against other methods (including the Bayesian Algorithm of \cref{sec:inference_methodology}) in \cref{tab:comparison}.
 
 To prevent the problem of \emph{Overfitting} the results are generated by using \emph{Cross-Validated} estimates of the data using \emph{K-Folds} with $K = 5$. This way, each quintile of the data is predicted using only data from the other four.
 
 The two methods used in this thesis, \emph{Logistic Regression} and \emph{Random Forest} tend to have different variance in the results~\cite{ting2016}, therefore different sources of errors may end up decreasing the models accuracy in different ways. This is a good for our model, since it means that a single source of errors has less probabilities of affecting either predictor.
 
-These \emph{Machine Learning} methods used in this section contain many hyperparameters which may affect the result, and calculated them isn't trivial. For this reason this experiment includes a \emph{Grid Search}\maybe{Add this to the theory} of the data against all possible hyperparameters. The resulting hyperparameters of the \emph{Grid Search} are presented in Table~\ref{tab:gridsearch}.
+These \emph{Machine Learning} methods used in this section contain many hyperparameters which may affect the result, and calculated them isn't trivial. For this reason this experiment includes a \emph{Grid Search}\maybe{Add this to the theory} of the data against all possible hyperparameters. The resulting hyperparameters of the \emph{Grid Search} are presented in \cref{tab:gridsearch}.
 
 \begin{table}
 \centering
@@ -235,9 +235,9 @@ These \emph{Machine Learning} methods used in this section contain many hyperpar
 
 \subsection{Logistic Regression}
 
-The method of \emph{Logistic Regression}, which is described with more detail in Section~\ref{subsec:logisticregression}, consists of doing some regression analysis with the data after applying some \emph{Logistic Function} to normalize the data.
+The method of \emph{Logistic Regression}, which is described with more detail in \cref{subsec:logisticregression}, consists of doing some regression analysis with the data after applying some \emph{Logistic Function} to normalize the data.
 
-The most important hyperparameter of this data is the \emph{Regularization Factor} $C$, which specifies the regularization of the input. As shown in Equation~\ref{eq:gridsearchlogreg}, this value is searched in exponential increments.
+The most important hyperparameter of this data is the \emph{Regularization Factor} $C$, which specifies the regularization of the input. As shown in \cref{eq:gridsearchlogreg}, this value is searched in exponential increments.
 
 \begin{equation}
 \label{eq:gridsearchlogreg}
@@ -248,9 +248,9 @@ Since the different datum aren't linearly distributed, the input is \emph{Standa
 
 \subsection{Random Forest}
 
-The method of \emph{Random Forest}, which is described with more detain in Section~\ref{subsec:randomforest}, consists of constructing a multitude of \emph{Decision Trees} and outputting the class that is the \emph{mode} of the classes.
+The method of \emph{Random Forest}, which is described with more detain in \cref{subsec:randomforest}, consists of constructing a multitude of \emph{Decision Trees} and outputting the class that is the \emph{mode} of the classes.
 
-There are several hyperparameters used in this method, namely the \emph{Criterion} to measure the quality of a split (\emph{Gini} uses Gini impurity, while \emph{entropy} uses information gain), the function of the amount of features $f$ used to calculate the \emph{Sample Size}, and whether the samples are taken with or without \emph{Replacement}. This is formalized in Equation~\ref{eq:gridsearchrandomforest}.
+There are several hyperparameters used in this method, namely the \emph{Criterion} to measure the quality of a split (\emph{Gini} uses Gini impurity, while \emph{entropy} uses information gain), the function of the amount of features $f$ used to calculate the \emph{Sample Size}, and whether the samples are taken with or without \emph{Replacement}. This is formalized in \cref{eq:gridsearchrandomforest}.
 
 Another possible hyperparameter would be the number of trees. However, it's been shown in~\cite{breiman2001random} that \emph{Random Forests} converge quickly for a high amount of trees, and since the objective of this section isn't to optimize by time, the value will be set to the sufficiently high $\text{\texttt{n\_estimators}} = 50$.
 
@@ -268,19 +268,19 @@ Another possible hyperparameter would be the number of trees. However, it's been
 There are several validation metrics used for each method.
 
 \begin{description}
-	\item[Accuracy] as described in Subsection~\ref{subsec:accuracy}, which measures the general performance of this method.
-	\item[Precision] as described in Subsection~\ref{subsec:precisionrecall}, which measures the performance regarding the positive instances found by this method.
-	\item[Recall] as described in Subsection~\ref{subsec:precisionrecall}, which measures the performance regarding the positive instances in the dataset.
-	\item[Area Under the Curve] as described in Subsection~\ref{subsec:auc}, which measures the general performance disregarding which threshold is used.
-	\item[$\mathbf{F_1}$ Score] as described in Subsection~\ref{subsec:fmeasure} which is generalized score balancing Precision and Recall.
-	\item[$\mathbf{F_4}$ Score] as described in Subsection~\ref{subsec:fmeasure}, which gives more weight to the Recall. This is usually wanted since the ultimate practical objective of this study is to find wealthier people, even if the result has low Precision.
+	\item[Accuracy] as described in \cref{subsec:accuracy}, which measures the general performance of this method.
+	\item[Precision] as described in \cref{subsec:precisionrecall}, which measures the performance regarding the positive instances found by this method.
+	\item[Recall] as described in \cref{subsec:precisionrecall}, which measures the performance regarding the positive instances in the dataset.
+	\item[Area Under the Curve] as described in \cref{subsec:auc}, which measures the general performance disregarding which threshold is used.
+	\item[$\mathbf{F_1}$ Score] as described in \cref{subsec:fmeasure} which is generalized score balancing Precision and Recall.
+	\item[$\mathbf{F_4}$ Score] as described in \cref{subsec:fmeasure}, which gives more weight to the Recall. This is usually wanted since the ultimate practical objective of this study is to find wealthier people, even if the result has low Precision.
 	\item[Fit Time] is the time it takes to fit a model. It's particularly high in ensemble methods such as \emph{Random Forest}.
 	\item[Predict Time] can be used to break ties between similar models.
 \end{description}
 
 \section{Results}
 
-Table~\ref{tab:comparison} shows various metrics which result from applying the methods described in this Section to the datasets presented in this thesis, after using the best hyperparameters shown in Table~\ref{tab:gridsearch} and applying 5-fold \emph{Cross Validation} to prevent \emph{Overfitting}. This result is compared to the \emph{Bayesian Algorithm} presented in Section~\ref{sec:inference_methodology}.
+\Cref{tab:comparison} shows various metrics which result from applying the methods described in this Section to the datasets presented in this thesis, after using the best hyperparameters shown in \cref{tab:gridsearch} and applying 5-fold \emph{Cross Validation} to prevent \emph{Overfitting}. This result is compared to the \emph{Bayesian Algorithm} presented in \cref{sec:inference_methodology}.
 
 By comparing the methods based in \emph{Machine Learning} we can reach a conclusion consistent with~\cite{muchlinski2016}, where the methods based in \emph{Random Forest} tend to perform better in real-world scenarios than the ones based in \emph{Logistic Regression}.
 
@@ -289,12 +289,12 @@ Increasing the breadth of the \emph{Ego Network} by one level slightly improves 
 \footnotetext[1]{Compare the rows of $\ego_0$ to the ones with $\ego_1$}
 \footnotetext[2]{Compare the rows of $\ego_1$ to the ones with $\ego_2$}
 
-Additionally, adding categorical information to the feature extraction as in Section~\ref{subsec:categoricaluserdata} to the \emph{Ego Network} of distance 1 and distance 2\footnotemark[3]{} results in the greatest improvement in most metrics. These improvements don't hold up when going one level further in the \emph{Ego Network}, as can be seen that the rows referring to the accumulated categorical data on that level has lower metrics than the previous one\footnotemark[4]{}. We hypothesize with strong certainty that the metrics will keep decreasing when adding more levels to the \emph{Ego Network}.
+Additionally, adding categorical information to the feature extraction as in \cref{subsec:categoricaluserdata} to the \emph{Ego Network} of distance 1 and distance 2\footnotemark[3]{} results in the greatest improvement in most metrics. These improvements don't hold up when going one level further in the \emph{Ego Network}, as can be seen that the rows referring to the accumulated categorical data on that level has lower metrics than the previous one\footnotemark[4]{}. We hypothesize with strong certainty that the metrics will keep decreasing when adding more levels to the \emph{Ego Network}.
 
 \footnotetext[3]{Compare the rows of $\cat_0$ to the ones with $\cat_1$}
 \footnotetext[4]{Compare the rows of $\cat_1$ to the ones with $\cat_2$}
 
-These results show that, when using the data from the labelled users $\Upsilon$, the \emph{Bayesian Algorithm} presented in Section~\ref{sec:inference_methodology} has a significantly higher \emph{Area Under the Curve} than both the naïve algorithms and the ones based in \emph{Machine Learning}. This, in addition to the fact that making a prediction in the algorithm is faster than fitting the \emph{Random Forest} methods (which give the best metrics for the \emph{Machine Learning} ones), and that the amount of data needed for running the algorithm is much lower (2 columns vs.\ the amounts shown in Table~\ref{tab:datasettable}) and much simpler to construct, makes it more suitable for production than any of the more ``common'' methods.
+These results show that, when using the data from the labelled users $\Upsilon$, the \emph{Bayesian Algorithm} presented in \cref{sec:inference_methodology} has a significantly higher \emph{Area Under the Curve} than both the naïve algorithms and the ones based in \emph{Machine Learning}. This, in addition to the fact that making a prediction in the algorithm is faster than fitting the \emph{Random Forest} methods (which give the best metrics for the \emph{Machine Learning} ones), and that the amount of data needed for running the algorithm is much lower (2 columns vs.\ the amounts shown in \cref{tab:datasettable}) and much simpler to construct, makes it more suitable for production than any of the more ``common'' methods.
 
 \begin{table}
 \centering
@@ -361,6 +361,6 @@ These results show that, when using the data from the labelled users $\Upsilon$,
 && $\cat_2$ & 0.614 & 0.635 & 0.534 & 0.614 & 0.580 & 0.539 & \SI{50.589}{\second}  & \SI{3.484}{\second} \\
 \bottomrule
 \end{tabular}
-\caption{Resulting metrics of different methods used in Section~\ref{sec:results} and Section~\ref{sec:comparison} tested on both the \emph{Inner Graph} $\Upsilon$, which contains only nodes which have at least one neighbour with socioeconomic information, and the \emph{Outer Graph} $B^{\test}$, which includes all nodes. \textbf{Bolded} items represent the highest value for each metric. The \emph{Bayesian Algorithm} is run with the best parameters found in Section~\ref{subsec:performance_evaluation}, with $\varpi = \contacts$, $\Theta = 0.394$, and $\tau = 0.514$}
+\caption{Resulting metrics of different methods used in \cref{sec:results,sec:comparison} tested on both the \emph{Inner Graph} $\Upsilon$, which contains only nodes which have at least one neighbour with socioeconomic information, and the \emph{Outer Graph} $B^{\test}$, which includes all nodes. \textbf{Bolded} items represent the highest value for each metric. The \emph{Bayesian Algorithm} is run with the best parameters found in \cref{subsec:performance_evaluation}, with $\varpi = \contacts$, $\Theta = 0.394$, and $\tau = 0.514$}
 \label{tab:comparison}
 \end{table}

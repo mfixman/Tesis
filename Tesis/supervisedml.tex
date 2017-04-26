@@ -7,7 +7,7 @@ Models are separated into two different groups depending on how they describe th
 
 \begin{description}
 	\item[Continuous Models] take a matrix $X \in \mathbb{R}^{n \times f}$ and a vector $y \in \mathbb{R}^n$ of the same height where each element represents the features corresponding to some user and its real value, respectively. Its accuracy is measured according to some function of the result of the regression $\ypred$ and $\ytrue = y$.
-	\item[Categorical Models] take a matrix $X \in \mathbb{R}^{n \times f}$ and a vector $y \in \mathbb{S}^n$, for some set of \emph{Categories} $\mathbb{S}$, and predicts the correct category each of the users in $y$ belongs to. Its accuracy is measured according to several metrics which are explained in Section~\ref{subsec:mlmetrics}.
+	\item[Categorical Models] take a matrix $X \in \mathbb{R}^{n \times f}$ and a vector $y \in \mathbb{S}^n$, for some set of \emph{Categories} $\mathbb{S}$, and predicts the correct category each of the users in $y$ belongs to. Its accuracy is measured according to several metrics which are explained in \cref{subsec:mlmetrics}.
 \end{description}
 
 \subsection{Linear Regression}
@@ -17,7 +17,7 @@ A \emph{Linear Regression} is an approach for modeling the relationship between 
 
 The regression assumes that the relationship between the sum of some linear combination of the elements of $X$ and $y$ is itself linear. This combination is represented by the variable $\beta$, and the relationship is represented through an unobserved random vector $\varepsilon$ as the \emph{Error Term}.
 
-The model takes the form of Equation~\ref{eq:linearregression}.
+The model takes the form of \cref{eq:linearregression}.
 
 \begin{gather}
 	y = X \beta + \varepsilon \label{eq:linearregression} \\
@@ -59,23 +59,23 @@ There are many ways of effectively calculating the optimal \emph{Lineal Regressi
 
 Where $\hat{\beta}^T = \left( b_0, b_1, \dots, b_{k - 1} \right)$, a k-dimensional vector of the estimations of the regression coefficients.
 
-Assuming $\left( X^T X \right)$ is a non-singular matrix, the \emph{Least Squares Estimation} of $\beta$ can for the model in Equation~\ref{eq:linearregression} can be found from Equation~\ref{eq:linearsquares}~\cite{yan2009linear}.
+Assuming $\left( X^T X \right)$ is a non-singular matrix, the \emph{Least Squares Estimation} of $\beta$ can for the model in \cref{eq:linearregression} can be found from \cref{eq:linearsquares}~\cite{yan2009linear}.
 
 \begin{equation}
 \label{eq:linearsquares}
 	\hat{\beta} = {\left( X^T X \right)}^{-1} X^T y
 \end{equation}
 
-Additionally, Equation~\ref{eq:linearsquares} presents an unbiased estimator of $\beta$~\cite{yan2009linear}.
+Additionally, \cref{eq:linearsquares} presents an unbiased estimator of $\beta$~\cite{yan2009linear}.
 
 \subsection{Logistic Regression}
 \label{subsec:logisticregression}
 
 The \emph{Logistic Regression}, also referred to as the \emph{Logit Model}~\cite{freedman2009statistical} is a regression model similar to the \emph{Linear Regression}, with the particularity that the \emph{Dependent Variable} $y$ is categorical. While it's possible to calculate the variable for sets of categories of several finite sizes (when it's referred to as a \emph{Multinomial Logistic Regression}~\cite{greene_econometric_2011}) or even for ordered sets of categories (an \emph{Ordinal Logistic Regression}~\cite{mccullagh1980ordinal}), this thesis will focus on the case where $y \in {\left\{ 0, 1 \right\}}^n$, that is, each variable in $y$ is binary.
 
-The model uses the results of a \emph{Linear Regression} on the data $\left< X, y \right>$, where coefficients that solve Equation~\ref{eq:linearregression} are found. The result of that regression is a real value, which is normalized using a function $f : \mathbb{R} \rightarrow \left[ 0, 1 \right]$, whose result is considered the probability that the result of some element is $1$.
+The model uses the results of a \emph{Linear Regression} on the data $\left< X, y \right>$, where coefficients that solve \cref{eq:linearregression} are found. The result of that regression is a real value, which is normalized using a function $f : \mathbb{R} \rightarrow \left[ 0, 1 \right]$, whose result is considered the probability that the result of some element is $1$.
 
-A commonly used function for $f$ is the \emph{Logistic Function} $\sigma : \mathbb{R} \rightarrow \left[ 0, 1 \right]$, defined in Equation~\ref{eq:logisticfunction} and plot in Figure~\ref{fig:sigmoid}.
+A commonly used function for $f$ is the \emph{Logistic Function} $\sigma : \mathbb{R} \rightarrow \left[ 0, 1 \right]$, defined in \cref{eq:logisticfunction} and plot in \cref{fig:sigmoid}.
 
 \begin{equation}
 \label{eq:logisticfunction}
@@ -84,12 +84,12 @@ A commonly used function for $f$ is the \emph{Logistic Function} $\sigma : \math
 
 \begin{figure}
 \centering
-\includegraphics[width=.75\textwidth]{figures/sigmoid.png}
+\includegraphics[height=.33\textheight]{figures/sigmoid.png}
 \caption{The standard logistic sigmoid function $y = \sigma(x)$}
 \label{fig:sigmoid}
 \end{figure}
 
-This probability is used for estimating the value of $y$, namely as defined in Equation~\ref{eq:probit}.
+This probability is used for estimating the value of $y$, namely as defined in \cref{eq:probit}.
 
 \begin{equation}
 \label{eq:probit}
@@ -106,14 +106,14 @@ The inverse of the \emph{Logistic Function}, referred to as the \emph{Logit Func
 	\logit \left( x \right) = \log \left( \frac{\sigma \left( x \right)}{1 - \sigma \left( x \right)} \right)
 \end{equation}
 
-The logit model says that the vector $y$ is independent given the matrix $X$~\cite{freedman2009statistical}, and can be considered as inverse of the probability defined in Equation~\ref{eq:probit}.
+The logit model says that the vector $y$ is independent given the matrix $X$~\cite{freedman2009statistical}, and can be considered as inverse of the probability defined in \cref{eq:probit}.
 
 \begin{equation}
 \label{eq:prob_logit}
 	\logit P \left( y_i = 1 \mid X \right) = X_i \beta
 \end{equation}
 
-The regression is usually calculated using \emph{Maximum Likelihood Estimation}~\cite{fan2008liblinear} and, unlike the estimation of the \emph{Linear Regression} presented in Section~\ref{subsec:linearregression}, it's not possible to find a closed form expression of the coefficients that maximize the value of the likelihood function. Instead, the iterative \emph{Newton's Method} is used.
+The regression is usually calculated using \emph{Maximum Likelihood Estimation}~\cite{fan2008liblinear} and, unlike the estimation of the \emph{Linear Regression} presented in \cref{subsec:linearregression}, it's not possible to find a closed form expression of the coefficients that maximize the value of the likelihood function. Instead, the iterative \emph{Newton's Method} is used.
 
 The exact formulas used to ensure fast and correct conversed used in this thesis are the ones present in \texttt{LIBLINEAR}, which is presented in~\cite{hsiastudy}.
 

@@ -16,7 +16,7 @@ Given that our collections $P$ and $S$ of CDRs are coming from one telephone com
 
 The \emph{Communications Graph} $G = \left< V, E \right>$ is composed of he set of nodes $V = P_o \cup P_d \cup S_o \cup S_d$, and the set of directed edges $E$, where each element $e \in E$ is composed of an origin and destination $\left< e_o, e_d \right>$, the total amount of calls between these two users $e_c$, the total time of all calls $e_t$, and the amount of SMS $e_s$. Unlike the multisets $P$ and $S$, there is at most one element per every pair $\left< e_o, e_d \right>$ (althrough there may be two distinct elements with those values flipped).
 
-The set $E$ can be formally constructed with the instructions of the Equation~\ref{eq:graphconstruction}.
+The set $E$ can be formally constructed with the instructions of the \cref{eq:graphconstruction}.
 
 \begin{equation}
 \begin{gathered}
@@ -39,7 +39,7 @@ For simplicity sake, this paper will also refer to the elements of these three s
 
 As a corollary, $G_N$ can be defined as the graph $\left< N, E_N \right>$, where $E_N$ contains only calls between users of the telco, and $G'$ as $\left< V', E' \right>$, where $E'$ contains the calls from and to users whose calls are located.
 
-The amount of each data contained in the dataset is described in Figure~\ref{tab:datasetnumbers}.
+The amount of each data contained in the dataset is described in \cref{tab:datasetnumbers}, while this form of graph can be seen in \cref{fig:outcalls_dist,fig:outcontacts_dist}. 
 
 \begin{table}
 \centering
@@ -57,8 +57,6 @@ Contacts & \num{249011358} & \num{110074848} & \\
 \caption{Magnitudes of data about the different datasets.}
 \label{tab:datasetnumbers}
 \end{table}
-
-This form of graph can be seen in Figure~\ref{fig:outcalls_dist} and Figure~\ref{fig:outcontacts_dist}.
 
 \begin{figure}
 \centering
@@ -86,9 +84,9 @@ Both the amount of calls and the amount of contacts per user are distrubuted rou
 \section{Banking Information}
 \label{subsec:bank_source}
 
-For this study we also obtained the set $B$ of account balanced of over 10 million clients of a certain bank for a period of 6 months, which finishes at the same date as the period used in Section~\ref{subsec:mobiledatasource}. This dataset is represented by the set $B$, and each client $b \in B$ contains the phone number $b_p$, anonymized with the same hash as the datasets in the previous section, along with the reported income of this person in over 6 months $b_{s_0}, \ldots, b_{s_5}$. We average these 6 values to obtain $b_s$, the estimate of each users' monthly income.
+For this study we also obtained the set $B$ of account balanced of over 10 million clients of a certain bank for a period of 6 months, which finishes at the same date as the period used in \cref{subsec:mobiledatasource}. This dataset is represented by the set $B$, and each client $b \in B$ contains the phone number $b_p$, anonymized with the same hash as the datasets in the previous section, along with the reported income of this person in over 6 months $b_{s_0}, \ldots, b_{s_5}$. We average these 6 values to obtain $b_s$, the estimate of each users' monthly income.
 
-The bank also provided us demographic information for a subset of its clients $A \subseteq B$. For each user $a \in A$, we are given the age $a_a$ and the gender $a_g$ of the user, which allows us to observe differences in the income distribution according to the age. The distribution is shown in Figure~\ref{fig:gender_age_bar}, 
+The bank also provided us demographic information for a subset of its clients $A \subseteq B$. For each user $a \in A$, we are given the age $a_a$ and the gender $a_g$ of the user, which allows us to observe differences in the income distribution according to the age. The distribution is shown in \cref{fig:gender_age_bar}, 
 
 \begin{figure}
 \centering
@@ -97,7 +95,7 @@ The bank also provided us demographic information for a subset of its clients $A
 \label{fig:gender_age_bar}
 \end{figure}
 
-The demographic data can be easily combined with the income data to show income by age, as figured in Figure~\ref{fig:income_age_boxplot}. The data shows how the median income increases with age up to the age of retirement, at around 60--65 years, and later it rapidly decreases.
+The demographic data can be easily combined with the income data to show income by age, as figured in \cref{fig:income_age_boxplot}. The data shows how the median income increases with age up to the age of retirement, at around 60--65 years, and later it rapidly decreases.
 
 In another line of work, homophily with respect to age has been observed and used to generate inferences~\cite{brea2014}.
 
@@ -108,7 +106,7 @@ In another line of work, homophily with respect to age has been observed and use
 \label{fig:income_age_boxplot}
 \end{figure}
 
-The income distribution, as shown in \Cref{fig:incomedistribution} presents a similar distribution to the values in the dataset presented in~\Cref{subsec:telco_magnitude}\maybe{Check this}.
+The income distribution, as shown in \cref{fig:incomedistribution} presents a similar distribution to the values in the dataset presented in \cref{subsec:telco_magnitude}.
 
 \begin{figure}
 \centering
@@ -132,7 +130,7 @@ e_d = b_p \implies e_{\operatorname{sd}} = b_s \\
 \end{gathered}
 \end{equation}
 
-The distribution of bank users in $S$ is similar to the one in $B$, as shown in~\Cref{fig:matchdistribution}. This demostrates that the users of this particular telco have mostly the same socioeconomic patterns as the clients of the bank in general.
+The distribution of bank users in $S$ is similar to the one in $B$, as shown in \cref{fig:matchdistribution}. This demostrates that the users of this particular telco have mostly the same socioeconomic patterns as the clients of the bank in general.
 
 \begin{figure}
 \centering
@@ -170,6 +168,6 @@ From the Lorenz curve, we can compute the Gini coefficient as the area that lies
 
 According to the World Bank~\cite{world_bank}, the Gini coefficient for the population of the country where the data used on this thesis belongs was $0.481$ in 2012. Our result is consistent with this information, since the income inequality is expected to be lower when accounting only to bank clients than within the whole population of the country.
 
-By simple analyzing \Cref{fig:incomedistribution}, we can reach the conclusion that thet income in this country is very unequally distributed. In particular, the top 1\% of the population get about 10\% of the total income, while the top 5\% get 25\%, the top 10\% 37\%, and the top 25\% get 61\%.
+By simple analyzing \cref{fig:incomedistribution}, we can reach the conclusion that thet income in this country is very unequally distributed. In particular, the top 1\% of the population get about 10\% of the total income, while the top 5\% get 25\%, the top 10\% 37\%, and the top 25\% get 61\%.
 
-Analyzing \Cref{fig:incomedistribution}, we can observe that the top 10\% of the clients accumulate 33\% of the total income, while the top 20\% accumulate 50.5\% and the top 30\% accumulate 63.1\%; the rest of the income is distributed among the remaining 70\% of the population.
+Analyzing \cref{fig:incomedistribution}, we can observe that the top 10\% of the clients accumulate 33\% of the total income, while the top 20\% accumulate 50.5\% and the top 30\% accumulate 63.1\%; the rest of the income is distributed among the remaining 70\% of the population.
