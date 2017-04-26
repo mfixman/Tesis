@@ -86,7 +86,7 @@ Both the amount of calls and the amount of contacts per user are distrubuted rou
 \section{Banking Information}
 \label{subsec:bank_source}
 
-For this study we also obtained the set $B$ of account balanced of over 10 million clients of a bank in Mexico for a period of 6 months, which finishes at the same date as the period used in Section~\ref{subsec:mobiledatasource}. This dataset is represented by the set $B$, and each client $b \in B$ contains the phone number $b_p$, anonymized with the same hash as the datasets in the previous section, along with the reported income of this person in over 6 months $b_{s_0}, \ldots, b_{s_5}$. We average these 6 values to obtain $b_s$, the estimate of each users' monthly income.
+For this study we also obtained the set $B$ of account balanced of over 10 million clients of a certain bank for a period of 6 months, which finishes at the same date as the period used in Section~\ref{subsec:mobiledatasource}. This dataset is represented by the set $B$, and each client $b \in B$ contains the phone number $b_p$, anonymized with the same hash as the datasets in the previous section, along with the reported income of this person in over 6 months $b_{s_0}, \ldots, b_{s_5}$. We average these 6 values to obtain $b_s$, the estimate of each users' monthly income.
 
 The bank also provided us demographic information for a subset of its clients $A \subseteq B$. For each user $a \in A$, we are given the age $a_a$ and the gender $a_g$ of the user, which allows us to observe differences in the income distribution according to the age. The distribution is shown in Figure~\ref{fig:gender_age_bar}, 
 
@@ -104,7 +104,7 @@ In another line of work, homophily with respect to age has been observed and use
 \begin{figure}
 \centering
 \includegraphicsmaybe{figures/income_age_boxplot4/income_age_boxplot4.png}
-\caption{Distribution of income $a_s$ as a factor of age $a_a$. This is consistent with data from median house income in Mexico~\cite{gallup2013}.}
+\caption{Distribution of income $a_s$ as a factor of age $a_a$. This is consistent with real-world data from the country where the data for this thesis comes from.}
 \label{fig:income_age_boxplot}
 \end{figure}
 
@@ -168,20 +168,8 @@ We provide here some observations of the distribution of income of the bank clie
 
 From the Lorenz curve, we can compute the Gini coefficient as the area that lies between the line of perfect equality and the Lorenz curve over the total area under the line of equality. The data presents a coefficient of $\operatorname{Gini} = 0.45$.
 
-According to the World Bank~\cite{world_bank}, the Gini coefficient for the whole population of Mexico was $0.481$ in 2012. Our result is consistent with this information, since the income inequality is expected to be lower when accounting only to bank clients than within the whole population of the country.
+According to the World Bank~\cite{world_bank}, the Gini coefficient for the population of the country where the data used on this thesis belongs was $0.481$ in 2012. Our result is consistent with this information, since the income inequality is expected to be lower when accounting only to bank clients than within the whole population of the country.
 
-By simple analyzing \Cref{fig:incomedistribution}, we can reach the conclusion that thet income in Mexico is very unequally distributed. In particular, the top 1\% of the population get about 10\% of the total income, while the top 5\% get 25\%, the top 10\% 37\%, and the top 25\% get 61\%.
+By simple analyzing \Cref{fig:incomedistribution}, we can reach the conclusion that thet income in this country is very unequally distributed. In particular, the top 1\% of the population get about 10\% of the total income, while the top 5\% get 25\%, the top 10\% 37\%, and the top 25\% get 61\%.
 
 Analyzing \Cref{fig:incomedistribution}, we can observe that the top 10\% of the clients accumulate 33\% of the total income, while the top 20\% accumulate 50.5\% and the top 30\% accumulate 63.1\%; the rest of the income is distributed among the remaining 70\% of the population.
-
-\section{Regional Distribution of Income}
-
-Given the have locations of the calls in the subset $G' \subseteq G$, we can infer the home of each user in $V'$ using the method described in~\cite{csaji2013}. This is extremely useful when doing analyses, since it allows us to find differences in income distribution between areas of Mexico. In particular, \Cref{fig:regions} shows the average income per Mexican State in our dataset, which is compared to the data in Mexico in \Cref{tab:regions}.
-
-\begin{figure}
-\centering
-\includegraphicsmaybe{figures/regions.png}
-\caption{Average income by region of Mexico}
-\label{fig:regions}
-\end{figure}
-
