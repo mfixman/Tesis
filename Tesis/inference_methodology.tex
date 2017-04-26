@@ -15,7 +15,7 @@ The main contribution of this work is the estimation of the income of the telco 
 
 For each pair $\left\{ \left< p_o, p_d \right> \mid p \in P \right\}$, the X coordinate is defined as the set of incomes for callers, while the Y coordinate is the set of incomes for callees. According to what we can observe in \Cref{fig:homophily_heatmap}, there should be a significant correlation between $X$ and $Y$. Given the broad non-Gaussian distribution of the income's values, we choose to use a rank-based measure of correlation which is robust to outliers.
 
-Namely, the \textit{Spearman's rank correlation}, as defined in defined in \Cref{spearman}, is computed to test the statistical dependence of sets of incomes of callers and callees. Applying this formula to the data gives a correlation coefficient of $\mathbf{r_s = 0.474}$.
+Namely, the \textit{Spearman's rank correlation}, as defined in Section~\ref{subsec:spearman}, is computed to test the statistical dependence of sets of incomes of callers and callees. Applying this formula to the data gives a correlation coefficient of $\mathbf{r_s = 0.474}$.
 
 The result was compared with a randomized null hypothesis, where links between users are selected randomly disregarding income data, obtaining a $p\text{-value}$ of $p < 10^{-6}$. These values for $r_s$ and $p$ show a strong indication of income homophily among users in our communication graph. This observation is consistent with the results reported in other investigation of similar data, namely~\cite{leo2015socioeconomic}.
 
@@ -45,24 +45,23 @@ H_1 \cup H_2 = S \\
 
 Given the \emph{Social Graph} $G = \left< V, E \right>$, as defined in \Cref{sec:dataset}, contains information about the \emph{Calls}, \emph{SMS}, and \emph{Total Time} of each link between two users. These can be accumulated for each user, along with its \emph{Degree}, to produce the \emph{User Data}, which is used for another evaluation in \Cref{subsec:user_data}.
 
-Another possible way to accumulate these values is discriminating them by the category to which the other endpoint belong. That is, for every edge feature $F$ and for the \emph{Degree}, it's possible to define two features $F_{\low}$ and $F_{\high}$ that only accumulate features from edges whose other endpoint is a user with \emph{Low Income} or \emph{High Income}, respectively. This approach is formalized in \Cref{eq:bayesian_accum}.
+Another possible way to accumulate these values is discriminating them by the category to which the other endpoint belong. That is, for every edge feature $F$ and for the \emph{Degree}, it's possible to define two features $F_{\low}$ and $F_{\high}$ that only accumulate features from edges whose other endpoint is a user with \emph{Low Income} or \emph{High Income}, respectively. This approach is formalized in Equations~\ref{eq:bayesian_calls_accum} to~\ref{eq:bayesian_contacts_accum}.
 
-\begin{equation}
-\label{eq:bayesian_accum}
-\begin{gathered}
-\begin{aligned}
+\begin{align}
+\label{eq:bayesian_calls_accum}
 & \calls^{\low}_v = \sum_{\substack{e \in E \\ e_d = v \\ e_o \in H_1}}{e_c} + \sum_{\substack{e \in E \\ e_o = v \\ e_d \in H_1}}{e_c}
 & \calls^{\high}_v = \sum_{\substack{e \in E \\ e_d = v \\ e_o \in H_2}}{e_c} + \sum_{\substack{e \in E \\ e_o = v \\ e_d \in H_2}}{e_c} \\
 & \etime^{\low}_v = \sum_{\substack{e \in E \\ e_d = v \\ e_o \in H_1}}{e_t} + \sum_{\substack{e \in E \\ e_o = v \\ e_d \in H_1}}{e_t}
 & \etime^{\high}_v = \sum_{\substack{e \in E \\ e_d = v \\ e_o \in H_2}}{e_t} + \sum_{\substack{e \in E \\ e_o = v \\ e_d \in H_2}}{e_t} \\
 & \sms^{\low}_v = \sum_{\substack{e \in E \\ e_d = v \\ e_o \in H_1}}{e_s} + \sum_{\substack{e \in E \\ e_o = v \\ e_d \in H_1}}{e_s}
 & \sms^{\high}_v = \sum_{\substack{e \in E \\ e_d = v \\ e_o \in H_2}}{e_s} + \sum_{\substack{e \in E \\ e_o = v \\ e_d \in H_2}}{e_s}
-\end{aligned} \\
+\end{align}
+\begin{equation}
+\label{eq:bayesian_contacts_accum}
 \begin{aligned}
 \contacts^{\low }_v &= c^{\low}_v &= &\left| \left\{ e \in E \; \middle| \begin{aligned} &e_o = v &\land &\quad e_d \in H_1 \\ &&\lor & \\ &e_d = v &\land &\quad e_o \in H_1 \end{aligned} \right\} \right| \\
 \contacts^{\high}_v &= c^{\high}_v &= &\left| \left\{ e \in E \; \middle| \begin{aligned} &e_o = v &\land &\quad e_d \in H_2 \\ &&\lor & \\ &e_d = v &\land &\quad e_o \in H_2 \end{aligned} \right\} \right|
 \end{aligned}
-\end{gathered}
 \end{equation}
 
 \subsection{Uncertainty}
@@ -96,12 +95,14 @@ The final objective of this thesis is to detect \emph{High Income} users in a da
 
 As it was discussed in Section~\ref{subsec:uncertainty}, even having that data it's impossible to have complete information about a user's relationships. However, it's possible to create a \emph{Model} where we can predict the rate of \emph{High Income} to \emph{Low Income} contacts a user has, and with that data the Probability $p_v$ that this user $v \in V \setminus B$ is a \emph{High Income} user.
 
-The naïve way of solving this problem would be to assign this probability using only the current data, as in Equation~\ref{eq:naive_p}. However, this fails to account for the \emph{Certainty} that a user belongs to some category, which can be exemplified in scenarios where the probability of a user with only 1 \emph{High Income} contact being \emph{High Income} is slightly higher than one for another user with 100 \emph{High Income} contacts and 1 \emph{Low Income} contact.
+The naïve way of solving this problem would be to assign this probability using only the current data, as in Equation~\ref{eq:naive_p}.
 
 \begin{equation}
 \label{eq:naive_p}
 p_v = P \left( v \in H_2 \right) = \frac{\varpi^{\high}_v}{\varpi^{\high}_v + \varpi^{\low}_v}
 \end{equation}
+
+This method fails to account for the \emph{Certainty} that a user belongs to some category, which can be exemplified in scenarios where the probability of a user with only 1 \emph{High Income} contact being \emph{High Income} is slightly higher than one for another user with 100 \emph{High Income} contacts and 1 \emph{Low Income} contact.
 
 \subsection{Modelling Users --- Bayesian Approach}
 \label{subsec:modelling_users}
@@ -136,9 +137,9 @@ p_v &= Q \left (\Theta \right) \\
 
 This probability represents the \emph{Posterior Probability} of $p_v$ given the data. To adjust the prediction, the method compares the value for each user with the rest and assumes that, if $p_v > p_u$ for two users $v$ and $u$, then $v$ has a higher probability of being wealthy.
 
-Since we don't have any prior information about a good value of $\Theta$, we initially take a value from \emph{Jeffrey's Prior}. This distribution, which was defined by Harold Jeffreys in 1946~\cite{jeffreys46}, is a completely uninformative prior distribution for a parameter that makes it possible to parametrize prior ignorance about values in a Bernoulli model.
+Since we don't have any prior information about a good value of $\Theta$, we initially take a value from \emph{Jeffrey's Prior}. This distribution, which was defined by Harold Jeffreys in 1946~\cite{jeffreys453}, is a completely uninformative prior distribution for a parameter that makes it possible to parametrize prior ignorance about values in a Bernoulli model.
 
-The \emph{Probability Density Function} of the prior for a parameter $\gamma$ is presented in Equation~\ref{eq:jeffreys}. It's important to note that this is the same PDF than in the one for a \emph{Beta Distribution} with parameters $\alpha = \sfrac{1}{2}, \beta = \sfrac{1}{2}$.
+The \emph{Probability Density Function} of the prior for a parameter $\gamma$ is presented in Equation~\ref{eq:jeffreys}. It's interesting to note that this is the same PDF than in the one for a \emph{Beta Distribution} with parameters $\alpha = 0.5, \beta = 0.5$.
 
 \begin{equation}
 \label{eq:jeffreys}
@@ -152,12 +153,14 @@ In the previous section the probability of belonging of being a \emph{High Incom
 \begin{equation}
 \label{eq:pv_minus}
 \begin{gathered}
-	\left( \forall u, w \in V \setminus B \right) \\
+	\mathlarger{\left( \forall u, w \in V \setminus B \right)} \\
+	\left(
 	\begin{aligned}
 		p_u > p_w \land u \in H_1 &\implies w \in H_1 \\
 		p_u < p_w \land u \in H_2 &\implies w \in H_2 \\
 		p_u = p_w \implies ( u \in H_1 &\iff w \in H_1 )
 	\end{aligned}
+	\right)
 \end{gathered}
 \end{equation}
 
@@ -171,25 +174,37 @@ p_v > \tau &\implies v \in H_2
 \end{aligned}
 \end{equation}
 
+$\tau$ represents the \emph{Threshold} on which this algorithm separates the \emph{Low Income} and \emph{High Income} users. Since its value changes many metrics on the model that are related to the final labels, it can be set to arbitrarily increase or decrease \emph{Precision}, \emph{Recall}, or any combination of those.
+
 \section{Performance Evaluation}
 \label{subsec:performance_evaluation}
 
 It's easy to evaluate the performance by calculating $p_v$ for all $v \in B$, which allows us to know whether each value is a \emph{True~Positive}, a \emph{False~Positive}, a \emph{False~Negative}, or a \emph{True~Negative}, and collecting any of the metrics described in Section~\ref{subsec:mlmetrics}.
 
-One advantage of this method is that it's possible to evaluate the method by calculating the \emph{Area Under the Curve} without having to specify a particular $tau$, since this follows the necessary pattern defined in Section~\ref{subsec:auc}. This way it's possible to select the best $\varpi$ without having to select the respective $\tau$.
+One advantage of this method is that it's possible to evaluate the method by calculating the \emph{Area Under the Curve} without having to specify a particular $\tau$, since this follows the necessary pattern defined in Section~\ref{subsec:auc}. This way it's possible to select the best $\varpi$ without having to select the respective $\tau$.
 
-Additionally, after defining a $\varpi$, it's easy to select a $\tau$ so that the final \emph{Accuracy} is maximized.
+Once this methods defines which $\varpi \in \left\{ \calls, \etime, \sms, \contacts \right\}$ it will use, it chooses $\Theta$ as to maximize the \emph{Area Under the Curve} of the model. While calculating the \emph{Inverse Cumulative Function} for the \emph{Beta Distribution} is particularly slow, it's possible to calculate less datapoints by using a \emph{Statistical Prior}, as defined in Section~\ref{subsec:modelling_users}.
+Another probability (still unexplored) is to figure out that the \emph{Area Under the Curve} for a particular $\varpi$ is monotonic increasing until the optimal $\Theta$, and later is monotonic decreasing, as shown in the later Figure~\ref{fig:theta}. If this hypothesis were true, it would be possible to use \emph{Ternary Search} to find the best value of $\Theta$.
+
+After finding a $\varpi$ and $\Theta$, it's possible to find the point $p_v$ at which the \emph{Beta Distribution} $\Betasim_v$ of each user $v \in V$ integrates to $\Theta$. Having this data we can find the $\tau$ that maximises the \emph{Accuracy} of the model by comparing the predicted categories to the data in the \emph{Testing Set}.
 
 \section{Bayesian Graphical Model}
 \label{subsec:bayesiangm}
 
 An alternative way of seeing this problem is through a \emph{Bayesian Graphical Model}, which are explained with more detail in~\cite{wagenmakerslee}.
 
-In the model, shown in Figure~\ref{fig:bayesnetwork}, instead of defining a Beta distribution $\Betasim_v \sim \Betadist(\varpi^{\high}_v + 1, \varpi^{\low}_v + 1)$ for every user $v$, the problem is defined as a \emph{Binomial Distribution} which should have the respective parameters.
+In the model, shown in Figure~\ref{fig:bayesnetwork}, doesn't directly define a \emph{Beta Distribution} $\Betasim_v \sim \Betadist(\varpi^{\high}_v + 1, \varpi^{\low}_v + 1)$ for every user $v$. Instead, the problem is defined as the \emph{Binomial Distribution} in Equation~\ref{eq:graphicalmodel_binomial} for some probability $\pi_v$.
 
-For simplicity, other two new categorical variables are defined for this model for each user $v$: $\varkappa_v$, which is 1 if and only if $v$ is part of the high category of income, and $\hat{\varkappa}_v$, which is 1 if and only if $v$ is predicted to be of the high category of income.
+\begin{equation}
+\label{eq:graphicalmodel_binomial}
+	\varpi^{\high}_v \sim \Binom \left( \varpi^{\low}_v + \varpi^{\high}_v, \pi_v \right)
+\end{equation}
 
-\begin{figure}
+For simplicity, other two new categorical variables are defined for this model for each user $v$: $\varkappa_v$\footnotemark{}, which is 1 if and only if $v$ is part of the high category of income, and $\hat{\varkappa}_v$, which is 1 if and only if $v$ is predicted to be of the high category of income. Additionally, $n_v = \varpi^{\low}_v + \varpi^{\high}_v$ and $\varpi^{\high}_v$.
+
+\footnotetext{$\varkappa$ is a variant of the Greek letter $\kappa$, which represents a \textbf{C}ategory}
+
+\begin{figure}[htb]
 \centering
 \begin{minipage}[l]{0.45\textwidth}
 \begin{tikzpicture}
@@ -212,16 +227,14 @@ For simplicity, other two new categorical variables are defined for this model f
 
 	\draw[->, rounded corners = 10pt] (kappa) -| (tau);
 
-	\plate [xshift = 1.1em] {} {(n) (k) (pi) (p) (hkappa) (kappa)} {$v \in V \cap B$};
+	\plate [xshift = 1.2em] {} {(n) (k) (pi) (p) (hkappa) (kappa)} {$v \in V \cap B$};
 \end{tikzpicture}
 \end{minipage}
 \begin{minipage}[r]{0.4\textwidth}
 \begin{align*}
-	n_v &= \varpi^{\high}_v + \varpi^{\low}_v \\
-	k_v &= \varpi^{\high}_v \\
-	\varkappa_v &= \begin{cases} 0 \ \text{if} \ v \in H_1 \\ 1 \ \text{if} \ v \in H_2 \end{cases} \\[1em]
-	\pi_v &\sim \Binom \left( n, v \right) \\
-	\Theta &\sim \Betadist \left( \sfrac{1}{2}, \sfrac{1}{2} \right) \\
+	k_v &\sim \Binom \left( n_v, \pi_v \right) \\[1em]
+	\Theta &\sim \Betadist \left( 0.5, 0.5 \right) \\
+	\pi_v &\sim \Betadist \left( 1, 1 \right) \\[1em]
 	% \Theta &\sim \Betadist \left( 0.5, 0.5 \right) \\
 	p_v &= \inf_{x \in \left[ 0, 1 \right]} \left\{ \Theta \leq P \left( \pi_v \leq x \right) \right\} \\
 	\tau &= \argmax_{t \in \left[ 0, 1 \right]} \left| \bigl\{ \vspace{4em} v \in V \cap B \mid p_v \geq t \iff k_v \bigr\} \right| \\[1em]

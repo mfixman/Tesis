@@ -21,6 +21,7 @@ There's an interesting exception to this homophily: there is a significant numbe
 Lorem ipsum dolor sit amet.
 
 \section{Spearman's Coefficient}
+\label{subsec:spearman}
 
 Spearman's Rank Correlation Coefficient (also known as Spearman's rho) is a nonparametric measure of rank correlation which measures how well the relationship between two variables can be described using a monotonic function\cite{statistical_analysis}. Unlike Pearson's Correlation Coefficient, which measures lineal relationship between variables, Spearman's Coefficient uses the \emph{rank} of the variables in its calculations; therefore is measures its monotonicity.
 
@@ -172,7 +173,7 @@ $F$ is also known as the \emph{Regularized Incomplete Beta Function}, represente
 \begin{equation}
 \label{eq:incomplete_beta_binomial}
 \begin{gathered}
-X \sim \Betadist \left( n, p \right)  \\
+X \sim \Binom \left( n, p \right)  \\
 P \left( X \leq k \right)  = I_{1 - p} \left( n - k, k + 1 \right)
 \end{gathered}
 \end{equation}
@@ -221,7 +222,7 @@ Once the binary experiment is run, the model has additional information which ma
 \begin{aligned}
 	P \left( \theta \mid n, k, \alpha, \beta \right)
 	&= \frac{P \left( k \mid n, \theta \right) P \left( \theta \mid n, \alpha, \beta \right)}{P \left( k \mid n, \alpha, \beta \right)} \\
-	&\propto P \left( k \mid n, theta \right) P \left( \theta \mid n, \alpha, \beta \right) \\
+	&\propto P \left( k \mid n, \theta \right) P \left( \theta \mid n, \alpha, \beta \right) \\
 	&= P \left( k \mid n, \theta \right) P \left( \theta \mid \alpha, \beta \right) \\[1em]
 	P \left( \theta \mid n, k, \alpha, \beta \right)
 	&= \binom{n}{k} \theta^k {\left( 1 - \theta \right)}^{n - k} \cdot \frac{1}{\Beta \left( \alpha, \beta \right) } \theta^{\alpha - 1} {\left( 1 - \theta \right)}^{\beta - 1} \\

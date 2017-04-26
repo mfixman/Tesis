@@ -311,7 +311,7 @@ These results show that, when using the data from the labelled users $\Upsilon$,
 & \multicolumn{2}{>{\bfseries}l}{Majority}
 & 0.681 & 0.640 & \textbf{0.826} & 0.681 & 0.721 & 0.712 & \ct{\NA} & \SI{0.059}{\second} \\
 
-& \multicolumn{2}{>{\bfseries}l}{Bayesian\protect\footnotemark{}}
+& \multicolumn{2}{>{\bfseries}l}{Bayesian}
 
 & 0.693 & 0.665 & 0.792 & \textbf{0.746} & \textbf{0.723} & \textbf{0.783} & \ct{\NA} & \SI{33.155}{\second} \\
 \cmidrule{2-11}
@@ -361,8 +361,6 @@ These results show that, when using the data from the labelled users $\Upsilon$,
 && $\cat_2$ & 0.614 & 0.635 & 0.534 & 0.614 & 0.580 & 0.539 & \SI{50.589}{\second}  & \SI{3.484}{\second} \\
 \bottomrule
 \end{tabular}
-\caption{Resulting metrics of different methods used in Section~\ref{sec:results} and Section~\ref{sec:comparison} tested on both the \emph{Inner Graph} $\Upsilon$, which contains only nodes which have at least one neighbour with socioeconomic information, and the \emph{Outer Graph} $B^{\test}$, which includes all nodes. \textbf{Bolded} items represent the highest value for each metric.}
+\caption{Resulting metrics of different methods used in Section~\ref{sec:results} and Section~\ref{sec:comparison} tested on both the \emph{Inner Graph} $\Upsilon$, which contains only nodes which have at least one neighbour with socioeconomic information, and the \emph{Outer Graph} $B^{\test}$, which includes all nodes. \textbf{Bolded} items represent the highest value for each metric. The \emph{Bayesian Algorithm} is run with the best parameters found in Section~\ref{subsec:performance_evaluation}, with $\varpi = \contacts$, $\Theta = 0.394$, and $\tau = 0.514$}
 \label{tab:comparison}
 \end{table}
-
-\footnotetext{Using the best parameters found in Section~\ref{subsec:performance_evaluation}, where $\varpi = \contacts$ and $\tau = 0.224$.}
