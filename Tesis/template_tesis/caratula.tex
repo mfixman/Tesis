@@ -1,3 +1,5 @@
+\makeatletter
+
 \newcommand{\HRule}{\rule{\linewidth}{0.2mm}}
 %
 \thispagestyle{empty}
@@ -18,21 +20,21 @@
 
 \vspace{4.0cm}
 
-\begin{bfseries}
+\begin{mdseries}
 {\huge Inference of Socioeconomic Status}
 
 {\huge in a Communications Graph:}
 
 {\huge A Bayesian Approach}
-\end{bfseries}
+\end{mdseries}
 
 \vspace{2cm}
 
-{\large Tesis de Licenciatura en Ciencias de la Computaci\'on}
+{\large Tesis presentada para optar al título de \\ Licenciado en Ciencias de la Computación}
 
 \vspace{2cm}
 
-{\Large \autor}
+{\Large \@author}
 
 \end{center}
 
@@ -46,6 +48,8 @@
 
 \vspace{.2cm}
 
-{\large {\lugar}}
+{\large {\@date}}
+
+\makeatother
 
 \newpage\thispagestyle{empty}
