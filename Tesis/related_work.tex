@@ -1,1 +1,46 @@
 \chapter{Related Work}
+
+This thesis adds new data and experiments to the fast-growing area of \emph{Mobile Phone Social Network Analysis}.
+
+Earlier works in the general area of \emph{Social Network Analysis} and \emph{Socioeconomic Indices} and their relation to demographic features were drawn from sparse sociological studies~\cite{katz_economics_2001} and nationwide surveys~\cite{deaton1997}. However, the advent of massive clusters of real-world data along with computers big enough to process it completely changed the landscape of human data analysis, both for industry purposes and for academia.
+
+This chapter will discuss several scientific papers in this area which were relevant for the research done in this one.
+
+\section{Correlations of Consumption Patterns in Social-Economic Networks}
+
+\cite{leo16correlations} presents correlations between purchasing patterns and socioeconomic position of users from a dataset similar to the one used in this thesis. In particular, the authors have access to a database of credit card purchases for a set of users, with information about the amount of money spent and the general category (MCC) to which the purchase belongs, and also to a cellphone communications graph which allows them to infer the relationship between any two people.
+
+The first of two interesting studies this paper makes is to categorize the population depending on their total spending, and find out the spending level of each user category on one of several aggregated purchase groups. It makes it easy to see the difference in spending for lower income and higher income people: the former group tends to spend comparatively more money in entertainment and retail stores, while the latter group spends more money in hotels and vehicles.
+
+The second study presented in this paper relates to the correlation between people who buy from each of these groups to find categories which are commonly purchased together. Some groups, like \emph{Transportation}, \emph{IT}, or \emph{Personal Services} play a central role and are connected to many other communities, while some others like \emph{Car Sales and Maintenance} and \emph{Hardware Stores} and pairwise connected.
+
+Both of these correlations can be seen intuitively in \cref{fig:paper_yannick}.
+
+\begin{figure}
+\centering
+\begin{subfigure}[t]{.45\textwidth}
+\includegraphicsmaybe{figures/yannick/service_socioeconomic.png}
+\label{fig:service_socioeconomic}
+\end{subfigure}
+\begin{subfigure}[t]{.45\textwidth}
+\includegraphicsmaybe{figures/yannick/service_service.png}
+\label{fig:service_service}
+\end{subfigure}
+\caption{Data from the study of categories of purchases. The heatmap on the left side contains the relative purchasing quantities of each category for every socioeconomic level (where 1 is lower and 9 is higher), while the graph on the right side contains the purchase groups which reveals several clusters. \todo{Ask for permission to use these figures.}}
+\label{fig:paper_yannick}
+\end{figure}
+
+\section{Mobile Divides: Gender, Socioeconomic Status, and Mobile Phone Use in Rwanda}
+
+\cite{blumenstock2010mobile} combines data from direct demographic surveys with \emph{Call Details Records} obtained from a phone company to get demographical data about cellphone users in Rwanda.
+
+The paper combines data about the overall demographic composition of Rwanda with the demographic composition of a representative sample of mobile phone users, along with voluntary survey results and the call history of the survey residents.
+
+Two interesting tests made to measure the socioeconomic status of the respondents, which is particularly hard in a country where a significant percentage most people's income derives from informal channels.
+
+\begin{itemize}
+	\item Asking the respondents directly some of the demographic questions previously used in a nation-wide survey from the Rwandan government. This resulted a stark difference in socioeconomic level between the general population and the cellphone-owning people in the survey.
+	\item Using this same government survey to compute total expenditures by aggregating expenditures across some subcategories as explained in~\cite{deaton2002}, and then fit the model to the data.
+\end{itemize}
+
+With this data it was possible to characterize economic stratification and inequality within the population of mobile phone users. Additionally, using the CDRs, it was possible to characterize graph properties for rich and poor users, in addition to other demographic indicators such as gender. In particular, while the mobile phone population is in general wealthier than the general population of Rwanda, there's still considerable inequality within the group of mobile phone users.
