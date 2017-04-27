@@ -24,8 +24,8 @@ The method of \emph{Random Selection} simply chooses a category randomly for eve
 \begin{equation}
 \label{eq:randomselection}
 \begin{aligned}
-	P \left( H_v = \text{Low} \right) &= 0.5 \\
-	P \left( H_v = \text{High} \right) &= 0.5
+	P \left( H_v = \Low \right) &= 0.5 \\
+	P \left( H_v = \High \right) &= 0.5
 \end{aligned}
 \end{equation}
 
@@ -35,7 +35,7 @@ The category of each user $v \in V$ depends on whether the majority of its conta
 
 \begin{equation}
 \label{eq:majorityvoting}
-	P \left( H_v = \text{Low} \right) =
+	P \left( H_v = \Low \right) =
 	\begin{cases}
 		0 & \text{if} \ \contacts^{\low}_v < \contacts^{\high}_v \\
 		0.5 & \text{if} \ \contacts^{\low}_v = \contacts^{\high}_v \\
@@ -45,14 +45,40 @@ The category of each user $v \in V$ depends on whether the majority of its conta
 
 \subsection{Bayesian Method}
 
-We compare the results an improved version of the \emph{Bayesian Method} presented in~\cite{fixmanasonam2016}. In this method, which only works for users with at least one labelled contact (and thus are part of the \emph{Inner Graph}), a \emph{Beta Distribution} is defined for each user $v \in V$ where the parameters depend on the amount of \emph{High Income} and \emph{Low Income} users. Later, the \emph{Inverse Cumulative Distribution Function} is applied with some argument $\Theta \in \left[ 0, 1 \right]$, and this value is used to define whether a user belongs to either category for whether it's larger than some parameter $\tau$ defined to maximize \emph{Accuracy}.
+We compare the results an improved version of the \emph{Bayesian Method} presented in~\cite{fixmanasonam2016}. In this method, which only works for users with at least one labelled contact (and thus are part of the \emph{Inner Graph}), a \emph{Beta Distribution} $\Betasim_v \sim \Betadist \left( \alpha, \beta \right)$ is defined for each user $v \in V$ where the parameters depend on the amount of \emph{High Income} and \emph{Low Income} users, respectively.
 
-The \emph{Receiver Operating Characteristic Curve} for a run of this algorithm is shown in \cref{fig:bayesian_roc}.
+After defining the distributions, the \emph{Inverse Cumulative Distribution Function} is applied with some argument $\Theta \in \left[ 0, 1 \right]$ chosen to maximize \emph{Area Under the Curve} to generate $p_v$, the probability for user $v$ to belong to each category. With this probability it's possible to create a \emph{ROC Curve}, as in \cref{roc_contacts}. Additionally, the distribution of $p_v$ for this data can be seen in \cref{fig:hist_contacts}.
+
+A third hyperparameter, $\tau \in \left[ 0, 1 \right]$, defines the actual category of each user as in \cref{eq:bayesian}.
+
+\begin{equation}
+\label{eq:bayesian}
+\begin{aligned}
+	p_v \leq \tau &\implies H_v = \Low \\
+	p_v > \tau &\implies H_v = \High
+\end{aligned}
+\end{equation}
+
+This value is chosen to maximize the \emph{Accuracy} of the data. How this metric changes according to the \emph{False Positive Rate}. The distribution is shown in \cref{fig:accuracy_contacts}.
 
 \begin{figure}
 \centering
-\includegraphics[height=.24\textheight]{figures/bayesian_roc.png}
+\includegraphicsmaybe{figures/roc_contacts.png}
 \caption{The \emph{ROC Curve} for the \emph{Bayesian Method} used as a comparison for the methods presented in this paper.}
-\label{fig:bayesian_roc}
+\label{fig:roc_contacts}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphicsmaybe{figures/hist_contacts.png}
+\caption{Distribution of $p_v$ for the \emph{Bayesian Method}, which defines the probability for a user to be part of each category.}
+\label{fig:hist_contacts}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphicsmaybe{figures/accuracy_contacts.png}
+\caption{Accuracy to \emph{False Positive Rate} curve for the \emph{Bayesian Method}. Using this value it's possible to define the $\tau$ that will maximize the accuracy.}
+\label{fig:accuracy_contacts}
 \end{figure}
 

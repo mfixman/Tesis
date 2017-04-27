@@ -34,7 +34,7 @@
   \setlength{\fboxsep}{-\fboxrule}
   \fbox{\phantom{\rule{\columnwidth}{100pt}}}
 }
-\newcommand{\includegraphicsmaybe}[1]{\IfFileExists{#1}{\includegraphics[width=\columnwidth]{#1}}{\noimage}}
+\newcommand{\includegraphicsmaybe}[1]{\IfFileExists{#1}{\includegraphics[width=\columnwidth, height=.25\textheight, keepaspectratio]{#1}}{\noimage}}
 
 \renewcommand{\thefootnote}{\fnsymbol{footnote}}
 \captionsetup[table]{skip = 2ex}
