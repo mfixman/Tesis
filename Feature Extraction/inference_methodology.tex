@@ -24,8 +24,8 @@ The method of \emph{Random Selection} simply chooses a category randomly for eve
 \begin{equation}
 \label{eq:randomselection}
 \begin{aligned}
-	P \left( H_v = \text{Low} \right) &= \sfrac{1}{2} \\
-	P \left( H_v = \text{High} \right) &= \sfrac{1}{2}
+	P \left( H_v = \text{Low} \right) &= 0.5 \\
+	P \left( H_v = \text{High} \right) &= 0.5
 \end{aligned}
 \end{equation}
 
@@ -37,9 +37,9 @@ The category of each user $v \in V$ depends on whether the majority of its conta
 \label{eq:majorityvoting}
 	P \left( H_v = \text{Low} \right) =
 	\begin{cases}
-		1 & \text{if} \ \contacts^{\low}_v > \contacts^{\high}_v \\
+		0 & \text{if} \ \contacts^{\low}_v < \contacts^{\high}_v \\
 		0.5 & \text{if} \ \contacts^{\low}_v = \contacts^{\high}_v \\
-		0 & \text{if} \ \contacts^{\low}_v > \contacts^{\high}_v
+		1 & \text{if} \ \contacts^{\low}_v > \contacts^{\high}_v
 	\end{cases}
 \end{equation}
 

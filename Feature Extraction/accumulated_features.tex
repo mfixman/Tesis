@@ -94,7 +94,7 @@ Additionally, if we define the distance between two nodes using the intuitive de
 d \left( a, b \right) =
 \begin{cases}
 	0 & \text{if } a = b \\
-	1 + \min_{v \in \ego \left(b \right)} d \left( a, v \right) & \text{otherwise}
+	1 + \min_{v \in \neigh \left(b \right)} d \left( a, v \right) & \text{otherwise}
 \end{cases}
 \label{eq:distance}
 \end{equation}
