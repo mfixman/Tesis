@@ -9,7 +9,7 @@ The predictors were run in a computer with a single core of 2.00 GHz Intel Xeon 
 
 Both tables show various metrics which result from applying the methods described in \cref{sec:inference_methodology} with the hyperparameteters that result in the highest \emph{Accuracy} according to the \emph{Grid Search}.
 
-One of the possible conclusions is consistent with~\cite{muchlinski2016}, where the methods based in \emph{Random Forest} tend to perform better in real-world sociolofy scenarios than the ones based in \emph{Logistic Regression}, due to it being more versatile to non-linear the data~\cite{logisticvsdecision}.
+One of the possible conclusions is that methods based in \emph{Random Forest} tend to perform better in real-world sociolofy scenarios than the ones based in \emph{Logistic Regression}, due to it being more versatile to non-linear the data~\cite{logisticvsdecision}. This is consistent with similar findings in~\cite{muchlinski2016}.
 
 Interestingly, increasing the breadth of the \emph{Ego Network} by one level, from $\ego_1$ to $\ego_2$ improves the metrics on these methods when using \emph{Random Forest} learning, however it isn't improved by going one level further to $\ego_3$, despite the data of this being a scrict superset of the previous on to $\ego_3$, despite the data of this being a scrict superset of the previous one. This is because of the fallibility of common \emph{Bagging Methods} like \emph{Random Forest}, where having some noisy or non-informative data to choose from makes it less probable that ``good'' columns will be chosen.
 
