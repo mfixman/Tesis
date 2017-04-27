@@ -12,9 +12,9 @@ Given that our collections $P$ and $S$ are coming from one telephone company, we
 
 \subsection{Banking Information}
 
-For this study we also obtained the set $B$ account balances of over 10 million clients of a particular bank for a period of 6 months (with the same endpoint than the period of time used in Section~\ref{subsec:telcoinformation}). The data of each client $b \in B$ contains the phone number $b_p$ anonymized with the same function as the datasets in Section~\ref{subsec:telcoinformation}, along with the reported income of this person over 6 months $b_{s_0}, \ldots, b_{s_5}$. We average these 6 values to get $b_s$, an estimate of the users' monthly income.
+For this study we also obtained the set $B$ account balances of over 10 million clients of a particular bank for a period of 6 months (with the same endpoint than the period of time used in \cref{subsec:telcoinformation}). The data of each client $b \in B$ contains the phone number $b_p$ anonymized with the same function as the datasets in \cref{subsec:telcoinformation}, along with the reported income of this person over 6 months $b_{s_0}, \ldots, b_{s_5}$. We average these 6 values to get $b_s$, an estimate of the users' monthly income.
 
-Since the objective of this paper is to detect users with high income, we simplify the task by not using or predicting the number directly. Instead, we separate the users into two equally-sized sets, one with \emph{Low Income} users and another for users with \emph{High Income}, which are simply defined as the high and low quantile of users, as shown in Equation~\ref{eq:lowhighincome}.
+Since the objective of this paper is to detect users with high income, we simplify the task by not using or predicting the number directly. Instead, we separate the users into two equally-sized sets, one with \emph{Low Income} users and another for users with \emph{High Income}, which are simply defined as the high and low quantile of users, as shown in \cref{eq:lowhighincome}.
 
 \begin{equation}
 \label{eq:lowhighincome}
@@ -26,7 +26,7 @@ Since the objective of this paper is to detect users with high income, we simpli
 
 \subsection{Bank-Telco Matching}
 
-Since the phone numbers in each call in the list of users $V$ is anonymized with the same hash function as the phone number registered for the bank set $B$, it's possible to define several values for the intersection of the bank and telco datasets as the set of CDRs $P'$, and the income information in $H$. This approach is formalized in Equation~\ref{eq:banktelcomatching}.
+Since the phone numbers in each call in the list of users $V$ is anonymized with the same hash function as the phone number registered for the bank set $B$, it's possible to define several values for the intersection of the bank and telco datasets as the set of CDRs $P'$, and the income information in $H$. This approach is formalized in \cref{eq:banktelcomatching}.
 
 \begin{equation}
 \label{eq:banktelcomatching}

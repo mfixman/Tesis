@@ -1,13 +1,13 @@
 \section{Inference Methodology}
 \label{sec:inference_methodology}
 
-As previously explained in Section~\ref{subsec:categoricaluserdata}, the nodes in $T \subseteq V$ are separated into two disjoint subgroups, $G$ and $H$, so that $G \cup H = T$, $G \cap H = \varnothing$, $\left| G \right| = 0.75 \cdot \left| T \right|$, and $\left| H \right| = 0.25 \cdot \left| T \right|$. Furthemore, the subset $H_{\inner} \subseteq H$ is defined so that a node $h \in H$ is part of it if and only if there is an edge $\left< h, x \right> \in E$ or $\left< x, h \right> \in E$ such that $x \in H$\footnotemark{}. This later definition becomes important when doing inferences on features using the \emph{Categorical User Data} dataset.
+As previously explained in \cref{subsec:categoricaluserdata}, the nodes in $T \subseteq V$ are separated into two disjoint subgroups, $G$ and $H$, so that $G \cup H = T$, $G \cap H = \varnothing$, $\left| G \right| = 0.75 \cdot \left| T \right|$, and $\left| H \right| = 0.25 \cdot \left| T \right|$. Furthemore, the subset $H_{\inner} \subseteq H$ is defined so that a node $h \in H$ is part of it if and only if there is an edge $\left< h, x \right> \in E$ or $\left< x, h \right> \in E$ such that $x \in H$\footnotemark{}. This later definition becomes important when doing inferences on features using the \emph{Categorical User Data} dataset.
 
 \footnotetext{Reciprocally, this also implies $x \in H_{\inner}$.}
 
 The inferences will be attempted with both a \emph{Logistic Regression} and a \emph{Random Forest} classifier, both of which are solid classifiers commonly used for cases like this~\cite{binaryevaluation}, and since they tend to have different variance in the results~\cite{ting2016} noise from different sources doesn't tend to affect either predictor.
 
-The features used were presented in Section~\ref{sec:accumulatedfeatures}, where each level is merged with all the previous levels with the data on $G$. This way we can assure that no possibly useful information will be lost when adding new data, and ideally every prediction should be better or equal than the one in the previous level. Table~\ref{tab:features} shows the amount of features in each level after merging.
+The features used were presented in \cref{sec:accumulatedfeatures}, where each level is merged with all the previous levels with the data on $G$. This way we can assure that no possibly useful information will be lost when adding new data, and ideally every prediction should be better or equal than the one in the previous level. \cref{tab:features} shows the amount of features in each level after merging.
 
 The classifiers are trained using those features and the labels in $H$ doing a \emph{Grid Search} on different hyperparameters of the predictors with \emph{5-fold cross-validation} to prevent cases of overfitting. Since we don't want to measure only \emph{Accuracy} we present several different comparison metrics, and since in most real life cases it's more interesting to find high income users than to be accurate\footnotemark{}, we measure the \emph{F\textsubscript{4} score} of each prediction.
 
@@ -19,7 +19,7 @@ In addition, the methods are compared against three other methods to use as a ba
 
 \subsection{Random Selection}
 
-The method of \emph{Random Selection} simply chooses a category randomly for every user $v \in V$. The probability of success can be formalized with Equation~\ref{eq:randomselection}.
+The method of \emph{Random Selection} simply chooses a category randomly for every user $v \in V$. The probability of success can be formalized with \cref{eq:randomselection}.
 
 \begin{equation}
 \label{eq:randomselection}
@@ -47,7 +47,7 @@ The category of each user $v \in V$ depends on whether the majority of its conta
 
 We compare the results an improved version of the \emph{Bayesian Method} presented in~\cite{fixmanasonam2016}. In this method, which only works for users with at least one labelled contact (and thus are part of the \emph{Inner Graph}), a \emph{Beta Distribution} is defined for each user $v \in V$ where the parameters depend on the amount of \emph{High Income} and \emph{Low Income} users. Later, the \emph{Inverse Cumulative Distribution Function} is applied with some argument $\Theta \in \left[ 0, 1 \right]$, and this value is used to define whether a user belongs to either category for whether it's larger than some parameter $\tau$ defined to maximize \emph{Accuracy}.
 
-The \emph{Receiver Operating Characteristic Curve} for a run of this algorithm is shown in Figure~\ref{fig:bayesian_roc}.
+The \emph{Receiver Operating Characteristic Curve} for a run of this algorithm is shown in \cref{fig:bayesian_roc}.
 
 \begin{figure}
 \centering

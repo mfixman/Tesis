@@ -18,23 +18,23 @@ Dataset & Model & Level & Accuracy & Precision & Recall & AUC & F\textsubscript{
 \cmidrule{2-11}
 
 & \multirow{5}{*}{LR} &
-   $\ego_0$ & 0.536 & 0.531 & 0.625 & 0.536 & 0.574 & 0.619 & \SI{0.145}{\second}   & \SI{0.002}{\second} \\
-&& $\ego_1$ & 0.535 & 0.525 & 0.730 & 0.535 & 0.611 & 0.714 & \SI{0.141}{\second}   & \SI{0.011}{\second} \\
-&& $\ego_2$ & 0.568 & 0.578 & 0.525 & 0.569 & 0.550 & 0.528 & \SI{0.119}{\second}   & \SI{0.003}{\second} \\
-&& $\cat_0$ & 0.686 & 0.655 & 0.785 & 0.686 & 0.714 & 0.776 & \SI{0.167}{\second}   & \SI{0.005}{\second} \\
-&& $\cat_1$ & 0.693 & 0.665 & 0.780 & 0.693 & 0.718 & 0.772 & \SI{1.588}{\second}   & \SI{0.011}{\second} \\
-&& $\cat_2$ & 0.693 & 0.670 & 0.764 & 0.692 & 0.714 & 0.758 & \SI{0.956}{\second}   & \SI{0.009}{\second} \\
+   $\ego_1$ & 0.536 & 0.531 & 0.625 & 0.536 & 0.574 & 0.619 & \SI{0.145}{\second}   & \SI{0.002}{\second} \\
+&& $\ego_2$ & 0.535 & 0.525 & 0.730 & 0.535 & 0.611 & 0.714 & \SI{0.141}{\second}   & \SI{0.011}{\second} \\
+&& $\ego_3$ & 0.568 & 0.578 & 0.525 & 0.569 & 0.550 & 0.528 & \SI{0.119}{\second}   & \SI{0.003}{\second} \\
+&& $\cat_1$ & 0.686 & 0.655 & 0.785 & 0.686 & 0.714 & 0.776 & \SI{0.167}{\second}   & \SI{0.005}{\second} \\
+&& $\cat_2$ & 0.693 & 0.665 & 0.780 & 0.693 & 0.718 & 0.772 & \SI{1.588}{\second}   & \SI{0.011}{\second} \\
+&& $\cat_3$ & 0.693 & 0.670 & 0.764 & 0.692 & 0.714 & 0.758 & \SI{0.956}{\second}   & \SI{0.009}{\second} \\
 \cmidrule{2-11}
 
 & \multirow{5}{*}{RF} &
-   $\ego_0$ & 0.548 & 0.548 & 0.550 & 0.548 & 0.549 & 0.550 & \SI{5.986}{\second}   & \SI{0.588}{\second} \\
-&& $\ego_1$ & 0.582 & 0.583 & 0.577 & 0.582 & 0.580 & 0.577 & \SI{56.548}{\second}  & \SI{0.483}{\second} \\
-&& $\ego_2$ & 0.576 & 0.577 & 0.580 & 0.576 & 0.579 & 0.580 & \SI{50.197}{\second}  & \SI{0.253}{\second} \\
-&& $\cat_0$ & 0.671 & 0.665 & 0.690 & 0.671 & 0.677 & 0.688 & \SI{6.346}{\second}   & \SI{0.539}{\second} \\
-&& $\cat_1$ & \textbf{0.714} & 0.713 & 0.716 & \textbf{0.714} & \textbf{0.714} & \textbf{0.716} & \SI{96.005}{\second}  & \SI{0.460}{\second} \\
-&& $\cat_2$ & 0.709 & 0.710 & 0.711 & 0.709 & 0.711 & 0.711 & \SI{81.528}{\second}  & \SI{0.242}{\second} \\
+   $\ego_1$ & 0.548 & 0.548 & 0.550 & 0.548 & 0.549 & 0.550 & \SI{5.986}{\second}   & \SI{0.588}{\second} \\
+&& $\ego_2$ & 0.582 & 0.583 & 0.577 & 0.582 & 0.580 & 0.577 & \SI{56.548}{\second}  & \SI{0.483}{\second} \\
+&& $\ego_3$ & 0.576 & 0.577 & 0.580 & 0.576 & 0.579 & 0.580 & \SI{50.197}{\second}  & \SI{0.253}{\second} \\
+&& $\cat_1$ & 0.671 & 0.665 & 0.690 & 0.671 & 0.677 & 0.688 & \SI{6.346}{\second}   & \SI{0.539}{\second} \\
+&& $\cat_2$ & \textbf{0.714} & 0.713 & 0.716 & \textbf{0.714} & \textbf{0.714} & \textbf{0.716} & \SI{96.005}{\second}  & \SI{0.460}{\second} \\
+&& $\cat_3$ & 0.709 & 0.710 & 0.711 & 0.709 & 0.711 & 0.711 & \SI{81.528}{\second}  & \SI{0.242}{\second} \\
 \bottomrule
 \end{tabular*}
-\caption{Resulting metrics of different methods used in Section~\ref{sec:results} tested on both the \emph{Inner Graph}, which contains only nodes which have at least one neighbour with socioeconomic information. \textbf{LR} corresponds to \emph{Logistic Regression} models, and \textbf{RF} to \emph{Random Forest} ones with the level described in Section~\ref{sec:accumulatedfeatures}. \textbf{Bolded} items represent the highest value for each metric which is being presented in this paper.}
+\caption{Resulting metrics of different methods used in \cref{sec:results} tested on both the \emph{Inner Graph}, which contains only nodes which have at least one neighbour with socioeconomic information. \textbf{LR} corresponds to \emph{Logistic Regression} models, and \textbf{RF} to \emph{Random Forest} ones with the level described in \cref{sec:accumulatedfeatures}. \textbf{Bolded} items represent the highest value for each metric which is being presented in this paper.}
 \label{tab:innergraphresults}
 \end{table*}
