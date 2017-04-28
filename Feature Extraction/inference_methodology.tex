@@ -1,3 +1,5 @@
+\input{other_results_table}
+
 \section{Inference Methodology}
 \label{sec:inference_methodology}
 
@@ -14,8 +16,6 @@ The classifiers are trained using those features and the labels in $H$ doing a \
 \footnotetext{This means we care more about having high \emph{Recall} than high \emph{Precision}.}
 
 In addition, the methods are compared against three other methods to use as a base.
-
-\input{other_results_table}
 
 \subsection{Random Selection}
 
@@ -59,7 +59,7 @@ A third hyperparameter, $\tau \in \left[ 0, 1 \right]$, defines the actual categ
 \end{aligned}
 \end{equation}
 
-This value is chosen to maximize the \emph{Accuracy} of the data. How this metric changes according to the \emph{False Positive Rate}. The distribution is shown in \cref{fig:accuracy_contacts}.
+This value is chosen to maximize the \emph{Accuracy} of the data. The distribution of how this metric changes according to the \emph{False Positive Rate} is shown in \cref{fig:accuracy_contacts}.
 
 \begin{figure}
 \centering
