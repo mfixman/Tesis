@@ -200,7 +200,7 @@ In the model, shown in \cref{fig:bayesnetwork}, doesn't directly define a \emph{
 	\varpi^{\high}_v \sim \Binom \left( \varpi^{\low}_v + \varpi^{\high}_v, \pi_v \right)
 \end{equation}
 
-For simplicity, other two new categorical variables are defined for this model for each user $v$: $\varkappa_v$\footnotemark{}, which is 1 if and only if $v$ is part of the high category of income, and $\hat{\varkappa}_v$, which is 1 if and only if $v$ is predicted to be of the high category of income. Additionally, $n_v = \varpi^{\low}_v + \varpi^{\high}_v$ and $\varpi^{\high}_v$.
+For simplicity, other two new categorical variables are defined for this model for each user $v$: $\varkappa_v$\footnotemark{}, which is 1 if and only if $v$ is part of the high category of income, and $\hat{\varkappa}_v$, which is 1 if and only if $v$ is predicted to be of the high category of income. Additionally, $n_v = \varpi^{\low}_v + \varpi^{\high}_v$ and $k_v = \varpi^{\high}_v$.
 
 \footnotetext{$\varkappa$ is a variant of the Greek letter $\kappa$, which represents a \textbf{C}ategory}
 
@@ -236,7 +236,7 @@ For simplicity, other two new categorical variables are defined for this model f
 	\Theta &\sim \Betadist \left( 0.5, 0.5 \right) \\
 	\pi_v &\sim \Betadist \left( 1, 1 \right) \\[1em]
 	% \Theta &\sim \Betadist \left( 0.5, 0.5 \right) \\
-	p_v &= \inf_{x \in \left[ 0, 1 \right]} \left\{ \Theta \leq P \left( \pi_v \leq x \right) \right\} \\
+	p_v &= Q_{\pi_v} \left( \Theta \right) \\
 	\tau &= \argmax_{t \in \left[ 0, 1 \right]} \left| \bigl\{ \vspace{4em} v \in V \cap B \mid p_v \geq t \iff k_v \bigr\} \right| \\[1em]
 	\hat{\varkappa}_v &= \begin{cases} 0 \ \text{if} \ p_v < \tau \\ 1 \ \text{if} \ p_v \geq \tau \end{cases}
 \end{align*}
