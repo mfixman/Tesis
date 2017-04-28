@@ -10,4 +10,10 @@ This phenomenon is analogous to the homophily and stratification seen respect to
 Additionally, and in part resulting from this stratification, there are different patterns of communication between users of distinct socioeconomic level. 
 
 Finding the best way to parse Call Detail Records (CDRs) to generate user features and construct their communications graph is still a subject of research. 
-We present here several methods of feature extraction using raw data, and compare several supervised machine learning algorithms used to predict the \emph{socioeconomic level} of users, given a ground truth for a relatively small subset of the population.
+After describing our data sources in Section~\ref{sec:data_sources},
+we present several methods of feature extraction from the raw CDR data in Sections \ref{sec:graphfeatures} and \ref{sec:accumulatedfeatures}.
+Section~\ref{sec:inference_methodology} describes the supervised machine learning algorithms used to predict the \emph{socioeconomic level} of users, given a ground truth for a relatively small subset of the population. In particular we tested the Bayesian approach to income inference presented in~\cite{fixmanasonam2016}.
+Finally, we present our experimental results in Section~\ref{sec:results}, 
+comparing the performance obtained according to the feature set and the algorithms used.
+ 
+
