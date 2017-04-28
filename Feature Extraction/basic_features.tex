@@ -1,21 +1,22 @@
 \section{Basic Graph Features}
 \label{sec:graphfeatures}
 
-We represent the network as a directed graph $G = \left< V, E \right>$, where the nodes $V$ represent the users and the links $E$ represent the links between them.
+We represent the network as a directed graph $G = \left< V, E \right>$, where the nodes $V$ represent the users and the edges $E$ represent the communication links between them.
 
-This graph is created from the data presented in \cref{sec:data_sources}: $V$ is simply the union of all the origin and destination numbers on the intersection of either $P$ or $S$ and the set of numbers from the telco, and $E$ contains one element for every pair of nodes in either direction where the data is the accumulation of the number of calls, the total time of those calls, and the number of text messages.
+This graph is created from the data presented in \cref{sec:data_sources}: $V$ is simply the union of all the origin and destination numbers on the intersection of either $P$ or $S$ and the set of numbers from the telco, and $E$ contains one element for every pair of nodes in either direction, where the data is the accumulation of the number of calls, the total time of those calls, and the number of text messages.
 
 
-A small subset of the nodes, $T \subseteq V$ contains the \emph{Ground Truth} of the data, which tells whether that user is part of the group of users with \emph{High Income} or the one with \emph{Low Income}. This data will be useful to train the predictors, test them, and also for generating some features as seen in \cref{subsec:categoricaluserdata}.
+A small subset of the nodes, $T \subseteq V$ contains the \emph{Ground Truth} of the data, which indicates whether that user is part of the group of users with \emph{High Income} or \emph{Low Income}. This data will be useful to train the predictors, test them, and also for generating some features as seen in \cref{subsec:categoricaluserdata}.
 
 $E$ contains the accumulated data of the edges between nodes. Each element $e \in E$ contains the following information.
 
 \begin{itemize}
-	\item \textbf{Origin} of the calls and SMS, which is the incoming endpoint of this edge in the graph.
-	\item \textbf{Destination} of the calls and SMS, which is the outgoing endpoint of this edge of the graph.
-	\item \textbf{Calls}, the total number of calls from the origin to the destination.
-	\item \textbf{Time}, the total time (in seconds) of all the calls from the origin to the destination.
-	\item \textbf{SMS}, the total amount of messages from the origin to the destination.
+	\item \textbf{Origin} of the calls and SMS, which is the outgoing endpoint of this edge in the graph. % decia incoming
+	\item \textbf{Destination} of the calls and SMS, which is the incoming endpoint of this edge of the graph. % decia outgoing
+	\item \textbf{Calls}: the total number of calls from the origin to the destination.
+	\item \textbf{Time}: the total time (in seconds) of all the calls from the origin to the destination.
+	\item \textbf{SMS}: the total amount of messages from the origin to the destination.
 \end{itemize}
 
-There isn't a simple way to use the three quantifiable features (\emph{Calls}, \emph{Time}, and \emph{SMS}) directly, since they refer to information about the edges when there should be a prediction towards the nodes. However, as shown in \cref{sec:accumulatedfeatures}, this data, along with the information in $T$, can be accumulated for each user in different ways in order to create features for each user which are possible to use in the prediction of socioeconomic levels.
+There isn't a simple way to use the three quantifiable features (\emph{Calls}, \emph{Time}, and \emph{SMS}) directly, since they refer to information about the edges,
+whereas the prediction should be made about nodes. However, as shown in \cref{sec:accumulatedfeatures}, this data, along with the information in $T$, can be accumulated for each user in different ways in order to create features for each user which are possible to use in the prediction of the socioeconomic level.
