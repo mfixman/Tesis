@@ -81,6 +81,7 @@ These accumulated patterns present interesting distributions which are similar i
 \label{fig:contacts}
 \end{figure}
 
+
 \subsection{Higher Order User Data --- Level $\ego_{n > 1}$}
 
 \label{subsec:higherorderuserdata}
@@ -100,8 +101,6 @@ d \left( a, b \right) =
 \label{eq:distance}
 \end{equation}
 
-\input{results_table}
-
 This definition can be seen intuitively in \cref{fig:higherorderuserdata}. For reference purposes, we assign the level $\ego_1$ to the information of the regular \emph{User Data} from \cref{subsec:user_data}, while the user data from the \emph{Ego Network of Order $n$} is assigned $\ego_n$ for some $n > 1$\footnotemark{}.
 
 \footnotetext{Note that the first definition isn't necessary; we could just say that the \emph{User Data of Order 1} contains information about the edges adjacent to \emph{Ego Network of Order 1}, which are the edges user in the regular User Data. This is the reason why the \emph{User Data} has level $\ego_1$.}
@@ -119,6 +118,8 @@ This definition can be seen intuitively in \cref{fig:higherorderuserdata}. For r
 \label{subsec:categoricaluserdata}
 
 Another approach to building features for the test is to combine the information contained in $E$, the list of edges, with the one in the ground truth $T \subseteq V$, which says whether a certain node represents a person of \emph{High Income} or a person of \emph{Low Income}.
+
+\input{results_table}
 
 A simple way to do that is to do an approach similar to the \emph{User Data} presented in \cref{subsec:user_data}, but further discriminating each feature which corresponds to a node $v \in V$ and an edge $e \in E$ when $t \in T$ is the other endpoint of $e$ on whether $t$ corresponds to a person with high or low income. The resulting new features are of the form represented by the set in \cref{eq:matcatuserdata}.
 
