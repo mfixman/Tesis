@@ -1,4 +1,4 @@
-\documentclass[runningheads, a4paper]{dalthesis/dalthesis}
+\documentclass[runningheads]{dalthesis/dalthesis}
 
 \usepackage{amsfonts}
 \usepackage{amsmath}
@@ -37,6 +37,7 @@
 \usepackage{mathtools}
 \usepackage{microtype}
 \usepackage{fancyhdr}
+\usepackage{textcase}
 
 \usepackage{tikz}
 \usetikzlibrary{shapes}
@@ -78,7 +79,7 @@
 
 \input{operators}
 
-\title{Inference of Socioeconomic Status in a Communications Graph: \\ A Bayesian Approach}
+\title{Inference of Socioeconomic Status\\in a Communications Graph:\\A Bayesian Approach}
 \author{Martín Fixman}
 \date{Buenos Aires, 2017}
 
@@ -102,21 +103,25 @@
 
 \dedicate{To the time I spent thinking of a dedication to use as a placeholder.}
 
-\renewcommand{\chaptermark}[1]{\markboth{\MakeUppercase{#1}}{}}
+\setlength{\headheight}{15pt}
+\lhead[\rm\thepage]{\fancyplain{}{\nouppercase{\sl{\leftmark}}}}
+\rhead[\fancyplain{}{\nouppercase{\sl{\leftmark}}}]{\rm\thepage}
 \pagestyle{fancy}
-\fancyhf{}
-\lhead{\leftmark{}}
-\cfoot{\thepage}
 
 \begin{document}
 
+\pagenumbering{roman}
 \input{template_tesis/caratula}
-
-\frontmatter
 
 \begin{abstract}
 	\input{abstract}
 \end{abstract}
+
+\prefacesection{Resumen}
+\input{resumen}
+
+\newpage
+\frontmatter
 
 \mainmatter
 

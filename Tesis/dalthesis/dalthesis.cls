@@ -1052,7 +1052,8 @@
    \typeout{Unavoidable over/underfulls may occur in the first^^J%
             few pages of dalcsthesis. These can usually be ignored.^^J%
             However, if uncorrectable errors occur, notify staff.}
-   \pagenumbering{roman}
+   % \pagenumbering{roman}
+   \addtocounter{page}{-1}
    \pagestyle{plain}
    \ifx\pdfbookmark\undefined\relax\else
      \pdfbookmark[0]{Title Page}{titlepage_label}
