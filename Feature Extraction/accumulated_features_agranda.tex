@@ -1,0 +1,46 @@
+\section{Accumulated Graph Features}
+\label{sec:accumulatedfeatures}
+
+This section presents several ways of transforming data from the graph $G = \left< V, E \right>$ into individual features for each user $v \in V$.
+
+The aggregations are classified into named levels depending on the transformation done to $G$, and they are merged with levels containing less information as specified in \cref{fig:mlrelationships}. The total amount of columns in each featureset is presented in \cref{tab:features}.
+
+\begin{figure}
+\centering
+\resizebox{!}{.2\textheight}{%
+	\framebox{%
+		\input{figures/mlrelationships.tikz}
+	}
+}
+\caption{Relationships between the \emph{Feature Extraction} methods of \cref{sec:accumulatedfeatures}. \textcolor{Blue}{Blue} edges represent a raise in \emph{Ego Network} size, a process which is describe in \cref{subsec:higherorderuserdata}, while \textcolor{ForestGreen}{green} edges represent adding label information, which is described in \cref{subsec:categoricaluserdata}}
+\label{fig:mlrelationships}
+\end{figure}
+
+\subsection{User Data --- Level $\ego_1$}
+\label{subsec:user_data}
+
+The first accumulated features consist of accumulating the three quantifiable features described in \cref{sec:data_sources} for every node, separated on whether those features are incoming or outgoing.
+
+\subsection{Higher Order User Data --- Level $\ego_{n > 1}$}
+
+\label{subsec:higherorderuserdata}
+
+The \emph{Ego Network} of the node $v$ is defined as the graph consisting of $v$ and its neighbors. A simple way to get more features about that node is to accumulate the call and SMS information about the edges which are \textbf{not} part of the \emph{Ego Network}, but one endpoint on the border of this.
+
+It's possible to define the \emph{User Data of Order $n$}, for any natural number $n$, as the accumulation of call and SMS information for the nodes which are part of the \emph{Ego Network of Order $n$}, which is the set of nodes which are at distance at most $n$ of $v$, and aren't part of the \emph{Ego Network of Order $n - 1$}. The level $\ego_1$ to the information of the regular \emph{User Data} from \cref{subsec:user_data}, while the user data from the \emph{Ego Network of Order $n$} is assigned $\ego_n$ for some $n > 1$.
+
+\subsection{Categorical User Data --- Level $\cat_n$}
+\label{subsec:categoricaluserdata}
+
+Another approach to building features is to do an approach similar to the \emph{User Data} presented in \cref{subsec:user_data}, but further discriminating each feature which corresponds to a node $v \in V$ and an edge $e \in E$ when $t \in T$ is the other endpoint of $e$ on whether $t$ corresponds to a person with high or low income. The resulting new features are of the form represented by the set in \cref{eq:matcatuserdata}. This way it's possible to create the datasets $\cat_1 \dots \cat_n$ by making the \emph{Ego Network} bigger as in \cref{subsec:higherorderuserdata}.
+
+\begin{equation}
+\begin{Bmatrix} in \\ out \end{Bmatrix}
+\times
+\begin{Bmatrix} calls \\ time \\ sms \\ contacts \end{Bmatrix}
+\times
+\begin{Bmatrix} low \\ high \end{Bmatrix}
+\label{eq:matcatuserdata}
+\end{equation}
+
+To prevent overfitting, the set $T$ is partitioned into two disjoint sets, $G$ and $H$, where $G$ contains roughly 0.75 of the nodes in $T$ is used to calculate the features, while $H$ contains the other 0.25 and is used to train the models.

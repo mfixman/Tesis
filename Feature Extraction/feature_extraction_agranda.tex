@@ -1,0 +1,79 @@
+\documentclass[conference]{IEEEtran}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{blindtext}
+\usepackage{booktabs}
+\usepackage{caption}
+\usepackage{graphicx}
+\usepackage[utf8]{inputenc}
+\usepackage{multirow}
+\usepackage[group-separator={,}]{siunitx}
+\usepackage[x11names, rgb, dvipsnames]{xcolor}
+\usepackage{xfrac}
+\usepackage[perpage]{footmisc}
+\usepackage[hidelinks=true]{hyperref}
+\usepackage{microtype}
+\usepackage[capitalize, nameinlink, noabbrev]{cleveref}
+\usepackage{subcaption}
+
+\usepackage{tikz}
+\usetikzlibrary{shapes}
+\usetikzlibrary{arrows}
+
+\bibliographystyle{plain}
+
+\input{operators}
+
+\newcommand{\todo}[1]{\textbf{\color{red} TODO:\@ #1}}
+\newcommand{\maybe}[1]{\footnote{\color{red} #1}}
+
+\newcommand{\NA}{---}
+\newcommand{\ct}[1]{\multicolumn{1}{c}{#1}}
+
+\newcommand{\noimage}{%
+  \setlength{\fboxsep}{-\fboxrule}
+  \fbox{\phantom{\rule{\columnwidth}{100pt}}}
+}
+\newcommand{\includegraphicsmaybe}[1]{\IfFileExists{#1}{\includegraphics[width=\columnwidth, height=.24\textheight, keepaspectratio]{#1}}{\noimage}}
+
+\renewcommand{\thefootnote}{\fnsymbol{footnote}}
+\captionsetup[table]{skip = 2ex}
+
+\title{Comparison of Feature Extraction Methods and Predictors for Income Inference}
+
+\author{%
+\IEEEauthorblockN{%
+	Martin Fixman\IEEEauthorrefmark{1},
+	Martin Minnoni\IEEEauthorrefmark{2},
+	Carlos Sarraute\IEEEauthorrefmark{2}
+}
+\IEEEauthorblockA{\IEEEauthorrefmark{1}Universidad de Buenos Aires, Argentina}
+\IEEEauthorblockA{\IEEEauthorrefmark{2}Grandata Labs, 550 15th Street, San Francisco, CA, USA}
+\IEEEauthorblockA{Email: martinfixman@gmail.com, \{martin, charles\}@grandata.com}
+}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+\input{abstract}
+\end{abstract}
+
+\input{introduction}
+
+\input{results_table}
+
+\input{data_sources_agranda}
+
+\input{accumulated_features_agranda}
+
+\input{other_results_table}
+
+\input{inference_methodology_agranda}
+
+\input{results}
+
+\bibliography{../Tesis/bibliography/sna}{}
+
+\end{document}
