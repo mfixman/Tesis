@@ -1,37 +1,8 @@
 \section{Data Sources}
 \label{sec:data_sources}
 
-\subsection{Mobile Phone Data Source}
-\label{subsec:telcoinformation}
+The data used in this study contains a set $P$ of \textit{Call Detail Records} (CDRs), composed of voice calls and another set $S$ containing text messages, from a telecommunication company (\textit{telco}) in a Latin American country for a period of 3 consecutive months. Using this data it's possible to create the \emph{Social Graph} $G = \left< V, E \right>$ where each $v \in V$ is a user of the telco, and $E$ contains calls between those users. Each element $e \in E$ contains informabion about the \emph{Origin} and \emph{Destination} users, in addition to the amount of \emph{Calls}, the total call \emph{Time}, and the amount of \emph{SMS}.
 
-The data used in this study consist of a set $P$ of \textit{Call Detail Records} (CDRs), composed of voice calls and another set $S$ containing text messages, from a telecommunication company (\textit{telco}) in a Latin American country for a period of 3 consecutive months.
+Additionally, we have access to information about a set $B$ of bank accounts, for which we can infer the monthly income for each user $p_s$. To simplify the methods used in this paper, we separate the users into two roughly equal groups: \emph{Low Income}, and \emph{High Income}.
 
-Every CDR $p \in P$ contains the phone numbers of the caller (origin) and callee (destination) $\left< p_o, p_d \right>$, which are anonymized using a cryptographic hash function for privacy reasons; the starting time \( p_t \); and the call duration \( p_s \). The same datum, except call duration, can be found for each element $s \in S$.
-
-\subsection{Banking Information}
-
-For this study we also had access to the set $B$ of account balances of over 10 million clients of a bank for a period of 6 consecutive months in the same country (with the same endpoint than the period of time described in \cref{subsec:telcoinformation}).
-
-Since the objective of this paper is to detect users with high income, we simplify the task by grouping the users into two equally-sized categories, one with \emph{Low Income} users and another for users with \emph{High Income}, which are simply defined as the high and low quantile of users, as shown in \cref{eq:lowhighincome},
-where $m$ is the median of the income distribution.
-
-\begin{equation}
-\label{eq:lowhighincome}
-\begin{gathered}
-	\left| \left\{ b \in B \mid b_s \leq m \right\} \right| \approx \left| \left\{ b \in B \mid b_s > m \right\} \right| \\
-	H_{b_p} = \begin{cases} \text{Low} & \text{if} \ b_s \leq m \\ \text{High} & \text{if} \ b_s > m \end{cases}
-\end{gathered}
-\end{equation}
-
-\subsection{Bank-Telco Matching}
-
-Since the phone numbers in each call or message made by the clients of the mobile phone operator is anonymized with the same hash function as the phone number registered in the bank dataset $B$, we can define several values for the intersection of the bank and telco datasets as the set of CDRs $P'$, and the income information in $H$. This approach is formalized in \cref{eq:banktelcomatching}.
-
-\begin{equation}
-\label{eq:banktelcomatching}
-\begin{aligned}
-	V_B &= \bigcup_{b \in B} b_p \\
-	P' &= \left\{ p \in P \mid p_o \in V_B \lor p_d \in V_B \right\}
-\end{aligned}
-\end{equation}
-
+$B$ contains information about the users' telephone number, which is anonymized the same way than the telco data.  Therefore, it's possible to match the data in these two datasets in order to specify the \emph{Ground Truth} $T \subseteq V$, where each element of $T$ contains its income category, along with the \emph{Inner Graph} $G' = \left< V', E' \right>$ where E' contains edges where at least one endpoint is in $T$, and $V'$ is the set of endpoints of all elements in $E'$.
