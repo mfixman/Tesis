@@ -3,9 +3,20 @@
 
 This section presents several ways of transforming data from the graph $G = \left< V, E \right>$ into individual features for each user $v \in V$.
 
-The aggregations are classified into named levels depending on the transformation done to $G$, and they are merged with levels containing less information as specified in \cref{fig:mlrelationships}. The total amount of columns in each featureset is presented in \cref{tab:features}.
+The aggregations are classified into levels named according to the transformation done to $G$, and they are merged with levels containing less information as specified in \cref{fig:mlrelationships}. The total amount of columns in each feature set is presented in \cref{tab:features}.
 
-\begin{table}
+\begin{figure}[h]
+\centering
+\resizebox{!}{.2\textheight}{%
+	\framebox{%
+		\input{figures/mlrelationships.tikz}
+	}
+}
+\caption{Relationships between the \emph{Feature Extraction} methods of \cref{sec:accumulatedfeatures}. \textcolor{Blue}{Blue} edges represent an increase in \emph{Ego Network} size, a process which is describe in \cref{subsec:higherorderuserdata}, while \textcolor{ForestGreen}{green} edges represent adding label information, which is described in \cref{subsec:categoricaluserdata}}
+\label{fig:mlrelationships}
+\end{figure}
+
+\begin{table}[h]
 \centering
 \begin{tabular}{>{\bfseries}l r}
 \toprule
@@ -23,25 +34,15 @@ $\cat_3$ & \num{72} \\
 \label{tab:features}
 \end{table}
 
-\begin{figure}
-\centering
-\resizebox{!}{.2\textheight}{%
-	\framebox{%
-		\input{figures/mlrelationships.tikz}
-	}
-}
-\caption{Relationships between the \emph{Feature Extraction} methods of \cref{sec:accumulatedfeatures}. \textcolor{Blue}{Blue} edges represent a raise in \emph{Ego Network} size, a process which is describe in \cref{subsec:higherorderuserdata}, while \textcolor{ForestGreen}{green} edges represent adding label information, which is described in \cref{subsec:categoricaluserdata}}
-\label{fig:mlrelationships}
-\end{figure}
 
 \subsection{User Data --- Level $\ego_1$}
 \label{subsec:user_data}
 
-The first accumulated features consist of accumulating the three quantifiable features described in \cref{sec:graphfeatures} for every node, separated on whether those features are incoming or outgoing.
+The first accumulated features consist of aggregating the three quantifiable features described in \cref{sec:graphfeatures} for every node, separated on whether those features are incoming or outgoing.
 
 Additionally, we add two features corresponding to the \emph{In-Degree} and \emph{Out-Degree} of each node. This can be seen as the sum of an imaginary feature on each link $e \in E$, \textbf{Contacts}, which is always exactly $1$ when the link exists.
 
-These features are defined mathematically for each node $v \in V$ in \cref{eq:user_data}.
+These features are defined for each node $v \in V$ in \cref{eq:user_data}.
 
 \begin{equation}
 \begin{gathered}
@@ -61,11 +62,12 @@ These features are defined mathematically for each node $v \in V$ in \cref{eq:us
 \label{eq:user_data}
 \end{equation}
 
-These accumulated patterns present interesting distributions which are similar in all telcos. These distributions are presented in \cref{fig:callsms}, \cref{fig:time}, and \cref{fig:contacts}.
+These accumulated patterns present interesting distributions, 
+which are characteristic of mobile phone datasets. These distributions are presented in \cref{fig:callsms}, \cref{fig:time}, and \cref{fig:contacts}.
 
 \begin{figure}
 \includegraphicsmaybe{figures/outcalls_dist.png}
-\caption{Distribution of the amount of calls in the graph.}
+\caption{Distribution of the amount of calls in the graph, plotted in log-log scale.}
 \label{fig:callsms}
 \end{figure}
 
@@ -77,7 +79,7 @@ These accumulated patterns present interesting distributions which are similar i
 
 \begin{figure}
 \includegraphicsmaybe{figures/outcontacts_dist.png}
-\caption{Distribution of degree for all users.}
+\caption{Distribution of degree for all users, plotted in log-log scale.}
 \label{fig:contacts}
 \end{figure}
 
@@ -88,9 +90,11 @@ These accumulated patterns present interesting distributions which are similar i
 
 The features described in \cref{subsec:user_data} correspond to the information about calls and SMS from a user $v \in V$ towards all of its neighbours. However, there's no reason why this information can't be extended to nodes at a higher distance from $v$.
 
-The \emph{Ego Network} of the node $v$ is defined as the graph consisting of $v$ and its neighbors. A simple way to get more features about that node is to accumulate the call and SMS information about the edges which are \textbf{not} part of the \emph{Ego Network}, but one endpoint on the border of this.
+The \emph{Ego Network} of the node $v$ is defined as the graph consisting of $v$ and its neighbors. A simple way to get more features about that node is to accumulate the call and SMS information about the links with nodes which are \textbf{not} part of the \emph{Ego Network}, but have a direct link with the border of the \emph{Ego Network}.
 
-Additionally, if we define the distance between two nodes using the intuitive definition which is presented on \cref{eq:distance}, we can define the \emph{User Data of Order $n$}, for any natural number $n$, as the accumulation of call and SMS information for the nodes which are part of the \emph{Ego Network of Order $n$} and aren't part of the \emph{Ego Network of Order $n - 1$}. The \emph{Ego Network of Order $n$} of a certain node $v$ is the subgraph composed of the node $v$, plus all the nodes which are at most at distance $n$ of $v$, with the distance defined as in \cref{eq:distance}.
+Additionally, we define the distance between two nodes using the intuitive definition which is presented on \cref{eq:distance}, that is the minimum number of hops.
+The \emph{Ego Network of Order $n$} of a certain node $v$ is the subgraph composed of the node $v$, plus all the nodes which are at most at distance $n$ of $v$, with the distance defined as in \cref{eq:distance}.
+We can now define the \emph{User Data of Order $n$}, for any natural number $n$, as the accumulation of call and SMS information for the nodes which are part of the \emph{Ego Network of Order $n$} and aren't part of the \emph{Ego Network of Order $n - 1$}, which we call the $\ego_n$.
 
 \begin{equation}
 d \left( a, b \right) =
@@ -110,7 +114,7 @@ This definition can be seen intuitively in \cref{fig:higherorderuserdata}. For r
 \framebox[\columnwidth]{%
 	\input{figures/ego.tikz}
 }
-\caption{Example of the edges present in the calculation of the \emph{Higher Order User Data} for a certain node $v$. \textcolor{red}{Red} edges represent edges whose features are accumulated in the \emph{User Data of Order 0}, \textcolor{blue}{blue} edges represent those of \emph{Order 1}, and \textcolor{ForestGreen}{green} those of \emph{Order 2}.}
+\caption{Example of the edges present in the calculation of the \emph{Higher Order User Data} for a certain node $v$. \textcolor{red}{Red} edges represent edges whose features are accumulated in the \emph{User Data of Order 1}, \textcolor{blue}{blue} edges represent those of \emph{Order 2}, and \textcolor{ForestGreen}{green} those of \emph{Order 3}.}
 \label{fig:higherorderuserdata}
 \end{figure}
 
@@ -132,10 +136,10 @@ A simple way to do that is to do an approach similar to the \emph{User Data} pre
 \label{eq:matcatuserdata}
 \end{equation}
 
-It's important to keep in mind that not all edges of $G$ will be accumulated to these features. Indeed, the majority of users in the testing set $T$ don't have any neighbour that's also in $T$, and thus every feature in this category ends up being $0$.
+It is important to keep in mind that not all edges of $G$ will be accumulated to these features. Indeed, the majority of users in the testing set $T$ don't have a neighbour which also belongs to $T$, and for those nodes every feature in this category ends up being $0$.
 
-For completeness sake the set of nodes $F \subseteq T$ is defined as the nodes in the \emph{Inner Graph} (in contrast to the \emph{Outer Graph}, that contains all nodes in $T$), where $F$ only contains nodes which have at least one neighbour with socioeconomic information. In \cref{sec:results} we'll include information about both graphs, and naturally the results on the \emph{Inner Graph} will be better than the ones in the \emph{Outer Graph}, since it contains more information.
+For out experimental setting, the set of nodes $F \subseteq T$ is defined as the nodes in the \emph{Inner Graph} (in contrast to the \emph{Full Graph}, that contains all nodes in $T$), where $F$ only contains nodes which have at least one neighbour with socioeconomic information. In \cref{sec:results} we provide experimental results on both graphs. As expected, the results obtained on the \emph{Inner Graph} are better than the ones obtained on the \emph{Full Graph}, since it contains more information.
 
-Creating these features naïvely will occur in overfitting, since the features are generated by data that's also used for training the supervised learning models. To solve this, the set $T$ is partitioned into two disjoint sets, $G$ and $H$, where $G$ contains roughly 0.75 of the nodes in $T$ is used to calculate the features, while $H$ contains the other 0.25 and is used to train the models.
+Creating these features naïvely could occur in overfitting, if the model features were generated with data that is also used for training the supervised learning models. To avoid this overfitting, the set $T$ is partitioned into two disjoint sets, $G$ and $H$, where $G$ contains roughly 75\% of the nodes in $T$ and is used to calculate the features, while $H$ contains the other 25\% and is used to train the models.
 
 It's possible to use the method presented in \cref{subsec:higherorderuserdata} generate an \emph{Ego Network of level $n$} of a certain node $v$, and accumulate the adjacent nodes to that network by socioeconomic level before accumulating their data. We refer to the level of these features as $\cat_n$.
