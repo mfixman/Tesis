@@ -66,21 +66,24 @@ These accumulated patterns present interesting distributions,
 which are characteristic of mobile phone datasets. These distributions are presented in \cref{fig:callsms}, \cref{fig:time}, and \cref{fig:contacts}.
 
 \begin{figure}
-\includegraphicsmaybe{figures/outcalls_dist.png}
-\caption{Distribution of the amount of calls in the graph, plotted in log-log scale.}
-\label{fig:callsms}
-\end{figure}
-
-\begin{figure}
 \includegraphicsmaybe{figures/avg_time_hist.png}
 \caption{Distribution of average call time.}
 \label{fig:time}
 \end{figure}
 
 \begin{figure}
-\includegraphicsmaybe{figures/outcontacts_dist.png}
-\caption{Distribution of degree for all users, plotted in log-log scale.}
-\label{fig:contacts}
+	\begin{subfigure}[t]{.49\columnwidth}
+		\centering
+		\includegraphicsmaybe{figures/outcalls_dist.png}
+		\caption{Calls.\\$a = 4.8\mathrm{e}{+5}$\\$b = {-0.8}$}
+		\label{fig:callsms}
+	\end{subfigure}
+	\begin{subfigure}[t]{.49\columnwidth}
+		\includegraphicsmaybe{figures/outcontacts_dist.png}
+		\caption{Degree}
+		\label{fig:contacts}
+	\end{subfigure}
+	\caption{Distribution of~(a)~Calls and~(b)~contacts in log-log scales.}
 \end{figure}
 
 
