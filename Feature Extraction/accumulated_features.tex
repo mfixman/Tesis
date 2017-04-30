@@ -62,7 +62,7 @@ These features are defined for each node $v \in V$ in \cref{eq:user_data}.
 \label{eq:user_data}
 \end{equation}
 
-These accumulated patterns present interesting distributions, 
+These accumulated patterns present interesting distributions,
 which are characteristic of mobile phone datasets. These distributions are presented in \cref{fig:callsms}, \cref{fig:time}, and \cref{fig:contacts}.
 
 \begin{figure}
@@ -107,7 +107,7 @@ d \left( a, b \right) =
 
 This definition can be seen intuitively in \cref{fig:higherorderuserdata}. For reference purposes, we assign the level $\ego_1$ to the information of the regular \emph{User Data} from \cref{subsec:user_data}, while the user data from the \emph{Ego Network of Order $n$} is assigned $\ego_n$ for some $n > 1$\footnotemark{}.
 
-\footnotetext{Note that the first definition isn't necessary; we could just say that the \emph{User Data of Order 1} contains information about the edges adjacent to \emph{Ego Network of Order 1}, which are the edges user in the regular User Data. This is the reason why the \emph{User Data} has level $\ego_1$.}
+\footnotetext{The first part of the definition isn't actually necessary, since $\ego_1$ already contains the user data from the \emph{Ego Network of Order 1}.}
 
 \begin{figure}
 \centering
@@ -138,7 +138,7 @@ A simple way to do that is to do an approach similar to the \emph{User Data} pre
 
 It is important to keep in mind that not all edges of $G$ will be accumulated to these features. Indeed, the majority of users in the testing set $T$ don't have a neighbour which also belongs to $T$, and for those nodes every feature in this category ends up being $0$.
 
-For out experimental setting, the set of nodes $F \subseteq T$ is defined as the nodes in the \emph{Inner Graph} (in contrast to the \emph{Full Graph}, that contains all nodes in $T$), where $F$ only contains nodes which have at least one neighbour with socioeconomic information. In \cref{sec:results} we provide experimental results on both graphs. As expected, the results obtained on the \emph{Inner Graph} are better than the ones obtained on the \emph{Full Graph}, since it contains more information.
+For our experimental setting, the set of nodes $F \subseteq T$ is defined as the nodes in the \emph{Inner Graph} (in contrast to the \emph{Full Graph}, that contains all nodes in $T$), where $F$ only contains nodes which have at least one neighbour with socioeconomic information. In \cref{sec:results} we provide experimental results on both graphs. As expected, the results obtained on the \emph{Inner Graph} are better than the ones obtained on the \emph{Full Graph}, since it contains more information.
 
 Creating these features naïvely could occur in overfitting, if the model features were generated with data that is also used for training the supervised learning models. To avoid this overfitting, the set $T$ is partitioned into two disjoint sets, $G$ and $H$, where $G$ contains roughly 75\% of the nodes in $T$ and is used to calculate the features, while $H$ contains the other 25\% and is used to train the models.
 

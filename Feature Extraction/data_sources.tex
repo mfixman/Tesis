@@ -14,7 +14,7 @@ Given that our collections $P$ and $S$ are coming from one mobile phone company,
 
 For this study we also had access to the set $B$ of account balances of over 10 million clients of a bank for a period of 6 consecutive months in the same country (with the same endpoint than the period of time described in \cref{subsec:telcoinformation}). The data of each client $b \in B$ contains the phone number $b_p$ anonymized with the same cryptographic function as the datasets of \cref{subsec:telcoinformation}, along with the reported income of this person over 6 months $b_{s_0}, \ldots, b_{s_5}$. We average these 6 values to get $b_s$, an estimate of the users' monthly income.
 
-Since the objective of this paper is to detect users with high income, we simplify the task by % not using or predicting the number directly. Instead, we 
+Since the objective of this paper is to detect users with high income, we simplify the task by % not using or predicting the number directly. Instead, we
 grouping the users into two equally-sized categories, one with \emph{Low Income} users and another for users with \emph{High Income}, which are simply defined as the high and low quantile of users, as shown in \cref{eq:lowhighincome},
 where $m$ is the median of the income distribution.
 
