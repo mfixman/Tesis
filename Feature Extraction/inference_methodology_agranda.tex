@@ -1,19 +1,20 @@
 \section{Inference Methodology}
 \label{sec:inference_methodology}
 
-The \emph{Inner Graph} is defined so that a node $h \in H$ is part of it if and only if there is an edge $\left< h, x \right> \in E$ or $\left< x, h \right> \in E$ such that $x \in H$\footnotemark{}. This later definition becomes important when doing inferences on features using the \emph{Categorical User Data} dataset.
+The \emph{Inner Graph} is defined so that a node $h \in H$ is part of it if and only if there is an edge $\left< h, x \right> \in E$ or $\left< x, h \right> \in E$ such that $x \in H$.
+This later definition becomes important when doing inferences on features using the \emph{Categorical User Data} dataset.
 
-\footnotetext{Reciprocally, this also implies $x \in H_{\inner}$.}
+% \footnotetext{Reciprocally, this also implies $x \in H_{\inner}$.}
 
-The inferences will be attempted with both a \emph{Logistic Regression} and a \emph{Random Forest} classifier, both of which are solid classifiers commonly used for cases like this~\cite{binaryevaluation}, and since they tend to have different variance in the results~\cite{ting2016} noise from different sources doesn't tend to affect either predictor.
+The inferences were performed using \emph{Logistic Regression} and \emph{Random Forest} classifiers, both of which are solid classifiers commonly used for cases like this~\cite{binaryevaluation}, and since they tend to have different variance in the results~\cite{ting2016} noise from different sources doesn't tend to affect either predictor.
 
-The features used were the ones presented in \cref{sec:accumulatedfeatures}, where each level is merged with all the previous levels with the data on $G$. \cref{tab:features} shows the amount of features in each level after merging the data.
+The features used were the ones presented in \cref{sec:accumulatedfeatures}, where each level is merged with all the previous levels with the data on $G$. \cref{tab:features} shows the amount of features in each level after merging the data. 
+The feature sets $\ego_1 \ldots \ego_3$ and $\cat_1 \ldots \cat_3$ are strictly
+increasing.
 
-The classifiers are trained using those features and the labels in $H$ doing a \emph{Grid Search} on different hyperparameters of the predictors with \emph{5-fold cross-validation} to prevent cases of overfitting. Since we don't want to measure only \emph{Accuracy} we present several different comparison metrics, and since in most real life cases it's more interesting to find high income users than to be accurate\footnotemark{}, we measure the \emph{F\textsubscript{4} score} of each prediction.
+The classifiers are trained using those features and the labels in $H$ doing a \emph{Grid Search} on different hyperparameters of the predictors with \emph{5-fold cross-validation} to prevent cases of overfitting. Since we don't want to measure only the \emph{accuracy} we computed several metrics for the comparison. In our real life use cases, we are more interested in having high \emph{recall} than high \emph{precision} (that is, finding more high income users than to being accurate), therefore we also measure the \emph{F\textsubscript{4} score} of each prediction.
 
-\footnotetext{This means we care more about having high \emph{Recall} than high \emph{Precision}.}
-
-In addition, the methods are compared against three other methods to use as a base.
+In addition, these methods based on features aggregated by node are compared against three other methods based solely on the communication graph structure:
 
 \begin{itemize}
 	\item \textbf{Random Selection} which chooses a category randomly.
