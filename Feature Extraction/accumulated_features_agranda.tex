@@ -26,21 +26,21 @@ $\cat_3$ & \num{72} \\
 \subsection{User Data --- Level $\ego_1$}
 \label{subsec:user_data}
 
-The first accumulated features consist of accumulating the three quantifiable features, \emph{Calls}, \emph{Time} and \emph{SMS}, for every node, separated on whether those features are incoming or outgoing.  
+The first accumulated features consist of accumulating the three quantifiable features, \emph{Calls}, \emph{Time} and \emph{SMS}, for every node, separated on whether those features are incoming or outgoing.
 
 \subsection{Higher Order User Data --- Level $\ego_{n > 1}$}
 \label{subsec:higherorderuserdata}
 
 The \emph{ego network} of the node $v$ is defined as the graph consisting of $v$ and its neighbors. A simple way to get more features about that node is to accumulate the calls and SMS information about the edges which are \textbf{not} part of the ego network, but contain one endpoint on the border of the ego network.
 
-Similarly, we define the \emph{user data of order $n$}, for any natural number $n$, as the accumulation of calls and SMS information for the nodes which are part of the \emph{ego network of order $n$}, which is the set of nodes which are at distance at most $n$ of $v$, and are not part of the \emph{ego network of order $n - 1$}, which we denote as $\ego_n$. 
+Similarly, we define the \emph{user data of order $n$}, for any natural number $n$, as the accumulation of calls and SMS information for the nodes which are part of the \emph{ego network of order $n$}, which is the set of nodes which are at distance at most $n$ of $v$, and are not part of the \emph{ego network of order $n - 1$}, which we denote as $\ego_n$.
 The level $\ego_1$ contains the information of the regular \emph{user data} from \cref{subsec:user_data}, while the user data from the \emph{ego network of order $n$} is assigned to $\ego_n$ for $n > 1$.
 
 \subsection{Categorical User Data --- Level $\cat_n$}
 \label{subsec:categoricaluserdata}
 
 Another approach to building features is to do an approach similar to the \emph{user data} presented in \cref{subsec:user_data}, but further discriminating each feature which corresponds to each node $v \in V$ and each edge $e \in E$:
-when $t \in T$ is the other endpoint of the link $e$, we discriminate whether $t$ corresponds to a user with high or low income. 
+when $t \in T$ is the other endpoint of the link $e$, we discriminate whether $t$ corresponds to a user with high or low income.
 The resulting new features are of the form represented by the set in \cref{eq:matcatuserdata}. This way we create the datasets $\cat_1 \dots \cat_3$ by using the growing ego networks $\ego_1 \dots \ego_3$.
 
 \begin{equation}
