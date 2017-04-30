@@ -3,11 +3,12 @@
 \section{Inference Methodology}
 \label{sec:inference_methodology}
 
-As previously explained in \cref{subsec:categoricaluserdata}, the nodes in $T \subseteq V$ are separated into two disjoint subgroups, $G$ and $H$, so that $G \cup H = T$, $G \cap H = \varnothing$, $\left| G \right| = 0.75 \cdot \left| T \right|$, and $\left| H \right| = 0.25 \cdot \left| T \right|$. Furthermore, the subset $H_{\inner} \subseteq H$ is defined so that a node $h \in H$ is part of it if and only if there is an edge $\left< h, x \right> \in E$ or $\left< x, h \right> \in E$ such that $x \in H$\footnotemark{}. This later definition becomes important when doing inferences on features using the \emph{Categorical User Data} dataset.
+As previously explained in \cref{subsec:categoricaluserdata}, the nodes in $T \subseteq V$ are separated into two disjoint subgroups, $G$ and $H$, so that $G \cup H = T$, $G \cap H = \varnothing$, $\left| G \right| = 0.75 \cdot \left| T \right|$, and $\left| H \right| = 0.25 \cdot \left| T \right|$. Furthermore, the subset $H_{\inner} \subseteq H$ is defined so that a node $h \in H_{\inner}$ if and only if $h \in H$ and there is an edge $\left< h, x \right> \in E$ or $\left< x, h \right> \in E$ such that $x \in H$. % \footnotemark{}. 
+This later definition becomes important when doing inferences on features using the \emph{Categorical User Data} dataset.
 
-\footnotetext{Reciprocally, this also implies $x \in H_{\inner}$.}
+% \footnotetext{Reciprocally, this also implies $x \in H_{\inner}$.}
 
-The inferences will be attempted with both a \emph{Logistic Regression} and a \emph{Random Forest} classifier, both of which are solid classifiers commonly used for cases like this~\cite{binaryevaluation}, and since they tend to have different variance in the results~\cite{ting2016} noise from different sources doesn't tend to affect either predictor.
+The inferences based on features aggregated by node were performed using \emph{Logistic Regression} and \emph{Random Forest} classifiers, both of which are solid classifiers commonly used for cases like this~\cite{binaryevaluation}, and since they tend to have different variance in the results~\cite{ting2016} noise from different sources doesn't tend to affect either predictor.
 
 The features used were presented in \cref{sec:accumulatedfeatures}, where each level is merged with all the previous levels with the data on $G$. This way we can assure that no possibly useful information will be lost when adding new data, and ideally every prediction should be better or equal than the one in the previous level. \cref{tab:features} shows the amount of features in each level after merging.
 
@@ -15,11 +16,11 @@ The classifiers are trained using those features and the labels in $H$ doing a \
 
 \footnotetext{This means we care more about having high \emph{Recall} than high \emph{Precision}.}
 
-In addition, the methods are compared against three other methods to use as a base.
+In addition, these node-based methods are compared against three other methods which make use of the network topology.
 
 \subsection{Random Selection}
 
-The method of \emph{Random Selection} simply chooses a category randomly for every user $v \in V$. The probability of success can be formalized with \cref{eq:randomselection}.
+The method of \emph{Random Selection} is used as baseline, it simply chooses a category randomly for every user $v \in V$. The probability of success can be formalized with \cref{eq:randomselection}.
 
 \begin{equation}
 \label{eq:randomselection}
@@ -31,7 +32,7 @@ The method of \emph{Random Selection} simply chooses a category randomly for eve
 
 \subsection{Majority Voting}
 
-The category of each user $v \in V$ depends on whether the majority of its contacts are of high or of low category. If the user has the exact same number of contacts of each category, a result is chosen randomly.
+The category of each user $v \in V$ depends on whether the majority of its contacts are of high or of low category. If the user has the exact same number of contacts of each category, the result is chosen randomly.
 
 \begin{equation}
 \label{eq:majorityvoting}
@@ -45,9 +46,9 @@ The category of each user $v \in V$ depends on whether the majority of its conta
 
 \subsection{Bayesian Method}
 
-We compare the results an improved version of the \emph{Bayesian Method} presented in~\cite{fixmanasonam2016}. In this method, which only works for users with at least one labelled contact (and thus are part of the \emph{Inner Graph}), a \emph{Beta Distribution} $\Betasim_v \sim \Betadist \left( \alpha, \beta \right)$ is defined for each user $v \in V$ where the parameters depend on the amount of \emph{High Income} and \emph{Low Income} users, respectively.
+We compare the results an improved version of the \emph{Bayesian Method} presented in~\cite{fixmanasonam2016}. In this method, which only works for users with at least one labelled contact (and thus are part of the \emph{Inner Graph}), a \emph{Beta Distribution} $\Betasim_v \sim \Betadist \left( \alpha, \beta \right)$ is defined for each user $v \in V$ where the parameters depend on the amount of \emph{High Income} and \emph{Low Income} users in their egonetwork, respectively.
 
-After defining the distributions, the \emph{Inverse Cumulative Distribution Function} is applied with some argument $\Theta \in \left[ 0, 1 \right]$, which is chosen to maximize \emph{Area Under the Curve} of the model, to generate $p_v$, the probability for user $v$ to belong to each category. With this probability it's possible to create a \emph{ROC Curve}, as in \cref{fig:roc_contacts}. Additionally, the distribution of $p_v$ for this data can be seen in \cref{fig:hist_contacts}.
+After defining the distributions, the \emph{Inverse Cumulative Distribution Function} is applied with some argument $\Theta \in \left[ 0, 1 \right]$, which is chosen to maximize the \emph{Area Under the Curve} of the model, to generate $p_v$, the probability for user $v$ to belong to each category. With this probability it's possible to create a \emph{ROC Curve}, as in \cref{fig:roc_contacts}. Additionally, the distribution of $p_v$ for this data can be seen in \cref{fig:hist_contacts}.
 
 A third hyperparameter, $\tau \in \left[ 0, 1 \right]$, defines the threshold for the category an user with probability $p_v$ belongs to, as defined in \cref{eq:bayesian}.
 
