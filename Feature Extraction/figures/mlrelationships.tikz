@@ -41,19 +41,19 @@
   \node (0) at (18.0bp,150.0bp) [draw,circle] {$\ego_1$};
   \node (1) at (18.0bp,106.0bp) [draw,circle] {$\ego_2$};
   \node (2) at (18.0bp,62.0bp) [draw,circle] {$\ego_3$};
-  \definecolor{strokecolor}{rgb}{0.0,0.25,0.0};
+  \definecolor{strokecolor}{rgb}{0.0,0.5,0.0};
   \draw [strokecolor,-stealth'] (2) ..controls (37.602bp,46.028bp) and (43.91bp,40.888bp)  .. (d2p);
-  \definecolor{strokecolor}{rgb}{0.0,0.0,0.25};
+  \definecolor{strokecolor}{rgb}{0.0,0.0,0.5};
   \draw [strokecolor,-stealth'] (d1p) ..controls (72.0bp,43.69bp) and (72.0bp,43.53bp)  .. (d2p);
-  \definecolor{strokecolor}{rgb}{0.0,0.25,0.0};
+  \definecolor{strokecolor}{rgb}{0.0,0.5,0.0};
   \draw [strokecolor,-stealth'] (1) ..controls (37.602bp,90.028bp) and (43.91bp,84.888bp)  .. (d1p);
-  \definecolor{strokecolor}{rgb}{0.0,0.25,0.0};
+  \definecolor{strokecolor}{rgb}{0.0,0.5,0.0};
   \draw [strokecolor,-stealth'] (0) ..controls (37.602bp,134.03bp) and (43.91bp,128.89bp)  .. (d0p);
-  \definecolor{strokecolor}{rgb}{0.0,0.0,0.25};
+  \definecolor{strokecolor}{rgb}{0.0,0.0,0.5};
   \draw [strokecolor,-stealth'] (d0p) ..controls (72.0bp,87.69bp) and (72.0bp,87.53bp)  .. (d1p);
-  \definecolor{strokecolor}{rgb}{0.0,0.0,0.25};
+  \definecolor{strokecolor}{rgb}{0.0,0.0,0.5};
   \draw [strokecolor,-stealth'] (0) ..controls (18.0bp,131.69bp) and (18.0bp,131.53bp)  .. (1);
-  \definecolor{strokecolor}{rgb}{0.0,0.0,0.25};
+  \definecolor{strokecolor}{rgb}{0.0,0.0,0.5};
   \draw [strokecolor,-stealth'] (1) ..controls (18.0bp,87.69bp) and (18.0bp,87.53bp)  .. (2);
 %
 \end{tikzpicture}
