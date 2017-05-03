@@ -1,21 +1,26 @@
-\chapter{Conclusion}
+\chapter{Conclusions}
 
-This work is based on the combination of two data sources of mobile phone records and banking information. We showed that there is a significant level of homophily between the income of the participants of a call, and based on this property, we presented a Bayesian approach to infer the income category of users in the graph for which we don't have banking data.
+\section{Main Findings}
 
-We first classified users into 2 categories depending on their income. To this end, we computed the number of calls each user \( u \) makes to members of the same and different categories, and we constructed a Beta distribution for the probability of user \( u \) belonging to each category. We later validated this approach by constructing the ROC curve and computing its accuracy, and compared it to random guessing and to a simpler method based on majority voting. We were able to validate that the method presented outperforms the other two.
+This thesis is based on the combination of two separate but related data sources, the multiset of \emph{Mobile Phone} CDRs $P$ and $S$, and the \emph{Bank Information} $B$ for another set of users, both of which have some intersection.
+With this data we created a method to predict the \emph{Socioeconomic Index} of the users with no income information based on the demonstrated significant amount of homophily between the income of participants of a call.
 
-Our proposed inference methodology is useful in concrete applications, since it provides an estimation of socio-economic attributes of users lacking banking history, based on their communication network. We also note that this methodology is not restricted to the inference of socio-economic attributes, but is equally applicable to any attribute that exhibits significant homophily in the network.
+This presents a model for predicting the \emph{Socioeconomic Index} of users of the telco, the \emph{Bayesian Model}, which when using the optimal hyperparameters specified in \cref{tab:bayesresults} $\{\varpi = \contacts; \Theta = 0.394; \tau = 0.514\}$ has an \emph{Area Under the Curve} of \num{0.746}, an F\textsubscript{1}-measure of {0.723}, and an F\textsubscript{4}-measure of {0.783}.
 
-%\todo{Revisar conclusions}
-%
-%\todo{Para una proxima version:}
-%
-%\todo{Ampliar a vecinos de vecinos}
-%
-%\todo{Comparar con otros metodos}
-%
-%\todo{Comparar con reacción-difusión (a primeros vecinos)}
-%
-%\todo{Idea de Alejo: usar los parametros de la Dirichlet (usar un prior no uniforme)}
-%
-%\todo{Distribucion de income inferido en función de la edad}
+In order to do this we first separate the dataset into two similarly sized sets of \emph{Low Income} and \emph{High Income} users. For each user whose \emph{Socioeconomic Level} should be predicted (or for users which are part of the \emph{Testing Set} when choosing the hyperparameters and testing the performance of the method), a \emph{Beta Distribution} is generated whose parameters are the amount of contacts of each category.
+These distributions are later used to predict the \emph{Socioeconomic Index} of each user by finding whether the \emph{Quantile Function} of this distribution at some value is greater than some threshold.
+
+To validate this method, many metrics were compared with both basic classifiers and with \emph{Machine Learning} methods using complex feature extraction methods.
+While some of the latter gave good results for these methods, the \emph{Bayesian Method} was clearly the best one between all of those.
+
+One of the interesting parts of this analysis is that, while the \emph{Machine Learning} methods usually improve when more data is given in the input, the \emph{Bayesian Method} has better results while still using a much smaller input.
+This way, this thesis' results are consistent with the research made by Lu~et.~al~\cite{lu2003link}, which also uses a \emph{Graph Model} as the input of a prediction algorithm and finds that the best results are obtained with a simple feature extraction method, and with a similar work by Óskardottir~et.~al~\cite{oskardottir2016} where, in addition to the same conclusion as in the previous article, a complex model of \emph{Iterative Classification} results in a worse prediction.
+
+Our proposed inference methodology is useful in concrete applications, not only as an estimate of socioeconomic attributes of users lacking banking history, but also could be used as a predictor of many other properties of the users which are part of any network.
+
+\section{Future Work}
+
+Instead of staying with two income categories, the model can be extended to a \emph{Multiple Category Model} by finding, for each user, the probability that it belongs to each model.
+Instead of defining a \emph{Beta Distribution} for each user, it would be possible to find a \emph{Dirichlet Distribution} where for each of the result distributions a model such as the one presented in \cref{subsec:modelling_users} is defined.
+
+Using this same dataset it would also be possible to predict other properties of each user of the telco, such as \emph{Age}, \emph{Gender}, or \emph{Defaulter Status}. Indeed, many of these predictions won't need a model that's too different to the one presented in this thesis, having those predictions has many practical results.
