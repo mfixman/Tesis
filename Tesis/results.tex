@@ -134,7 +134,7 @@ As \cref{tab:besttheta,fig:theta} show, both hypotheses are false.
 \label{tab:besttheta}
 \end{table}
 
-The \emph{Area Under the Curve} is a good way to analyze the performance of the algorithm with given hyperparameters since it provides a good equillibrium between \emph{Precision} and \emph{Recall}, and it's not necessary to establish a $\tau$ to get these values.
+The \emph{Area Under the Curve} is a good way to analyze the performance of the algorithm with given hyperparameters since it provides a good equilibrium between \emph{Precision} and \emph{Recall}, and it's not necessary to establish a $\tau$ to get these values.
 
 In this analysis we can see that there are different optimal $\Theta$ for every $\varpi$, contradicting the first hypothesis although the best value seems to be the same for $\varpi = \calls$ and $\varpi = \sms$. The reason for this equality remains a mystery.
 
@@ -150,7 +150,7 @@ The \emph{Bayesian Algorithm} will be ran for every $\varpi \in \left\{ \contact
 	\begin{itemize}
 		\item Some interesting pairs $\left< \alpha, \beta \right>$ which correspond to particularly high bars in the histogram are marked.
 	\end{itemize}
-	\item A \textbf{Receiver Operating Characteristic Curve}, showing the tradeoff of \emph{False Positive Rate} to \emph{True Positive Rate} when selecting every possible $\tau$. The \emph{Area Under the Curve} is marked, as this is the metric that is being maximized when selecting the correct $\varpi$.
+	\item A \textbf{Receiver Operating Characteristic Curve}, showing the trade-off of \emph{False Positive Rate} to \emph{True Positive Rate} when selecting every possible $\tau$. The \emph{Area Under the Curve} is marked, as this is the metric that is being maximized when selecting the correct $\varpi$.
 	\item An \textbf{Accuracy Curve}, which shows the \emph{Accuracy} of the predictor by its \emph{False Positive Rate}.
 	\begin{itemize}
 		\item $\tau$ is chosen from this plot to maximize the \emph{Accuracy}. This value doesn't affect the \emph{Area Under the Curve}, which is the most common comparison metric between models.
@@ -174,7 +174,7 @@ Many metrics, previously described in \cref{subsec:mlmetrics} will be used to me
 
 \Cref{fig:bayes_calls} contains data about the predictor when $\varpi = \calls$ and the data is analyzed using $\Upsilon^{\calls}$ as \emph{Testing Set}. The \emph{Inverse Cumulative Distribution Function} contains a few peaks for users with a similar amount of calls.
 
-After analyszing the data, we find that the \emph{Area Under the Curve} using this method is of \num{0.724}, which is significantly higher than all the naïve and \emph{Machine Learning} methods that will be presented in the later \cref{sec:comparison}.
+After analyzing the data, we find that the \emph{Area Under the Curve} using this method is of \num{0.724}, which is significantly higher than all the naïve and \emph{Machine Learning} methods that will be presented in the later \cref{sec:comparison}.
 
 Setting $\tau = 0.654$ maximizes the accuracy at $\Accuracy = 0.687$. Additionally, that value of $\tau$ results in $\Precision = 0.653$, $\Recall = 0.815$, $F_1 = 0.725$, and $F_4 = 0.804$.
 
@@ -212,7 +212,7 @@ This $\tau$ also results in a predictor where $\Accuracy = 0.682$, $\Precision =
 
 \Cref{fig:bayes_sms} shows the distributions when $\varpi = \sms$. Since the total amount of SMS is much lower than the amount of calls, the peaks of the result of the \emph{Inverse Cumulative Functions} of the \emph{Beta Distribution} applied on $\Upsilon^{\sms}$ that happen with the majority of users that have few of both are located closer to the center than in \cref{subsec:calls_infer,subsec:time_infer}. This makes some interesting cases if $\varpi = \sms$ is chosen, since the distribution is different than in the other cases.
 
-In particular, this gives an $\AUC = 0.715$, which is lower than both in the case of \emph{Calls} and \emph{Time}. Interesingly, the maximum \emph{Accuracy} at $\tau = 0.299$ is slightly higher than both of the other cases; this is probably a side-effect of the fact that $\left| \Upsilon^{\sms} \right| < \left| \Upsilon^{\calls} \right|$.
+In particular, this gives an $\AUC = 0.715$, which is lower than both in the case of \emph{Calls} and \emph{Time}. Interestingly, the maximum \emph{Accuracy} at $\tau = 0.299$ is slightly higher than both of the other cases; this is probably a side-effect of the fact that $\left| \Upsilon^{\sms} \right| < \left| \Upsilon^{\calls} \right|$.
 
 Additionally, $\Precision = 0.696$, $\Recall = 0.186$, $F_1 = 0.293$, and $F_4 = 0.194$.
 
@@ -230,7 +230,7 @@ Additionally, $\Precision = 0.696$, $\Recall = 0.186$, $F_1 = 0.293$, and $F_4 =
 
 \Cref{fig:bayes_contacts} shows the distributions when $\varpi = \contacts$, where it's possible to get a pattern similar to the one shown in \cref{subsec:sms_infer} when $\varpi = \sms$, where the majority of users have relatively few contacts and the peaks in the histogram. Additionally, since the total amount of contacts is exponentially distributed (as shown in \cref{fig:outcontacts_dist}), and people with \emph{High Income} tend to have more contacts in general, there peaks are clustered in areas with low $p_v$ (where the majority of calls are made to \emph{Low Income} users), near the middle (where the calls are mostly equally distributed), but not at high $p_v$; this last section would belong to the few users with many calls to \emph{High Income} users.
 
-Using this method it's possible to find that $\AUC = 0.746$, which is higher than all the other methods presented in \cref{subsec:algorithm_performance}. Additionally, when selecting $\tau = 0.514$, $\Accuracy = 0.694$ which is higher than the maximum \emph{Accuracy} in all other methods. These metrics, combined with the fact that $\Upsilon$ contains every user in the \emph{Testing Set}, result in the fact that $\varpi = \contacts$ is uambiguously the best way to classify the data for the algorithm. Additionally, $\Precision = 0.556$, $\Recall = 0.792$, $F_1 = 0.723$, and $F_4 = 0.783$.
+Using this method it's possible to find that $\AUC = 0.746$, which is higher than all the other methods presented in \cref{subsec:algorithm_performance}. Additionally, when selecting $\tau = 0.514$, $\Accuracy = 0.694$ which is higher than the maximum \emph{Accuracy} in all other methods. These metrics, combined with the fact that $\Upsilon$ contains every user in the \emph{Testing Set}, result in the fact that $\varpi = \contacts$ is unambiguously the best way to classify the data for the algorithm. Additionally, $\Precision = 0.556$, $\Recall = 0.792$, $F_1 = 0.723$, and $F_4 = 0.783$.
 
 \subsection{Final Results}
 
@@ -252,11 +252,11 @@ contacts & 0.394 & 0.514 & 0.693 & 0.665 & 0.792 & 0.746 & 0.723 & 0.783 \\
 \label{tab:bayesresults}
 \end{table}
 
-In particular, the results show that using \emph{Contacts} as the predictor for the \emph{Bayesian Algorithm} results in a signicantly higher \emph{Area Under the Curve} and a higher \emph{Accuracy}.
+In particular, the results show that using \emph{Contacts} as the predictor for the \emph{Bayesian Algorithm} results in a significantly higher \emph{Area Under the Curve} and a higher \emph{Accuracy}.
 
 \section{Algorithm Performance of Users with at least 3 Contacts}
 
-The algorithm tends to be a better predictor of the \emph{Socioeconomic Level} for users with high amount of information on the graph $G$, namely that the amount of users in their neighbourhood that also belong to $B$ is big.
+The algorithm tends to be a better predictor of the \emph{Socioeconomic Level} for users with high amount of information on the graph $G$, namely that the amount of users in their neighborhood that also belong to $B$ is big.
 
 In this section, we run the \emph{Bayesian Algorithm} for the subset of the users presented in \cref{eq:3contacts}, which restrict the users in the \emph{Testing Set} to only those who have at least 3 contacts. This would allow us to have better metrics in the dataset, at the expense of a much smaller Universe of users for which the algorithm could be applied. Additionally, \cref{tab:3contacts} shows the sizes of the \emph{Testing Sets} used in a manner similar to \cref{tab:partition_numbers}.
 
@@ -308,4 +308,4 @@ $I^{\calls}$ & \num{7910} & \num{4627} & \num{3283} & \num{0.214} \\
 
 The results in \cref{fig:bayes_contacts_least3} show the best possible predictor for a reasonable subset of the users. Both the \emph{Area Under the Curve} and the \emph{Accuracy} are higher than for all other predictors, with $\AUC = 0.829$ and $\Accuracy = 0.766$.
 
-All of those values are considerably better than any other predictor in this page at the cost of using only a small subset of the possible users. This is interesing as it's exactly the same subset as the one used in~\cite{fixmanasonam2016}, and it scores significantly higher in all the metrics.
+All of those values are considerably better than any other predictor in this page at the cost of using only a small subset of the possible users. This is interesting as it's exactly the same subset as the one used in~\cite{fixmanasonam2016}, and it scores significantly higher in all the metrics.

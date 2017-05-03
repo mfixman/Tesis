@@ -18,21 +18,21 @@ There's an interesting exception to this homophily: there is a significant numbe
 
 \subsection{Gender Homophily}
 
-Lorem ipsum dolor sit amet.
+\Blindtext[2]{}
 
 \section{Spearman's Coefficient}
 \label{subsec:spearman}
 
 Spearman's Rank Correlation Coefficient (also known as Spearman's rho) is a non-parametric measure of rank correlation which measures how well the relationship between two variables can be described using a monotonic function~\cite{statistical_analysis}. Unlike Pearson's Correlation Coefficient, which measures lineal relationship between variables, Spearman's Coefficient uses the \emph{rank} of the variables in its calculations; therefore is measures its monotonicity.
 
-For a sample of size \( n \) with scores \( X_i \) and \( Y_i \), the Spearman Coefficient \( r_s \) is defined as in \cref{eq:spearman}.
+For a sample of size $n$ with scores $X_i$ and $Y_i$, the Spearman Coefficient $r_s$ is defined as in \cref{eq:spearman}.
 
 \begin{equation}
 r_s = \mathlarger{\rho}_{\rank(X) \rank(Y)} = \frac{\cov(\rank(x), \rank(y))}{\sigma_{\rank(X)} \sigma_{\rank(Y)}}
 \label{eq:spearman}
 \end{equation}
 
-Where \( \rho_{a,b} \) denotes the \emph{Pearson Correlation} between the variables \( a \) and \( b \). This value will be closer to 1 when the variables are directly monotonic, closer to -1 when they are inversely monotonic, and closer to 0 when there is no tendency for either variable to increase or decrease when the other increases.
+Where $\rho_{a,b}$ denotes the \emph{Pearson Correlation} between the variables $a$ and $b$. This value will be closer to 1 when the variables are directly monotonic, closer to -1 when they are inversely monotonic, and closer to 0 when there is no tendency for either variable to increase or decrease when the other increases.
 
 \section{Bayesian Inference}
 
@@ -133,14 +133,14 @@ Regarding this thesis, the \emph{Beta Distribution} will be used to model a real
 \Beta(\alpha, \beta) = \frac{(\alpha + \beta - 1)!}{(\alpha - 1)! \cdot (\beta - 1)!}
 \end{equation}
 
-Additionally, the \emph{Beta Function} can be generalized into the \emph{Incomplete Beta Function} for some parameter $x$ as in \cref{eq:incomplete_beta}. This function is, confusingly, also represented with the greek letter $\Beta$; to ease comprehension this thesis will refer to it as $\Betainc$.
+Additionally, the \emph{Beta Function} can be generalized into the \emph{Incomplete Beta Function} for some parameter $x$ as in \cref{eq:incomplete_beta}. This function is, confusingly, also represented with the Greek letter $\Beta$; to ease comprehension this thesis will refer to it as $\Betainc$.
 
 \begin{equation}
 \label{eq:incomplete_beta}
 \Betainc(x; \alpha, \beta) = \int_0^x {t^{\alpha - 1} {(1 - t)}^{\beta - 1} dt}
 \end{equation}
 
-As we get more data from the sampling, the \emph{Beta distribution} turns more concenteated towards the actual \( \theta \) and its shapes resembles more a normal curve, as can be seen in \cref{fig:betagraph}. This represents the increased certainty which comes from the aquired knowledge of the problem.
+As we get more data from the sampling, the \emph{Beta distribution} turns more concentrated towards the actual $\theta$ and its shapes resembles more a normal curve, as can be seen in \cref{fig:betagraph}. This represents the increased certainty which comes from the acquired knowledge of the problem.
 
 \begin{figure}
 \centering
@@ -238,14 +238,14 @@ This is exactly the same function as the one in \cref{eq:betabin_beta}. That is,
 	\theta \mid k, n, \alpha, \beta \sim \Betadist \left( \alpha + k, \beta + n - k \right)
 \end{equation}
 
-This way it's possible to see that the \emph{Beta Distribution} has the properties of a \emph{Conjugate Prior Distribution} seen in \cref{subsec:conjugate} to the \emph{Binomial Likelihood}. This makes it extremely desiderable for \emph{Bayesian Analysis}, and for this reason it's used as the main model of this thesis. This is seen in more detail \cref{subsec:modelling_users}.
+This way it's possible to see that the \emph{Beta Distribution} has the properties of a \emph{Conjugate Prior Distribution} seen in \cref{subsec:conjugate} to the \emph{Binomial Likelihood}. This makes it extremely desirable for \emph{Bayesian Analysis}, and for this reason it's used as the main model of this thesis. This is seen in more detail \cref{subsec:modelling_users}.
 
 \section{Machine Learning Validation Metrics}
 \label{subsec:mlmetrics}
 
 In the following subsections we present the outline of several supervised machine learning algorithms which are used to compare the Bayesian method to a more realistic baseline. First, we'll present several ways to validate the different algorithms when applied to the data. In the following section, we'll present many of the algorithms used for comparison.
 
-Given a set of fatures $Z$, all of which belong to members of a population which belong to a certain category, and a random subset of those features $X \subseteq Z$ whose category $y$ is known, the models should be trained with $X$ and $y$ in order to correctly predict the values corresponding to all the features in $Z$. Since those values are unknown validation of the output is impossible; therefore, we validate the model using the known values in $X$ and $y$.
+Given a set of features $Z$, all of which belong to members of a population which belong to a certain category, and a random subset of those features $X \subseteq Z$ whose category $y$ is known, the models should be trained with $X$ and $y$ in order to correctly predict the values corresponding to all the features in $Z$. Since those values are unknown validation of the output is impossible; therefore, we validate the model using the known values in $X$ and $y$.
 
 There are many metrics that can be used to measure the performance of a classifier or a predictor~\cite{binaryevaluation}; different fields have different preferences due to different goals. In this section, we present many metrics to evaluate different results that are commonly used in the area of mobile phone data analysis~\cite{oskardottir2016}.
 
@@ -298,11 +298,11 @@ Additionally, this table can be easily seen in a graphical way in \cref{fig:true
 \label{precisionrecall}
 \end{equation}
 
-These two measures and their combinations focus only on the positive examples and predictions, althrough between them they capture some information about the rates and kind of errors made~\cite{binaryevaluation}. While the \emph{recall} has been shown to have a major weight in working with machine translation~\cite{fraser2007}, they aren't particularly useful to use alone since they don't take into account many factors of the prediction~\cite{binaryevaluation}.
+These two measures and their combinations focus only on the positive examples and predictions, although between them they capture some information about the rates and kind of errors made~\cite{binaryevaluation}. While the \emph{recall} has been shown to have a major weight in working with machine translation~\cite{fraser2007}, they aren't particularly useful to use alone since they don't take into account many factors of the prediction~\cite{binaryevaluation}.
 
 \subsection{Inverse~Precision and Inverse~Recall}
 
-As a corollary of the previous metrics, we can add metrics that measure the proportion of real negative cases that are correctly predicted negative, referred as the \emph{Inverse~Recall}, and the proportion of predicted negatives that are real negatives, referreed as the \emph{Inverse~Precision}\cite{binaryevaluation}. We can see that these are equivalent to finding the \emph{Precision} and \emph{Recall} of the negative category.
+As a corollary of the previous metrics, we can add metrics that measure the proportion of real negative cases that are correctly predicted negative, referred as the \emph{Inverse~Recall}, and the proportion of predicted negatives that are real negatives, referred as the \emph{Inverse~Precision}\cite{binaryevaluation}. We can see that these are equivalent to finding the \emph{Precision} and \emph{Recall} of the negative category.
 
 \begin{equation}
 \begin{split}
@@ -314,7 +314,7 @@ As a corollary of the previous metrics, we can add metrics that measure the prop
 
 \subsection{Accuracy}
 \label{subsec:accuracy}
-The \emph{accuracy}, commonly referred in te context of binary classifiers as \textbf{Rand~Accuracy}\cite{powers15}, is used as a statistical measure of how well a binary classification test identifies or excludes a condition. Unlike the \emph{precision}, it takes into account the negatives, and it's expressible~\cite{binaryevaluation} both as a weighted average of \emph{precision} and inverse \emph{precision} or \emph{recall} and \emph{inverse recall}.
+The \emph{accuracy}, commonly referred in the context of binary classifiers as \textbf{Rand~Accuracy}\cite{powers15}, is used as a statistical measure of how well a binary classification test identifies or excludes a condition. Unlike the \emph{precision}, it takes into account the negatives, and it's expressible~\cite{binaryevaluation} both as a weighted average of \emph{precision} and inverse \emph{precision} or \emph{recall} and \emph{inverse recall}.
 
 \begin{equation}
 \Accuracy = \frac{\TP + \TN}{N}
@@ -333,7 +333,7 @@ This can be more simply expressed using the weighted average of either the \emph
 
 \subsection{ROC Curve}
 
-A \emph{Receiver Operating Characteristing} graph is a technique for visualizing, organizing, and selecting classifiers based on their performance~\cite{fawcett2005}. The curve is created by plotting the \emph{True Positive Rate} against the \emph{False Positive Rate} at various threshold settings.
+A \emph{Receiver Operating Characterising} graph is a technique for visualizing, organizing, and selecting classifiers based on their performance~\cite{fawcett2005}. The curve is created by plotting the \emph{True Positive Rate} against the \emph{False Positive Rate} at various threshold settings.
 
 This allows to compare different classifiers before having to select a particular threshold value for them. In particular, a random classifier will score near the positive diagonal ($\FPR = \TPR$), while a perfect classifier will score in the top left hand corner ($\FPR = 1, \TPR = 0$) and a worst case classifier will score in the bottom right hand corner\footnote{Note that, for any binary classifier, it's trivial to transpose the entire ROC curve (or a part of it) to the other part of the diagonal; therefore the worst ``realistic'' case is the random one}\cite{binaryevaluation}.
 
@@ -367,6 +367,6 @@ F_\beta &= \left( 1 + \beta^2 \right) \cdot \frac{\TPA \cdot \TPR}{\left( \beta^
 \end{split}
 \end{equation}
 
-The most commonly used \emph{F-measure}, $F_1$, measures the \emph{Precision} and \emph{Recall} is thet harmonic mean of the \emph{Precision} and \emph{Recall}. In particular, for an \emph{F-measure} with $\beta > 1$ weights Recall higher than Precision, while with $\beta < 1$ weights Precision higher than Recall.
+The most commonly used \emph{F-measure}, $F_1$, measures the \emph{Precision} and \emph{Recall} is that harmonic mean of the \emph{Precision} and \emph{Recall}. In particular, for an \emph{F-measure} with $\beta > 1$ weights Recall higher than Precision, while with $\beta < 1$ weights Precision higher than Recall.
 
 \input{supervisedml}

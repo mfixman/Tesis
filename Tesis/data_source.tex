@@ -14,7 +14,7 @@ Additionally, the latitude and longitude of the antenna used for each call and S
 
 Given that our collections $P$ and $S$ of CDRs are coming from one telephone company, we are able to reconstruct all communication links between clients of this company $N$, as well as communications between the clients and other users. However, we have no information on communications where neither users are clients of our telco company, and therefore users not in $N$ don't have complete call information.
 
-The \emph{Communications Graph} $G = \left< V, E \right>$ is composed of he set of nodes $V = P_o \cup P_d \cup S_o \cup S_d$, and the set of directed edges $E$, where each element $e \in E$ is composed of an origin and destination $\left< e_o, e_d \right>$, the total amount of calls between these two users $e_c$, the total time of all calls $e_t$, and the amount of SMS $e_s$. Unlike the multisets $P$ and $S$, there is at most one element per every pair $\left< e_o, e_d \right>$ (althrough there may be two distinct elements with those values flipped).
+The \emph{Communications Graph} $G = \left< V, E \right>$ is composed of he set of nodes $V = P_o \cup P_d \cup S_o \cup S_d$, and the set of directed edges $E$, where each element $e \in E$ is composed of an origin and destination $\left< e_o, e_d \right>$, the total amount of calls between these two users $e_c$, the total time of all calls $e_t$, and the amount of SMS $e_s$. Unlike the multisets $P$ and $S$, there is at most one element per every pair $\left< e_o, e_d \right>$ (although there may be two distinct elements with those values flipped).
 
 The set $E$ can be formally constructed with the instructions of the \cref{eq:graphconstruction}.
 
@@ -72,7 +72,7 @@ Contacts & \num{249011358} & \num{110074848} & \num{14980756} \\
 \label{fig:outcontacts_dist}
 \end{figure}
 
-Both the amount of calls and the amount of contacts per user are distrubuted roughly in a negative exponential distribution. Since the \emph{Average Call Time} isn't anywhere near 0, the pattern of \emph{Call Durations} follows a \emph{Gamma Distribution} $\Gamma \left( 3.8, -8.4 \right)$, where $\Gamma$ corresponds to the standard version of the distribution with location and shape parameters.
+Both the amount of calls and the amount of contacts per user are distributed roughly in a negative exponential distribution. Since the \emph{Average Call Time} isn't anywhere near 0, the pattern of \emph{Call Durations} follows a \emph{Gamma Distribution} $\Gamma \left( 3.8, -8.4 \right)$, where $\Gamma$ corresponds to the standard version of the distribution with location and shape parameters.
 
 \begin{figure}
 \centering
@@ -130,7 +130,7 @@ e_d = b_p \implies e_{\operatorname{sd}} = b_s \\
 \end{gathered}
 \end{equation}
 
-The distribution of bank users in $S$ is similar to the one in $B$, as shown in \cref{fig:matchdistribution}. This demostrates that the users of this particular telco have mostly the same socioeconomic patterns as the clients of the bank in general.
+The distribution of bank users in $S$ is similar to the one in $B$, as shown in \cref{fig:matchdistribution}. This demonstrates that the users of this particular telco have mostly the same socioeconomic patterns as the clients of the bank in general.
 
 \begin{figure}
 \centering
@@ -168,6 +168,6 @@ From the Lorenz curve, we can compute the Gini coefficient as the area that lies
 
 According to the World Bank~\cite{world_bank}, the Gini coefficient for the population of the country where the data used on this thesis belongs was $0.481$ in 2012. Our result is consistent with this information, since the income inequality is expected to be lower when accounting only to bank clients than within the whole population of the country.
 
-By simple analyzing \cref{fig:incomedistribution}, we can reach the conclusion that thet income in this country is very unequally distributed. In particular, the top 1\% of the population get about 10\% of the total income, while the top 5\% get 25\%, the top 10\% 37\%, and the top 25\% get 61\%.
+By simple analyzing \cref{fig:incomedistribution}, we can reach the conclusion that the income in this country is very unequally distributed. In particular, the top 1\% of the population get about 10\% of the total income, while the top 5\% get 25\%, the top 10\% 37\%, and the top 25\% get 61\%.
 
 Analyzing \cref{fig:incomedistribution}, we can observe that the top 10\% of the clients accumulate 33\% of the total income, while the top 20\% accumulate 50.5\% and the top 30\% accumulate 63.1\%; the rest of the income is distributed among the remaining 70\% of the population.

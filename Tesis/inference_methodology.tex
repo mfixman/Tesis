@@ -67,7 +67,7 @@ Another possible way to accumulate these values is discriminating them by the ca
 \subsection{Uncertainty}
 \label{subsec:uncertainty}
 
-One important thing to note is that the only nodes accumulated in \crefrange{eq:bayesian_calls_accum}{eq:bayesian_contacts_accum} for some node $v \in V$ are the neighbouring ones that belong to $S$. \Cref{eq:subset_neighbours} indicates how to build the subset $D \subseteq S$ of bank users who also have a neughbour in the \emph{Social Graph} $G$ which is also part of the bank.
+One important thing to note is that the only nodes accumulated in \crefrange{eq:bayesian_calls_accum}{eq:bayesian_contacts_accum} for some node $v \in V$ are the neighboring ones that belong to $S$. \Cref{eq:subset_neighbours} indicates how to build the subset $D \subseteq S$ of bank users who also have a neighbor in the \emph{Social Graph} $G$ which is also part of the bank.
 
 \begin{equation}
 \label{eq:subset_neighbours}
@@ -186,7 +186,7 @@ One advantage of this method is that it's possible to evaluate the method by cal
 Once this methods defines which $\varpi \in \left\{ \calls, \etime, \sms, \contacts \right\}$ it will use, it chooses $\Theta$ as to maximize the \emph{Area Under the Curve} of the model. While calculating the \emph{Inverse Cumulative Function} for the \emph{Beta Distribution} is particularly slow, it's possible to calculate less datapoints by using a \emph{Statistical Prior}, as defined in \cref{subsec:modelling_users}.
 Another probability (still unexplored) is to figure out that the \emph{Area Under the Curve} for a particular $\varpi$ is monotonic increasing until the optimal $\Theta$, and later is monotonic decreasing, as shown in the later \cref{fig:theta}. If this hypothesis were true, it would be possible to use \emph{Ternary Search} to find the best value of $\Theta$.
 
-After finding a $\varpi$ and $\Theta$, it's possible to find the point $p_v$ at which the \emph{Beta Distribution} $\Betasim_v$ of each user $v \in V$ integrates to $\Theta$. Having this data we can find the $\tau$ that maximises the \emph{Accuracy} of the model by comparing the predicted categories to the data in the \emph{Testing Set}.
+After finding a $\varpi$ and $\Theta$, it's possible to find the point $p_v$ at which the \emph{Beta Distribution} $\Betasim_v$ of each user $v \in V$ integrates to $\Theta$. Having this data we can find the $\tau$ that maximizes the \emph{Accuracy} of the model by comparing the predicted categories to the data in the \emph{Testing Set}.
 
 \section{Bayesian Graphical Model}
 \label{subsec:bayesiangm}

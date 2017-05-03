@@ -3,7 +3,7 @@
 
 In the following section, we compare the results of the Bayesian method with other classifiers commonly used for this same problem.
 
-This classified creates a proper baseline for other comparisons. These will be used in the dataset $G = \left< V, E \right>$ with the bank data contained in $B^{\train}$, and will be used eihter to provite information about the users contained in $B^{\test}$ (the \emph{Outer Graph}), or the ones in $\Upsilon$ (the \emph{Inner Graph}). Those two sets of features are described with more detail in \cref{subsec:train_test_split,subsec:rebalancing_labels}.
+This classified creates a proper baseline for other comparisons. These will be used in the dataset $G = \left< V, E \right>$ with the bank data contained in $B^{\train}$, and will be used either to provide information about the users contained in $B^{\test}$ (the \emph{Outer Graph}), or the ones in $\Upsilon$ (the \emph{Inner Graph}). Those two sets of features are described with more detail in \cref{subsec:train_test_split,subsec:rebalancing_labels}.
 
 For simplicity sake, the descriptions of the algorithm will refer to the \emph{Testing Set} as $\Upsilon$ regardless of whether it's using a subset or the data or not.
 
@@ -27,7 +27,7 @@ For completeness sake we created a random ``dummy'' classifier which randomly ch
 
 The method of \emph{Majority Voting} is a basic but powerful way of inferring to which category a user belongs. It simply chooses the category of each user $\upsilon \in \Upsilon$ as the category for which the majority of its contacts belong.
 
-In case of a tie (which happens often when using the \emph{Outer Graph}), the category is chosen randomly. Theis approach can be formalized as in \cref{eq:majority_voting}.
+In case of a tie (which happens often when using the \emph{Outer Graph}), the category is chosen randomly. This approach can be formalized as in \cref{eq:majority_voting}.
 
 \begin{equation}
 \label{eq:majority_voting}
@@ -44,7 +44,7 @@ In case of a tie (which happens often when using the \emph{Outer Graph}), the ca
 
 The following methods use commonly used supervised Machine Learning algorithms described in \cref{subsec:supervised_machine_learning} used with many similar \emph{Feature Extraction} methods on $G$.
 
-The initial feature extraction method, \emph{User Data}, which is described in \cref{subsec:user_data} and marked as $\ego_0$, consists of accumulating the total information about the links neighbouring some user $v \in V$. Later, as shown in \cref{subsec:higherorderuserdata}, it's possible to accumulate links from more levels of the \emph{Ego Network} to create featuresets that be used to build a better prediction of the data.
+The initial feature extraction method, \emph{User Data}, which is described in \cref{subsec:user_data} and marked as $\ego_0$, consists of accumulating the total information about the links neighboring some user $v \in V$. Later, as shown in \cref{subsec:higherorderuserdata}, it's possible to accumulate links from more levels of the \emph{Ego Network} to create feature sets that be used to build a better prediction of the data.
 
 An extra method for feature extraction is presented in \cref{subsec:categoricaluserdata}, which in addition to doing the extraction of other methods it accumulates separately edges that go to \emph{High Income} and \emph{Low Income} users.
 
@@ -108,7 +108,7 @@ This way, it's possible to accumulate features for each user $v \in V$ in the ma
 
 These features will be referred as the \emph{User Data} of user $v$.
 
-There features contain information about the \emph{Neighbourhood} of $\upsilon$, also referred to as the \emph{Ego Network of Distance 1}. This \emph{Neighbourhood} can be formally defined as in \cref{eq:neighbourhood}.
+There features contain information about the \emph{Neighborhood} of $\upsilon$, also referred to as the \emph{Ego Network of Distance 1}. This \emph{Neighborhood} can be formally defined as in \cref{eq:neighborhood}.
 
 \begin{equation}
 \label{eq:neighbourhood}
@@ -118,9 +118,9 @@ There features contain information about the \emph{Neighbourhood} of $\upsilon$,
 \section{Categorical User Data --- Level $\cat_n$}
 \label{subsec:categoricaluserdata}
 
-A possible featureset consists of using of separating the data of the neighbourhood of each user $\upsilon \in \Upsilon$ into two disjoint groups, $L_{\upsilon}$ and $K_{\upsilon}$, which contain the neighours of $\upsilon$ in the \emph{Low Income} and \emph{High Income} categories of income respectively\footnotemark{}.
+A possible feature set consists of using of separating the data of the neighborhood of each user $\upsilon \in \Upsilon$ into two disjoint groups, $L_{\upsilon}$ and $K_{\upsilon}$, which contain the neighbors of $\upsilon$ in the \emph{Low Income} and \emph{High Income} categories of income respectively\footnotemark{}.
 
-\footnotetext{Note that, since not all users have banking information, there may be nodes in the neighbourhood of $\upsilon$ which don't belong to either $L_{\upsilon}$ or $K_{\upsilon}$.}
+\footnotetext{Note that, since not all users have banking information, there may be nodes in the neighborhood of $\upsilon$ which don't belong to either $L_{\upsilon}$ or $K_{\upsilon}$.}
 
 \begin{equation}
 \label{eq:cud_categories}
@@ -130,7 +130,7 @@ A possible featureset consists of using of separating the data of the neighbourh
 \end{aligned}
 \end{equation}
 
-Having these groups it's possible to define a set of features similar to the one in \cref{subsec:user_data}, where each feature is separated by the category of the neighbour. \Cref{eq:matcatuserdata} contains the names of the new features.
+Having these groups it's possible to define a set of features similar to the one in \cref{subsec:user_data}, where each feature is separated by the category of the neighbor. \Cref{eq:matcatuserdata} contains the names of the new features.
 
 \begin{equation}
 \label{eq:matcatuserdata}
@@ -171,9 +171,9 @@ Unlike the features in \cref{subsec:user_data}, and like the method presented in
 \section{Higher Order User Data --- Level $\ego_{n > 0}$}
 \label{subsec:higherorderuserdata}
 
-The features described in \cref{subsec:user_data} correspond to the information about calls and SMS from an user $\upsilon \in \Upsilon$ towards all of its neighbours, which is described as the \emph{Ego Network of Distance 1}. However, there's no reason why this information can't be extended to other nodes at a higher distance from $\upsilon$.
+The features described in \cref{subsec:user_data} correspond to the information about calls and SMS from an user $\upsilon \in \Upsilon$ towards all of its neighbors, which is described as the \emph{Ego Network of Distance 1}. However, there's no reason why this information can't be extended to other nodes at a higher distance from $\upsilon$.
 
-If the distance between two nodes is defined using the intuitive definition presented in \cref{eq:distance}, it's possible to define the \emph{User Data of Order $n$} for any number $n \in \mathbb{N}$ as the accumulation of calls and SMS where one endpoint is on the border of the \emph{Ego Network of Order $n$} and the other one isn't. The \emph{Ego Network of Order $n$} or a certain node $\upsilon$ is the subgraph composed of the node $\upsilon$ and all the nodes which are at at most distance $n$ of $\upsilon$.
+If the distance between two nodes is defined using the intuitive definition presented in \cref{eq:distance}, it's possible to define the \emph{User Data of Order $n$} for any number $n \in \mathbb{N}$ as the accumulation of calls and SMS where one endpoint is on the border of the \emph{Ego Network of Order $n$} and the other one isn't. The \emph{Ego Network of Order $n$} or a certain node $\upsilon$ is the sub-graph composed of the node $\upsilon$ and all the nodes which are at at most distance $n$ of $\upsilon$.
 
 \begin{equation}
 d \left( a, b \right) =
@@ -361,6 +361,6 @@ These results show that, when using the data from the labelled users $\Upsilon$,
 && $\cat_2$ & 0.614 & 0.635 & 0.534 & 0.614 & 0.580 & 0.539 & \SI{50.589}{\second}  & \SI{3.484}{\second} \\
 \bottomrule
 \end{tabular}
-\caption{Resulting metrics of different methods used in \cref{sec:results,sec:comparison} tested on both the \emph{Inner Graph} $\Upsilon$, which contains only nodes which have at least one neighbour with socioeconomic information, and the \emph{Outer Graph} $B^{\test}$, which includes all nodes. \textbf{Bolded} items represent the highest value for each metric. The \emph{Bayesian Algorithm} is run with the best parameters found in \cref{subsec:performance_evaluation}, with $\varpi = \contacts$, $\Theta = 0.394$, and $\tau = 0.514$}
+\caption{Resulting metrics of different methods used in \cref{sec:results,sec:comparison} tested on both the \emph{Inner Graph} $\Upsilon$, which contains only nodes which have at least one neighbor with socioeconomic information, and the \emph{Outer Graph} $B^{\test}$, which includes all nodes. \textbf{Bolded} items represent the highest value for each metric. The \emph{Bayesian Algorithm} is run with the best parameters found in \cref{subsec:performance_evaluation}, with $\varpi = \contacts$, $\Theta = 0.394$, and $\tau = 0.514$}
 \label{tab:comparison}
 \end{table}
