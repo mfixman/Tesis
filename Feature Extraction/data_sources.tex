@@ -1,3 +1,5 @@
+% !TEX root = feature_extraction.tex
+
 \section{Data Sources}
 \label{sec:data_sources}
 
@@ -8,11 +10,13 @@ The data used in this study consist of a set $P$ of \textit{Call Detail Records}
 
 Every CDR $p \in P$ contains the phone numbers of the caller (origin) and callee (destination) $\left< p_o, p_d \right>$, which are anonymized using a cryptographic hash function for privacy reasons; the starting time \( p_t \); and the call duration \( p_s \). The same datum, except call duration, can be found for each element $s \in S$.
 
-Given that our collections $P$ and $S$ are coming from one mobile phone company, we are able to reconstruct all communication links between clients of this company, as well as communications between the clients and other users, but we have no information on communications where neither users are clients of our telecommunication company. Since we need all the information about the calls and SMS messages of the users in the graph, we work only with the clients of the mobile phone operator to generate inferences.
+Given that our collections $P$ and $S$ are coming from one mobile phone company, we are able to reconstruct all communication links between clients of this company, as well as communications between the clients and other users, but we have no information on communications where neither users are clients of the telco. Since we need all the information about the calls and SMS messages of the users in the graph, we work only with the clients of the mobile phone operator to generate inferences.
 
 \subsection{Banking Information}
 
-For this study we also had access to the set $B$ of account balances of over 10 million clients of a bank for a period of 6 consecutive months in the same country (with the same endpoint than the period of time described in \cref{subsec:telcoinformation}). The data of each client $b \in B$ contains the phone number $b_p$ anonymized with the same cryptographic function as the datasets of \cref{subsec:telcoinformation}, along with the reported income of this person over 6 months $b_{s_0}, \ldots, b_{s_5}$. We average these 6 values to get $b_s$, an estimate of the users' monthly income.
+For this study we also had access to the set $B$ of account balances of over 10 million clients of a bank for a period of 6 consecutive months in the same country (with the same endpoint than the period of time %described in \cref{subsec:telcoinformation}). 
+of the mobile phone datasource).
+The data of each client $b \in B$ contains the phone number $b_p$ anonymized with the same cryptographic function as the datasets of \cref{subsec:telcoinformation}, along with the reported income of this person over 6 months $b_{s_1}, \ldots, b_{s_6}$. We average these 6 values to get $b_s$, an estimate of the users' monthly income.
 
 Since the objective of this paper is to detect users with high income, we simplify the task by % not using or predicting the number directly. Instead, we
 grouping the users into two equally-sized categories, one with \emph{Low Income} users and another for users with \emph{High Income}, which are simply defined as the high and low quantile of users, as shown in \cref{eq:lowhighincome},
@@ -28,7 +32,7 @@ where $m$ is the median of the income distribution.
 
 \subsection{Bank-Telco Matching}
 
-Since the phone numbers in each call or message made by the clients of the mobile phone operator is anonymized with the same hash function as the phone number registered in the bank dataset $B$, we can define several values for the intersection of the bank and telco datasets as the set of CDRs $P'$, and the income information in $H$. This approach is formalized in \cref{eq:banktelcomatching}.
+Since the phone numbers in each call or message made by the clients of the mobile phone operator is anonymized with the same hash function as the phone number registered in the bank dataset $B$, we can define several values for the intersection of the bank and telco datasets as the set of CDRs $P'$, and the income information in $H$. This approach is summarized in \cref{eq:banktelcomatching}.
 
 \begin{equation}
 \label{eq:banktelcomatching}
