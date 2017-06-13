@@ -1,9 +1,11 @@
+% !TEX root = tesis.tex
+
 \chapter{Comparison with Other Inference Methods}
 \label{sec:comparison}
 
-In the following section, we compare the results of the Bayesian method with other classifiers commonly used for this same problem.
+In this chapter, we compare the results of the Bayesian method with other classifiers commonly used for this same problem.
 
-This classified creates a proper baseline for other comparisons. These will be used in the dataset $G = \left< V, E \right>$ with the bank data contained in $B^{\train}$, and will be used either to provide information about the users contained in $B^{\test}$ (the \emph{Outer Graph}), or the ones in $\Upsilon$ (the \emph{Inner Graph}). Those two sets of features are described with more detail in \cref{subsec:train_test_split,subsec:rebalancing_labels}.
+This classifier creates a proper baseline for other comparisons. These will be used in the dataset $G = \left< V, E \right>$ with the bank data contained in $B^{\train}$, and will be used either to provide information about the users contained in $B^{\test}$ (the \emph{Outer Graph}), or the ones in $\Upsilon$ (the \emph{Inner Graph}). Those two sets of features are described with more detail in \cref{subsec:train_test_split,subsec:rebalancing_labels}.
 
 For simplicity sake, the descriptions of the algorithm will refer to the \emph{Testing Set} as $\Upsilon$ regardless of whether it's using a subset or the data or not.
 
@@ -12,7 +14,7 @@ For simplicity sake, the descriptions of the algorithm will refer to the \emph{T
 \section{Random Selection}
 \label{subsec:random_selection}
 
-For completeness sake we created a random ``dummy'' classifier which randomly chooses the socioeconomic index of each user.
+For the sake of completeness, we created a random ``dummy'' classifier which randomly chooses the socioeconomic index of each user.
 
 \begin{equation}
 \label{eq:random}
