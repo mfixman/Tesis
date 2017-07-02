@@ -1,0 +1,44 @@
+\documentclass{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish]{babel}
+\usepackage{microtype}
+\usepackage[numbers]{natbib}
+\usepackage[hidelinks=true]{hyperref}
+
+\title{Propuesta de Tesis\\\vspace{1em}\Large 
+Comparación de Métodos para la Inferencia
+del Status Socio-económico en un Grafo de Comunicaciones}
+
+% Inference of Socioeconomic Status\\in a Communications Graph:\\A Bayesian Approach}
+
+\author{{\Large Martín Fixman}\\Director: Carlos Sarraute\\Co-director: Esteban Feuerstein}
+\date{{Facultad de Ciencias Exactas y Naturales}\\{Universidad de Buenos Aires}\\Buenos Aires, Mayo 2017}
+
+\bibliographystyle{ieeetr}
+
+\begin{document}
+
+\maketitle
+
+\section*{}
+
+Obtener y procesar datos demográficos y sociológicos fueron uno de los procesos más importantes para entender fenómenos que afectan a toda la población desde por lo menos el Siglo XVII, y encontrar formas simples e intuitivas de visualizarlos tiene un gran impacto en nuestra manera de entender los datos~\citep{minard1844,snow1855}. Formas comunes de obtener datos cuantitativos de estratificación económica usualmente involucran investigación de archivos o encuestas sociales~\citep{bulmer1977}; sin embargo esos métodos no pueden presentar datos que sean simultáneamente exactos, actualizados, y que aplican a una población grande sin depender de métodos estadísticos.
+
+Para este trabajo, el autor tiene acceso a metadatos de conversaciones telefónicas de los usuarios de una compañía de telecomunicaciones de Mexico, con las que es posible definir relaciones entre ellos. A la vez se obtuvieron datos sobre los usuarios de un banco de manera de que sea posible hacer la unión entre estas dos bases de datos. De esta manera, es posible conocer los datos de las cuentas bancarias de los usuarios de la telco además de sus interrelaciones.
+
+A pesar de ser un área de trabajo relativamente nueva, la inferencia de datos de usuario por telecomunicaciones tiene una gran cantidad de publicaciones relevantes. En un trabajo importante en este área, Óskarsdottir et.\ al demuestran varios posibles métodos de inferencia de \emph{churn} (usuarios que pueden abandonar la compañía) en una red de telecomunicaciones~\cite{oskarsdottir2016}. En esta se demuestra que no hay una sola manera obvia de crear una inferencia para el tipo de inferencias que usualmente son útiles, sino que hay muchos posibles métodos que pueden servir para estos casos sin ninguna manera de saber de antemano cuál es el mejor.
+
+También hay una cantidad significativa de investigación existente usando datos bancarios. Leo et.\ al usan datos similares para inferir varias correlaciones de alto orden entre tipos de compras y usuarios~\cite{leo2015socioeconomic}. Adicionalmente, los autores usa el mismo set de datos para investigar correlaciones de patrones de consumo en redes socioeconómicas~\cite{leo16correlations}.
+
+En esta tesis nos proponemos hacer uso de estos datos para la \emph{Inferencia de Nivel Socioeconómico} de los usuarios. Para esto, un camino a investigar es usar métodos generales de \emph{Machine Learning} tales como emph{Logistic Regression} o \emph{Random Forest} sobre datos acumulados de los usuarios como los descritos en~\cite{oskarsdottir2016}. Otro enfoque que se investiga en esta tesis es calcular y aprovechar el nivel de \emph{Homofilia Social} explicado por Mcpherson et.\ al~\cite{mcpherson2001birds} y, usando conocimientos en \emph{Inferencia Bayesiana}, encontrar un mejor algoritmo para este tipo de inferencias.
+
+Parte de este trabajo ya fue publicada por el autor y presentada en la \emph{Conferencia Internacional en Avances en Análisis y Minería de Redes Sociales} (ASONAM) en el año 2016~\cite{fixmanasonam2016}. En esta conferencia se pudo observar lo novedoso e interesante del problema para el público científico general.
+En esta tesis desarrollamos más en profundidad el enfoque Bayesiano, y evaluamos su desempeño en función de los parámetros del modelo.
+
+La segunda parte de la tesis consiste en explorar varias metodologías para generar \emph{features} (características) de los usuarios, tomando en cuenta su posicion en el grafo de comunicaciones, y los subgrafos que lo rodean hasta distancia $n$ (donde evaluamos $n = 1 \ldots 3$). También evaluamos varias metodologías clásicas de \emph{Machine Learning} que usan como entrada estas características, y medimos su desempeño en función de los parámetros del algoritmo de clasificación y del conjunto de \emph{features} usado. Presentaremos los resultados de esta evaluación sistemática y de la comparación con el enfoque Bayesiano.
+
+\bibliography{bibliography/sna}{}
+
+\end{document}

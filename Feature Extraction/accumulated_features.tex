@@ -1,3 +1,5 @@
+% !TEX root = feature_extraction.tex
+
 \section{Accumulated Graph Features}
 \label{sec:accumulatedfeatures}
 
@@ -38,32 +40,49 @@ $\cat_3$ & \num{72} \\
 \subsection{User Data --- Level $\ego_1$}
 \label{subsec:user_data}
 
-The first accumulated features consist of aggregating the three quantifiable features described in \cref{sec:graphfeatures} for every node, separated on whether those features are incoming or outgoing.
+The first accumulated features consist of aggregating the three quantifiable features (\emph{Calls}, \emph{Time}, and \emph{SMS}) described in \cref{sec:graphfeatures} for every node, separated on whether those features are incoming or outgoing.
 
 Additionally, we add two features corresponding to the \emph{In-Degree} and \emph{Out-Degree} of each node. This can be seen as the sum of an imaginary feature on each link $e \in E$, \textbf{Contacts}, which is always exactly $1$ when the link exists.
 
-These features are defined for each node $v \in V$ in \cref{eq:user_data}.
+These features are defined for each node $v \in V$ in Equations \eqref{eq:user_data1} to  \eqref{eq:user_data4}.
 
 \begin{equation}
 \begin{gathered}
-\begin{aligned}
-\incalls_v &= \sum_{\substack{e \in E \\ e_d = v}} \calls_e &
-\outcalls_v &= \sum_{\substack{e \in E \\ e_o = v}} \calls_e \\
-\intime_v &= \sum_{\substack{e \in E \\ e_d = v}} \etime_e &
-\outtime_v &= \sum_{\substack{e \in E \\ e_o = v}} \etime_e \\
-\insms_v &= \sum_{\substack{e \in E \\ e_d = v}} \sms_e &
-\outsms_v &= \sum_{\substack{e \in E \\ e_o = v}} \sms_e \\
-\end{aligned} \\
 \begin{aligned}
 \incontacts_v &= \left| \left\{ e \in E \mid e_d = v \right\} \right| \\
 \outcontacts_v &= \left| \left\{ e \in E \mid e_o = v \right\} \right|
 \end{aligned}
 \end{gathered}
-\label{eq:user_data}
+\label{eq:user_data1}
 \end{equation}
 
+\begin{equation}
+\begin{aligned}
+\incalls_v &= \sum_{\substack{e \in E \\ e_d = v}} \calls_e &
+\outcalls_v &= \sum_{\substack{e \in E \\ e_o = v}} \calls_e \\
+\end{aligned}
+\label{eq:user_data2}
+\end{equation}
+
+\begin{equation}
+\begin{aligned}
+\intime_v &= \sum_{\substack{e \in E \\ e_d = v}} \etime_e &
+\outtime_v &= \sum_{\substack{e \in E \\ e_o = v}} \etime_e \\
+\end{aligned}
+\label{eq:user_data3}
+\end{equation}
+
+\begin{equation}
+\begin{aligned}
+\insms_v &= \sum_{\substack{e \in E \\ e_d = v}} \sms_e &
+\outsms_v &= \sum_{\substack{e \in E \\ e_o = v}} \sms_e \\
+\end{aligned}
+\label{eq:user_data4}
+\end{equation}
+
+
 These accumulated patterns present interesting distributions,
-which are characteristic of mobile phone datasets. These distributions are presented in \cref{fig:callsms}, \cref{fig:time}, and \cref{fig:contacts}.
+which are characteristic of mobile phone datasets. These distributions are presented in Figures \ref{fig:callsms}, \ref{fig:time}, and \ref{fig:contacts}.
 
 \begin{figure}
 \includegraphicsmaybe{figures/outcalls_dist.png}
@@ -88,13 +107,14 @@ which are characteristic of mobile phone datasets. These distributions are prese
 
 \label{subsec:higherorderuserdata}
 
-The features described in \cref{subsec:user_data} correspond to the information about calls and SMS from a user $v \in V$ towards all of its neighbours. However, there's no reason why this information can't be extended to nodes at a higher distance from $v$.
+The features described in \cref{subsec:user_data} correspond to the information about calls and SMS from a user $v \in V$ towards all its neighbours. 
+However, there's no reason why this information can't be extended to nodes at a higher distance from $v$.
 
 The \emph{Ego Network} of the node $v$ is defined as the graph consisting of $v$ and its neighbors. A simple way to get more features about that node is to accumulate the call and SMS information about the links with nodes which are \textbf{not} part of the \emph{Ego Network}, but have a direct link with the border of the \emph{Ego Network}.
 
 Additionally, we define the distance between two nodes using the intuitive definition which is presented on \cref{eq:distance}, that is the minimum number of hops.
 The \emph{Ego Network of Order $n$} of a certain node $v$ is the subgraph composed of the node $v$, plus all the nodes which are at most at distance $n$ of $v$, with the distance defined as in \cref{eq:distance}.
-We can now define the \emph{User Data of Order $n$}, for any natural number $n$, as the accumulation of call and SMS information for the nodes which are part of the \emph{Ego Network of Order $n$} and aren't part of the \emph{Ego Network of Order $n - 1$}, which we call the $\ego_n$.
+We can now define the \emph{User Data of Order $n$}, for any natural number $n$, as the accumulation of call and SMS information for the nodes which are part of the \emph{Ego Network of Order $n$} and are not part of the \emph{Ego Network of Order $n - 1$}, which we call the $\ego_n$.
 
 \begin{equation}
 d \left( a, b \right) =
@@ -105,9 +125,9 @@ d \left( a, b \right) =
 \label{eq:distance}
 \end{equation}
 
-This definition can be seen intuitively in \cref{fig:higherorderuserdata}. For reference purposes, we assign the level $\ego_1$ to the information of the regular \emph{User Data} from \cref{subsec:user_data}, while the user data from the \emph{Ego Network of Order $n$} is assigned $\ego_n$ for some $n > 1$\footnotemark{}.
+This definition can be seen intuitively in \cref{fig:higherorderuserdata}. For reference purposes, we assign the level $\ego_1$ to the information of the regular \emph{User Data} from \cref{subsec:user_data}, while the user data from the \emph{Ego Network of Order $n$} is assigned $\ego_n$ for some $n > 1$. % \footnotemark{}.
 
-\footnotetext{The first part of the definition isn't actually necessary, since $\ego_1$ already contains the user data from the \emph{Ego Network of Order 1}.}
+% \footnotetext{The first part of the definition isn't actually necessary, since $\ego_1$ already contains the user data from the \emph{Ego Network of Order 1}.}
 
 \begin{figure}
 \centering
@@ -121,11 +141,11 @@ This definition can be seen intuitively in \cref{fig:higherorderuserdata}. For r
 \subsection{Categorical User Data --- Level $\cat_n$}
 \label{subsec:categoricaluserdata}
 
-Another approach to building features for the test is to combine the information contained in $E$, the list of edges, with the one in the ground truth $T \subseteq V$, which says whether a certain node represents a person of \emph{High Income} or a person of \emph{Low Income}.
+Another approach to building features for the test is to combine the information contained in $E$, the list of edges, with the information of the ground truth $T \subseteq V$, which indicates whether a certain node represents a person of \emph{High Income} or a person of \emph{Low Income}.
 
 \input{results_table}
 
-A simple way to do that is to do an approach similar to the \emph{User Data} presented in \cref{subsec:user_data}, but further discriminating each feature which corresponds to a node $v \in V$ and an edge $e \in E$ when $t \in T$ is the other endpoint of $e$ on whether $t$ corresponds to a person with high or low income. The resulting new features are of the form represented by the set in \cref{eq:matcatuserdata}.
+A simple way to proceed is to use an approach similar to the \emph{User Data} presented in \cref{subsec:user_data}, but further discriminating each feature which corresponds to a node $v \in V$ and an edge $e \in E$, where $t \in T$ is the other endpoint of $e$, on whether $t$ corresponds to a person with high or low income. The resulting new features are of the form represented by the set in \cref{eq:matcatuserdata}.
 
 \begin{equation}
 \begin{Bmatrix} in \\ out \end{Bmatrix}
@@ -136,10 +156,10 @@ A simple way to do that is to do an approach similar to the \emph{User Data} pre
 \label{eq:matcatuserdata}
 \end{equation}
 
-It is important to keep in mind that not all edges of $G$ will be accumulated to these features. Indeed, the majority of users in the testing set $T$ don't have a neighbour which also belongs to $T$, and for those nodes every feature in this category ends up being $0$.
+It is important to keep in mind that not all edges of $G$ will be accumulated with these features. Indeed, the majority of users in the testing set $T$ don't have a neighbour which also belongs to $T$, and for those nodes every feature in this category ends up being $0$.
 
 For our experimental setting, the set of nodes $F \subseteq T$ is defined as the nodes in the \emph{Inner Graph} (in contrast to the \emph{Full Graph}, that contains all nodes in $T$), where $F$ only contains nodes which have at least one neighbour with socioeconomic information. In \cref{sec:results} we provide experimental results on both graphs. As expected, the results obtained on the \emph{Inner Graph} are better than the ones obtained on the \emph{Full Graph}, since it contains more information.
 
 Creating these features naïvely could occur in overfitting, if the model features were generated with data that is also used for training the supervised learning models. To avoid this overfitting, the set $T$ is partitioned into two disjoint sets, $G$ and $H$, where $G$ contains roughly 75\% of the nodes in $T$ and is used to calculate the features, while $H$ contains the other 25\% and is used to train the models.
 
-It's possible to use the method presented in \cref{subsec:higherorderuserdata} generate an \emph{Ego Network of level $n$} of a certain node $v$, and accumulate the adjacent nodes to that network by socioeconomic level before accumulating their data. We refer to the level of these features as $\cat_n$.
+We can then use the method presented in \cref{subsec:higherorderuserdata} generate an \emph{Ego Network of level $n$} of a certain node $v$, and accumulate the adjacent nodes to that network by socioeconomic level before accumulating their data. We refer to the level of these features as $\cat_n$.

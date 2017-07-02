@@ -1,4 +1,5 @@
-\input{other_results_table}
+% !TEX root = feature_extraction.tex
+
 
 \section{Inference Methodology}
 \label{sec:inference_methodology}
@@ -8,11 +9,11 @@ This later definition becomes important when doing inferences on features using 
 
 % \footnotetext{Reciprocally, this also implies $x \in H_{\inner}$.}
 
-The inferences based on features aggregated by node were performed using \emph{Logistic Regression} and \emph{Random Forest} classifiers, both of which are solid classifiers commonly used for cases like this~\cite{binaryevaluation}, and since they tend to have different variance in the results~\cite{ting2016} noise from different sources doesn't tend to affect either predictor.
+The inferences based on features aggregated by node were performed using \emph{Logistic Regression} and \emph{Random Forest} classifiers, both of which are classifiers commonly used for cases like this~\cite{binaryevaluation}, and since they tend to have different variance in the results~\cite{ting2016} noise from different sources doesn't tend to affect either predictor.
 
-The features used were presented in \cref{sec:accumulatedfeatures}, where each level is merged with all the previous levels with the data on $G$. This way we can assure that no possibly useful information will be lost when adding new data, and ideally every prediction should be better or equal than the one in the previous level. \cref{tab:features} shows the amount of features in each level after merging.
+The features used were presented in \cref{sec:accumulatedfeatures}, where each level is merged with all the previous levels with the data on $G$. This way we can assure that no possibly useful information will be lost when adding new data, and ideally every prediction should be better or equal than the ones in the previous levels. \cref{tab:features} shows the amount of features in each level after merging.
 
-The classifiers are trained using those features and the labels in $H$ doing a \emph{Grid Search} on different hyperparameters of the predictors with \emph{5-fold cross-validation} to prevent cases of overfitting. Since we don't want to measure only \emph{Accuracy} we present several different comparison metrics, and since in most real life cases it's more interesting to find high income users than to be accurate\footnotemark{}, we measure the \emph{F\textsubscript{4} score} of each prediction.
+The classifiers are trained using those features and the labels in $H$ doing a \emph{Grid Search} on different hyperparameters of the predictors with \emph{5-fold cross-validation} to prevent cases of overfitting. Since we don't want to measure only \emph{Accuracy} we present several different comparison metrics, and since in most real life cases it's more interesting to find high income users than to be accurate\footnotemark{}, in particular we measure the \emph{F\textsubscript{4} score} of each prediction.
 
 \footnotetext{This means we care more about having high \emph{Recall} than high \emph{Precision}.}
 
@@ -46,9 +47,9 @@ The category of each user $v \in V$ depends on whether the majority of its conta
 
 \subsection{Bayesian Method}
 
-We compare the results an improved version of the \emph{Bayesian Method} presented in~\cite{fixmanasonam2016}. In this method, which only works for users with at least one labelled contact (and thus are part of the \emph{Inner Graph}), a \emph{Beta Distribution} $\Betasim_v \sim \Betadist \left( \alpha, \beta \right)$ is defined for each user $v \in V$ where the parameters depend on the amount of \emph{High Income} and \emph{Low Income} users in their egonetwork, respectively.
+We compare the results of an improved version of the \emph{Bayesian Method} presented in~\cite{fixmanasonam2016}. In this method, which only works for users with at least one labelled contact (and thus are part of the \emph{Inner Graph}), a \emph{Beta Distribution} $\Betasim_v \sim \Betadist \left( \alpha, \beta \right)$ is defined for each user $v \in V$ where the parameters depend on the amount of \emph{High Income} and \emph{Low Income} users in their egonetwork, respectively.
 
-After defining the distributions, the \emph{Inverse Cumulative Distribution Function} is applied with some argument $\Theta \in \left[ 0, 1 \right]$, which is chosen to maximize the \emph{Area Under the Curve} of the model, to generate $p_v$, the probability for user $v$ to belong to each category. With this probability it's possible to create a \emph{ROC Curve}, as in \cref{fig:roc_contacts}. Additionally, the distribution of $p_v$ for this data can be seen in \cref{fig:hist_contacts}.
+After defining the distributions, the \emph{Inverse Cumulative Distribution Function} is applied with some argument $\Theta \in \left[ 0, 1 \right]$, which is chosen to maximize the \emph{Area Under the Curve} (AUC) of the model, to generate $p_v$, the probability for user $v$ to belong to each category. With this probability we can generate the \emph{ROC Curve}, shown in \cref{fig:roc_contacts}. Additionally, the distribution of $p_v$ for this data is plotted in \cref{fig:hist_contacts}.
 
 A third hyperparameter, $\tau \in \left[ 0, 1 \right]$, defines the threshold for the category an user with probability $p_v$ belongs to, as defined in \cref{eq:bayesian}.
 
@@ -60,7 +61,7 @@ A third hyperparameter, $\tau \in \left[ 0, 1 \right]$, defines the threshold fo
 \end{aligned}
 \end{equation}
 
-This value of $\tau$ is chosen to maximize the \emph{Accuracy} of the data. The distribution of how this metric changes according to the \emph{False Positive Rate} is shown in \cref{fig:accuracy_contacts}.
+This value of $\tau$ is chosen to maximize the \emph{Accuracy} of the data. The distribution of how the accuracy varies according to the \emph{False Positive Rate} is shown in \cref{fig:accuracy_contacts}.
 
 \begin{figure}
 \centering

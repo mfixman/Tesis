@@ -1,29 +1,34 @@
+% !TEX root = feature_extraction.tex
+
 \section{Results and Conclusion}
 \label{sec:results}
 
+
+\input{other_results_table}
+
 % The results table should have been included earlier, so that the figure can be presented in two columns in this page. Due to limitations on my knowledge of LaTeX, I don't know how to do this inline.
 
-The predictors were run in a computer with a single core of 2.00 GHz Intel Xeon CPU using \texttt{sklearn 0.18} under \texttt{Python 2.7}, and enough RAM to not need caching in any calculations. The results of the inference can be found in \cref{tab:innergraphresults} for the \emph{Inner Graph} and on \cref{tab:fullgraphresults} for the \emph{Full Graph}.
+The predictors were run in a computer with a single core of 2.00 GHz Intel Xeon CPU using \texttt{sklearn 0.18} under \texttt{Python 2.7}, and 64 GB of RAM (enough to avoid caching calculations). The results of the inference can be found in \cref{tab:innergraphresults} for the \emph{Inner Graph} and on \cref{tab:fullgraphresults} for the \emph{Full Graph}.
 
 % We can reach the conclusion than both adding features of a larger \emph{Ego Network} and separating those links via the labels can improve every metric, but the latter features tend to improve them even furtherm, even when taking the entire graph. Additionally, and particularly when comparing predictors with large amount of features, the \emph{Random Forest} tends to be more accurate and much faster than a \emph{Logistic Regression}.
 
 Both tables show various metrics which result from applying the methods described in \cref{sec:inference_methodology} with the hyperparameters that result in the highest \emph{accuracy} according to the \emph{Grid Search}.
 We use the \emph{AUC} (Area under the ROC curve) to compare the different approaches.
 
-We observe that methods based on \emph{Random Forests} tend to perform better in this real-world scenarios than the ones based in \emph{Logistic Regression}.
+We observe that methods based on \emph{Random Forests} tend to perform better in this real-world scenario than the ones based in \emph{Logistic Regression}.
 This may be due to the fact that \emph{Random Forests} are more versatile with non-linear data~\cite{logisticvsdecision}, and is consistent with similar findings in~\cite{muchlinski2016}.
 
 Interestingly, increasing the breadth of the \emph{Ego Network} by one level, from $\ego_1$ to $\ego_2$ improves the performance when using \emph{Random Forest} learning, however it does not improve by going one level further to $\ego_3$ in the case of the \emph{Inner Graph}, despite the fact that this data is a strict superset of the previous $\ego_2$. This is due to the fallibility of common \emph{bagging methods} like \emph{Random Forest}, where having some noisy or non-informative data to choose from makes it less probable that informative features will be chosen.
 
 Adding categorical information greatly improves the prediction when using either method, particularly on \emph{Random Forest}, and, like it was noted before, adding neighbouring data of the \emph{ego network of distance 2} also results in a better predictor. However, once again this doesn't happen when raising further the maximum distance within the \emph{ego network} in the case of the \emph{Inner Graph}.
 
-We can conclude that within the \emph{machine learning} methods presented, the best in terms of \emph{AUC} is predicting the category using a \emph{Random Forest} with the data from the \emph{ego network of distance 2} ($\cat_2$) in the case of the \emph{Inner Graph}. In the \emph{Full Graph}, using $\cat_3$ data results in slightly better results, however the difference with $\cat_2$ is very small.
+We can conclude that within the {machine learning} methods presented, the best in terms of \emph{AUC} is predicting the category using a \emph{Random Forest} with the data from the \emph{ego network of distance 2} ($\cat_2$) in the case of the \emph{Inner Graph}. In the \emph{Full Graph}, using $\cat_3$ data results in slightly better results, however the difference with $\cat_2$ is very small.
 % for users without labelled neighbours, the difference is small enough to be noise, unlike the difference with the users with more neighbouring information.
 
-Finally, in the \emph{Inner Graph} the best method is the \emph{Bayesian Method} presented in~\cite{fixmanasonam2016}, which only uses the amount of \emph{High Income} and \emph{Low Income} users in the egonetwork, but makes a ``smarter'' prediction than the \emph{machine learning} methods LR and RF using the models $\cat_1$, $\cat_2$, and $\cat_3$, which also contain this data. 
+Finally, in the \emph{Inner Graph} the best method is the \emph{Bayesian Method} presented in~\cite{fixmanasonam2016}, which only uses the amount of \emph{High Income} and \emph{Low Income} users in the egonetwork, but makes a ``smarter'' prediction than the {machine learning} methods LR and RF using the models $\cat_1$, $\cat_2$, and $\cat_3$, which also contain this data. 
 
-Additionally, while its AUC isn't higher than in the best \emph{machine learning} methods, the F\textsubscript{1}-score of the \emph{Majority Voting} predictor is higher than all the \emph{machine learning} methods.
+Additionally, while its AUC is not higher than in the best {machine learning} methods, the F\textsubscript{1}-score of the \emph{Majority Voting} predictor is higher than all the {machine learning} methods.
 
-We can reach the conclusion that, in this particular case, \emph{smaller is better}. The \emph{machine learning} methods which use many features (despite these features being informative) aren't better at predicting the socioeconomic level of a user than the simple \emph{Majority Voting} or the more complex \emph{Bayesian Method} which use only 2 simple features of the communication graph.
+We can reach the conclusion that, in this particular case, \emph{smaller is better}. The {machine learning} methods which use many features (despite these features being informative) are not better at predicting the socioeconomic level of a user than the simple \emph{Majority Voting} or the more complex \emph{Bayesian Method} which use only 2 simple features of the communication graph.
 
 
