@@ -35,3 +35,7 @@
 *.snm
 *.vrb
 
+*.ipynb
+*.orig
+*.new
+*.bak
