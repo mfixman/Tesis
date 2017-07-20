@@ -1,3 +1,5 @@
+% !TEX root = feature_extraction_agranda.tex
+
 \section{Inference Methodology}
 \label{sec:inference_methodology}
 
@@ -6,19 +8,19 @@ This later definition becomes important when doing inferences on features using 
 
 % \footnotetext{Reciprocally, this also implies $x \in H_{\inner}$.}
 
-The inferences were performed using \emph{Logistic Regression} and \emph{Random Forest} classifiers, both of which are solid classifiers commonly used for cases like this~\cite{binaryevaluation}, and since they tend to have different variance in the results~\cite{ting2016} noise from different sources doesn't tend to affect either predictor.
+The inferences were performed using \emph{Logistic Regression} and \emph{Random Forest} classifiers, both of which are solid classifiers commonly used for cases like this~\cite{binaryevaluation}, and since they tend to have different variance in their results~\cite{ting2016}, noise from different sources should affect differently each predictor.
 
 The features used were the ones presented in \cref{sec:accumulatedfeatures}, where each level is merged with all the previous levels with the data on $G$. \cref{tab:features} shows the amount of features in each level after merging the data. 
 The feature sets $\ego_1 \ldots \ego_3$ and $\cat_1 \ldots \cat_3$ are strictly
 increasing.
 
-The classifiers are trained using those features and the labels in $H$ doing a \emph{Grid Search} on different hyperparameters of the predictors with \emph{5-fold cross-validation} to prevent cases of overfitting. Since we don't want to measure only the \emph{accuracy} we computed several metrics for the comparison. In our real life use cases, we are more interested in having high \emph{recall} than high \emph{precision} (that is, finding more high income users than to being accurate), therefore we also measure the \emph{F\textsubscript{4} score} of each prediction.
+The classifiers are trained using those features and the labels in $H$ doing a \emph{Grid Search} on different hyperparameters of the predictors with \emph{5-fold cross-validation} to prevent overfitting. In addition to the \emph{accuracy}, we computed several metrics for the comparison. In our real-life use cases, we are more interested in having high \emph{recall} than high \emph{precision} (that is, finding more high income users than being accurate), therefore we also measured the \emph{F\textsubscript{4}-score} of each prediction.
 
 In addition, these methods based on features aggregated by node are compared against three other methods based solely on the communication graph structure:
 
 \begin{itemize}
-	\item \textbf{Random Selection} which chooses a category randomly.
-	\item \textbf{Majority Voting} which chooses the category for which most of its contacts belong (or randonly if it's the same amount)
+	\item \textbf{Random Selection} which chooses a random category.
+	\item \textbf{Majority Voting} which chooses the most populated category in a user's ego network (or randomly in case of a tie).
 	\item \textbf{Bayesian Method} which uses the method presented in~\cite{fixmanasonam2016} to infer the category of each user,
 	taking into account the uncertainty on the available information.
 \end{itemize}

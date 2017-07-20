@@ -1,3 +1,5 @@
+% !TEX root = feature_extraction_agranda.tex
+
 \section{Accumulated Graph Features}
 \label{sec:accumulatedfeatures}
 
@@ -34,7 +36,8 @@ The first accumulated features consist of accumulating the three quantifiable fe
 The \emph{ego network} of the node $v$ is defined as the graph consisting of $v$ and its neighbors. A simple way to get more features about that node is to accumulate the calls and SMS information about the edges which are \textbf{not} part of the ego network, but contain one endpoint on the border of the ego network.
 
 Similarly, we define the \emph{user data of order $n$}, for any natural number $n$, as the accumulation of calls and SMS information for the nodes which are part of the \emph{ego network of order $n$}, which is the set of nodes which are at distance at most $n$ of $v$, and are not part of the \emph{ego network of order $n - 1$}, which we denote as $\ego_n$.
-The level $\ego_1$ contains the information of the regular \emph{user data} from \cref{subsec:user_data}, while the user data from the \emph{ego network of order $n$} is assigned to $\ego_n$ for $n > 1$.
+The level $\ego_1$ contains the information of the regular \emph{user data}, % from \cref{subsec:user_data}, 
+while the user data from the \emph{ego network of order $n$} is assigned to $\ego_n$ for $n > 1$.
 
 \subsection{Categorical User Data --- Level $\cat_n$}
 \label{subsec:categoricaluserdata}
