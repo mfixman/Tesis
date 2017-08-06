@@ -31,7 +31,13 @@ At the same time, this thesis presents several ``conventional'' Machine Learning
 
 Multiple strategies can be used to generate network features based on the CDRs. For instance, in \cite{oskarsdottir2016} the authors evaluate different collective inference methods applied to the churn prediction problem. Furthermore, the work \cite{oskarsdottir2017social} studies the impact of the social graph definition on the performance of the prediction methods. This motives the second part of the thesis, where we perform a comparative study of methods to generate network features for the nodes in the communication graph, and evaluate their impact on the inference of the income. We also compare the effectiveness of machine learning methods such as Logistic Regression and Random Forest on the different feature sets.
 
-\todo{Add a summary of results}
+\section{Summary of Results}
+
+The final results are presented in \cref{sec:results,sec:comparison}. This section presents a short summary.
+\begin{itemize}
+	\item When using the Bayesian Algorithm, the \emph{Area Under the Curve} (which is the target metric user in this thesis) is maximized when the socioeconomic comparison is done by number of contacts (\cref{tab:bayesresults}) to a value of \num{0.746}.
+	\item Of the common machine learning methods used, the ones which use the labels of the neighbouring users to make a prediction have a better result of the ones which don't. However, even in this case the results are worse than in the Bayesian Algorithm (\cref{tab:comparison}).
+\end{itemize}
 
 \section{Organisation of the Thesis}
 
