@@ -117,7 +117,7 @@ There features contain information about the \emph{Neighborhood} of $\upsilon$, 
 \neigh \left( \upsilon \right) = \left\{ e_o \mid e \in E \land e_d = \upsilon \right\} \cup \left\{ e_d \mid e \in E \land e_o = \upsilon \right\}
 \end{equation}
 
-\section{Categorical User Data --- Level $\cat_n$}
+\section{Categorical User Data --- Level $\cat_0$}
 \label{subsec:categoricaluserdata}
 
 A possible feature set consists of using of separating the data of the neighborhood of each user $\upsilon \in \Upsilon$ into two disjoint groups, $L_{\upsilon}$ and $K_{\upsilon}$, which contain the neighbors of $\upsilon$ in the \emph{Low Income} and \emph{High Income} categories of income respectively\footnotemark{}.
@@ -132,15 +132,15 @@ A possible feature set consists of using of separating the data of the neighborh
 \end{aligned}
 \end{equation}
 
-Having these groups it's possible to define a set of features similar to the one in \cref{subsec:user_data}, where each feature is separated by the category of the neighbor. \Cref{eq:matcatuserdata} contains the names of the new features.
+Having these groups it's possible to define a set of features similar to the one in \cref{subsec:user_data}, where each feature is separated by the category of the neighbor. \Cref{eq:matcatuserdata} represents the composition of the names of the new features.
 
 \begin{equation}
 \label{eq:matcatuserdata}
-	\begin{Bmatrix} in \\ out \end{Bmatrix}
+	\begin{Bmatrix} \text{in} \\ \text{out} \end{Bmatrix}
 	\times
-	\begin{Bmatrix} calls \\ time \\ sms \\ contacts \end{Bmatrix}
+	\begin{Bmatrix} \text{calls} \\ \text{time} \\ \text{sms} \\ \text{contacts} \end{Bmatrix}
 	\times
-	\begin{Bmatrix} low \\ high \end{Bmatrix}
+	\begin{Bmatrix} \text{low} \\ \text{high} \end{Bmatrix}
 \end{equation}
 
 \Cref{eq:categoricaluserdata,eq:categoricaluserdata2} contain the way to calculate those features. Since the number of individual features is high and the formulas are similar and repetitive, some generalizations were added for the simplest ones.
@@ -170,8 +170,6 @@ Having these groups it's possible to define a set of features similar to the one
 
 Unlike the features in \cref{subsec:user_data}, and like the method presented in \cref{sec:inference_methodology}, the features in this section will be be different when testing between the nodes of $B_{\test}$ (the \emph{Outer Graph}) and $\Upsilon$ (the \emph{Inner Graph}).
 
-\todo{Explain why not $n \geq 3$}.
-
 \section{Higher Order User Data --- Level $\ego_{n > 0}$}
 \label{subsec:higherorderuserdata}
 
@@ -188,6 +186,17 @@ d \left( a, b \right) =
 \label{eq:distance}
 \end{equation}
 
+This method creates a set of \emph{Higher Order Features} similar to the ones in \cref{eq:user_data}, with the exception that the values of the edges summed for each node are defined on the distance instead of on the definition of the $E$ itself.
+Indeed, for any graph $G = \left< V, E \right>$ we can define features with formulas similar to the ones in \cref{eq:higher_order_user_data}.
+
+\begin{equation}
+	\begin{gathered}
+		\incalls^n_v = \sum_{\subalign{e \in E \\ d \left( e_o, v \right) &= n \\ d \left( e_d, v \right) &= n + 1 }} \calls_e &
+		\outcalls^n_v = \sum_{\subalign{e \in E \\ d \left( e_d, v \right) &= n \\ d \left( e_o, v \right) &= n + 1 }} \calls_e \\
+	\end{gathered}
+\label{eq:higher_order_user_data}
+\end{equation}
+
 This definition can be seen more intuitively in the graph in \cref{fig:higherorderuserdata}.
 
 \begin{figure}
@@ -198,6 +207,33 @@ This definition can be seen more intuitively in the graph in \cref{fig:higherord
 \caption{Example of the edges present in the calculation of the \emph{Higher Order User Data} for a certain node $v$. \textcolor{red}{Red} edges represent edges whose features are accumulated in the \emph{User Data of Order 0}, \textcolor{blue}{blue} edges represent those of \emph{Order 1}, and \textcolor{ForestGreen}{green} those of \emph{Order 2}.}
 \label{fig:higherorderuserdata}
 \end{figure}
+
+Every set $\ego_n$ contains features from that level and all the previous ones as presented formally in \cref{eq:formal_higher_order}. This implies that, if the prediction algorithms are smart enough, the result of using the features from $\ego_{n + 1}$ should be at least as good as using the ones from $\ego_n$.
+
+\begin{equation}
+	(\forall n \in \mathbb{N}) \ego_n \subset \ego_{n + 1}
+\label{eq:formal_higher_order}
+\end{equation}
+
+It would be possible to add more features related to the $\left\{ \text{in}, \text{out} \right\}$ group to indicate how many ``in'' or ``out'' edges must be traversed from $\upsilon$. However, this would multiply the amount of features by an exponential value of $n$ without adding useful data.
+
+\section{Higher Order Categorical User Data --- Level $\cat_{n > 0}$}
+
+It's possible to combine the ideas in \cref{subsec:categoricaluserdata,subsec:higherorderuserdata} to create a group of sets of features containing the data from the border of the \emph{Ego Network or Order $n$}, separated by two disjoint groups depending in the category of the node outside the ego network, as in \cref{eq:formal_higher_order_categorical}.
+
+\begin{equation}
+	\begin{aligned}
+		\incallslow^n_v = \sum_{\subalign{e \in &E \\ e_d \in &H_1 \\ d \left( e_o, v \right) &= n \\ d \left( e_d, v \right) &= n + 1}} \calls_e &\quad
+		\incallshigh^n_v = \sum_{\subalign{e \in &E \\ e_d \in &H_2 \\ d \left( e_o, v \right) &= n \\ d \left( e_d, v \right) &= n + 1}} \calls_e \\
+		\outcallslow^n_v = \sum_{\subalign{e \in &E \\ e_o \in &H_1 \\ d \left( e_d, v \right) &= n \\ d \left( e_o, v \right) &= n + 1}} \calls_e &\quad
+		\outcallshigh^n_v = \sum_{\subalign{e \in &E \\ e_o \in &H_2 \\ d \left( e_d, v \right) &= n \\ d \left( e_o, v \right) &= n + 1}} \calls_e \\
+	\end{aligned}
+\label{eq:formal_higher_order_categorical}
+\end{equation}
+
+Using these features we can have a more complete understanding of the data surrounding each node $v$. In \cref{sec:comparison_results} we prove that the best predictor between the methods explored in this chapter is this method with $n = 2$.
+
+\todo{Explain why not $n \geq 3$}
 
 \section{Machine Learning}
 
@@ -283,6 +319,7 @@ There are several validation metrics used for each method.
 \end{description}
 
 \section{Results}
+\label{sec:comparison_results}
 
 \Cref{tab:comparison} shows various metrics which result from applying the methods described in this Section to the datasets presented in this thesis, after using the best hyperparameters shown in \cref{tab:gridsearch} and applying 5-fold \emph{Cross Validation} to prevent \emph{Overfitting}. This result is compared to the \emph{Bayesian Algorithm} presented in \cref{sec:inference_methodology}.
 
