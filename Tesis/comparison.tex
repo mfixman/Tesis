@@ -117,7 +117,7 @@ There features contain information about the \emph{Neighborhood} of $\upsilon$, 
 \neigh \left( \upsilon \right) = \left\{ e_o \mid e \in E \land e_d = \upsilon \right\} \cup \left\{ e_d \mid e \in E \land e_o = \upsilon \right\}
 \end{equation}
 
-\section{Categorical User Data --- Level $\cat_n$}
+\section{Categorical User Data --- Level $\cat_0$}
 \label{subsec:categoricaluserdata}
 
 A possible feature set consists of using of separating the data of the neighborhood of each user $\upsilon \in \Upsilon$ into two disjoint groups, $L_{\upsilon}$ and $K_{\upsilon}$, which contain the neighbors of $\upsilon$ in the \emph{Low Income} and \emph{High Income} categories of income respectively\footnotemark{}.
@@ -132,7 +132,7 @@ A possible feature set consists of using of separating the data of the neighborh
 \end{aligned}
 \end{equation}
 
-Having these groups it's possible to define a set of features similar to the one in \cref{subsec:user_data}, where each feature is separated by the category of the neighbor. \Cref{eq:matcatuserdata} contains the names of the new features.
+Having these groups it's possible to define a set of features similar to the one in \cref{subsec:user_data}, where each feature is separated by the category of the neighbor. \Cref{eq:matcatuserdata} represents the composition of the names of the new features.
 
 \begin{equation}
 \label{eq:matcatuserdata}
@@ -170,7 +170,7 @@ Having these groups it's possible to define a set of features similar to the one
 
 Unlike the features in \cref{subsec:user_data}, and like the method presented in \cref{sec:inference_methodology}, the features in this section will be be different when testing between the nodes of $B_{\test}$ (the \emph{Outer Graph}) and $\Upsilon$ (the \emph{Inner Graph}).
 
-\todo{Explain why not $n \geq 3$}.
+
 
 \section{Higher Order User Data --- Level $\ego_{n > 0}$}
 \label{subsec:higherorderuserdata}
@@ -188,6 +188,17 @@ d \left( a, b \right) =
 \label{eq:distance}
 \end{equation}
 
+This method creates a set of \emph{Higher Order Features} similar to the ones in \cref{eq:user_data}, with the exception that the values of the edges summed for each node are defined on the distance instead of on the definition of the $E$ itself.
+Indeed, for any graph $G = \left< V, E \right>$ we can define features with formulas similar to the ones in \cref{eq:higher_order_user_data}.
+
+\begin{equation}
+	\begin{gathered}
+		\incalls^n_v = \sum_{\subalign{e \in E \\ d \left( e_o, v \right) &= n \\ d \left( e_d, v \right) &= n + 1 }} \calls_e &
+		\outcalls^n_v = \sum_{\subalign{e \in E \\ d \left( e_d, v \right) &= n \\ d \left( e_o, v \right) &= n + 1 }} \calls_e \\
+	\end{gathered}
+\label{eq:higher_order_user_data}
+\end{equation}
+
 This definition can be seen more intuitively in the graph in \cref{fig:higherorderuserdata}.
 
 \begin{figure}
@@ -198,6 +209,15 @@ This definition can be seen more intuitively in the graph in \cref{fig:higherord
 \caption{Example of the edges present in the calculation of the \emph{Higher Order User Data} for a certain node $v$. \textcolor{red}{Red} edges represent edges whose features are accumulated in the \emph{User Data of Order 0}, \textcolor{blue}{blue} edges represent those of \emph{Order 1}, and \textcolor{ForestGreen}{green} those of \emph{Order 2}.}
 \label{fig:higherorderuserdata}
 \end{figure}
+
+Every set $\ego_n$ contains features from that level and all the previous ones as presented formally in \cref{eq:formal_higher_order}. This implies that, if the prediction algorithms are smart enough, the result of using the features from $\ego_{n + 1}$ should be at least as good as using the ones from $\ego_n$.
+
+\begin{equation}
+	(\forall n \in \mathbb{N}) \ego_n \subset \ego_{n + 1}
+\label{eq:formal_higher_order}
+\end{equation}
+
+\todo{Add section with $\cat{n > 0}$}
 
 \section{Machine Learning}
 
