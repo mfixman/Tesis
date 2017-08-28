@@ -136,11 +136,11 @@ Having these groups it's possible to define a set of features similar to the one
 
 \begin{equation}
 \label{eq:matcatuserdata}
-	\begin{Bmatrix} in \\ out \end{Bmatrix}
+	\begin{Bmatrix} \text{in} \\ \text{out} \end{Bmatrix}
 	\times
-	\begin{Bmatrix} calls \\ time \\ sms \\ contacts \end{Bmatrix}
+	\begin{Bmatrix} \text{calls} \\ \text{time} \\ \text{sms} \\ \text{contacts} \end{Bmatrix}
 	\times
-	\begin{Bmatrix} low \\ high \end{Bmatrix}
+	\begin{Bmatrix} \text{low} \\ \text{high} \end{Bmatrix}
 \end{equation}
 
 \Cref{eq:categoricaluserdata,eq:categoricaluserdata2} contain the way to calculate those features. Since the number of individual features is high and the formulas are similar and repetitive, some generalizations were added for the simplest ones.
@@ -169,8 +169,6 @@ Having these groups it's possible to define a set of features similar to the one
 \end{equation}
 
 Unlike the features in \cref{subsec:user_data}, and like the method presented in \cref{sec:inference_methodology}, the features in this section will be be different when testing between the nodes of $B_{\test}$ (the \emph{Outer Graph}) and $\Upsilon$ (the \emph{Inner Graph}).
-
-
 
 \section{Higher Order User Data --- Level $\ego_{n > 0}$}
 \label{subsec:higherorderuserdata}
@@ -217,7 +215,25 @@ Every set $\ego_n$ contains features from that level and all the previous ones a
 \label{eq:formal_higher_order}
 \end{equation}
 
-\todo{Add section with $\cat{n > 0}$}
+It would be possible to add more features related to the $\left\{ \text{in}, \text{out} \right\}$ group to indicate how many ``in'' or ``out'' edges must be traversed from $\upsilon$. However, this would multiply the amount of features by an exponential value of $n$ without adding useful data.
+
+\section{Higher Order Categorical User Data --- Level $\cat_{n > 0}$}
+
+It's possible to combine the ideas in \cref{subsec:categoricaluserdata,subsec:higherorderuserdata} to create a group of sets of features containing the data from the border of the \emph{Ego Network or Order $n$}, separated by two disjoint groups depending in the category of the node outside the ego network, as in \cref{eq:formal_higher_order_categorical}.
+
+\begin{equation}
+	\begin{aligned}
+		\incallslow^n_v = \sum_{\subalign{e \in &E \\ e_d \in &H_1 \\ d \left( e_o, v \right) &= n \\ d \left( e_d, v \right) &= n + 1}} \calls_e &\quad
+		\incallshigh^n_v = \sum_{\subalign{e \in &E \\ e_d \in &H_2 \\ d \left( e_o, v \right) &= n \\ d \left( e_d, v \right) &= n + 1}} \calls_e \\
+		\outcallslow^n_v = \sum_{\subalign{e \in &E \\ e_o \in &H_1 \\ d \left( e_d, v \right) &= n \\ d \left( e_o, v \right) &= n + 1}} \calls_e &\quad
+		\outcallshigh^n_v = \sum_{\subalign{e \in &E \\ e_o \in &H_2 \\ d \left( e_d, v \right) &= n \\ d \left( e_o, v \right) &= n + 1}} \calls_e \\
+	\end{aligned}
+\label{eq:formal_higher_order_categorical}
+\end{equation}
+
+Using these features we can have a more complete understanding of the data surrounding each node $v$. In \cref{sec:comparison_results} we prove that the best predictor between the methods explored in this chapter is this method with $n = 2$.
+
+\todo{Explain why not $n \geq 3$}
 
 \section{Machine Learning}
 
@@ -303,6 +319,7 @@ There are several validation metrics used for each method.
 \end{description}
 
 \section{Results}
+\label{sec:comparison_results}
 
 \Cref{tab:comparison} shows various metrics which result from applying the methods described in this Section to the datasets presented in this thesis, after using the best hyperparameters shown in \cref{tab:gridsearch} and applying 5-fold \emph{Cross Validation} to prevent \emph{Overfitting}. This result is compared to the \emph{Bayesian Algorithm} presented in \cref{sec:inference_methodology}.
 
