@@ -231,9 +231,9 @@ It's possible to combine the ideas in \cref{subsec:categoricaluserdata,subsec:hi
 \label{eq:formal_higher_order_categorical}
 \end{equation}
 
-Using these features we can have a more complete understanding of the data surrounding each node $v$. In \cref{sec:comparison_results} we prove that the best predictor between the methods explored in this chapter is this method with $n = 2$.
+Using these features we can have a more complete understanding of the data surrounding each node $v$. In \cref{sec:comparison_results} we prove that the best predictor between the methods explored in this chapter is this method with $n = 1$ and predicting with a \emph{Random Forest} when predicting in the inner graph (which only includes nodes with labeled neighbours), and, with a negligible difference in all the metrics, this method with $n = 2$ has the highest scores when using the entire graph.
 
-\todo{Explain why not $n \geq 3$}
+Since the amount of features grows exponentially in each step (see \cref{tab:datasettable}), and so does the time spent in each computation. Since the best results are found with metrics when looking at the \emph{Ego Network} of level 2 of the graph (that is, the information contained in the edges of the neighbours of the neighbours of each node) which can be explained by the fact that the noise of the information about users far away from the noise has more impact than the useful information, no tests were attempted in cases where $n \geq 3$.
 
 \section{Machine Learning}
 
