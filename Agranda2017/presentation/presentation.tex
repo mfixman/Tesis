@@ -10,7 +10,7 @@
 \usepackage{tikz}
 \usepackage{todonotes}
 
-\setbeameroption{show notes on second screen=right}
+% \setbeameroption{show notes on second screen=right}
 
 \presetkeys{todonotes}{inline}{}
 
@@ -28,23 +28,21 @@
 \newcommand{\mathG}{\mathcal{G}}
 \newcommand{\mathP}{\mathcal{P}}
 
-\title[Bayesian Income Inference]{A Bayesian Approach to Income Inference \\ in a Communication Network}
+\title[Predictors for Income Inference]{Comparison of Feature Extraction Methods and Predictors for Income Inference}
 
-\author[Fixman et.\ al]{%
-	Martin~Fixman\inst{1}\inst{2}\and
-	Ariel~Berenstein\inst{1}\and
-	Jorge~Brea\inst{1}\and \\
+\author[Fixman et al.]{%
+	Martin~Fixman\inst{1,2}\and
 	Martin~Minnoni\inst{1} \and
-	Carlos~Sarraute\inst{1}
+	\textbf{Carlos~Sarraute}\inst{1}
 }
 
-\institute[FCEyN UBA \and Grandata]{%
+\institute[UBA \and Grandata Labs]{%
 	\inst{1}Grandata Labs, Bartolome Cruz 1818, Vicente Lopez, Argentina \\
 	\inst{2}Universidad de Buenos Aires, Argentina \\
-	\texttt{\{mfixman, ariel, jorge, martin, charles\}@grandata.com}
+	\texttt{mfixman@gmail.com, \{martin, charles\}@grandata.com}
 }
 
-\date[Workshop AGRANDA]{Workshop AGRANDA \\ September 7, 2016}
+\date[Workshop AGRANDA]{Symposium AGRANDA \\ September 6, 2017}
 
 \addbibresource{../../Asonam2016/bibliography/sna.bib}{}
 
@@ -364,101 +362,11 @@ We use the \textbf{Social Graph} to understand users' behaviour.\footcite{gonzal
 	\end{overlayarea}
 \end{frame}
 
-\section{Future Work}
-\subsection{Extension to Multiple Categories}
 
-\begin{frame}{Extension to Multiple Categories}
-\note{%
-	There are several improvemente we can make to this algorithm. Our next line of work consists of separating the groups into more than 2 categories.
 
-	In this case, we define 5 categories depending on a users' wealth.
 
-	\begin{description}[leftmargin=!]
-		\item[$R_1$] \num{1000}~MXN
-		\item[$R_2$] \num{2500}~MXN to \num{7500}~MXN
-		\item[$R_3$] \num{7500}~MXN to \num{20000}~MXN
-		\item[$R_4$] \num{20000}~MXN to \num{50000}~MXN
-		\item[$R_5$] More than \num{50000}~MXN
-	\end{description}
-}
 
-5 categories to describe a users' wealth:
 
-\begin{description}[leftmargin=!]
-	\item[$R_1$] \num{1000}~MXN\footnote{\num{1000}~MXN = \num{53.79}~USD = \num{806.52}~ARS} to \num{2500}~MXN\footnote{\num{2500}~MXN = \num{134.47}~USD = \num{2016.30}~ARS}
-	\item[$R_2$] \num{2500}~MXN to \num{7500}~MXN\footnote{\num{7500}~MXN = \num{403.41}~USD = \num{6048.89}~ARS}
-	\item[$R_3$] \num{7500}~MXN to \num{20000}~MXN\footnote{\num{20000}~MXN = \num{1075.75}~USD = \num{16130.37}~ARS}
-	\item[$R_4$] \num{20000}~MXN to \num{50000}~MXN\footnote{\num{50000}~MXN = \num{2689.37}~USD = \num{40325.93}~ARS}
-	\item[$R_5$] More than \num{50000}~MXN
-\end{description}
-
-\stepcounter{footnote}
-\footnotetext{All currency conversions as of 18 August 2016.}
-
-\end{frame}
-
-\begin{frame}
-\note{%
-	Instead of using a Beta Distribution for each user $ j $, we define a \textbf{Dirichlet distribution} for each category, taking $ \alpha^j_i $ as the number it has with users to the category $ i $.
-
-	\[
-		D^j \left( x_1, \ldots, x_5; \alpha^j_1, \ldots, \alpha^j_5 \right) = \frac{1}{\Beta(\alpha)} \prod^5_{i = 1}{x_i^{\alpha^j_i - 1}}
-	\]
-
-	The result of the distribution is 5 distributions for each user, which gives the probability of each user to belong to each category.
-}
-
-\begin{itemize}
-	\item We use a \textbf{Dirichlet distribution} for each category.
-	\begin{itemize}
-		\item $ \alpha^j_i $ is the number of calls user $j$ has with users in category $ i $.
-	\end{itemize}
-
-	\[
-		D^j \left( x_1, \ldots, x_5; \alpha^j_1, \ldots, \alpha^j_5 \right) = \frac{1}{\Beta(\alpha)} \prod^5_{i = 1}{x_i^{\alpha^j_i - 1}}
-	\]
-
-	\item 5 distinct distributions for each user.
-	\item $ D^j $ is the probability distributions that user $ j $ is part of each category.
-\end{itemize}
-\end{frame}
-
-\begin{frame}
-\note{%
-	We can create 5 new ROC Curves with this data, which have higher \textbf{Area Under the Curves} than the case with majority voting.
-}
-
-	\begin{itemize}
-		\item 5 distinct distributions for each user.
-		\item $ D^j $ is the probability distributions that user $ j $ is part of each category.
-	\end{itemize}
-	\begin{figure}
-		\includegraphics[height=.8\textheight]{ROC_multiclass.png}
-		% \caption{ROC Curves with \textit{False Positive Rates} plotted against the \textit{True Positive Rates}}
-	\end{figure}
-\end{frame}
-
-\subsection{Next Steps}
-\begin{frame}{Next Steps}
-\note{%
-	This paper presents a Bayesian approach to inferring the Socioeconomic Index of people according to the social graph based on a probabilistic hypothesis, but we can use several features of the graph, such as average call time to each category, to create a new algorithm for inferring this data.
-
-	(pause)
-
-	We also aren't using a big part of the dataset, which contains data for age and gender.
-
-	(pause)
-
-	We can locate the antenna of a small part of the voice calls. An obvious next step would be to add geographical location of the user to improve our inference.
-}
-
-\begin{itemize}
-	\item<1-> Extending the work to multiple categories.
-	\item<1-> A Machine Learning approach to the algorithm using more variables from the social graph.
-	\item<2-> Using more demographic variables (age \& gender) to infer socioeconomic index.
-	\item<3-> Make use of geographical location.
-\end{itemize}
-\end{frame}
 
 \section{Bibliography}
 
@@ -469,17 +377,5 @@ We use the \textbf{Social Graph} to understand users' behaviour.\footcite{gonzal
 
 \end{frame}
 
-\section{Questions}
-
-\begin{frame}
-	\Huge
-	\begin{center}
-	\begin{tabular}{@{}r@{}c@{}l@{}}
-		&Questions&?\scalebox{.8}{?\scalebox{.8}{?\scalebox{.8}{?\scalebox{.8}{?\scalebox{.8}{?\scalebox{.8}{?}}}}}} \\
-		&&\\
-		\scalebox{.8}{\scalebox{.8}{\scalebox{.8}{\scalebox{.8}{\scalebox{.8}{\scalebox{.8}{?`}?`}?`}?`}?`}?`}?`&Preguntas&?\scalebox{.8}{?\scalebox{.8}{?\scalebox{.8}{?\scalebox{.8}{?\scalebox{.8}{?\scalebox{.8}{?}}}}}}
-	\end{tabular}
-	\end{center}
-\end{frame}
 
 \end{document}
