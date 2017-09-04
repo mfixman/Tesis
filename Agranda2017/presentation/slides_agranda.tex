@@ -108,22 +108,22 @@
 
 \begin{frame}{Presentation}
 
-\begin{block}{About Grandata}
+\begin{block}{About Grandata Labs}
 \begin{itemize}
 
-\item Founded in 2012.
+\item Founded in 2012
 
-\item Labs and Data Science team:
+\item Research and Data Science team:
 \begin{itemize}
-\item 5 persons, based in Buenos Aires, Argentina~\ldots \\ and now in San Francisco!
-\item $\forall$ students and PhDs from FCEyN, UBA \\ $\in$ Computer Sc., Physics, Mathematics
+\item 11 persons, based in Buenos Aires and San Francisco
+\item Students and PhDs from FCEyN, UBA \\ $\in$ Computer Sc., Physics, Mathematics
 \end{itemize}
 
-\item Researching Human Dynamics
+\item Investigating Human Dynamics
 \begin{itemize}
 \item Using ``Big Data'' to analyze social networks and human behavior.
 \item Integrating banking and cellphone data.
-\item We aim to characterize users and predict user actions.
+\item Characterize users and predict user actions.
 \end{itemize}
 
 \end{itemize}
@@ -152,9 +152,10 @@ Restate my assumptions: \\
 2. Everything around us can be represented and understood through numbers. \\
 3. If you graph the numbers of any system, patterns emerge. \\
 \\
-\textit{Aronofsky --- Pi}
+\textit{Darren Aronofsky --- Pi}
 }
 \end{tabularx}
+
 
 \end{frame}
 
@@ -162,11 +163,11 @@ Restate my assumptions: \\
 \begin{block}{Scientific Collaborations}
 \begin{itemize}
 \item Aline Viana (Inria, Paris)
-\item Eric Fleury, Marton Karsai (ENS,Lyon)
+\item Eric Fleury, Marton Karsai (ENS, Lyon)
 \item Sandy Pentland and the Human Dynamics team (MIT)
 \item Marta Gonzalez and the Human Mobility team (MIT)
 \item Alejo Salles and Pablo Groisman (UBA)
-\item Mundo Sano Foundation
+\item Fundación Mundo Sano
 \end{itemize}
 \end{block}
 
@@ -174,20 +175,18 @@ Restate my assumptions: \\
 
 \begin{block}{Publications}
 \begin{itemize}
-\item 30 papers published
-\item Conferences: NetMob, ASONAM, KDD, \ldots
-\item Journals: AI Communications, Elsevier Computer Communications, \ldots
-\item 4 papers here at ASONAM
+\item 43 papers published!
+\item Conferences: NetMob, ASONAM, KDD, AGRANDA, \ldots
+\item Journals: Nature Communications, AI Communications, \ldots
 \end{itemize}
 \end{block}
 
 \bigskip
-
+{\tiny 
 \cite{leo2015socioeconomic}
-\cite{gonzalez2008understanding,sarraute2015city}
-\cite{mcpherson2001birds}
+\cite{sarraute2015city}
 \cite{sarraute2014}
-
+}
 \end{frame}
 
 
@@ -264,66 +263,6 @@ $$ G = \mathP \bowtie_{_{p_o = b_p}} \mathB \bowtie_{_{p_d = b_p}} \mathB $$
 \end{frame}
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Income Distribution}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\begin{frame}{Income Distribution according to Age}
-
-\begin{figure}
-\begin{center}
-\includegraphics[width=\columnwidth]{income_age_boxplot4_wide.png}
-\caption{Distribution of income $b_s$ according to age $b_a$}
-\label{income_age_boxplot}
-\end{center}
-\end{figure}
-This is consistent with data from~\cite{gallup2013}.
-
-\end{frame}
-
-
-
-
-\begin{frame}{Uneven Income Distribution}
-
-\begin{figure}
-\begin{center}
-\includegraphics[width=0.8\columnwidth]{cumulative_income.png}
-\caption{Lorenz curve representing the distribution of income of bank clients}
-\label{fig:income_distribution}
-\end{center}
-\end{figure}
-
-\end{frame}
-
-
-\begin{frame}{Gini Coefficient}
-
-\begin{columns}
-\begin{column}{0.45\textwidth}
-
-\includegraphics[width=\columnwidth]
-{cumulative_income_gini.png}
-
-\end{column}
-\begin{column}{0.54\textwidth}
-
-From the Lorenz curve, we can compute the Gini coefficient:
-$$G = 0.45$$
-
-According to the World Bank~\cite{world_bank}, the Gini coefficient for whole Mexico was \num{0.481} in 2012. 
-
-\end{column}
-\end{columns}
-\medskip
-\medskip
-
-Top 10\% accumulate 33\%    of total income.\\
-Top 20\% accumulate 50.5\%  of total income. \\
-Top 30\% accumulate 63.1\%  of total income.
-
-\end{frame}
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Income Prediction}
@@ -392,47 +331,8 @@ We place users into two distinct groups $ H_1, H_2 \subseteq G$:
 \end{itemize}
 \end{frame}
 
-\begin{frame}{The Theorem of Bayes (and notation)}
-$$
-P(H | E) = \frac{P(E | H) \cdot P(H)}{P(E)}
-$$
-where
-\begin{itemize}
-\item $E$ is the new \textcolor{blue}{evidence} (observation).
-\item $H$ is the \textcolor{blue}{hypothesis} to be tested with data (prior to evidence).
-\item $P(H)$ is the \textcolor{blue}{prior} probability of H before E if observed.
-\item $P(E | H)$ is the \textcolor{blue}{likelihood} of observing E.
-\item $P(E)$ is the marginal likelihood (does not depend on H).
-\item $P(H | E)$ is the \textcolor{blue}{posterior} probability (what we want to know!)
-\end{itemize}
-\end{frame}
 
 
-\begin{frame}{How do we predict?}
-\begin{block}
-
-\begin{itemize}
-
-\item $Q = $ users having at least one connection link to bank clients.
-
-\item $\forall q^j \in Q$, we compute the number of outgoing calls $a^j_i$ to the category $H_i$.
-
-\item Idea: A person is usually in the same income category as the majority of people it calls.
-\end{itemize}
-\end{block}
-\pause
-
-\begin{block}
-
-\begin{itemize}
-\item We use a continuous prior probability distribution called
-the Beta distribution.
-
-\item We use the amount of calls $a^j_i$  as parameters defining a Beta distribution for the probability of belonging to a given category.
-\end{itemize}
-\end{block}
-
-\end{frame}
 
 
 
@@ -582,6 +482,8 @@ The best accuracy obtained is \num{0.71} for $\tau = 0.4$.
 
 \end{frame}
 
+
+
 \begin{frame}{Comparison with Other Methods}
 
 We applied two other inference methods to the same data and compared their accuracies to our Bayesian model.
@@ -597,20 +499,6 @@ We applied two other inference methods to the same data and compared their accur
 \end{frame}
 
 
-\begin{frame}{Extension to Multiple Categories}
-
-\begin{figure}[h]
-\begin{center}
-\includegraphics[width=0.6\columnwidth]{ROC_multiclass.png}
-\caption{ROC curves for multiclass problem}
-\end{center}
-\label{roc_multiple_categories}
-\end{figure}
-
-We use the Dirichlet distribution for the probability of belonging to multiple categories.
-% The performances observed are: $\AUC_1 = 0.68$, $\AUC_2 = 0.69$, $\AUC_3 = 0.63$, $\AUC_4 = 0.68$, $\AUC_5 = 0.69$.
-
-\end{frame}
 
 \begin{frame}{References}
 \justifying%
