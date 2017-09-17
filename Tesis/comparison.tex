@@ -190,10 +190,10 @@ This method creates a set of \emph{Higher Order Features} similar to the ones in
 Indeed, for any graph $G = \left< V, E \right>$ we can define features with formulas similar to the ones in \cref{eq:higher_order_user_data}.
 
 \begin{equation}
-	\begin{gathered}
+	\begin{aligned}
 		\incalls^n_v = \sum_{\subalign{e \in E \\ d \left( e_o, v \right) &= n \\ d \left( e_d, v \right) &= n + 1 }} \calls_e &
 		\outcalls^n_v = \sum_{\subalign{e \in E \\ d \left( e_d, v \right) &= n \\ d \left( e_o, v \right) &= n + 1 }} \calls_e \\
-	\end{gathered}
+	\end{aligned}
 \label{eq:higher_order_user_data}
 \end{equation}
 

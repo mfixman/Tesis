@@ -10,8 +10,7 @@ Earlier works in the general area of \emph{Social Network Analysis} and \emph{So
 
 This chapter will discuss several scientific papers in this area which were relevant for the research done in this one.
 
-% \section{Correlations of Consumption Patterns in Social-Economic Networks}
-\section{Correlations in Social-Economic Networks}
+\section{Correlations of Consumption Patterns in Social-Economic Networks}
 
 \cite{leo16correlations} presents correlations between purchasing patterns and socioeconomic position of users from a dataset similar to the one used in this thesis. In particular, the authors have access to a database of credit card purchases for a set of users, with information about the amount of money spent and the general category (MCC) to which the purchase belongs, and also to a cellphone communications graph which allows them to infer the relationship between any two people.
 
@@ -20,6 +19,7 @@ The first of two interesting studies this paper makes is to categorize the popul
 The second study presented in this paper relates to the correlation between people who buy from each of these groups to find categories which are commonly purchased together. Some groups, like \emph{Transportation}, \emph{IT}, or \emph{Personal Services} play a central role and are connected to many other communities, while some others like \emph{Car Sales and Maintenance} and \emph{Hardware Stores} and pairwise connected.
 
 Both of these correlations can be seen intuitively in \cref{fig:paper_yannick}.
+
 
 \begin{figure}
 \centering
@@ -35,9 +35,28 @@ Both of these correlations can be seen intuitively in \cref{fig:paper_yannick}.
 \label{fig:paper_yannick}
 \end{figure}
 
-\cite{Luo2017inferring} studies topological features such as the Collective Influence of the nodes in the communication graph, and their relation with the economic status of users. \todo{complete, state that this work is observational and does not provide an inference method for the economic status}.
+\section{Inferring Personal Economic Status from Social Network Location}
 
-% \section{Mobile Divides: Gender, Socioeconomic Status, and Mobile Phone Use in Rwanda}
+\cite{Luo2017inferring} shows that an individual's location is highly correlated with its socioeconomic status.
+In addition, the paper also finds the interesting observation that some social network patterns mimic the economic inequality patterns, and that there is a significant ($R^2 = 0.96$) correlation between the link diversity of individuals and their financial status.
+
+The results were validated by performing a social marketing campaign for the acquisition of new credit card clients by sending message for individuals that were predicted to be affluent.
+Compared to a control group, the users with the most covariance between their links (that is, with the highest link diversity) would more probably request the offered product, which was ideal for affluent users. These results can be seen in \cref{fig:luo2017results}.
+
+\begin{figure}
+\centering
+\includegraphics[height=.25\textheight]{figures/luo2017results.png}
+\caption{Response rate versus \emph{Collective Influence}, a measure of the variance between links.}
+\label{fig:luo2017results}
+\end{figure}
+
+Additionally, to prove that the results were not dependent on the validation campaign, the authors produced an \emph{Analysis of Covariance}\cite{wildt1978analysis} on all the features they had access to to test the variance caused by network metrics and other factors.
+This resulted in the conclusion that the correlation between collective influence is positive and significant in all groups of geographical communities, across genders, and among all age groups older than 24 years.
+Such robust network effects imply that network metrics are a potential indicator for financial status.
+
+Unlike this thesis, this paper is completely observational and doesn't provide a direct inference method for socioeconomic status. However, both its strict methodology and its prediction of \emph{Collective Influence} were useful for completing many parts of this work, specially since the dataset used by Luo et.\ al has many similarities with the one used in this paper.
+
+
 \section{Socioeconomic Status and Mobile Phone Use}
 
 \cite{blumenstock2010mobile} combines data from direct demographic surveys with \emph{Call Details Records} obtained from a phone company to get demographical data about cellphone users in Rwanda.
