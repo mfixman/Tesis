@@ -33,14 +33,14 @@
   \pgfsetfillcolor{fillcol}
   \filldraw (0.0bp,0.0bp) -- (0.0bp,168.0bp) -- (90.0bp,168.0bp) -- (90.0bp,0.0bp) -- cycle;
 \end{scope}
-  \node (d0p) at (72.0bp,106.0bp) [draw,circle] {$cat_0$};
-  \node (d1p) at (72.0bp,62.0bp) [draw,circle] {$cat_1$};
-  \node (d2p) at (72.0bp,18.0bp) [draw,circle] {$cat_2$};
+  \node (d0p) at (72.0bp,106.0bp) [draw,circle] {$\cat_0$};
+  \node (d1p) at (72.0bp,62.0bp) [draw,circle] {$\cat_1$};
+  \node (d2p) at (72.0bp,18.0bp) [draw,circle] {$\cat_2$};
   \coordinate (inv2) at (18.0bp,18.0bp);
   \coordinate (inv0) at (72.0bp,150.0bp);
-  \node (0) at (18.0bp,150.0bp) [draw,circle] {$ego_0$};
-  \node (1) at (18.0bp,106.0bp) [draw,circle] {$ego_1$};
-  \node (2) at (18.0bp,62.0bp) [draw,circle] {$ego_2$};
+  \node (0) at (18.0bp,150.0bp) [draw,circle] {$\ego_0$};
+  \node (1) at (18.0bp,106.0bp) [draw,circle] {$\ego_1$};
+  \node (2) at (18.0bp,62.0bp) [draw,circle] {$\ego_2$};
   \definecolor{strokecolor}{rgb}{0.0,0.25,0.0};
   \draw [strokecolor,-stealth'] (2) ..controls (37.602bp,46.028bp) and (43.91bp,40.888bp)  .. (d2p);
   \definecolor{strokecolor}{rgb}{0.0,0.0,0.25};
