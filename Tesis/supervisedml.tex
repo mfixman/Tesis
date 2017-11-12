@@ -139,8 +139,8 @@ Decision trees are prone to overfitting~\cite{oded2008decisiontrees}. Since a si
 
 \begin{figure}
 \centering
-\includegraphicsmaybe{decisiontreeoverfitting.png}
-\caption{Overfitting in decision trees. The training error starts relatively high, and it continuously declines as the tree becomes bigger. However, while the same is true of the generalization error for the first part of the graph, the error starts to increase due to overfitting}
+\includegraphicsmaybe{figures/decisiontreeoverfitting.png}
+	\caption{Overfitting in decision trees. When training and testing on the same data, making a classifier more complex makes the accuracy of the prediction increasingly higher until it's pretty much perfect. This result is wrong since the classifier is \emph{Overfitting} its tree to the training data. When testing with different data, it's possible to see how the prediction actually becomes worse.}
 \label{fig:decisiontreeoverfitting}
 \end{figure}
 
