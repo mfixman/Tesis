@@ -1,4 +1,4 @@
-% !TEX root = tesis.tex
+%h !TEX root = tesis.tex
 
 % \chapter{Experimental Dataset}
 
@@ -10,7 +10,7 @@
 
 \subsection{Dataset Description}
 
-The data used in this study consist of a multiset $P$ of composed of voice calls, and another multiset $S$ composed of text messages from a Mexican telecommunication company (\textit{telco}) for a 3 month period. These two sets are referred as the \emph{Call Detail Records}, or CDRs.
+The data used in this study consist of a multiset $P$ of composed of voice calls, and another multiset $S$ composed of text messages from a certain telecommunication company (\textit{telco}) for a 3 month period. These two sets are referred as the \emph{Call Detail Records}, or CDRs.
 
 Every call $p \in P$ contains the phone numbers of the caller and callee $\left< p_o, p_d \right>$, which are anonymized using a cryptographic hash function for privacy reasons, the starting time $p_t$, and the call duration $p_s$. The same datum, except for the call duration, can be found for each element $s \in S$.
 
@@ -92,6 +92,8 @@ For this study we also obtained the set $B$ of account balanced of over 10 milli
 
 The bank also provided us demographic information for a subset of its clients $A \subseteq B$. For each user $a \in A$, we are given the age $a_a$ and the gender $a_g$ of the user, which allows us to observe differences in the income distribution according to the age. The distribution is shown in \cref{fig:gender_age_bar}, 
 
+Our data source requested the income data to be agnostic of currency. Since this study could apply to any country with a similar level of bancarization, the standard symbol ¤ will be used to refer to this generic currency~\cite{ISO8859}.
+
 \begin{figure}
 \centering
 \includegraphicsmaybe{figures/gender_age_bar3/gender_age_bar3.png}
@@ -151,7 +153,7 @@ The dataset contains information about bank and telco users, some of which may n
 Most of the telco users in the first case are already filtered by the intersection between the bank and the telco data. However, to make sure the users are relevant enough for this study, we only keep the users which have a minimum amount of information, defined in the following items.
 
 \begin{itemize}
-	\item A monthly income of at least \$\num{1000}.
+	\item A monthly income of at least ¤\num{1000}.
 	\item A monthly income in the \num{99}th percentile (i.e.\ we filter users with a monthly income in the top 1\%).
 \end{itemize}
 
