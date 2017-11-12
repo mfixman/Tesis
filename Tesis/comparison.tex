@@ -56,7 +56,7 @@ The features of each method are merged with the ones from the immediate predeces
 \centering
 \resizebox{!}{.3\textheight}{%
 	\framebox{%
-		\input{figures/mlrelationships.tikz}
+		\include{figures/mlrelationships.tikz}
 	}
 }
 \caption{Relationships between the \emph{Feature Extraction} methods of \cref{subsec:methods_ml}. \textcolor{Blue}{blue} edges represent a raise in \emph{Ego Network} size, a process which is describe in \cref{subsec:higherorderuserdata}, while \textcolor{ForestGreen}{green} edges represent adding label information, which is described in \cref{subsec:categoricaluserdata}}
@@ -202,7 +202,7 @@ This definition can be seen more intuitively in the graph in \cref{fig:higherord
 \begin{figure}
 \centering
 \framebox{%
-	\input{figures/ego.tikz}
+	\include{figures/ego.tikz}
 }
 \caption{Example of the edges present in the calculation of the \emph{Higher Order User Data} for a certain node $v$. \textcolor{red}{Red} edges represent edges whose features are accumulated in the \emph{User Data of Order 0}, \textcolor{blue}{blue} edges represent those of \emph{Order 1}, and \textcolor{ForestGreen}{green} those of \emph{Order 2}.}
 \label{fig:higherorderuserdata}
