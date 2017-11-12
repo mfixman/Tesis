@@ -13,8 +13,9 @@ The main contribution of this work is the estimation of the income of the telco 
 \label{fig:homophily_heatmap}
 \end{figure}
 
-For each pair $\left\{ \left< p_o, p_d \right> \mid p \in P \right\}$, the X coordinate is defined as the set of incomes for callers, while the Y coordinate is the set of incomes for callees. According to what we can observe in \cref{fig:homophily_heatmap}, there should be a significant correlation between $X$ and $Y$. Given the broad non-Gaussian distribution of the income's values, we choose to use a rank-based measure of correlation which is robust to outliers.
+In that figure we define the color in each point $\left< X, Y \right>$ as the amount of pairs $\left\{ \left< p_o, p_d \right> \in P \mid {p_o}_s \in X \land {p_d}_s \in Y \right\}$. A simple glance reveals a significant correlation between $X$ and $Y$.
 
+Given the broad non-Gaussian distribution of the income's values, we choose to use a rank-based measure of correlation which is robust to outliers.
 Namely, the \textit{Spearman's rank correlation}, as defined in \cref{subsec:spearman}, is computed to test the statistical dependence of sets of incomes of callers and callees. Applying this formula to the data gives a correlation coefficient of $r_s = 0.474$.
 
 The result was compared with a randomized null hypothesis, where links between users are selected randomly disregarding income data, obtaining a $p\text{-value}$ of $p < 10^{-6}$. These values for $r_s$ and $p$ show a strong indication of income homophily among users in our communication graph. This observation is consistent with the results reported in other investigation of similar data, namely~\cite{leo2015socioeconomic}.
