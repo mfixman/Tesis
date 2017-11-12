@@ -5,13 +5,13 @@ digraph G {
 	node[shape = circle, fixedsize = true]
 	edge[arrowhead="vee"]
 
-	0[label = "ego_0"]
-	1[label = "ego_1"]
-	2[label = "ego_2"]
+	0[label = "\ego_0"]
+	1[label = "\ego_1"]
+	2[label = "\ego_2"]
 
-	d0p[label = "cat_0"]
-	d1p[label = "cat_1"]
-	d2p[label = "cat_2"]
+	d0p[label = "\cat_0"]
+	d1p[label = "\cat_1"]
+	d2p[label = "\cat_2"]
 
 	inv0[style = "invis", label = ""]
 	inv2[style = "invis", label = ""]

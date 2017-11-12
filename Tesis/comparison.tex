@@ -56,7 +56,7 @@ The features of each method are merged with the ones from the immediate predeces
 \centering
 \resizebox{!}{.3\textheight}{%
 	\framebox{%
-		\include{figures/mlrelationships.tikz}
+		\input{figures/mlrelationships.tikz}
 	}
 }
 \caption{Relationships between the \emph{Feature Extraction} methods of \cref{subsec:methods_ml}. \textcolor{Blue}{blue} edges represent a raise in \emph{Ego Network} size, a process which is describe in \cref{subsec:higherorderuserdata}, while \textcolor{ForestGreen}{green} edges represent adding label information, which is described in \cref{subsec:categoricaluserdata}}
@@ -202,7 +202,7 @@ This definition can be seen more intuitively in the graph in \cref{fig:higherord
 \begin{figure}
 \centering
 \framebox{%
-	\include{figures/ego.tikz}
+	\input{figures/ego.tikz}
 }
 \caption{Example of the edges present in the calculation of the \emph{Higher Order User Data} for a certain node $v$. \textcolor{red}{Red} edges represent edges whose features are accumulated in the \emph{User Data of Order 0}, \textcolor{blue}{blue} edges represent those of \emph{Order 1}, and \textcolor{ForestGreen}{green} those of \emph{Order 2}.}
 \label{fig:higherorderuserdata}
@@ -273,6 +273,8 @@ These \emph{Machine Learning} methods used in this section contain many hyperpar
 \label{tab:gridsearch}
 \end{table}
 
+\todo{Check if the mentions of $\ego{}$ are consistent with the new name.}
+
 \subsection{Logistic Regression}
 
 The method of \emph{Logistic Regression}, which is described with more detail in \cref{subsec:logisticregression}, consists of doing some regression analysis with the data after applying some \emph{Logistic Function} to normalize the data.
@@ -321,23 +323,25 @@ There are several validation metrics used for each method.
 \section{Results}
 \label{sec:comparison_results}
 
-\Cref{tab:comparison} shows various metrics which result from applying the methods described in this Section to the datasets presented in this thesis, after using the best hyperparameters shown in \cref{tab:gridsearch} and applying 5-fold \emph{Cross Validation} to prevent \emph{Overfitting}. This result is compared to the \emph{Bayesian Algorithm} presented in \cref{sec:inference_methodology}.
+\Cref{tab:innercomparison,tab:outercomparison} show various metrics which result from applying the methods described in this Section to the datasets presented in this thesis, after using the best hyperparameters shown in \cref{tab:gridsearch} and applying 5-fold \emph{Cross Validation} to prevent \emph{Overfitting}. This result is compared to the \emph{Bayesian Algorithm} presented in \cref{sec:inference_methodology}.
 
 By comparing the methods based in \emph{Machine Learning} we can reach a conclusion consistent with~\cite{muchlinski2016}, where the methods based in \emph{Random Forest} tend to perform better in real-world scenarios than the ones based in \emph{Logistic Regression}.
 
-Increasing the breadth of the \emph{Ego Network} by one level slightly improves the metrics on the \emph{Machine Learning} methods\footnotemark[1]{} when using with \emph{Random Forest} learning, which is more versatile to odd cases and non-linear data~\cite{logisticvsdecision}, however the model isn't improved further by going further in the \emph{Ego Network} since it would add noise to the features, making the prediction less accurate\footnotemark[2]{}. Indeed, it's possible to see the fallibility of common \emph{Random Forest} fitting methods, since the fact that $\ego_2 \supset \ego_1$ should be enough to create a model that at least as good as the previous one.
+Increasing the breadth of the \emph{Ego Network} by one level slightly improves the metrics on the \emph{Machine Learning} methods\footnotemark[1]{} when using with \emph{Random Forest} learning, which is more versatile to odd cases and non-linear data~\cite{logisticvsdecision} However, the model isn't improved further by going further in the \emph{Ego Network} since it would add noise to the features, making the prediction less accurate\footnotemark[2]{}. Indeed, it's possible to see the fallibility of common \emph{Random Forest} fitting methods, since the fact that $\ego_2 \supset \ego_1$ should be enough to create a model that at least as good as the previous one.
 
-\footnotetext[1]{Compare the rows of $\ego_0$ to the ones with $\ego_1$}
-\footnotetext[2]{Compare the rows of $\ego_1$ to the ones with $\ego_2$}
+% \footnotetext[1]{Compare the rows of $\ego_0$ to the ones with $\ego_1$}
+% \footnotetext[2]{Compare the rows of $\ego_1$ to the ones with $\ego_2$}
 
 Additionally, adding categorical information to the feature extraction as in \cref{subsec:categoricaluserdata} to the \emph{Ego Network} of distance 1 and distance 2\footnotemark[3]{} results in the greatest improvement in most metrics. These improvements don't hold up when going one level further in the \emph{Ego Network}, as can be seen that the rows referring to the accumulated categorical data on that level has lower metrics than the previous one\footnotemark[4]{}. We hypothesize with strong certainty that the metrics will keep decreasing when adding more levels to the \emph{Ego Network}.
 
-\footnotetext[3]{Compare the rows of $\cat_0$ to the ones with $\cat_1$}
-\footnotetext[4]{Compare the rows of $\cat_1$ to the ones with $\cat_2$}
+% \footnotetext[3]{Compare the rows of $\cat_0$ to the ones with $\cat_1$}
+% \footnotetext[4]{Compare the rows of $\cat_1$ to the ones with $\cat_2$}
 
-These results show that, when using the data from the labelled users $\Upsilon$, the \emph{Bayesian Algorithm} presented in \cref{sec:inference_methodology} has a significantly higher \emph{Area Under the Curve} than both the naïve algorithms and the ones based in \emph{Machine Learning}. This, in addition to the fact that making a prediction in the algorithm is faster than fitting the \emph{Random Forest} methods (which give the best metrics for the \emph{Machine Learning} ones), and that the amount of data needed for running the algorithm is much lower (2 columns vs.\ the amounts shown in \cref{tab:datasettable}) and much simpler to construct, makes it more suitable for production than any of the more ``common'' methods.
+The results in \cref{tab:innercomparison} show that, when using the data from the labelled users $\Upsilon$, the \emph{Bayesian Algorithm} presented in \cref{sec:inference_methodology} has a significantly higher \emph{Area Under the Curve} than both the naïve algorithms and the ones based in \emph{Machine Learning}. This, in addition to the fact that making a prediction in the algorithm is faster than fitting the \emph{Random Forest} methods (which give the best metrics for the \emph{Machine Learning} ones), and that the amount of data needed for running the algorithm is much lower (2 columns vs.\ the amounts shown in \cref{tab:datasettable}) and much simpler to construct, makes it more suitable for production than any of the more standard algorithms, which are based in regular \emph{Machine Learning} methods.
 
-\begin{table}
+\newpage
+
+\begin{table}[t]
 \centering
 \begin{tabular}{>{\bfseries}l >{\bfseries}l >{\hspace{1ex}} r r r r r r r r}
 \toprule
@@ -375,11 +379,11 @@ These results show that, when using the data from the labelled users $\Upsilon$,
 & $\cat_2$ & 0.709 & 0.710 & 0.711 & 0.709 & 0.711 & 0.711 & \SI{81.528}{\second}  & \SI{0.242}{\second} \\
 \bottomrule
 \end{tabular}
-\caption{Resulting metrics of different methods used in \cref{sec:results,sec:comparison} tested on the \emph{Inner Graph} $\Upsilon$, which contains only nodes which have at least one neighbour with socioeconomic information. \textbf{Bolded} items represent the highest value for each metric. The \emph{Bayesian Algorithm} is run with the best parameters found in \cref{subsec:performance_evaluation}, with $\varpi = \contacts$, $\Theta = 0.394$, and $\tau = 0.514$.}
+\caption{Resulting metrics of different methods used in \cref{sec:results,sec:comparison} tested on the \emph{Inner Graph} $\Upsilon$, which contains only nodes which have at least one neighbour with socioeconomic information. \textbf{Bolded} items represent the highest value for each metric.}
 \label{tab:innercomparison}
 \end{table}
 
-\begin{table}
+\begin{table}[b]
 \centering
 \begin{tabular}{ >{\bfseries}l >{\bfseries}l >{\hspace{1ex}} r r r r r r r r }
 \toprule
@@ -412,6 +416,6 @@ These results show that, when using the data from the labelled users $\Upsilon$,
 & $\cat_2$ & \textbf{0.614} & 0.635 & 0.534 & \textbf{0.614} & \textbf{0.580} & \textbf{0.539} & \SI{50.589}{\second}  & \SI{3.484}{\second} \\
 \bottomrule
 \end{tabular}
-	\caption{Resulting metrics of different methods used in \cref{sec:comparison} tested in the \emph{Outer Graph} $B^{\test}$, which includes all nodes. Unlike the previous table, the \emph{Bayesian Algorithm} described in \cref{sec:results} can't be tested in this dataset. \textbf{Bolded} items represent the highest value for each metric.}
+\caption{Resulting metrics of different methods used in \cref{sec:comparison} tested in the \emph{Outer Graph} $B^{\test}$, which includes all nodes. \textbf{Bolded} items represent the highest value for each metric.}
 \label{tab:outercomparison}
 \end{table}
