@@ -1,4 +1,4 @@
-\documentclass{beamer}
+\documentclass[usenames,dvipsnames]{beamer}
 
 \mode<presentation> {%
 	\usetheme{Frankfurt}
@@ -22,17 +22,32 @@
 \usepackage{mathrsfs}
 \usepackage{amsfonts}
 \usepackage[authoryear,round]{natbib}
+\usepackage{multirow}
 
 \usepackage[group-separator={,}]{siunitx}
 \usepackage{caption}
 \usepackage{pbox}
 \usepackage{tabularx}
+\usepackage{booktabs}
 
-\usepackage{color}
+
+% \usepackage{color}
+% \usepackage[dvipsnames]{xcolor}
+% \usepackage[x11names, rgb, dvipsnames]{xcolor}
 
 \graphicspath{{../../figures/}{../../figures/workshop_data_science/}}
 
+\usepackage{tikz}
+\usetikzlibrary{shapes}
+\usetikzlibrary{arrows}
+
+
 \captionsetup[figure]{labelformat=empty}% redefines the caption setup of the figures environment in the beamer class.
+
+\input{../operators}
+
+% \DeclareMathOperator{\ego}{Ring}
+% \DeclareMathOperator{\cat}{Cat}
 
 \newcommand{\Beta}{B}
 
@@ -77,11 +92,11 @@
 
 \bigskip
 
-\date[Workshop AGRANDA]{Symposium AGRANDA \\ September 6, 2017}
+\date[Workshop AGRANDA]{AGRANDA / SLMDI \\ September 6, 2017}
 
 
 %\setbeamertemplate{footline}[text line]{\bf \insertshortauthor \hfill \insertshorttitle \hfill \insertframenumber/29}
-\setbeamertemplate{footline}[text line]{\hfill \insertframenumber / 30}
+\setbeamertemplate{footline}[text line]{\hfill \insertframenumber / 26}
 
 \AtBeginSection[]
 {%
@@ -135,8 +150,8 @@
 \begin{frame}{Human Behavior}
 
 \begin{tabularx}{\textwidth}{c c}
-\includegraphics[height=0.4\textheight]{bjork-debut.jpg} &
-\includegraphics[height=0.4\textheight]{pi.jpg} \\
+\includegraphics[height=0.45\textheight]{bjork-debut.jpg} &
+\includegraphics[height=0.45\textheight]{pi.jpg} \\
 
 \pbox[t]{0.4\textwidth}{%
 \small
@@ -195,7 +210,7 @@ Restate my assumptions: \\
 \begin{itemize}
 
 \begin{block}{Objective}
-Generate inferences of socioeconomic status in the communication graph.
+Compare methods for the inference of socioeconomic status in the communication graph.
 \end{block}
 \medskip
 
@@ -209,7 +224,7 @@ Generate inferences of socioeconomic status in the communication graph.
 
 \item We construct an \textcolor{blue}{inference algorithm} that allows us to predict the socioeconomic status of users.
 
-\item The first time that both mobile phone and banking information has been integrated in this way to make inferences based on a social telecommunication graph.
+\item We compare it with standard machine learning techniques using growing set of features from nodes and their network.
 
 \end{itemize}
 
@@ -296,9 +311,8 @@ Network topology~??
 \label{homophily_heatmap}
 \end{center}
 \end{figure}
-
-Similar to homophily with respect to age in~\cite{brea2014}.
-
+{\small Similar to homophily with respect to age in~\cite{brea2014}.
+}
 \end{frame}
 
 \begin{frame}{What do we predict?}
@@ -484,17 +498,103 @@ The best accuracy obtained is \num{0.71} for $\tau = 0.4$.
 
 
 
-\begin{frame}{Comparison with Other Methods}
 
-We applied two other inference methods to the same data and compared their accuracies to our Bayesian model.
+
+\begin{frame}{Generation of Graph Features}
+
+For each link $e \in E$ in the graph we have:
 
 \begin{itemize}
-	\item \textbf{Random selection} which chooses randomly the category for each user.
-	The accuracy is as expected \num{0.5}.
-	\item \textbf{Majority voting} which decides the category depending on the category of the majority of its contacts.
-	The accuracy for majority voting is \num{0.66}.
-	\item \textbf{Bayesian method} gives an accuracy of \num{0.71}.
+	\item \textbf{Origin} of the calls and SMS
+	\item \textbf{Destination} of the calls and SMS
+	\item \textbf{Calls}: total number of calls
+	\item \textbf{Time}: total time (in seconds) of all the calls
+	\item \textbf{SMS}: total amount of messages
 \end{itemize}
+
+\end{frame}
+
+
+\begin{frame}{Higher order user data -- $\ego_{n > 1}$ }
+
+\begin{figure}
+\centering
+\framebox[\columnwidth]{%
+	\input{ego.tikz}
+}
+\caption{Edges present in the calculation of the \emph{Higher Order User Data} for a certain node $v$. \\
+\textcolor{red}{Red} edges represent \emph{User data of order 1},\\
+ \textcolor{blue}{Blue} edges represent \emph{User data of order 2}, \\
+ \textcolor{ForestGreen}{Green} edges represent \emph{User data of order 3}.}
+\label{fig:higherorderuserdata}
+\end{figure}
+
+
+\end{frame}
+
+
+\begin{frame}{Categorical User Data --- Level $\cat_n$}
+
+We add the information of the income category of the other party in the link to 
+edges in $\ego_{n}$ obtaining $\cat_n$:
+
+\begin{equation*}
+\begin{Bmatrix} in \\ out \end{Bmatrix}
+\times
+\begin{Bmatrix} calls \\ time \\ sms \\ contacts \end{Bmatrix}
+\times
+\begin{Bmatrix} low \\ high \end{Bmatrix}
+\label{eq:matcatuserdata}
+\end{equation*}
+
+
+We used Logistic Regression and Random Forests. We performed a grid search to tune hyper-parameters and 5-fold cross validation.  
+\end{frame}
+
+
+
+\begin{frame}{Results -- Inner graph}
+\begin{table}
+{\small 
+\begin{tabular*}{\textwidth}{>{\bfseries}l >{\bfseries}l @{\extracolsep{\fill}}>{\hspace{2em}}r r r }
+\toprule
+Model & Level & AUC & F\textsubscript{1}-score & F\textsubscript{4}-score  \\
+\midrule
+
+\multicolumn{2}{>{\bfseries}l}{Random Selection}
+& 0.499 & 0.500 & 0.500  \\
+
+\multicolumn{2}{>{\bfseries}l}{Majority Voting}
+& 0.681 & 0.721 & 0.712  \\
+
+\multicolumn{2}{>{\bfseries}l}{Bayesian Algorithm}
+& \textbf{0.746} & \textbf{0.723} & \textbf{0.783}  \\
+\midrule
+
+\multirow{5}{*}{LR} &
+$\ego_1$ & 0.536 & 0.574 & 0.619  \\
+& $\ego_2$ & 0.535 & 0.611 & 0.714 \\
+& $\ego_3$ & 0.569 & 0.550 & 0.528 \\
+& $\cat_1$ & 0.686 & 0.714 & 0.776 \\
+& $\cat_2$ & 0.693 & 0.718 & 0.772 \\
+& $\cat_3$ & 0.692 & 0.714 & 0.758 \\
+
+\midrule
+
+\multirow{5}{*}{RF} &
+$\ego_1$ & 0.548 & 0.549 & 0.550 \\
+& $\ego_2$ & 0.582 & 0.580 & 0.577 \\
+& $\ego_3$ & 0.576 & 0.579 & 0.580 \\
+& $\cat_1$ & 0.671 & 0.677 & 0.688 \\
+& $\cat_2$ & 0.714 & 0.714 & 0.716 \\
+& $\cat_3$ & 0.709 & 0.711 & 0.711 \\
+\bottomrule
+\end{tabular*}
+\caption{Results on \emph{Inner Graph}, which contains only nodes which have at least one neighbour with socioeconomic information. \textbf{LR} corresponds to \emph{Logistic Regression} models, and \textbf{RF} to \emph{Random Forest} models.}
+\label{tab:innergraphresults}
+}
+\end{table}
+
 
 \end{frame}
 
