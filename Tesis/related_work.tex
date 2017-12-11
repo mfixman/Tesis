@@ -20,7 +20,6 @@ The second study presented in this paper relates to the correlation between peop
 
 Both of these correlations can be seen intuitively in \cref{fig:paper_yannick}.
 
-
 \begin{figure}
 \centering
 \begin{subfigure}[t]{.45\textwidth}
@@ -71,3 +70,13 @@ Two interesting tests made to measure the socioeconomic status of the respondent
 \end{itemize}
 
 With this data it was possible to characterize economic stratification and inequality within the population of mobile phone users. Additionally, using the CDRs, it was possible to characterize graph properties for rich and poor users, in addition to other demographic indicators such as gender. In particular, while the mobile phone population is in general wealthier than the general population of Rwanda, there's still considerable inequality within the group of mobile phone users.
+
+\section{Understanding Individual Human Mobility Patterns}
+
+\cite{gonzalez2008understanding} explores the statistical properties of a population's mobility patterns by using a mobile phone dataset similar to the one used in this thesis. In it, the author finds that the distribution of displacements of users over time can be approximated by a truncated Lévy flight\cite{mandelbrot1982fractal}.
+
+\begin{equation}
+	P \left( \Delta r \right) = \left( \Delta r + \Delta r_0 \right) ^{-\beta} \exp \left( -\Delta r / \kappa \right)
+\end{equation}
+
+Where $\beta = 1.75 \pm 0.15$, $\Delta r_0 = 1.5 \kilo\meter$, and cutoff values $\kappa | _{D_1} = 400 \kilo\meter$ and $\kappa | _{D_2} = 80 \kilo\meter$.
