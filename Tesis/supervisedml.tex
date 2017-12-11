@@ -127,7 +127,7 @@ The tree themselves contain a root at the top, and each non-final node (includin
 \begin{figure}
 \centering
 \includegraphicsmaybe{figures/decisiontree.png}
-\caption{A decision tree, with example data that will be used later in this thesis.}
+\caption{A decision tree. This is a simplified version of one of the decision trees used in the \emph{Random Forest} predictors in \cref{subsec:comparison_random_forest}.}
 \label{fig:decision_tree}
 \end{figure}
 
@@ -140,7 +140,7 @@ Decision trees are prone to overfitting~\cite{oded2008decisiontrees}. Since a si
 \begin{figure}
 \centering
 \includegraphicsmaybe{figures/decisiontreeoverfitting.png}
-	\caption{Overfitting in decision trees. When training and testing on the same data, making a classifier more complex makes the accuracy of the prediction increasingly higher until it's pretty much perfect. This result is wrong since the classifier is \emph{Overfitting} its tree to the training data. When testing with different data, it's possible to see how the prediction actually becomes worse.}
+	\caption{Overfitting in decision trees. When training and testing on the same data, making a classifier more complex makes the accuracy of the prediction increasingly higher until it's pretty much perfect. This result is wrong since the classifier is \emph{Overfitting} its tree to the training data. When testing with different data, it's possible to see how the prediction actually becomes worse. This graph was simulated by training decision trees with data from \texttt{sklearn.datasets.make\_classification}\cite{sklearn_make_classification}.}
 \label{fig:decisiontreeoverfitting}
 \end{figure}
 
