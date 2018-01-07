@@ -78,6 +78,10 @@
 
 \renewcommand*{\thefootnote}{\fnsymbol{footnote}}
 
+\newcommand\encircle[1]{%
+  \tikz[baseline=(X.base)] 
+    \node (X) [draw, shape=circle, inner sep=-4pt] {\strut #1};}
+
 \include{operators}
 
 % \title{Inference of Socioeconomic Status\\in a Communications Graph:\\A Bayesian Approach}
