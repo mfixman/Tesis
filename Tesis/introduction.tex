@@ -36,7 +36,7 @@ Multiple strategies can be used to generate network features based on the CDRs. 
 The final results are presented in \cref{sec:results,sec:comparison}. This section presents a short summary.
 \begin{itemize}
 	\item When using the Bayesian Algorithm, the \emph{Area Under the Curve} (which is the target metric user in this thesis) is maximized when the socioeconomic comparison is done by number of contacts (\cref{tab:bayesresults}) to a value of \num{0.746}.
-	\item Of the common machine learning methods used, the ones which use the labels of the neighbouring users to make a prediction have a better result of the ones which don't. However, even in this case the results are worse than in the Bayesian Algorithm (\cref{tab:comparison}).
+	\item Of the common machine learning methods used, the ones which use the labels of the neighbouring users to make a prediction have a better result of the ones which don't. However, even in this case the results are worse than in the Bayesian Algorithm (\cref{sec:comparison_results}).
 \end{itemize}
 
 \section{Organisation of the Thesis}
@@ -49,6 +49,6 @@ The remainder of the thesis is separated into 7 chapters.
 \item[\Cref{sec:dataset}] reviews the telecommunications and bank sources used in this study, how they work together, and also some extra insights about the data that can be found after merging both datasets.
 \item[\Cref{sec:inference_methodology}] presents the \emph{Bayesian Algorithm}, used as the main inference algorithm in this thesis. In the first part, it presents a theoretical justification of its correctness using the dataset. Later, it formally presents the algorithm and its possible variations.
 \item[\Cref{sec:results}] contains a high level description of the testing environment and of the evaluation method of the \emph{Bayesian Algorithm}. It later finds optimal hyperparameters and, in \cref{tab:bayesresults}, presents the final results of the algorithm.
-\item[\Cref{sec:comparison}] Presents other algorithms of differing complexity that work in the same dataset as the previous one, including ones based in common \emph{Machine Learning} with novel feature extraction methods. The final results are presented in \cref{tab:comparison}.
+\item[\Cref{sec:comparison}] Presents other algorithms of differing complexity that work in the same dataset as the previous one, including ones based in common \emph{Machine Learning} with novel feature extraction methods. The final results are presented in \cref{sec:comparison_results}.
 \item[\Cref{chap:conclusions}] Presents the conclusions of the work, along with some possible work to be done in the future using this same dataset.
 \end{description}
