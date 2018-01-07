@@ -3,18 +3,20 @@
 \chapter{Comparison with Other Inference Methods}
 \label{sec:comparison}
 
-In this chapter, we compare the results of the Bayesian method with other classifiers commonly used for this same problem.
+In this chapter, we compare the results of the Bayesian method presented in \cref{sec:inference_methodology} with common machine learning methods using several feature extraction methods in the graph used for this study.
+Like in the previous chapter, the idea is to know whether each user $v$ belongs to the lower socioeconomic strata $H_1$ or the higher $H_2$ by knowing the distribution of calls and text messages to his contacts.
 
-This classifier creates a proper baseline for other comparisons. These will be used in the dataset $G = \left< V, E \right>$ with the bank data contained in $B^{\train}$, and will be used either to provide information about the users contained in $B_{\test}$ (the \emph{Outer Graph}), or the ones in $\Upsilon$ (the \emph{Inner Graph}). Those two sets of features are described with more detail in \cref{subsec:train_test_split,subsec:rebalancing_labels}.
-
-For simplicity sake, the descriptions of the algorithm will refer to the \emph{Testing Set} as $\Upsilon$ regardless of whether it's using a subset or the data or not.
+This classifier creates a proper baseline for other comparisons. These will be used in the dataset $G = \left< V, E \right>$ presented the bank data contained in $B^{\train}$, and will be used to provide either information about the users.
+Unlike the method presented in the previous chapter, we can optionally forego the necessity for having at least one neighbour with known socioeconomic index for each user.
+For this reason, we experiment with these methods with two possible inputs, both previously defined in \cref{sec:data_partitioning}: one that uses the entire set of nodes, called the \emph{Outer Graph} or $B_{\test}$, and another one that uses only the nodes which have at least one neighbour with known socioeconomic index, called the \emph{Inner Graph} or $\Upsilon$.
+Additionally, as explained in the referred section, the data is conveniently partitioned into training and testing sets to have a similar amount of data than in a real case.
 
 \Cref{tab:comparison} compares the results of these methods with the \emph{Bayesian Algorithm} described in \cref{sec:inference_methodology} along several metrics.
 
 \section{Random Selection}
 \label{subsec:random_selection}
 
-For the sake of completeness, we created a random ``dummy'' classifier which randomly chooses the socioeconomic index of each user.
+One of the simplest methods for solving many classification problems is using random selection. This classifier simply chooses randomly to which strata each user belongs.
 
 \begin{equation}
 \label{eq:random}
@@ -24,33 +26,37 @@ For the sake of completeness, we created a random ``dummy'' classifier which ran
 \end{aligned}
 \end{equation}
 
+This produces a good baseline for comparing other inference methods.
+
 \section{Majority Voting}
 \label{subsec:majority_voting}
 
-The method of \emph{Majority Voting} is a basic but powerful way of inferring to which category a user belongs. It simply chooses the category of each user $\upsilon \in \Upsilon$ as the category for which the majority of its contacts belong.
+The method of \emph{Majority Voting} is a basic but powerful way of inferring which category a user belongs to.
+It simply chooses the category of each user $v \in V$ as the most common category within its contacts.
 
-In case of a tie (which happens often when using the \emph{Outer Graph}), the category is chosen randomly. This approach can be formalized as in \cref{eq:majority_voting}.
+In case of a tie (which happens often when using the \emph{Outer Graph}, as many users don't have any neighbour with a known category), the category is chosen randomly.
+This approach can be formalized as in \cref{eq:majority_voting}, where $\contacts^{\low}_{v}$ and $\contacts^{\high}_{v}$ have the same definitions as in \ref{sec:inference_methodology}: the amount of contacts user $v$ has of either low or high socioeconomic index.
 
 \begin{equation}
 \label{eq:majority_voting}
-	P \left( \upsilon \in H_1 \right) =
+	P \left( v \in H_1 \right) =
 \begin{cases}
-	0   & \text{if} \ \contacts^{\low}_{\upsilon} < \contacts^{\high}_{\upsilon} \\
-	0.5 & \text{if} \ \contacts^{\low}_{\upsilon} = \contacts^{\high}_{\upsilon} \\
-	1   & \text{if} \ \contacts^{\low}_{\upsilon} > \contacts^{\high}_{\upsilon}
+	0   & \text{if} \ \contacts^{\low}_{v} < \contacts^{\high}_{v} \\
+	0.5 & \text{if} \ \contacts^{\low}_{v} = \contacts^{\high}_{v} \\
+	1   & \text{if} \ \contacts^{\low}_{v} > \contacts^{\high}_{v}
 \end{cases}
 \end{equation}
 
 \section{Methods Based in Machine Learning}
 \label{subsec:methods_ml}
 
-The following methods use commonly used supervised Machine Learning algorithms described in \cref{subsec:supervised_machine_learning} used with many similar \emph{Feature Extraction} methods on $G$.
+The following methods use commonly used supervised Machine Learning algorithms, described in \cref{subsec:supervised_machine_learning}, used with many similar \emph{Feature Extraction} methods on $G$.
 
-The initial feature extraction method, \emph{User Data}, which is described in \cref{subsec:user_data} and marked as $\ego_0$, consists of accumulating the total information about the links neighboring some user $v \in V$. Later, as shown in \cref{subsec:higherorderuserdata}, it's possible to accumulate links from more levels of the \emph{Ego Network} to create feature sets that be used to build a better prediction of the data.
+The initial feature extraction method, referred to as \emph{User Data}, is described in \cref{subsec:user_data} and marked as $\ego_0$, consists of accumulating the total information about the links neighboring some user $v \in V$. Later, as shown in \cref{subsec:higherorderuserdata}, it's possible to accumulate links from more levels of the \emph{Ego Network} to create feature sets that be used to build a better prediction of the data.
 
 An extra method for feature extraction is presented in \cref{subsec:categoricaluserdata}, which in addition to doing the extraction of other methods it accumulates separately edges that go to \emph{High Income} and \emph{Low Income} users.
 
-The features of each method are merged with the ones from the immediate predecessor methods, as shown in the graph in \cref{fig:mlrelationships}.
+The features of each method are merged with the ones from the immediate predecessor methods, as shown in the graph in \cref{fig:mlrelationships}, while the amount of features in each level is described in \cref{tab:datasettable}.
 
 \begin{figure}
 \centering
@@ -59,11 +65,9 @@ The features of each method are merged with the ones from the immediate predeces
 		\input{figures/mlrelationships.tikz}
 	}
 }
-\caption{Relationships between the \emph{Feature Extraction} methods of \cref{subsec:methods_ml}. \textcolor{Blue}{blue} edges represent a raise in \emph{Ego Network} size, a process which is describe in \cref{subsec:higherorderuserdata}, while \textcolor{ForestGreen}{green} edges represent adding label information, which is described in \cref{subsec:categoricaluserdata}}
+\caption{Relationships between the \emph{Feature Extraction} methods of \cref{subsec:methods_ml}. \textcolor{Blue}{blue} edges represent an increase in \emph{Ego Network} size, a process which is describe in \cref{subsec:higherorderuserdata}, while \textcolor{ForestGreen}{green} edges represent adding label information, which is described in \cref{subsec:categoricaluserdata}}
 \label{fig:mlrelationships}
 \end{figure}
-
-The amount of features in each level is described in \cref{tab:datasettable}.
 
 \begin{table}
 \centering
@@ -83,10 +87,29 @@ $\cat_2$ & \num{72} \\
 \label{tab:datasettable}
 \end{table}
 
-\section{User Data --- Level $\ego_0$}
+\subsection{User Data --- Level $\ego_0$}
 \label{subsec:user_data}
 
-The features on the graph $G = \left< V, E \right>$ can be accumulated for all users in a manner similar to the one in \cref{subsec:feature_accumulation} using the data generated in \cref{eq:graphconstruction}. However, this time we aren't constrained either by having only users which have contacts with other users with known \emph{Income Category}, nor with having to have only two features for each category (which was necessary due to using the \emph{Beta Distribution}).
+The features on the graph $G = \left< V, E \right>$ can be accumulated for all users in a manner similar to the one in \cref{subsec:feature_accumulation}, presented again in \cref{eq:bayesian_calls_accum_copy}.
+
+\begin{align}
+\label{eq:bayesian_calls_accum}
+& \calls^{\low}_v = \sum_{\substack{e \in E \\ e_d = v \\ e_o \in H_1}}{e_c} + \sum_{\substack{e \in E \\ e_o = v \\ e_d \in H_1}}{e_c}
+& \calls^{\high}_v = \sum_{\substack{e \in E \\ e_d = v \\ e_o \in H_2}}{e_c} + \sum_{\substack{e \in E \\ e_o = v \\ e_d \in H_2}}{e_c} \\
+& \etime^{\low}_v = \sum_{\substack{e \in E \\ e_d = v \\ e_o \in H_1}}{e_t} + \sum_{\substack{e \in E \\ e_o = v \\ e_d \in H_1}}{e_t}
+& \etime^{\high}_v = \sum_{\substack{e \in E \\ e_d = v \\ e_o \in H_2}}{e_t} + \sum_{\substack{e \in E \\ e_o = v \\ e_d \in H_2}}{e_t} \\
+& \sms^{\low}_v = \sum_{\substack{e \in E \\ e_d = v \\ e_o \in H_1}}{e_s} + \sum_{\substack{e \in E \\ e_o = v \\ e_d \in H_1}}{e_s}
+& \sms^{\high}_v = \sum_{\substack{e \in E \\ e_d = v \\ e_o \in H_2}}{e_s} + \sum_{\substack{e \in E \\ e_o = v \\ e_d \in H_2}}{e_s}
+\end{align}
+\begin{equation}
+\label{eq:bayesian_contacts_accum}
+\begin{aligned}
+	\contacts^{\low }_v &= &\left| \left\{ e \in E \mid e_o = v \land e_d \in H_1 \right\} \cup \left\{ e \in E \mid e_d = v \land e_o \in H_1 \right\} \right| \\
+	\contacts^{\high }_v &= &\left| \left\{ e \in E \mid e_o = v \land e_d \in H_2 \right\} \cup \left\{ e \in E \mid e_d = v \land e_o \in H_2 \right\} \right|
+\end{aligned}
+\end{equation}
+
+However, and unlike in the experiments in \ref{sec:inference_methodology}, this time we aren't constrained either by having only users which have contacts with other users with known \emph{Income Category}, nor with having to have only two features for each category which was necessary since the solution used the \emph{Beta Distribution}.
 
 This way, it's possible to accumulate features for each user $v \in V$ in the manner shown by \cref{eq:user_data}.
 
@@ -117,10 +140,10 @@ There features contain information about the \emph{Neighborhood} of $\upsilon$, 
 \neigh \left( \upsilon \right) = \left\{ e_o \mid e \in E \land e_d = \upsilon \right\} \cup \left\{ e_d \mid e \in E \land e_o = \upsilon \right\}
 \end{equation}
 
-\section{Categorical User Data --- Level $\cat_0$}
+\subsection{Categorical User Data --- Level $\cat_0$}
 \label{subsec:categoricaluserdata}
 
-A possible feature set consists of using of separating the data of the neighborhood of each user $\upsilon \in \Upsilon$ into two disjoint groups, $L_{\upsilon}$ and $K_{\upsilon}$, which contain the neighbors of $\upsilon$ in the \emph{Low Income} and \emph{High Income} categories of income respectively\footnotemark{}.
+A possible feature set consists of separating the data of the neighborhood of each user $\upsilon \in \Upsilon$ into two disjoint groups, $L_{\upsilon}$ and $K_{\upsilon}$, which contain the neighbors of $\upsilon$ in the \emph{Low Income} and \emph{High Income} categories of income respectively\footnotemark{}.
 
 \footnotetext{Note that, since not all users have banking information, there may be nodes in the neighborhood of $\upsilon$ which don't belong to either $L_{\upsilon}$ or $K_{\upsilon}$.}
 
@@ -132,7 +155,7 @@ A possible feature set consists of using of separating the data of the neighborh
 \end{aligned}
 \end{equation}
 
-Having these groups it's possible to define a set of features similar to the one in \cref{subsec:user_data}, where each feature is separated by the category of the neighbor. \Cref{eq:matcatuserdata} represents the composition of the names of the new features.
+Having defined these groups it's possible to define a set of features similar to the one in \cref{subsec:user_data}, where each feature is separated by the category of the neighbor. \Cref{eq:matcatuserdata} represents an intuitive way to define the names of the new features.
 
 \begin{equation}
 \label{eq:matcatuserdata}
@@ -148,7 +171,8 @@ Having these groups it's possible to define a set of features similar to the one
 \begin{equation}
 \label{eq:categoricaluserdata}
 \begin{gathered}
-	\left( \forall \varpi \in \left\{ \calls, \etime, \sms \right\} \right) \\
+	\text{For $\varpi$ being one of $\left\{ \calls, \etime, \sms \right\},} \\
+	% \left( \forall \varpi \in \left\{ \calls, \etime, \sms \right\} \right) \\
 \begin{aligned}
 	\underline{\text{in}{\varpi}\text{low}}_v = \sum_{\substack{e \in E \\ e_d \in L_v \\ e_o = v}} &\varpi_e &
 	\underline{\text{in}{\varpi}\text{high}}_v = \sum_{\substack{e \in E \\ e_d \in K_v \\ e_o = v}} &\varpi_e \\
@@ -170,7 +194,7 @@ Having these groups it's possible to define a set of features similar to the one
 
 Unlike the features in \cref{subsec:user_data}, and like the method presented in \cref{sec:inference_methodology}, the features in this section will be be different when testing between the nodes of $B_{\test}$ (the \emph{Outer Graph}) and $\Upsilon$ (the \emph{Inner Graph}).
 
-\section{Higher Order User Data --- Level $\ego_{n > 0}$}
+\subsection{Higher Order User Data --- Level $\ego_{n > 0}$}
 \label{subsec:higherorderuserdata}
 
 The features described in \cref{subsec:user_data} correspond to the information about calls and SMS from an user $\upsilon \in \Upsilon$ towards all of its neighbors, which is described as the \emph{Ego Network of Distance 1}. However, there's no reason why this information can't be extended to other nodes at a higher distance from $\upsilon$.
@@ -216,11 +240,11 @@ Every set $\ego_n$ contains features from that level and all the previous ones a
 \label{eq:formal_higher_order}
 \end{equation}
 
-It would be possible to add more features related to the $\left\{ \text{in}, \text{out} \right\}$ group to indicate how many ``in'' or ``out'' edges must be traversed from $\upsilon$. However, this would multiply the amount of features by an exponential value of $n$ without adding useful data.
+In one of the initial experiments in this thesis we added more features related to the $\left\{ \text{in}, \text{out} \right\}$ group to indicate how many ``in'' or ``out'' edges must be traversed from $\upsilon$. However, this added an exponentially large new amount of features without much significant data, and thus was left out from the following experiments.
 
-\section{Higher Order Categorical User Data --- Level $\cat_{n > 0}$}
+\subsection{Higher Order Categorical User Data --- Level $\cat_{n > 0}$}
 
-It's possible to combine the ideas in \cref{subsec:categoricaluserdata,subsec:higherorderuserdata} to create a group of sets of features containing the data from the border of the \emph{Ego Network or Order $n$}, separated by two disjoint groups depending in the category of the node outside the ego network, as in \cref{eq:formal_higher_order_categorical}.
+It's possible to combine the ideas in \cref{subsec:categoricaluserdata,subsec:higherorderuserdata} to create a group of sets of features containing the data from the border of the \emph{Ego Network or Order $n$}, separated by two disjoint groups depending in the category of the node outside the ego network, as in \cref{eq:formal_higher_order_categorical}, with $E$ defined as in \cref{sec:dataset} as the set of edges where $e_o$ is the user that originated a call and $e_d$ the user in the destination.
 
 \begin{equation}
 	\begin{aligned}
@@ -232,9 +256,10 @@ It's possible to combine the ideas in \cref{subsec:categoricaluserdata,subsec:hi
 \label{eq:formal_higher_order_categorical}
 \end{equation}
 
-Using these features we can have a more complete understanding of the data surrounding each node $v$. In \cref{sec:comparison_results} we prove that the best predictor between the methods explored in this chapter is this method with $n = 1$ and predicting with a \emph{Random Forest} when predicting in the inner graph (which only includes nodes with labeled neighbours), and, with a negligible difference in all the metrics, this method with $n = 2$ has the highest scores when using the entire graph.
+Using these features we can have a more complete understanding of the data surrounding each node $v$.
+In \cref{sec:comparison_results}, where we present the final results, we prove that the best predictor between all the methods explored in this chapter is this same method defining when using a \emph{Random Forest} to predict the final labels, both when using the inner graph (and using only the ego network when $n = 1$) and when using the entire outer graph (and using the ego network with $n = 2$).
 
-Since the amount of features grows exponentially in each step (see \cref{tab:datasettable}), and so does the time spent in each computation. Since the best results are found with metrics when looking at the \emph{Ego Network} of level 2 of the graph (that is, the information contained in the edges of the neighbours of the neighbours of each node) which can be explained by the fact that the noise of the information about users far away from the noise has more impact than the useful information, no tests were attempted in cases where $n \geq 3$.
+The amount of features grows exponentially in each step (see \cref{tab:datasettable}), and so does the time spent in each computation. Since the best results are found with metrics when looking at the \emph{Ego Network} of level 1 of the inner graph (that is, the information contained in the edges of the neighbours of the neighbours of each node), which can be explained by the fact that the noise of the information about users far away from the noise has more impact than the useful information, no tests were attempted in cases where $n \geq 3$.
 
 \section{Machine Learning}
 
