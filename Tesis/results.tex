@@ -22,7 +22,18 @@ The experimentation was achieved using the previous libraries, using the amazing
 
 As with many other classification problems, the \emph{Bayesian Algorithm} is prone to overfitting~\cite{mitchellml1997}. In this particular case, since the information presented in \cref{subsec:income_homophily} shows that users tend to communicated with users of the same socioeconomic level, by running the algorithm in the complete data and using the same users as part of the features and of the labels, we would erroneously be having more data per user than we would have when modelling the problem.
 
-An easy way to avoid this problem is by doing a simple \emph{Train Test Split}, where the data in $B$ is separated into two disjoint groups, $B = B_{\train} \cup B_{\test}$ and $B_{\train} \cap B_{\test} = \varnothing$, where $\left| B_{\train} \right| = 0.8 \cdot \left| B \right|$ and $\left| B_{\test} \right| = 0.2 \cdot \left| B \right|$.
+An easy way to avoid this problem is by doing a simple \emph{Train Test Split}, where the data in $B$ is separated into two disjoint groups, as shown in \cref{eq:train_test_split}
+
+\begin{equation}
+\label{eq:train_test_split}
+	\begin{gathered}
+		\begin{aligned}
+			B_{\train} &\subseteq B & \left| B_{\train} \right| = 0.8 &\cdot \left| B \right| \\
+			B_{\test} &\subseteq B & \left| B_{\test} \right| = 0.2 &\cdot \left| B \right|
+		\end{aligned} \\
+		B_{\train} \cap B_{\test} = \varnothing
+	\end{aligned}
+\end{equation}
 
 \subsection{Erasing Uninformative Data}
 
@@ -78,6 +89,14 @@ Since the income categories tend to be balanced in the real world, this isn't wa
 $\Upsilon$ will be the only \emph{Testing Set} used from now on, while $B_{\train}$ will be used as training set.
 
 Additionally, the sets $\Upsilon^{\calls}$ and $\Upsilon^{\sms}$ refer to similar sets which are taken from users from the \emph{Testing Set} that had at least one call or sent at least one SMS, respectively, to another user in the \emph{Training Set}.
+
+\subsection{The Inner and Outer Graph}
+\label{subsec:inner_outer_graph}
+
+Most of the rest of the thesis will use the subgraphs $\Upsilon$, later called the \emph{Inner Graph}, containing only users with at least one labeled neighbour, and B_{\test}, the \emph{Outer Graph}, containing all users.
+For simplicity sake, the \emph{Outer Graph} $B_{\test}$ will be referred to as $\Omega$, and the unbalanced outer graph (which is not used after this section) as $\hat{\Omega}$.
+
+As shown in \cref{subsec:rebalancing_labels}, the labels have roughly the same amount of high income and low income users.
 
 \subsection{Set Magnitudes}
 
