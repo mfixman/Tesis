@@ -32,10 +32,11 @@ An easy way to avoid this problem is by doing a simple \emph{Train Test Split}, 
 			B_{\test} &\subseteq B & \left| B_{\test} \right| = 0.2 &\cdot \left| B \right|
 		\end{aligned} \\
 		B_{\train} \cap B_{\test} = \varnothing
-	\end{aligned}
+	\end{gathered}
 \end{equation}
 
 \subsection{Erasing Uninformative Data}
+\label{subsec:erasing_uninformative_data}
 
 Given that $\left| B \right| \ll \left| V \right|$ and that $G$ is sparse, the vast majority of users don't have any kind of contact with users of the bank. For this reason it's useless to evaluate the performance of the algorithm using all the nodes, and therefore the \emph{Testing Set} used in this thesis will instead focus on the bank users that have at least one contact with another bank user. This approach is formalized in \cref{eq:inner_graph}.
 

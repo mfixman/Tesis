@@ -52,9 +52,11 @@ This approach can be formalized as in \cref{eq:majority_voting}, where $\contact
 
 The following methods use commonly used supervised Machine Learning algorithms, described in \cref{subsec:supervised_machine_learning}, used with many similar \emph{Feature Extraction} methods on $G$.
 
-The initial feature extraction method, referred to as \emph{User Data}, is described in \cref{subsec:user_data} and marked as $\ego_0$, consists of accumulating the total information about the links neighboring some user $v \in V$. Later, as shown in \cref{subsec:higherorderuserdata}, it's possible to accumulate links from more levels of the \emph{Ego Network} to create feature sets that be used to build a better prediction of the data.
+The initial feature extraction method, referred to as \emph{User Data}, is described in \cref{subsec:user_data} and marked as $\ego_0$, consists of accumulating the total information about the links neighboring some user $v \in V$. 
+Later, as shown in \cref{subsec:higherorderuserdata}, it's possible to accumulate links from more levels of the \emph{Ego Network} to create feature sets that be used to build a better prediction of the data, marked $\ego_n$ for some level $n$.
 
 An extra method for feature extraction is presented in \cref{subsec:categoricaluserdata}, which in addition to doing the extraction of other methods it accumulates separately edges that go to \emph{High Income} and \emph{Low Income} users.
+These methodologies are marked with $\cat_n$ for some level $n$.
 
 The features of each method are merged with the ones from the immediate predecessor methods, as shown in the graph in \cref{fig:mlrelationships}, while the amount of features in each level is described in \cref{tab:datasettable}.
 
