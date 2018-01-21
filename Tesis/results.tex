@@ -20,9 +20,10 @@ The experimentation was achieved using the previous libraries, using the amazing
 \subsection{Train Test Split}
 \label{subsec:train_test_split}
 
-As with many other classification problems, the \emph{Bayesian Algorithm} is prone to overfitting~\cite{mitchellml1997}. In this particular case, since the information presented in \cref{subsec:income_homophily} shows that users tend to communicated with users of the same socioeconomic level, by running the algorithm in the complete data and using the same users as part of the features and of the labels, we would erroneously be having more data per user than we would have when modelling the problem.
+As with many other classification problems, the \emph{Bayesian Algorithm} is prone to overfitting~\cite{mitchellml1997}.
+In this particular case, since the information presented in \cref{subsec:income_homophily} shows that users tend to communicated with users of the same socioeconomic level, by running the algorithm in the complete data and using the same users as part of the features and of the labels, we would erroneously be having more data per user than we would have when modelling the problem.
 
-An easy way to avoid this problem is by doing a simple \emph{Train Test Split}, where the data in $B$ is separated into two disjoint groups, as shown in \cref{eq:train_test_split}
+Since the input data used in this experiment comes from $B$, the banking information of the users in the telco, we can avoid most of the effects of overfitting separating the data into a \emph{Training Set} and a \emph{Testing Set}, where the data in $B$ is separated into two disjoint groups as shown in \cref{eq:train_test_split}.
 
 \begin{equation}
 \label{eq:train_test_split}
@@ -38,7 +39,10 @@ An easy way to avoid this problem is by doing a simple \emph{Train Test Split}, 
 \subsection{Erasing Uninformative Data}
 \label{subsec:erasing_uninformative_data}
 
-Given that $\left| B \right| \ll \left| V \right|$ and that $G$ is sparse, the vast majority of users don't have any kind of contact with users of the bank. For this reason it's useless to evaluate the performance of the algorithm using all the nodes, and therefore the \emph{Testing Set} used in this thesis will instead focus on the bank users that have at least one contact with another bank user. This approach is formalized in \cref{eq:inner_graph}.
+The \emph{Social Graph} $G = \left< V, E \right>$, which contains information about the communication networks of the users in this dataset is extremely sparse.
+Because of the property and that $\left| B \right| \ll \left| V \right|$, the vast majority of users don't have any kind of contact with users of the bank.
+For this reason it's useless to evaluate the performance of the algorithm using all the nodes, and therefore the \emph{Testing Set} used in this thesis will instead focus on the bank users that have at least one contact with another bank user.
+This approach is formalized in \cref{eq:inner_graph}.
 
 \begin{equation}
 \label{eq:inner_graph}
@@ -48,7 +52,9 @@ Given that $\left| B \right| \ll \left| V \right|$ and that $G$ is sparse, the v
 \end{gathered}
 \end{equation}
 
-This approach works perfectly when $\varpi = \contacts$. However, it's possible that for other values of $\varpi$ there won't be any information available in $\hat{B}_{\test}$ in the case of users who either didn't receive any call from a bank user or didn't receive any message.
+The accuracy of this approach depends of the value of $\varpi$, which is one of $\calls$, $\etime$, $\sms$, or $\contacts$ and defines which property of the users that's used as a feature for the classification.
+If $\varpi = \contacts$, then this approach works perfectly.
+However, it's possible that for other values of $\varpi$ there won't be any information available in $\hat{B}_{\test}$ in the case of users who either didn't receive any call from a bank user or didn't receive any message.
 
 \Cref{eq:inner_graph_call,eq:inner_graph_sms} formalize new variables to use for informative data in those cases.
 
@@ -123,9 +129,11 @@ $\Upsilon^{\sms}$ & \num{11909} & \num{6046} & \num{5863} & 0.322 \\
 
 \section{Optimizing $\Theta$}
 
+In \cref{subsec:modelling_users} we define the variable $\Theta$, which is defined as the quantile used to define the \emph{Posterior Probability} $p_v$ of a user $v$ being part of the higher income category.
 Choosing a good value of $\Theta$ is an essential step in creating a correct algorithm since it's the most important constant of \cref{eq:beta_theta_ppf}, one of the crucial parts for finding the category of an user.
 
-As explained in \cref{subsec:modelling_users}, it's convenient to use \emph{Jeffrey's Prior} as the prior distribution for this variable. However, knowing how it will affect the prediction of the category of each $v$ for every $\varpi$ will allow us to get a good posterior value.
+As explained in \cref{subsec:modelling_users}, it's convenient to use \emph{Jeffrey's Prior} as the prior distribution for this variable.
+However, knowing how it will affect the prediction of the category of each $v$ for every $\varpi \in \left\{ \calls, \etime, \sms, \contacts \right\}$ will allow us to get a good posterior value.
 
 The main hypotheses tested in this part of the theses were two assumptions.
 
@@ -159,7 +167,9 @@ As \cref{tab:besttheta,fig:theta} show, both hypotheses are false.
 \label{tab:besttheta}
 \end{table}
 
-The \emph{Area Under the Curve} is a good way to analyze the performance of the algorithm with given hyperparameters since it provides a good equilibrium between \emph{Precision} and \emph{Recall}, and it's not necessary to establish a $\tau$ to get these values.
+The \emph{Area Under the Curve} is a good way to analyze the performance of the algorithm with given hyperparameters since it provides a good equilibrium between \emph{Precision} and \emph{Recall}.
+Additionally, in \cref{subsec:categorizing_users}, value $\tau$ is defined to set the limit between the users categorized between \emph{High Income} and \emph{Low Income}.
+Since this value is independent from the \emph{Area Under the Curve}, it's not necessary to define it in this part of the analysis.
 
 In this analysis we can see that there are different optimal $\Theta$ for every $\varpi$, contradicting the first hypothesis although the best value seems to be the same for $\varpi = \calls$ and $\varpi = \sms$. The reason for this equality remains a mystery.
 
@@ -177,10 +187,9 @@ The \emph{Bayesian Algorithm} will be ran for every $\varpi \in \left\{ \contact
 	\end{itemize}
 	\item A \textbf{Receiver Operating Characteristic Curve}, showing the trade-off of \emph{False Positive Rate} to \emph{True Positive Rate} when selecting every possible $\tau$. The \emph{Area Under the Curve} is marked, as this is the metric that is being maximized when selecting the correct $\varpi$.
 	\item An \textbf{Accuracy Curve}, which shows the \emph{Accuracy} of the predictor by its \emph{False Positive Rate}.
-	\begin{itemize}
-		\item $\tau$ is chosen from this plot to maximize the \emph{Accuracy}. This value doesn't affect the \emph{Area Under the Curve}, which is the most common comparison metric between models.
-	\end{itemize}
 \end{itemize}
+
+We also use the \emph{Accuracy Curve} to define the value of $\tau$, the limit between the users defined in the \emph{High Income} and the \emph{Low Income} categories, in order to to maximize accuracy in this method.
 
 Many metrics, previously described in \cref{subsec:mlmetrics} will be used to measure the \emph{Bayesian Algorithm} for different $\varpi$. The results are later shown in \cref{tab:bayesresults}.
 
@@ -188,7 +197,7 @@ Many metrics, previously described in \cref{subsec:mlmetrics} will be used to me
 \subsection{Inferring by Calls}
 \label{subsec:calls_infer}
 
-\begin{figure}
+\begin{figure}[h]
 \centering
 \includegraphics[width=\textwidth, height=.25\textheight, keepaspectratio]{figures/bayes/hist_calls.png}
 \includegraphics[width=.49\textwidth, height=.25\textheight, keepaspectratio]{figures/bayes/roc_calls.png}
@@ -208,7 +217,7 @@ Setting $\tau = 0.654$ maximizes the accuracy at $\Accuracy = 0.687$. Additional
 \subsection{Inferring by Time}
 \label{subsec:time_infer}
 
-\begin{figure}
+\begin{figure}[h]
 \centering
 \includegraphics[width=\textwidth, height=.25\textheight, keepaspectratio]{figures/bayes/hist_time.png}
 \includegraphics[width=.49\textwidth, height=.25\textheight, keepaspectratio]{figures/bayes/roc_time.png}
@@ -226,7 +235,7 @@ This $\tau$ also results in a predictor where $\Accuracy = 0.682$, $\Precision =
 \subsection{Inferring by SMS}
 \label{subsec:sms_infer}
 
-\begin{figure}
+\begin{figure}[h]
 \centering
 \includegraphics[width=\textwidth, height=.25\textheight, keepaspectratio]{figures/bayes/hist_sms.png}
 \includegraphics[width=.49\textwidth, height=.25\textheight, keepaspectratio]{figures/bayes/roc_sms.png}
@@ -244,7 +253,7 @@ Additionally, $\Precision = 0.696$, $\Recall = 0.186$, $F_1 = 0.293$, and $F_4 =
 \subsection{Inferring by Contacts}
 \label{subsec:contacts_infer}
 
-\begin{figure}
+\begin{figure}[h]
 \centering
 \includegraphics[width=\textwidth, height=.25\textheight, keepaspectratio]{figures/bayes/hist_contacts.png}
 \includegraphics[width=.49\textwidth, height=.25\textheight, keepaspectratio]{figures/bayes/roc_contacts.png}
