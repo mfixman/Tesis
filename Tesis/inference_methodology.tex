@@ -4,7 +4,8 @@
 \section{Income Homophily}
 \label{subsec:income_homophily}
 
-The main contribution of this work is the estimation of the income of the telco users for which we lack banking data, but have bank clients in their neighborhood of the network graph. To show the feasibility of this task, we first show the existence of a strong income homophily in the telco graph as is evidenced in \cref{fig:homophily_heatmap}.
+The main contribution of this work is the estimation of the income of the telco users for which we lack banking data, but have bank clients in their neighborhood of the network graph.
+To show the feasibility of this task, we first show the existence of a strong income homophily in the telco graph. 
 
 \begin{figure}
 \centering
@@ -13,14 +14,18 @@ The main contribution of this work is the estimation of the income of the telco 
 \label{fig:homophily_heatmap}
 \end{figure}
 
-In that figure we define the color in each point $\left< X, Y \right>$ as the amount of pairs $\left\{ \left< p_o, p_d \right> \in P \mid {p_o}_s \in X \land {p_d}_s \in Y \right\}$. A simple glance reveals a significant correlation between $X$ and $Y$.
+Using the values of $G = \left< V, E \right>$, the \emph{Social Graph} defined in \cref{sec:dataset} that contains communication data and bank data of a set of users, \cref{fig:homophily_heatmap} is defined so that the color in each point $\left< X, Y \right>$ is the amount of pairs $\left\{ \left< g_o, g_d \right> \in G \mid {g_o}_s \in X \land {g_d}_s \in Y \right\}$.
+A simple glance reveals a significant correlation between $X$ and $Y$.
 
 Given the broad non-Gaussian distribution of the income's values, we choose to use a rank-based measure of correlation which is robust to outliers.
-Namely, the \textit{Spearman's rank correlation}, as defined in \cref{subsec:spearman}, is computed to test the statistical dependence of sets of incomes of callers and callees. Applying this formula to the data gives a correlation coefficient of $r_s = 0.474$.
+Namely, the \textit{Spearman's rank correlation}, as defined in \cref{subsec:spearman}, is computed to test the statistical dependence of sets of incomes of callers and callees.
+Applying this formula to the data gives a correlation coefficient of $r_s = 0.474$.
 
-The result was compared with a randomized null hypothesis, where links between users are selected randomly disregarding income data, obtaining a $p\text{-value}$ of $p < 10^{-6}$. These values for $r_s$ and $p$ show a strong indication of income homophily among users in our communication graph. This observation is consistent with the results reported in other investigation of similar data, namely~\cite{leo2015socioeconomic}.
+The result was compared with a randomized null hypothesis, where links between users are selected randomly disregarding income data, obtaining a $p\text{-value}$ of $p < 10^{-6}$.
+These values for $r_s$ and $p$ show a strong indication of income homophily among users in our communication graph.
+This observation is consistent with the results reported in other investigation of similar data, namely~\cite{leo2015socioeconomic}.
 
-We can take advantage of this homophily to propagate income information to the rest of our graph $P$, where the income of the complete set of users is unknown.
+We can take advantage of this homophily to propagate income information to the rest of our graph $G$, where the income of the complete set of users is unknown.
 
 \section{Prediction Algorithm}
 \label{subsec:prediction_algorithm}
