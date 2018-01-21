@@ -1,42 +1,41 @@
 \chapter*{Symbol Glossary}
 
-This thesis uses a large amount of symbols for different properties and data. To simplify its comprehension, \cref{tab:symbolglossary} contains information about some of the most commonly used ones.
+This thesis uses a large amount of symbols for different properties and data. To simplify its comprehension, the following table contains information about some of the most commonly used ones.
 
 \begin{table}[h]
 \centering
 \begin{tabularx}{\textwidth}{>{\large\bfseries}l X >{\hspace{1em}} l}
 
 \toprule
-\ct{Symbol} & \ct{Definition} & \ct{First use} \\
+\ct{Symbol} & \ct{Definition} & \ct{Section} \\
 
 \midrule
-	$P$ & Multiset of all voice calls in the graph. & \Cref{subsec:dataset_description} \\
-	$S$ & Multiset of all SMS in the graph. & \Cref{subsec:dataset_description} \\
-	$V$ & Set of users in the telco network. & \Cref{subsec:dataset_description} \\
-	$E$ & Set of edges between users in the telco network, along with their communication properties. & \cref{subsec:dataset_description} \\
-	$G$ & Social graph: a tuple containing both $V$ and $E$. & \Cref{subsec:dataset_description} \\	
-	$B$ & Set with banking data for all users. & \Cref{subsec:bank_source} \\
+	$P$ & Multiset of all voice calls in the graph. & \ref{subsec:dataset_description} \\
+	$S$ & Multiset of all SMS in the graph. & \ref{subsec:dataset_description} \\
+	$V$ & Set of users in the telco network. & \ref{subsec:dataset_description} \\
+	$E$ & Set of edges between users in the telco network, along with their communication properties. & \ref{subsec:dataset_description} \\
+	$G$ & Social graph: a tuple containing both $V$ and $E$. & \ref{subsec:dataset_description} \\
+	$B$ & Set with banking data for all users. & \ref{subsec:bank_source} \\
 
 \midrule
-	$H_{\{1, 2\}}$ & Set of lower and upper income users, respectively. & \Cref{subsec:discrimination_by_wealth} \\
-	$\varpi$ & Selected property of users for the Bayesian distribution. & \Cref{subsec:modelling_users_frequentist} \\
-	$\Betasim_v$ & \emph{Beta distribution} defined for a user $v$ to predict its wealth. & \Cref{subsec:modelling_users} \\
-	$\Theta$ & Quantile used to define the \emph{Posterior Probability} of a user being wealthy. & \Cref{subsec:modelling_users} \\
-	$\tau$ & Limit between the \emph{Posterior Probability} of high and low income users. & \cref{subsec:categorizing_users} \\
+	$H_{\{1, 2\}}$ & Set of lower and upper income users, respectively. & \ref{subsec:discrimination_by_wealth} \\
+	$\varpi$ & Selected property of users for the Bayesian distribution. & \ref{subsec:modelling_users_frequentist} \\
+	$\Betasim_v$ & \emph{Beta distribution} defined for a user $v$ to predict its wealth. & \ref{subsec:modelling_users} \\
+	$\Theta$ & Quantile used to define the \emph{Posterior Probability} of a user's category. & \ref{subsec:modelling_users} \\
+	$\tau$ & Limit for the \emph{Posterior Probability} of high and low income users. & \ref{subsec:categorizing_users} \\
 
 \midrule
-	$B_{\train}$ & \emph{Training Set} used for $B$. & \Cref{subsec:train_test_split} \\
-	$B_{\test}$ & \emph{Testing Set} used for $B$. & \Cref{subsec:train_test_split} \\
-	$\hat{B}_{\test}$ & Contacts in the \emph{Testing Set} with at least one contact with banking data. & \Cref{subsec:erasing_uninformative_data} \\
-	$\Upsilon$ & Subset of $\hat{B}_{\test}$ with the same amount of \emph{Low Income} and \emph{High Income} users. & \Cref{subsec:rebalancing_labels} \\
-	$\Omega$ & Same as $B_{\test}$. & \Cref{subsec:inner_outer_graph} \\
+	$B_{\train}$ & \emph{Training Set} used for $B$. & \ref{subsec:train_test_split} \\
+	$B_{\test}$ & \emph{Testing Set} used for $B$. & \ref{subsec:train_test_split} \\
+	$\hat{B}_{\test}$ & Contacts in the \emph{Testing Set} with some contact with banking data. & \ref{subsec:erasing_uninformative_data} \\
+	$\Upsilon$ & Subset of $\hat{B}_{\test}$ with the same amount of low and high income users. & \ref{subsec:rebalancing_labels} \\
+	$\Omega$ & Same as $B_{\test}$. & \ref{subsec:inner_outer_graph} \\
 
 \midrule
-	$\ego_n$ & Accumulated properties of the user in the \emph{Ego Network of Order $n$} of the users. & \Cref{subsec:methods_ml} \\
-	$\cat_n$ & Union of the properties of $\ego_n$ with the same properties partitioned by income group. & \Cref{subsec:methods_ml} \\
+	$\ego_n$ & Accumulated properties of the user in the \emph{Ego Network of Order $n$} of the users. & \ref{subsec:methods_ml} \\
+	$\cat_n$ & Union of the properties of $\ego_n$ with the same properties partitioned by income group. & \ref{subsec:methods_ml} \\
 
 \bottomrule
 
 \end{tabularx}
-\label{tab:symbolglossary}
 \end{table}
