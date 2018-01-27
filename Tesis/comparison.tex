@@ -358,18 +358,60 @@ There are several validation metrics used for each method.
 \section{Results}
 \label{sec:comparison_results}
 
-\Cref{tab:innercomparison,tab:outercomparison} show various metrics which result from applying the methods described in this Section to the datasets presented in this thesis, after using the best hyperparameters shown in \cref{tab:gridsearch} and applying 5-fold \emph{Cross Validation} to prevent \emph{Overfitting}. This result is compared to the \emph{Bayesian Algorithm} presented in \cref{sec:inference_methodology}.
+\subsection{Inner Graph}
+\label{subsec:comparison_inner_graph}
 
-By comparing the methods based in \emph{Machine Learning} we can reach a conclusion consistent with~\cite{muchlinski2016}, where the methods based in \emph{Random Forest} tend to perform better in real-world scenarios than the ones based in \emph{Logistic Regression}.
+\Cref{tab:innercomparison} shows various metrics which result from applying the methods described in this section to the datasets presented in this thesis as the \emph{Inner Graph} $\Upsilon$, which contains the subset of people where at least one neighbour contains socioeconomic data.
 
-Increasing the breadth of the \emph{Ego Network} by one level slightly improves the metrics on the \emph{Machine Learning} methods\footnotemark[1]{} when using with \emph{Random Forest} learning, which is more versatile to odd cases and non-linear data~\cite{logisticvsdecision} However, the model isn't improved further by going further in the \emph{Ego Network} since it would add noise to the features, making the prediction less accurate\footnotemark[2]{}. Indeed, it's possible to see the fallibility of common \emph{Random Forest} fitting methods, since the fact that $\ego_2 \supset \ego_1$ should be enough to create a model that at least as good as the previous one.
+\begin{table}[tbh]
+\centering
+\input{inner_graph_table}
+\caption{Resulting metrics of different methods used in \cref{sec:results,sec:comparison} tested on the \emph{Inner Graph} $\Upsilon$, which contains only nodes which have at least one neighbour with socioeconomic information. \textbf{Bolded} items represent the highest value for each metric.}
+\label{tab:innercomparison}
+\end{table}
 
-Additionally, adding categorical information to the feature extraction as in \cref{subsec:categoricaluserdata} to the \emph{Ego Network} of distance 1 and distance 2\footnotemark[3]{} results in the greatest improvement in most metrics. These improvements don't hold up when going one level further in the \emph{Ego Network}, as can be seen that the rows referring to the accumulated categorical data on that level has lower metrics than the previous one\footnotemark[4]{}. We hypothesize with strong certainty that the metrics will keep decreasing when adding more levels to the \emph{Ego Network}.
+By comparing only the methods based in \emph{Machine Learning}, we can reach a conclusion consistent with the one reached by \textit{Muchlinski et.\ al}~\cite{muchlinski2016}, where the methods based in \emph{Random Forest} tend to perform better in real-world scenarios than the ones based in \emph{Logistic Regression}.
 
-The results in \cref{tab:innercomparison} show that, when using the data from the labelled users $\Upsilon$, the \emph{Bayesian Algorithm} presented in \cref{sec:inference_methodology} has a significantly higher \emph{Area Under the Curve} than both the naïve algorithms and the ones based in \emph{Machine Learning}. This, in addition to the fact that making a prediction in the algorithm is faster than fitting the \emph{Random Forest} methods (which give the best metrics for the \emph{Machine Learning} ones), and that the amount of data needed for running the algorithm is much lower (2 columns vs.\ the amounts shown in \cref{tab:datasettable}) and much simpler to construct, makes it more suitable for production than any of the more standard algorithms, which are based in regular \emph{Machine Learning} methods.
+The model based in \emph{Random Forest} has better results in all metrics when comparing the datasets of $\ego_0$ and $\ego_1$, that is, when making the \emph{Ego Network} of users where data is collected one degree bigger.
+Interestingly, not only these results aren't repeated when comparing the following two levels ($\ego_1$ and $\ego_2$), but most metrics, including \emph{Area Under the Curve}, show a slight decrease.
+While this means that an extra degree of data adds no useful information instead of just noise, using this data it's possible to see the fallibility of common \emph{Random Forest} fitting methods, as this regression shouldn't be possible since $\ego_2 \supset \ego_1$ and the noise features could have been ignored by the hypothetical perfectly-trained classifier.
 
-\newpage
+The results are worse in all metrics of the $\ego$ datasets when predicting using a \emph{Logistic Regression} method.
+One possible cause of this is that the \emph{Random Forest} classifier is more versatile to odd cases and non-linear data when compared to the other classifier~\cite{logisticvsdecision}.
+The fact that there is almost a null increase in the metrics when going down the graph seems to ratify this decision.
 
-\include{inner_graph_table}
+By far, the greatest increase in results for the methods based in \emph{Machine Learning} presented in \cref{sec:comparison} is adding labels related to the accumulated features separated by the neighbours' socioeconomic index, as in the levels $\cat_0$ to $\cat_2$.
+This shows that, in problems related to real data in graphs, there are better results when using  more informative features taken from the same subset of data than taking data from a bigger \emph{Ego Network}.
 
-\include{outer_graph_table}
+When using categorical methods, predicting with features extracted from the set $\cat_1$ resulted in better values for almost every metric than using features extracted from the set $\cat_2$.
+As in the previous point about comparing $\ego_1$ and $\ego_2$, getting features about the links of users further away than 2 degrees adds more noise than useful information to the dataset. Indeed, this is the reason why the experimentation stopped at this degree instead of going one level further in the \emph{Ego Network}.
+
+The most remarkable part of these results is that, even in the best case scenario, \textbf{the results for any of the methods based in \emph{Machine Learning} presented in \cref{sec:comparison} are worse than the ones from the \emph{Bayesian Algorithm} presented in \cref{sec:inference_methodology}}.
+This is remarkable since the latter method uses a much lower amount of features per node (2 vs 48 in the case of $\cat_1$) and takes a shorter amount of time predicting data than the best of the former methods takes to train a classifier on it.
+
+Further conclusions related to this last point are discussed in \cref{chap:conclusions}.
+
+\subsection{Outer Graph}
+
+\Cref{tab:outercomparison} shows various metrics which result from applying the metrics described in this section to the datasets presented in this thesis as the \emph{Outer Graph} $\Omega$, which contains the entire \emph{Social Graph} $G$, including the majority of nodes for which no socioeconomic data is known about their neighbours.
+This makes it impossible to run the \emph{Bayesian Algorithm} presented in \cref{sec:inference_methodology}, as it uses this data directly as features.
+
+\begin{table}[tb]
+\centering
+\input{outer_graph_table}
+\caption{Resulting metrics of different methods used in \cref{sec:comparison} tested in the \emph{Outer Graph} $\Omega$, which includes all nodes. \textbf{Bolded} items represent the highest value for each metric.}
+\label{tab:outercomparison}
+\end{table}
+
+The relative results between different \emph{Machine Learning} and feature extraction methods are similar to the ones presented for the \emph{Inner Graph} presented in \cref{subsec:comparison_inner_graph}.
+However, since there is a significant amount of new users without much significant information the absolute results are considerably worse.
+
+Like in \cref{subsec:comparison_inner_graph}, adding an single level to the size of the original \emph{Ego Network} improved the values of all metrics, since more useful data was used to generate the features.
+This is truth both when using only general general features (which are present for all users in $\Omega$) as seen in the difference between $\ego_0$ and $\ego_1$, and when using socioeconomic data in the features (where most users have all metrics equal to 0, as there is no information) as in between $\cat_0$ and $\cat_1$.
+
+Interestingly, unlike the results in \cref{tab:innercomparison}, all metrics keep improving when making the \emph{Ego Network} another level deeper ($\ego_2$ and $\cat_2$).
+The reason for this is a simple matter of biases between the \emph{Inner Graph} and the \emph{Outer Graph}: users present in the latter graph ($\Omega \setminus \Upsilon$) tend to have less contacts in general than the rest.
+This makes the first few levels of the \emph{Ego Network} contain less useful data to use as \emph{Machine Learning} features, while the relatively noisy features generated from the latter levels actually improves these.
+
+Like in the previous table, \emph{Machine Learning} methods that use \emph{Random Forest} have a considerable advantage over all metrics compared to the ones using \emph{Logistic Regression}, using features related to the \emph{Socioeconomic Level} of a users' neighbour improves the results.
+However, due to the amount of users without any significative data about their neighbours, the difference is small compared to the one in \cref{tab:innercomparison}.
