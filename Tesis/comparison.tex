@@ -10,9 +10,14 @@ These classifier creates a proper baseline for other comparisons.
 These will be used in the \emph{Social Graph} $G = \left< V, E \right>$, that contains data about the communications network for every user, along with the banking data $B$ separated into training and testing sets $B_{\train}$ and $B_{\test}$, and will be used to provide either information about the users.
 
 Unlike the method presented in the previous chapter, we can optionally forego the necessity for having at least one neighbour with known socioeconomic index for each user.
-For this reason, we experiment with these methods with two possible inputs, both previously defined in \cref{sec:data_partitioning}: one that uses the entire set of nodes, called the \emph{Outer Graph} or $\Omega$, and another one that uses only the nodes which have at least one neighbour with known socioeconomic index, called the \emph{Inner Graph} or $\Upsilon$.
+For this reason, we experiment with these methods with two possible inputs, both previously defined in \cref{subsec:inner_outer_graph}.
 
-The tables in \cref{sec:comparison_results} compare the results of these methods with the \emph{Bayesian Algorithm} described in \cref{sec:inference_methodology} along several metrics.
+\begin{itemize}
+	\item The \emph{Outer Graph} $\Omega$, with information about every node in the graph $G$. \\
+	\item The \emph{Inner Graph} $\Upsilon$, which only contains information about the subset of nodes which have at least one neighbour with known \emph{Socioeconomic Index}
+\end{itemize}
+
+At the end of this chapter, in \cref{sec:comparison_results}, we present a group of tables that compare the results of these methods with the \emph{Bayesian Algorithm} described in \cref{sec:inference_methodology} along several metrics.
 
 \section{Random Selection}
 \label{subsec:random_selection}
@@ -359,13 +364,7 @@ By comparing the methods based in \emph{Machine Learning} we can reach a conclus
 
 Increasing the breadth of the \emph{Ego Network} by one level slightly improves the metrics on the \emph{Machine Learning} methods\footnotemark[1]{} when using with \emph{Random Forest} learning, which is more versatile to odd cases and non-linear data~\cite{logisticvsdecision} However, the model isn't improved further by going further in the \emph{Ego Network} since it would add noise to the features, making the prediction less accurate\footnotemark[2]{}. Indeed, it's possible to see the fallibility of common \emph{Random Forest} fitting methods, since the fact that $\ego_2 \supset \ego_1$ should be enough to create a model that at least as good as the previous one.
 
-% \footnotetext[1]{Compare the rows of $\ego_0$ to the ones with $\ego_1$}
-% \footnotetext[2]{Compare the rows of $\ego_1$ to the ones with $\ego_2$}
-
 Additionally, adding categorical information to the feature extraction as in \cref{subsec:categoricaluserdata} to the \emph{Ego Network} of distance 1 and distance 2\footnotemark[3]{} results in the greatest improvement in most metrics. These improvements don't hold up when going one level further in the \emph{Ego Network}, as can be seen that the rows referring to the accumulated categorical data on that level has lower metrics than the previous one\footnotemark[4]{}. We hypothesize with strong certainty that the metrics will keep decreasing when adding more levels to the \emph{Ego Network}.
-
-% \footnotetext[3]{Compare the rows of $\cat_0$ to the ones with $\cat_1$}
-% \footnotetext[4]{Compare the rows of $\cat_1$ to the ones with $\cat_2$}
 
 The results in \cref{tab:innercomparison} show that, when using the data from the labelled users $\Upsilon$, the \emph{Bayesian Algorithm} presented in \cref{sec:inference_methodology} has a significantly higher \emph{Area Under the Curve} than both the naïve algorithms and the ones based in \emph{Machine Learning}. This, in addition to the fact that making a prediction in the algorithm is faster than fitting the \emph{Random Forest} methods (which give the best metrics for the \emph{Machine Learning} ones), and that the amount of data needed for running the algorithm is much lower (2 columns vs.\ the amounts shown in \cref{tab:datasettable}) and much simpler to construct, makes it more suitable for production than any of the more standard algorithms, which are based in regular \emph{Machine Learning} methods.
 

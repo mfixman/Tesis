@@ -105,6 +105,8 @@ For simplicity sake, from now on the \emph{Outer Graph} $B_{\test}$ will be refe
 
 As shown in \cref{subsec:rebalancing_labels}, the labels have roughly the same amount of high income and low income users.
 
+The \emph{Outer Graph} $\Omega$ is not used in this section, as the \emph{Bayesian Algorithm} requires some information about the \emph{Socioeconomic Level} of the neighbours of the users used in the prediction. However, it's used as one of the main inputs for generating features in the later \cref{sec:comparison}.
+
 \subsection{Set Magnitudes}
 
 While the new set $\Upsilon$ contains significantly less users than the original set $B$, it still has a sufficient amount of people to make a prediction. \Cref{tab:partition_numbers} shows the number of users that remain after every trim used in this Subsection, along with the ratio of users which we would be able to assign an \emph{Income Category} using these datasets assuming the real data is equally distributed from the \emph{Test Data}.
