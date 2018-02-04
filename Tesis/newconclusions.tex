@@ -1,0 +1,34 @@
+\chapter{Conclusions}
+
+\section{General Objectives}
+
+This thesis presented several methods of manipulating communication and socioeconomic data to produce useful insights about its users.
+The combination of different datasets present an unique opportunity to study group behaviour and to experiment with gathering data that isn't directly present as an input.
+
+The first data source used in this study is the multiset of mobile phone \emph{Call Detail Records} $P$ (for phone calls) and $S$ (for SMS), which is presented in \cref{subsec:dataset_description}.
+Such a complete datasets of all the communication done by the users of a certain telco, which also includes contact to and from users from outside this particular company, allowed us to create a \emph{Social Graph} which allows us to find many insights about its members.
+
+The second data source is the set with \emph{Bank Information} about the users $B$, which is presnetd in \cref{subsec:bank_source}.
+While the values in this set aren't perfectly correlated to the socioeconomic index of the users, its data is a good enough proxy for the object of this study.
+For this reason, we separated the users into 2 distinct groups\footnotemark{}.
+
+\footnotetext{The input data, including the source county, is obfuscated. The symbol \$ refers to a certain currency that isn't necessarily the American Dollar.}
+
+\begin{itemize}
+	\item $\mathbf{H_1}$ the set of \emph{Low Income} users, with an income less or equal than \$6300 a month. \\
+	\item $\mathbf{H_2}$ the set of \emph{High Income} users, with income greater than \$6300 a month.
+\end{itemize}
+
+Getting the intersection of both datasets it's possible to create the \emph{Social Graph} $G$, with the same users of the set of \emph{Call Detail Records}, but where a subset of users also contain banking information from the set $B$, as shown in \cref{subsec:banktencomathing}.
+This set, after being cleaned of outliers in \cref{subsec:outlier_filtering}, is the main input of the methods used in the thesis.
+
+\section{Similar Studies}
+
+This thesis is not the first socioeconomic study done in this dataset.
+
+\Cref{sec:leo_correlations} presents a summary of the work done by Léo, Karsai, et\ al\. to correlate different consumption patterns with the socioeconomic level of these users.
+In it, the authors present a model of \emph{Homophily} of calls between users of the same socioeconomic level, and proves that many different properties of the \emph{Social Graph} follow these correlations.
+
+\Cref{Luo2017inferring} does a study similar to the previous one, where the author finds a correlation between users in the same socioeconomic level in social network patterns, mainly in the diversity of users in their links.
+The study also presents several ways of preventing bias in these comparisons.
+
