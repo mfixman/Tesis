@@ -6,13 +6,13 @@ This thesis presented several methods of manipulating communication and socioeco
 The combination of different datasets present an unique opportunity to study group behaviour and to experiment with gathering data that isn't directly present as an input.
 
 The first data source used in this study is the multiset of mobile phone \emph{Call Detail Records} $P$ (for phone calls) and $S$ (for SMS), which is presented in \cref{subsec:dataset_description}.
-Such a complete datasets of all the communication done by the users of a certain telco, which also includes contact to and from users from outside this particular company, allowed us to create a \emph{Social Graph} which allows us to find many insights about its members.
+These datasets contain all the communication done by the users of a certain telco, and having them allowed us to create a \emph{Social Graph} which allows us to find many insights about its members.
 
-The second data source is the set with \emph{Bank Information} about the users $B$, which is presnetd in \cref{subsec:bank_source}.
+The second data source is the set with \emph{Bank Information} about the users $B$, which is presented in \cref{subsec:bank_source}.
 While the values in this set aren't perfectly correlated to the socioeconomic index of the users, its data is a good enough proxy for the object of this study.
-For this reason, we separated the users into 2 distinct groups\footnotemark{}.
+For this reason, separated the users into 2 distinct groups depending on which side of the median of \$6300\footnotemark{} their monthly salary fell into.
 
-\footnotetext{The input data, including the source county, is obfuscated. The symbol \$ refers to a certain currency that isn't necessarily the American Dollar.}
+\footnotetext{The input data, including the source county, is obfuscated. The symbol \$ refers to a certain world currency and not necessarily the American Dollar.}
 
 \begin{itemize}
 	\item $\mathbf{H_1}$ the set of \emph{Low Income} users, with an income less or equal to \$6300 a month.
@@ -26,7 +26,7 @@ This set, after being cleaned of outliers in \cref{subsec:outlier_filtering}, is
 
 This thesis is not the first socioeconomic study done in this dataset.
 
-\Cref{sec:leo_correlations} presents a summary of the work done by Léo, Karsai, et\ al\. to correlate different consumption patterns with the socioeconomic level of these users.
+\Cref{sec:leo_correlations} presents a summary of the work done by Léo, Karsai, et~al.\ to correlate different consumption patterns with the socioeconomic level of these users.
 In it, the authors present a model of \emph{Homophily} of calls between users of the same socioeconomic level, and proves that many different properties of the \emph{Social Graph} follow these correlations.
 
 \Cref{sec:luo2017inferring} does a study similar to the previous one, where the author finds a correlation between users in the same socioeconomic level in social network patterns, mainly in the diversity of users in their links.
@@ -34,11 +34,11 @@ The study also presents several ways of preventing bias in these comparisons.
 
 \section{The Bayesian Algorithm}
 
-\Cref{sec:inference_methodology}, the most important part of this thesis, showed the general method used for predicting the socioeconomic level of the users given information about the neighbours.
+\Cref{sec:inference_methodology}, the most important part of this thesis, presented the general method used for predicting the socioeconomic level of the users given information about the neighbours.
 The model uses a Bayesian approach to deal with the uncertainty that comes from not having complete information about the users in the dataset by defining, for every user in the dataset, a \emph{Beta Distribution} with parameters equal to the accumulated information of the edges leaving to high and low income neighbours.
 
-The tests for this method are done in \cref{sec:results}, separating the data into two distinct training and testing sets and ignoring some users in order to get an income distribution that's closer to the one in real life and not being subject to the bias that wealthier users tend to have more contacts.
-We refer to this graph as the \emph{Inner Graph}, or $\Upsilon$.
+The testing for this method is done in \cref{sec:results}, separating the data into two distinct training and testing sets and ignoring some users in order to get an income distribution that's closer to the one in real life and not being subject to the bias that wealthier users tend to have more contacts.
+We refer to this graph as the \emph{Inner Graph}, annotated with the Greek letter $\Upsilon$.
 
 We use two hyperparameters to define which model we use. The first one is $\varpi$, originally presented in \cref{subsec:modelling_users_frequentist}, which shows which property of the users is being accumulated and used as the parameters of the \emph{Beta Distribution}.
 
@@ -48,7 +48,7 @@ We use two hyperparameters to define which model we use. The first one is $\varp
 
 The second hyperparameter is $\Theta$, presented in \cref{subsec:modelling_users}, which is used for defining which quantile of the cumulative probability function is used to decide the probability of each user to belong to a socioeconomic category.
 This value is important since it defines the way in which the model's uncertainty plays a role in the prediction.
-Since each user has a certain \emph{Beta Distribution} depending on the properties coming from high and low income users, instead of a single value, the distribution for a user with many neighbours with known socioeconomic index will different from one without, even if they have the same ratio of high to low income contacts.
+Since each user has a certain \emph{Beta Distribution} depending on the properties coming from high and low income users, instead of a single value, the distribution for a user with many neighbours with known socioeconomic index will different from one with fewer, even if they have the same ratio of high to low income contacts.
 
 Following experimentation in \cref{subsec:optimize_theta,subsec:algorithm_performance}, the values for these hyperparameters that maximized \emph{Area Under the Curve} were found.
 There are presented in \cref{eq:conclusions_best_values}.
@@ -65,7 +65,7 @@ This method has a third hyperparameter, $\tau$, whose value doesn't affect the \
 This hyperparameter was optimized to maximize \emph{Accuracy}, and in \cref{subsec:contacts_infer} the optimal value, shown in \cref{eq:conclusions_best_value_tau} was found.
 
 \begin{equation}
-\label{eq:concluions_best_value_tau}
+\label{eq:conclusions_best_value_tau}
 	\tau = 0.514
 \end{equation}
 
@@ -121,7 +121,7 @@ There are several conclusions that can be found from these results.
 	\item In problems with highly nonlinear input data, like this thesis, methods based in \emph{Random Forest} perform better than methods based in \emph{Logistic Regression}.
 	\item Socioeconomic data on the edges, like the amount of wealthy people someone calls, is a much better predictor of socioeconomic level than more general metrics, like the total amount of people called, even when there is less data present of this kind.
 	\item Adding more levels to the \emph{Ego Network} of each user that's being used for engineering features adds useful features to the prediction and can make the final metrics better.
-	\item However, it also adds an amount of noise. By the time the features contain data about the edges adjacent to the neighbours of the neighbours of the user, the metrics decreased.
+	\item However, the precious point also adds an amount of noise. By the time the features contain data about the edges adjacent to the neighbours of the neighbours of the user, the metrics decreased.
 	\item While this doesn't always follow, the \emph{Area Under the Curve} is a good measurement of the results of each algorithm, since it mostly raises at the same rate as other metrics.
 \end{itemize}
 
@@ -132,6 +132,18 @@ These results are understandably worse than in the previous table.
 As an interesting result, the lower levels of the \emph{Machine Learning} algorithms now contain less useful information and more noise.
 For this reason, the signal-to-noise ratio of the featuresets from a bigger \emph{Ego Network} is higher, and unlike in the previous case the \emph{Area Under the Curve} of both $\cat_2$ and $\ego_2$ are higher than that value for $\cat_1$ and $\ego_1$.
 
-\section{Comparison between the Bayesian Algorithm and the algorithms based in Machine Learning}
+\section{Comparison between the Bayesian Algorithm and the methods based in Machine Learning}
 
+\epigraph{``Plurality is not to be posited without necessity''}{\textit{Occam's Razor}}
 
+The \emph{Bayesian Algorithm} has a better performance than every single algorithm based in common \emph{Machine Learning} algorithms and novel feature extraction methods.
+This is remarkable since it uses only 2 features per node, compared to the 48 used by $\cat_1$, the version with the highest resulting metrics, or the rest of the methods whose amount of features are shown in \cref{tab:datasettable}.
+
+A good way to explain this result is using \emph{Occam's Razor} that explains that, among competing hypotheses, the one with the fewest assumptions should be selected.
+
+In the \emph{Machine Learning} methods we use the hypothesis that the features are correlated with the results, and that all of them have a high signal-to-noise ratio.
+While this is true in a general sense, as \cref{subsec:income_homophily,fig:homophily_heatmap} show, it's not a perfect correlation and not even using a highly nonlinear method like \emph{Random Forest} could improve on a model with less assumptions.
+
+However, for the \emph{Bayesian Method}, after setting the hyperparameters $\varpi$, $\Theta$, and $\tau$, our only hypotheses is that the more calls, SMS, calling time, or contacts a user has with high income, the higher is the \emph{Certainty} that this user is of this category, and vice-versa.
+
+This is a good general hypothesis, and, as shown in this thesis, strong enough to handle a very good socioeconomic level predictor.
