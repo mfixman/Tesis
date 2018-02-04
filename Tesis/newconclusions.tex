@@ -15,7 +15,7 @@ For this reason, we separated the users into 2 distinct groups\footnotemark{}.
 \footnotetext{The input data, including the source county, is obfuscated. The symbol \$ refers to a certain currency that isn't necessarily the American Dollar.}
 
 \begin{itemize}
-	\item $\mathbf{H_1}$ the set of \emph{Low Income} users, with an income less or equal than \$6300 a month. \\
+	\item $\mathbf{H_1}$ the set of \emph{Low Income} users, with an income less or equal than \$6300 a month.
 	\item $\mathbf{H_2}$ the set of \emph{High Income} users, with income greater than \$6300 a month.
 \end{itemize}
 
@@ -29,6 +29,84 @@ This thesis is not the first socioeconomic study done in this dataset.
 \Cref{sec:leo_correlations} presents a summary of the work done by Léo, Karsai, et\ al\. to correlate different consumption patterns with the socioeconomic level of these users.
 In it, the authors present a model of \emph{Homophily} of calls between users of the same socioeconomic level, and proves that many different properties of the \emph{Social Graph} follow these correlations.
 
-\Cref{Luo2017inferring} does a study similar to the previous one, where the author finds a correlation between users in the same socioeconomic level in social network patterns, mainly in the diversity of users in their links.
+\Cref{sec:luo2017inferring} does a study similar to the previous one, where the author finds a correlation between users in the same socioeconomic level in social network patterns, mainly in the diversity of users in their links.
 The study also presents several ways of preventing bias in these comparisons.
 
+\section{The Bayesian Algorithm}
+
+\Cref{sec:inference_methodology}, the most important part of this thesis, showed the general method used for predicting the socioeconomic level of the users given information about the neighbours.
+The model uses a Bayesian approach to deal with the uncertainty that comes from not having complete information about the users in the dataset by defining, for every user in the dataset, a \emph{Beta Distribution} with parameters equal to the accumulated information of the edges leaving to high and low income neighbours.
+
+The tests for this method are done in \cref{sec:results}, separating the data into two distinct training and testing sets and ignoring some users in order to get an income distribution that's closer to the one in real life and not being subject to the bias that wealthier users tend to have more contacts.
+We refer to this graph as the \emph{Inner Graph}, or $\Upsilon$.
+
+We use two hyperparameters to define which model we use. The first one is $\varpi$, originally presented in \cref{subsec:modelling_users_frequentist}, which shows which property of the users is being accumulated and used as the parameters of the \emph{Beta Distribution}.
+
+\begin{equation}
+\varpi \in \left\{ \calls, \etime, \sms, \contacts \right\}
+\end{equation}
+
+The second hyperparameter is $\Theta$, presented in \cref{subsec:modelling_users}, which is used for defining which quantile of the cumulative probability function is used to decide the probability of each user to belong to a socioeconomic category.
+This value is important since it defines the way in which the model's uncertainty plays a role in the prediction.
+Since each user has a certain \emph{Beta Distribution} depending on the properties coming from high and low income users, instead of a single value, the distribution for a user with many neighbours with known socioeconomic index will different from one without, even if they have the same ratio of high to low income contacts.
+
+Following experimentation in \cref{subsec:optimize_theta,subsec:algorithm_performance}, the values for these hyperparameters that maximized \emph{Area Under the Curve} were found.
+There are presented in \cref{eq:conclusions_best_values}.
+
+\begin{equation}
+\label{eq:conclusions_best_values}
+\begin{aligned}
+	\varpi &= \contacts \\
+	\Theta &= 0.394
+\end{aligned}
+\end{equation}
+
+This method has a third hyperparameter, $\tau$, whose value doesn't affect the \emph{Area Under the Curve} but defines at which probability of being of high income a user is inferred to be of that category.
+This hyperparameter was optimized to maximize \emph{Accuracy}, and in \cref{subsec:contacts_infer} the optimal value, shown in \cref{eq:conclusions_best_value_tau} was found.
+
+\begin{equation}
+\label{eq:concluions_best_value_tau}
+	\tau = 0.514
+\end{equation}
+
+The resulting metrics for this approach are shown in \cref{tab:bayesian_resulting_metrics}.
+
+\begin{table}
+\centering
+\begin{tabular}{r r r r r r r}
+\toprule
+
+\ct{Accuracy} & \ct{Precision} & \ct{Recall} & \ct{AUC} & \ct{F\textsubscript{1}} & \ct{F\textsubscript{4}} & \ct{time} \\
+\midrule
+
+0.693 & 0.665 & 0.792 & 0.746 & 0.723 & 0.783 & \SI{33.155}{\second} \\
+\bottomrule
+
+\end{tabular}
+\caption{Resulting metrics of applying the \emph{Bayesian Algorithm} to the \emph{Inner Graph}}
+\label{tab:bayesian_resulting_metrics}
+\end{table}
+
+As shown in \cref{sec:comparison}, these metrics are extremely good, specially for a model that only takes 2 parameters per user and is faster than several more conventional ones.
+
+\section{Comparison with different algorithms}
+
+The result of applying this data to the \emph{Bayesian Algorithm} was compared with different, more conventional methods is presented in \cref{sec:comparison}.
+
+These additional methods can be grouped into 3 groups.
+
+\begin{enumerate}
+	\item \textbf{Generic Algorithms}, used for having a base of comparison.
+		\begin{itemize}
+			\item Random Selection, which chooses a category randomly.
+			\item Majority Voting, which chooses the category for which the majority of the users' neighbours belong.
+		\end{itemize}
+	\item \textbf{Ego Network} based algorithms, which use accumulated data about the edges of a users' \emph{Ego Network} of a certain level.
+		\begin{itemize}
+			\item $\ego_{1 \ldots 3}$, where the subscript denotes the size of the \emph{Ego Network} used.
+		\end{itemize}
+	\item \textbf{Categorical Ego Network} based algorithms, which besides of using the total values in the previous point it also does separate accumulations of each property of the edges in the \emph{Ego Network} depending on the socioeconomic group of the node at the other end.
+		\begin{itemize}
+			\item $\cat_{1 \ldots 3}$, where the subscript denotes the size of the \emph{Ego Network} used.
+		\end{itemize}
+\end{enumerate}
