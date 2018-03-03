@@ -148,5 +148,37 @@ A common mechanism to prevent overfitting in \emph{Decision Trees} is \emph{Prun
 
 \subsection{Random Forest}
 \label{subsec:randomforest}
-\todo{Add Random Forest}
 
+\emph{Random Forests} are an ensemble learning method commonly used for classification tasks.
+While they use ideas that are similar to the ones used in \cref{subsec:decisiontrees} to build \emph{Decision Trees}, their design prevents them from having problems with overfitting in regards to the training set\cite{rupert2004elements}.
+
+A trained \emph{Random Forest} consists of a set of different \emph{Decision Trees} on the same feature space.
+However, these trees should have different biases to compensate for the bias of a single one, since generally using multiple distinct classifiers lowers this value\cite{ho1994decision}.
+To achieve these two objectives, each \emph{Decision Tree} is trained on a different subset of the initial feature set\cite{ho1995random}.
+Each of these trees classifies the training data with 100\% of accuracy within its feature subspace, yet it generalizes the classification in a different way. 
+Since there are $2^m$ possible subspaces for $m$ features, there are many choices in practice.
+
+There are many ways to select which features to use to build each tree.
+A simple one is \emph{Bagging} (\textbf{B}ootstrap \textbf{agg}regat\textbf{ing})\cite{breiman1996bagging}, which separates the training set $X$ into $m$ subsets $X'_{1 \dots m}$ uniformly and with replacement.
+Later, the $m$ models are fitted using the bootstrap samples, and their output is combined by average the output.
+
+Other methods include \emph{Random Split Selection}, which uses randomization by computing the $k$ (where $k = 20$ in the original paper) top candidate splits, and choosing one of them at random\cite{dietterich2000experimental}.
+The best results are seen when using \emph{Adaboost} (for which its authors won the Gödel Prize), a method of \emph{Boosting}, where the features in each tree are selected because of the misclassifications in previous classifiers\cite{freund1996experiments}.
+
+Given the set of features $X \in \mathbb{R}^{n \times f}$ and the set of labels $y \in \left\{ 0, 1\right \}^n$, each iteration of \emph{Adaboost} creates a new decision tree depending on the \emph{Error} of the previous classifiers.
+Given a set of already build trees $k_1 \dots k_l$ which output a classification $k_i \left( x_i \right) \in \left\{ 0, 1 \right\}$ for each item, we can define the current random forest as a linear combination of the previous classifiers $C_l$. With these values, we can find the weighted \emph{Error} $E$.
+
+\begin{equation}
+	\begin{gathered}
+		\begin{aligned}
+			C_l \left( x_i \right) &= \sum^l_{i = 1} \alpha_i k_i \left( x_i \right) \\
+			C_{l + 1} \left( x_i \right) &= C_l \left( x_i \right) + \alpha_m k_m \left( x_i \right) \\
+		\end{aligned} \\
+		E = \sum^n_{i = 1} e^{-y_i C_m \left( x_i \right)}
+	\end{gathered}
+\end{equation}
+
+These values can be later used to improve the current random forest $C_{l + 1}$ that minimizes this error.
+
+Along with \emph{Logistic Regression}, \emph{Random Forests} are one of the learning methods used in the practical parts of this thesis.
+In \cref{sec:comparison} it's used to classify the resulting inputs of many feature extraction methods with the \emph{Bayesian Algorithm} introduced in \cref{sec:inference_methodology}. As \cref{subsec:comparison_inner_graph} shows, while the latter algorithm is better suited for our data, using \emph{Random Forest} on a good set of features performs consistently better than other generic \emph{Machine Learning} algorithms.
