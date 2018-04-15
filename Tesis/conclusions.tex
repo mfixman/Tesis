@@ -13,15 +13,15 @@ The second data source is the set with \emph{Bank Information} about the users $
 While the values in this set aren't perfectly correlated to the socioeconomic index of the users, its data is a good enough proxy for the object of this study.
 For this reason, separated the users into 2 distinct groups depending on which side of the median of \$6300\footnotemark{} their monthly salary fell into.
 
-\footnotetext{The input data, including the source county, is obfuscated. The symbol \$ refers to a certain world currency and not necessarily the American Dollar.}
-
 \begin{itemize}
-	\item $\mathbf{H_1}$ the set of \emph{Low Income} users, with an income less or equal to \$6300 a month.
-	\item $\mathbf{H_2}$ the set of \emph{High Income} users, with income greater than \$6300 a month.
+	\item $\mathbf{H_1}$ the set of \emph{Low Income} users, with an income less or equal to \$6300\footnotemark[\value{footnote}] a month.
+	\item $\mathbf{H_2}$ the set of \emph{High Income} users, with income greater than \$6300\footnotemark[\value{footnote}] a month.
 \end{itemize}
 
 Getting the intersection of both datasets it's possible to create the \emph{Social Graph} $G$, with the same users of the set of \emph{Call Detail Records}, but where a subset of users also contain banking information from the set $B$, as shown in \cref{subsec:banktencomathing}.
 This set, after being cleaned of outliers in \cref{subsec:outlier_filtering}, is the main input of the methods used in the thesis.
+
+\footnotetext{The input data, including the source county, is obfuscated. The symbol \$ refers to a certain world currency and not necessarily the American Dollar.}
 
 \section{Similar Studies}
 
