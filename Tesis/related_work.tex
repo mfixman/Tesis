@@ -13,7 +13,7 @@ This chapter will discuss several scientific papers in this area which were rele
 \section{Correlations of Consumption Patterns in Social-Economic Networks}
 \label{sec:leo_correlations}
 
-\cite{leo16correlations} presents correlations between purchasing patterns and socioeconomic position of users from a dataset similar to the one used in this thesis. In particular, the authors have access to a database of credit card purchases for a set of users, with information about the amount of money spent and the general category (MCC) to which the purchase belongs, and also to a cellphone communications graph which allows them to infer the relationship between any two people.
+Léo et.\ al.\ present correlations between purchasing patterns and socioeconomic position of users from a dataset similar to the one used in this thesis~\cite{leo16correlations}. In particular, the authors have access to a database of credit card purchases for a set of users, with information about the amount of money spent and the general category (MCC) to which the purchase belongs, and also to a cellphone communications graph which allows them to infer the relationship between any two people.
 
 The first of two interesting studies this paper makes is to categorize the population depending on their total spending, and find out the spending level of each user category on one of several aggregated purchase groups. It makes it easy to see the difference in spending for lower income and higher income people: the former group tends to spend comparatively more money in entertainment and retail stores, while the latter group spends more money in hotels and vehicles.
 
@@ -38,7 +38,7 @@ This thesis uses similar methods to find a correlation between the socioeconomic
 \section{Inferring Personal Economic Status from Social Network Location}
 \label{sec:luo2017inferring}
 
-\cite{Luo2017inferring} shows that an individual's location is highly correlated with its socioeconomic status.
+Luo et.\ al.\ show that an individual's location is highly correlated with its socioeconomic status~\cite{Luo2017inferring}.
 In addition, the paper also finds the interesting observation that some social network patterns mimic the economic inequality patterns, and that there is a significant ($R^2 = 0.96$) correlation between the link diversity of individuals and their financial status.
 
 The results were validated by performing a social marketing campaign for the acquisition of new credit card clients by sending message for individuals that were predicted to be affluent.
@@ -60,9 +60,9 @@ Unlike this thesis, this paper is completely observational and doesn't provide a
 
 \section{Socioeconomic Status and Mobile Phone Use}
 
-\cite{blumenstock2010mobile} combines data from direct demographic surveys with \emph{Call Details Records} obtained from a phone company to get demographical data about cellphone users in Rwanda.
+Blumenstock and Eagle combines data from direct demographic surveys with \emph{Call Details Records} obtained from a phone company to get demographical data about cellphone users in Rwanda~\cite{blumenstock2010mobile}.
 
-The paper combines data about the overall demographic composition of Rwanda with the demographic composition of a representative sample of mobile phone users, along with voluntary survey results and the call history of the survey residents.
+The paper combine data about the overall demographic composition of Rwanda with the demographic composition of a representative sample of mobile phone users, along with voluntary survey results and the call history of the survey residents.
 
 Two interesting tests made to measure the socioeconomic status of the respondents, which is particularly hard in a country where a significant percentage most people's income derives from informal channels.
 
@@ -78,7 +78,7 @@ In particular, the stratification of the nodes in the graph into ``rich'' and ``
 
 \section{Understanding Individual Human Mobility Patterns}
 
-\cite{gonzalez2008understanding} explores the statistical properties of a population's mobility patterns by using a mobile phone dataset similar to the one used in this thesis. In it, the author finds that the distribution of displacements of users over time can be approximated by a truncated Lévy flight\cite{mandelbrot1982fractal}.
+Gonzalez et\. al\. explore the statistical properties of a population's mobility patterns by using a mobile phone dataset similar to the one used in this thesis~\cite{gonzalez2008understanding}. In it, the author finds that the distribution of displacements of users over time can be approximated by a truncated Lévy flight\cite{mandelbrot1982fractal}.
 
 \begin{equation}
 	P \left( \Delta r \right) = \left( \Delta r + \Delta r_0 \right) ^{-\beta} \exp \left( -\Delta r / \kappa \right)
@@ -98,7 +98,7 @@ This study demonstrates that the individual trajectories are characterized by th
 
 \section{Link-based Classification}
 
-\cite{lu2003link} proposes a statistical framework for modeling distributions between linked documents (such as relational databases or URLs in websites) to use in machine learning. This is a hard problem, since naïvely applying traditional statistical inference procedures, that assume that links are independent, can lead to inappropriate conclusions\cite{jensen1999statistical}.
+Lu et\. al\. propose a statistical framework for modeling distributions between linked documents (such as relational databases or URLs in websites) to use in machine learning~\cite{lu2003link}. This is a hard problem, since naïvely applying traditional statistical inference procedures, that assume that links are independent, can lead to inappropriate conclusions\cite{jensen1999statistical}.
 
 The study proposes using several features for these links, while later using a logistic regression model for each of the features. Since the original problem required multilabeling classification, the study calculates the probability of each label given the features in a one-against-others model and picked the one for the highest posterior probability.
 
@@ -109,16 +109,16 @@ In particular, the methodology of having two independent sets of feature extract
 
 \section{Socioeconomic Correlations in Communications Networks}
 
-\cite{leo2015socioeconomic} uses a similar dataset to the one used in this thesis that collects communication and bank information about individuals, and shows that consumption patterns are correlated with identified socioeconomic classes leading to social stratification in a similar way to the paper discussed in \cref{sec:leo_correlations}.
+Léo et\. al\. use a similar dataset to the one used in this thesis that collects communication and bank information about individuals, and shows that consumption patterns are correlated with identified socioeconomic classes leading to social stratification in a similar way to the paper discussed in \cref{sec:leo_correlations}~\cite{leo2015socioeconomic}.
 In addition, the paper introduces a correlation between merchant categories.
 
 Given the set of users' purchases, the authors separate it into 17 categories, and measure the fractional distribution of spending for each one as the amount of money each user spent into each category over the total money spent.
 
-As expected, people in lower socioeconomic classes spend more in groups associated with essential needs, such as retail stores, gas stations, or service providers, while people in higher socioeconomic classes spend the majority of the money on jewelry, automobiles, and professional services, which is a similar conclusion to the one reached in this thesis.
+As expected, people in lower socioeconomic classes spend more in groups associated with essential needs, such as retail stores, gas stations, or service providers, while people in higher socioeconomic classes spend the majority of the money on jewelry, automobiles, and professional services.,
 
 \section{A Comparative Study of Social Network Classifiers}
 
-In \cite{oskarsdottir2016}, the authors present several methods to address machine learning classification in social networks and other graph-related structures.
+Óskarsdottir et\. al\. present several methods, the authors present several methods to address machine learning classification in social networks and other graph-related structures~\cite{oskarsdottir2016}.
 The methods are separated into several categories.
 
 \begin{enumerate}
