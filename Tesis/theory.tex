@@ -26,7 +26,7 @@ McPherson et~al.\ also noted an important degree of homophily between members of
 
 By the time people are adults, people's friendship networks are relatively gender-integrated. However, when controlling for kinship networks and not counting close family members, there is a considerable level of gender homophily~\cite{marsden_1988}. However, this level is still lower than the one for race, education, age, and many other social dimensions.
 
-Gender homophily is lower among the young and the highly educated\cite{marsden_1987}. One of the main reasons for this is that most environments where people make their networks, such as work establishments and voluntary organizations, are highly sex segregated. Therefore, it's not surprising that the networks formed in these settings display a significant amount of baseline homophily on gender.
+Gender homophily is lower among the young and the highly educated\cite{marsden_1987}. One of the main reasons for this is that most environments where people make their networks, such as work establishments and voluntary organizations, are highly sex segregated. Therefore, it is not surprising that the networks formed in these settings display a significant amount of baseline homophily on gender.
 
 \section{Spearman's Coefficient}
 \label{subsec:spearman}
@@ -63,7 +63,7 @@ Each one of the terms in \cref{eq:bayes} has a different definition and interpre
 	\item $P \left( H \mid E \right)$, the \textbf{Posterior Probability} is the conditional probability that is assigned after the relevant evidence is taken into account.
 	\item $P \left( H \right)$, the \textbf{Prior Probability}, expresses the assumptions made on the problem before the experiments. While these assumptions will be subjective, the same thing can be said about the other probabilities in this model.
 	\item $P \left( E \mid H \right)$, the \textbf{Likelihood}, is the degree of belief in $E$ given that $H$ is true. In most real world problems, this tends to be easier to define than the \emph{Prior}.
-	\item $P \left( E \right)$, the \textbf{Marginal Likelihood}, as the likelihood function where some parameter variables were marginalized. It's used as a normalizing constant to that the \emph{Posterior Probability} integrates to 1, thus making it a valid probability. Since it's constant on the perspective of $H$, it's usually ignored when taking proportionality, as in \cref{eq:bayes_propto}.
+	\item $P \left( E \right)$, the \textbf{Marginal Likelihood}, as the likelihood function where some parameter variables were marginalized. It is used as a normalizing constant to that the \emph{Posterior Probability} integrates to 1, thus making it a valid probability. Since it is constant on the perspective of $H$, it is usually ignored when taking proportionality, as in \cref{eq:bayes_propto}.
 \end{itemize}
 
 It can be proven in a simple way by using basic theorems of the probability, as seen in \cref{eq:bayes_proof}.
@@ -246,7 +246,7 @@ This is exactly the same function as the one in \cref{eq:betabin_beta}. That is,
 	\theta \mid k, n, \alpha, \beta \sim \Betadist \left( \alpha + k, \beta + n - k \right)
 \end{equation}
 
-This way it's possible to see that the \emph{Beta Distribution} has the properties of a \emph{Conjugate Prior Distribution} seen in \cref{subsec:conjugate} to the \emph{Binomial Likelihood}. This makes it extremely desirable for \emph{Bayesian Analysis}, and for this reason it's used as the main model of this thesis. This is seen in more detail \cref{subsec:modelling_users}.
+This way it is possible to see that the \emph{Beta Distribution} has the properties of a \emph{Conjugate Prior Distribution} seen in \cref{subsec:conjugate} to the \emph{Binomial Likelihood}. This makes it extremely desirable for \emph{Bayesian Analysis}, and for this reason it is used as the main model of this thesis. This is seen in more detail \cref{subsec:modelling_users}.
 
 \section{Machine Learning Validation Metrics}
 \label{subsec:mlmetrics}
@@ -322,7 +322,7 @@ As a corollary of the previous metrics, we can add metrics that measure the prop
 
 \subsection{Accuracy}
 \label{subsec:accuracy}
-The \emph{accuracy}, commonly referred in the context of binary classifiers as \textbf{Rand~Accuracy}\cite{powers15}, is used as a statistical measure of how well a binary classification test identifies or excludes a condition. Unlike the \emph{precision}, it takes into account the negatives, and it's expressible~\cite{binaryevaluation} both as a weighted average of \emph{precision} and inverse \emph{precision} or \emph{recall} and \emph{inverse recall}.
+The \emph{accuracy}, commonly referred in the context of binary classifiers as \textbf{Rand~Accuracy}\cite{powers15}, is used as a statistical measure of how well a binary classification test identifies or excludes a condition. Unlike the \emph{precision}, it takes into account the negatives, and it is expressible~\cite{binaryevaluation} both as a weighted average of \emph{precision} and inverse \emph{precision} or \emph{recall} and \emph{inverse recall}.
 
 \begin{equation}
 \Accuracy = \frac{\TP + \TN}{N}
@@ -343,7 +343,7 @@ This can be more simply expressed using the weighted average of either the \emph
 
 A \emph{Receiver Operating Characterising} graph is a technique for visualizing, organizing, and selecting classifiers based on their performance~\cite{fawcett2005}. The curve is created by plotting the \emph{True Positive Rate} against the \emph{False Positive Rate} at various threshold settings.
 
-This allows to compare different classifiers before having to select a particular threshold value for them. In particular, a random classifier will score near the positive diagonal ($\FPR = \TPR$), while a perfect classifier will score in the top left hand corner ($\FPR = 1, \TPR = 0$) and a worst case classifier will score in the bottom right hand corner\footnote{Note that, for any binary classifier, it's trivial to transpose the entire ROC curve (or a part of it) to the other part of the diagonal; therefore the worst ``realistic'' case is the random one}\cite{binaryevaluation}.
+This allows to compare different classifiers before having to select a particular threshold value for them. In particular, a random classifier will score near the positive diagonal ($\FPR = \TPR$), while a perfect classifier will score in the top left hand corner ($\FPR = 1, \TPR = 0$) and a worst case classifier will score in the bottom right hand corner\footnote{Note that, for any binary classifier, it is trivial to transpose the entire ROC curve (or a part of it) to the other part of the diagonal; therefore the worst ``realistic'' case is the random one}\cite{binaryevaluation}.
 
 \begin{figure}
 \centering

@@ -53,7 +53,7 @@ H_1 \cup H_2 = S \\
 
 Given the \emph{Social Graph} $G = \left< V, E \right>$, as defined in \cref{sec:dataset}, contains information about the \emph{Calls}, \emph{SMS}, and \emph{Total Time} of each link between two users. These can be accumulated for each user, along with its \emph{Degree}, to produce the \emph{User Data}, which is used for another evaluation in \cref{subsec:user_data}.
 
-Another possible way to accumulate these values is discriminating them by the category to which the other endpoint belong. That is, for every edge feature $F$ and for the \emph{Degree}, it's possible to define two features $F_{\low}$ and $F_{\high}$ that only accumulate features from edges whose other endpoint is a user with \emph{Low Income} or \emph{High Income}, respectively. This approach is formalized in \crefrange{eq:bayesian_calls_accum}{eq:bayesian_contacts_accum}.
+Another possible way to accumulate these values is discriminating them by the category to which the other endpoint belong. That is, for every edge feature $F$ and for the \emph{Degree}, it is possible to define two features $F_{\low}$ and $F_{\high}$ that only accumulate features from edges whose other endpoint is a user with \emph{Low Income} or \emph{High Income}, respectively. This approach is formalized in \crefrange{eq:bayesian_calls_accum}{eq:bayesian_contacts_accum}.
 
 \begin{align}
 \label{eq:bayesian_calls_accum}
@@ -101,7 +101,7 @@ The final objective of this thesis is to detect \emph{High Income} users in a da
 \varpi \in \left\{ \calls, \etime, \sms, \contacts \right\}
 \end{equation}
 
-As it was discussed in \cref{subsec:uncertainty}, even having that data it's impossible to have complete information about a user's relationships. However, it's possible to create a \emph{Model} where we can predict the rate of \emph{High Income} to \emph{Low Income} contacts a user has, and with that data the Probability $p_v$ that this user $v \in V \setminus B$ is a \emph{High Income} user.
+As it was discussed in \cref{subsec:uncertainty}, even having that data it is impossible to have complete information about a user's relationships. However, it is possible to create a \emph{Model} where we can predict the rate of \emph{High Income} to \emph{Low Income} contacts a user has, and with that data the Probability $p_v$ that this user $v \in V \setminus B$ is a \emph{High Income} user.
 
 The naïve way of solving this problem would be to assign this probability using only the current data, as in \cref{eq:naive_p}.
 
@@ -131,9 +131,9 @@ The previous equation allows us to define a formula for the probability of each 
 	P \left( \Betasim_v \leq x \right) = \frac{1}{\Beta \left( \varpi^{\high}_v + 1, \varpi^{\low}_v + 1 \right)} \cdot \int_0^x {t^{\varpi^{\high}_v} {\left( 1 - t \right)}^{\varpi^{\low}_v} dt}
 \end{equation}
 
-Here it's also possible to assign the probability depending on the \emph{Mean} or the \emph{Mode} of the distribution. However, that would also fail to account for the \emph{Certainty} of the numbers, which is the disadvantage discussed in the method defined in \cref{subsec:modelling_users_frequentist}.
+Here it is also possible to assign the probability depending on the \emph{Mean} or the \emph{Mode} of the distribution. However, that would also fail to account for the \emph{Certainty} of the numbers, which is the disadvantage discussed in the method defined in \cref{subsec:modelling_users_frequentist}.
 
-Instead, given the definition of an arbitrary $\Theta \in \left[ 0, 1 \right]$, it's possible to use the formula presented in \cref{subsec:beta_ppf} to define a suitable $p_v$, as shown in \cref{eq:beta_theta_ppf}.
+Instead, given the definition of an arbitrary $\Theta \in \left[ 0, 1 \right]$, it is possible to use the formula presented in \cref{subsec:beta_ppf} to define a suitable $p_v$, as shown in \cref{eq:beta_theta_ppf}.
 
 \begin{equation}
 \label{eq:beta_theta_ppf}
@@ -147,7 +147,7 @@ This probability represents the \emph{Posterior Probability} of $p_v$ given the 
 
 Since we don't have any prior information about a good value of $\Theta$, we initially take a value from \emph{Jeffrey's Prior}. This distribution, which was defined by Harold Jeffreys in 1946~\cite{jeffreys453}, is a completely uninformative prior distribution for a parameter that makes it possible to parametrize prior ignorance about values in a Bernoulli model.
 
-The \emph{Probability Density Function} of the prior for a parameter $\gamma$ is presented in \cref{eq:jeffreys}. It's interesting to note that this is the same PDF than in the one for a \emph{Beta Distribution} with parameters $\alpha = 0.5, \beta = 0.5$.
+The \emph{Probability Density Function} of the prior for a parameter $\gamma$ is presented in \cref{eq:jeffreys}. It is interesting to note that this is the same PDF than in the one for a \emph{Beta Distribution} with parameters $\alpha = 0.5, \beta = 0.5$.
 
 \begin{equation}
 \label{eq:jeffreys}
@@ -188,14 +188,14 @@ $\tau$ represents the \emph{Threshold} on which this algorithm separates the \em
 \section{Performance Evaluation}
 \label{subsec:performance_evaluation}
 
-It's easy to evaluate the performance by calculating $p_v$ for all $v \in B$, which allows us to know whether each value is a \emph{True~Positive}, a \emph{False~Positive}, a \emph{False~Negative}, or a \emph{True~Negative}, and collecting any of the metrics described in \cref{subsec:mlmetrics}.
+It is easy to evaluate the performance by calculating $p_v$ for all $v \in B$, which allows us to know whether each value is a \emph{True~Positive}, a \emph{False~Positive}, a \emph{False~Negative}, or a \emph{True~Negative}, and collecting any of the metrics described in \cref{subsec:mlmetrics}.
 
-One advantage of this method is that it's possible to evaluate the method by calculating the \emph{Area Under the Curve} without having to specify a particular $\tau$, since this follows the necessary pattern defined in \cref{subsec:auc}. This way it's possible to select the best $\varpi$ without having to select the respective $\tau$.
+One advantage of this method is that it is possible to evaluate the method by calculating the \emph{Area Under the Curve} without having to specify a particular $\tau$, since this follows the necessary pattern defined in \cref{subsec:auc}. This way it is possible to select the best $\varpi$ without having to select the respective $\tau$.
 
-Once this methods defines which $\varpi \in \left\{ \calls, \etime, \sms, \contacts \right\}$ it will use, it chooses $\Theta$ as to maximize the \emph{Area Under the Curve} of the model. While calculating the \emph{Inverse Cumulative Function} for the \emph{Beta Distribution} is particularly slow, it's possible to calculate less datapoints by using a \emph{Statistical Prior}, as defined in \cref{subsec:modelling_users}.
+Once this methods defines which $\varpi \in \left\{ \calls, \etime, \sms, \contacts \right\}$ it will use, it chooses $\Theta$ as to maximize the \emph{Area Under the Curve} of the model. While calculating the \emph{Inverse Cumulative Function} for the \emph{Beta Distribution} is particularly slow, it is possible to calculate less datapoints by using a \emph{Statistical Prior}, as defined in \cref{subsec:modelling_users}.
 Another probability (still unexplored) is to figure out that the \emph{Area Under the Curve} for a particular $\varpi$ is monotonic increasing until the optimal $\Theta$, and later is monotonic decreasing, as shown in the later \cref{fig:theta}. If this hypothesis were true, it would be possible to use \emph{Ternary Search} to find the best value of $\Theta$.
 
-After finding a $\varpi$ and $\Theta$, it's possible to find the point $p_v$ at which the \emph{Beta Distribution} $\Betasim_v$ of each user $v \in V$ integrates to $\Theta$. Having this data we can find the $\tau$ that maximizes the \emph{Accuracy} of the model by comparing the predicted categories to the data in the \emph{Testing Set}.
+After finding a $\varpi$ and $\Theta$, it is possible to find the point $p_v$ at which the \emph{Beta Distribution} $\Betasim_v$ of each user $v \in V$ integrates to $\Theta$. Having this data we can find the $\tau$ that maximizes the \emph{Accuracy} of the model by comparing the predicted categories to the data in the \emph{Testing Set}.
 
 \newpage
 

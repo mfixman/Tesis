@@ -18,7 +18,7 @@ For this reason, separated the users into 2 distinct groups depending on which s
 	\item $\mathbf{H_2}$ the set of \emph{High Income} users, with income greater than \$6300\footnotemark[\value{footnote}] a month.
 \end{itemize}
 
-Getting the intersection of both datasets it's possible to create the \emph{Social Graph} $G$, with the same users of the set of \emph{Call Detail Records}, but where a subset of users also contain banking information from the set $B$, as shown in \cref{subsec:banktencomathing}.
+Getting the intersection of both datasets it is possible to create the \emph{Social Graph} $G$, with the same users of the set of \emph{Call Detail Records}, but where a subset of users also contain banking information from the set $B$, as shown in \cref{subsec:banktencomathing}.
 This set, after being cleaned of outliers in \cref{subsec:outlier_filtering}, is the main input of the methods used in the thesis.
 
 \footnotetext{The input data, including the source county, is obfuscated. The symbol \$ refers to a certain world currency and not necessarily the American Dollar.}
@@ -143,7 +143,7 @@ This is remarkable since it uses only 2 features per node, compared to the 48 us
 A good way to explain this result is using \emph{Occam's Razor} that explains that, among competing hypotheses, the one with the fewest assumptions should be selected.
 
 In the \emph{Machine Learning} methods we use the hypothesis that the features are correlated with the results, and that all of them have a high signal-to-noise ratio.
-While this is true in a general sense, as \cref{subsec:income_homophily,fig:homophily_heatmap} show, it's not a perfect correlation and not even using a highly nonlinear method like \emph{Random Forest} could improve on a model with less assumptions.
+While this is true in a general sense, as \cref{subsec:income_homophily,fig:homophily_heatmap} show, it is not a perfect correlation and not even using a highly nonlinear method like \emph{Random Forest} could improve on a model with less assumptions.
 
 However, for the \emph{Bayesian Method}, after setting the hyperparameters $\varpi$, $\Theta$, and $\tau$, our only hypotheses is that the more calls, SMS, calling time, or contacts a user has with high income, the higher is the \emph{Certainty} that this user is of this category, and vice-versa.
 
