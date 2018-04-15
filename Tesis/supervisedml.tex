@@ -13,7 +13,7 @@ Models are separated into two different groups depending on how they describe th
 \subsection{Linear Regression}
 \label{subsec:linearregression}
 
-A \emph{Linear Regression} is an approach for modeling the relationship between the matrix $X$ and the real vector $y$. While it's possible to predict many variables in what's known as the \emph{Multivariate Linear Regression}~\cite{multivariate1979}, this thesis will focus in the single-dimensional variant.
+A \emph{Linear Regression} is an approach for modeling the relationship between the matrix $X$ and the real vector $y$. While it is possible to predict many variables in what's known as the \emph{Multivariate Linear Regression}~\cite{multivariate1979}, this thesis will focus in the single-dimensional variant.
 
 The regression assumes that the relationship between the sum of some linear combination of the elements of $X$ and $y$ is itself linear. This combination is represented by the variable $\beta$, and the relationship is represented through an unobserved random vector $\varepsilon$ as the \emph{Error Term}.
 
@@ -71,7 +71,7 @@ Additionally, \cref{eq:linearsquares} presents an unbiased estimator of $\beta$~
 \subsection{Logistic Regression}
 \label{subsec:logisticregression}
 
-The \emph{Logistic Regression}, also referred to as the \emph{Logit Model}~\cite{freedman2009statistical} is a regression model similar to the \emph{Linear Regression}, with the particularity that the \emph{Dependent Variable} $y$ is categorical. While it's possible to calculate the variable for sets of categories of several finite sizes (when it's referred to as a \emph{Multinomial Logistic Regression}~\cite{greene_econometric_2011}) or even for ordered sets of categories (an \emph{Ordinal Logistic Regression}~\cite{mccullagh1980ordinal}), this thesis will focus on the case where $y \in {\left\{ 0, 1 \right\}}^n$, that is, each variable in $y$ is binary.
+The \emph{Logistic Regression}, also referred to as the \emph{Logit Model}~\cite{freedman2009statistical} is a regression model similar to the \emph{Linear Regression}, with the particularity that the \emph{Dependent Variable} $y$ is categorical. While it is possible to calculate the variable for sets of categories of several finite sizes (when it is referred to as a \emph{Multinomial Logistic Regression}~\cite{greene_econometric_2011}) or even for ordered sets of categories (an \emph{Ordinal Logistic Regression}~\cite{mccullagh1980ordinal}), this thesis will focus on the case where $y \in {\left\{ 0, 1 \right\}}^n$, that is, each variable in $y$ is binary.
 
 The model uses the results of a \emph{Linear Regression} on the data $\left< X, y \right>$, where coefficients that solve \cref{eq:linearregression} are found. The result of that regression is a real value, which is normalized using a function $f : \mathbb{R} \rightarrow \left[ 0, 1 \right]$, whose result is considered the probability that the result of some element is $1$.
 
@@ -113,7 +113,7 @@ The logit model says that the vector $y$ is independent given the matrix $X$~\ci
 	\logit P \left( y_i = 1 \mid X \right) = X_i \beta
 \end{equation}
 
-The regression is usually calculated using \emph{Maximum Likelihood Estimation}~\cite{fan2008liblinear} and, unlike the estimation of the \emph{Linear Regression} presented in \cref{subsec:linearregression}, it's not possible to find a closed form expression of the coefficients that maximize the value of the likelihood function. Instead, the iterative \emph{Newton's Method} is used.
+The regression is usually calculated using \emph{Maximum Likelihood Estimation}~\cite{fan2008liblinear} and, unlike the estimation of the \emph{Linear Regression} presented in \cref{subsec:linearregression}, it is not possible to find a closed form expression of the coefficients that maximize the value of the likelihood function. Instead, the iterative \emph{Newton's Method} is used.
 
 The exact formulas used to ensure fast and correct conversed used in this thesis are the ones present in \texttt{LIBLINEAR}, which is presented in~\cite{hsiastudy}.
 
@@ -140,7 +140,7 @@ Decision trees are prone to overfitting~\cite{oded2008decisiontrees}. Since a si
 \begin{figure}
 \centering
 \includegraphicsmaybe{figures/decisiontreeoverfitting.png}
-	\caption{Overfitting in decision trees. When training and testing on the same data, making a classifier more complex makes the accuracy of the prediction increasingly higher until it's pretty much perfect. This result is wrong since the classifier is \emph{Overfitting} its tree to the training data. When testing with different data, it's possible to see how the prediction actually becomes worse. This graph was simulated by training decision trees with data from \texttt{sklearn.datasets.make\_classification}\cite{sklearn-make-classification}.}
+	\caption{Overfitting in decision trees. When training and testing on the same data, making a classifier more complex makes the accuracy of the prediction increasingly higher until it is pretty much perfect. This result is wrong since the classifier is \emph{Overfitting} its tree to the training data. When testing with different data, it is possible to see how the prediction actually becomes worse. This graph was simulated by training decision trees with data from the \texttt{sklearn.datasets.make\_classification} from the sklearn library\cite{scikit-learn}.}
 \label{fig:decisiontreeoverfitting}
 \end{figure}
 
@@ -181,4 +181,4 @@ Given a set of already build trees $k_1 \dots k_l$ which output a classification
 These values can be later used to improve the current random forest $C_{l + 1}$ that minimizes this error.
 
 Along with \emph{Logistic Regression}, \emph{Random Forests} are one of the learning methods used in the practical parts of this thesis.
-In \cref{sec:comparison} it's used to classify the resulting inputs of many feature extraction methods with the \emph{Bayesian Algorithm} introduced in \cref{sec:inference_methodology}. As \cref{subsec:comparison_inner_graph} shows, while the latter algorithm is better suited for our data, using \emph{Random Forest} on a good set of features performs consistently better than other generic \emph{Machine Learning} algorithms.
+In \cref{sec:comparison} it is used to classify the resulting inputs of many feature extraction methods with the \emph{Bayesian Algorithm} introduced in \cref{sec:inference_methodology}. As \cref{subsec:comparison_inner_graph} shows, while the latter algorithm is better suited for our data, using \emph{Random Forest} on a good set of features performs consistently better than other generic \emph{Machine Learning} algorithms.

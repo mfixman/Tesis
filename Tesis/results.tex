@@ -41,7 +41,7 @@ Since the input data used in this experiment comes from $B$, the banking informa
 
 The \emph{Social Graph} $G = \left< V, E \right>$, which contains information about the communication networks of the users in this dataset is extremely sparse.
 Because of the property and that $\left| B \right| \ll \left| V \right|$, the vast majority of users don't have any kind of contact with users of the bank.
-For this reason it's useless to evaluate the performance of the algorithm using all the nodes, and therefore the \emph{Testing Set} used in this thesis will instead focus on the bank users that have at least one contact with another bank user.
+For this reason it is useless to evaluate the performance of the algorithm using all the nodes, and therefore the \emph{Testing Set} used in this thesis will instead focus on the bank users that have at least one contact with another bank user.
 This approach is formalized in \cref{eq:inner_graph}.
 
 \begin{equation}
@@ -54,7 +54,7 @@ This approach is formalized in \cref{eq:inner_graph}.
 
 The accuracy of this approach depends of the value of $\varpi$, which is one of $\calls$, $\etime$, $\sms$, or $\contacts$ and defines which property of the users that's used as a feature for the classification.
 If $\varpi = \contacts$, then this approach works perfectly.
-However, it's possible that for other values of $\varpi$ there won't be any information available in $\hat{B}_{\test}$ in the case of users who either didn't receive any call from a bank user or didn't receive any message.
+However, it is possible that for other values of $\varpi$ there won't be any information available in $\hat{B}_{\test}$ in the case of users who either didn't receive any call from a bank user or didn't receive any message.
 
 \Cref{eq:inner_graph_call,eq:inner_graph_sms} formalize new variables to use for informative data in those cases.
 
@@ -79,7 +79,7 @@ However, it's possible that for other values of $\varpi$ there won't be any info
 
 Since the testing data $B_{\test}$ was a random subsample of a balanced set (see \cref{subsec:train_test_split,subsec:discrimination_by_wealth}), it was also balanced itself. However, since \emph{High Income} users tend to communicate more often than \emph{Low Income} ones, $\hat{B}_{\test}$ is unbalanced and has a significant bias for high-income users.
 
-Since the income categories tend to be balanced in the real world, this isn't wanted. However, since it's not necessary to use the entire \emph{Testing Set} for testing the algorithm, a simple way would be to create a new, balanced, and final testing set, $\Upsilon \subseteq \hat{B}_{\test}$ containing all users from $\hat{B}_{\test}$ \emph{Low Income}, along with a random sample of the same size with \emph{High Income}.
+Since the income categories tend to be balanced in the real world, this isn't wanted. However, since it is not necessary to use the entire \emph{Testing Set} for testing the algorithm, a simple way would be to create a new, balanced, and final testing set, $\Upsilon \subseteq \hat{B}_{\test}$ containing all users from $\hat{B}_{\test}$ \emph{Low Income}, along with a random sample of the same size with \emph{High Income}.
 
 \begin{equation}
 \label{eq:upsilon}
@@ -105,7 +105,7 @@ For simplicity sake, from now on the \emph{Outer Graph} $B_{\test}$ will be refe
 
 As shown in \cref{subsec:rebalancing_labels}, the labels have roughly the same amount of high income and low income users.
 
-The \emph{Outer Graph} $\Omega$ is not used in this section, as the \emph{Bayesian Algorithm} requires some information about the \emph{Socioeconomic Level} of the neighbours of the users used in the prediction. However, it's used as one of the main inputs for generating features in the later \cref{sec:comparison}.
+The \emph{Outer Graph} $\Omega$ is not used in this section, as the \emph{Bayesian Algorithm} requires some information about the \emph{Socioeconomic Level} of the neighbours of the users used in the prediction. However, it is used as one of the main inputs for generating features in the later \cref{sec:comparison}.
 
 \subsection{Set Magnitudes}
 
@@ -133,9 +133,9 @@ $\Upsilon^{\sms}$ & \num{11909} & \num{6046} & \num{5863} & 0.322 \\
 \label{subsec:optimize_theta}
 
 In \cref{subsec:modelling_users} we define the variable $\Theta$, which is defined as the quantile used to define the \emph{Posterior Probability} $p_v$ of a user $v$ being part of the higher income category.
-Choosing a good value of $\Theta$ is an essential step in creating a correct algorithm since it's the most important constant of \cref{eq:beta_theta_ppf}, one of the crucial parts for finding the category of an user.
+Choosing a good value of $\Theta$ is an essential step in creating a correct algorithm since it is the most important constant of \cref{eq:beta_theta_ppf}, one of the crucial parts for finding the category of an user.
 
-As explained in \cref{subsec:modelling_users}, it's convenient to use \emph{Jeffrey's Prior} as the prior distribution for this variable.
+As explained in \cref{subsec:modelling_users}, it is convenient to use \emph{Jeffrey's Prior} as the prior distribution for this variable.
 However, knowing how it will affect the prediction of the category of each $v$ for every $\varpi \in \left\{ \calls, \etime, \sms, \contacts \right\}$ will allow us to get a good posterior value.
 
 The main hypotheses tested in this part of the theses were two assumptions.
@@ -158,7 +158,7 @@ As \cref{tab:besttheta,fig:theta} show, both hypotheses are false.
 \centering
 \begin{tabular}{>{\bfseries}l r r}
 	\toprule
-	$\varpi$ & Opt. $\Theta$ & AUC \\
+	$\varpi$ & Optimal $\Theta$ & AUC \\
 	\midrule
 	contacts & \num{0.394} & \num{0.746} \\
 	calls & \num{0.428} & \num{0.724} \\
@@ -172,7 +172,7 @@ As \cref{tab:besttheta,fig:theta} show, both hypotheses are false.
 
 The \emph{Area Under the Curve} is a good way to analyze the performance of the algorithm with given hyperparameters since it provides a good equilibrium between \emph{Precision} and \emph{Recall}.
 Additionally, in \cref{subsec:categorizing_users}, value $\tau$ is defined to set the limit between the users categorized between \emph{High Income} and \emph{Low Income}.
-Since this value is independent from the \emph{Area Under the Curve}, it's not necessary to define it in this part of the analysis.
+Since this value is independent from the \emph{Area Under the Curve}, it is not necessary to define it in this part of the analysis.
 
 In this analysis we can see that there are different optimal $\Theta$ for every $\varpi$, contradicting the first hypothesis although the best value seems to be the same for $\varpi = \calls$ and $\varpi = \sms$. The reason for this equality remains a mystery.
 
@@ -265,9 +265,9 @@ Additionally, $\Precision = 0.696$, $\Recall = 0.186$, $F_1 = 0.293$, and $F_4 =
 \label{fig:bayes_contacts}
 \end{figure}
 
-\Cref{fig:bayes_contacts} shows the distributions when $\varpi = \contacts$, where it's possible to get a pattern similar to the one shown in \cref{subsec:sms_infer} when $\varpi = \sms$, where the majority of users have relatively few contacts and the peaks in the histogram. Additionally, since the total amount of contacts is exponentially distributed (as shown in \cref{fig:outcontacts_dist}), and people with \emph{High Income} tend to have more contacts in general, there peaks are clustered in areas with low $p_v$ (where the majority of calls are made to \emph{Low Income} users), near the middle (where the calls are mostly equally distributed), but not at high $p_v$; this last section would belong to the few users with many calls to \emph{High Income} users.
+\Cref{fig:bayes_contacts} shows the distributions when $\varpi = \contacts$, where it is possible to get a pattern similar to the one shown in \cref{subsec:sms_infer} when $\varpi = \sms$, where the majority of users have relatively few contacts and the peaks in the histogram. Additionally, since the total amount of contacts is exponentially distributed (as shown in \cref{fig:outcontacts_dist}), and people with \emph{High Income} tend to have more contacts in general, there peaks are clustered in areas with low $p_v$ (where the majority of calls are made to \emph{Low Income} users), near the middle (where the calls are mostly equally distributed), but not at high $p_v$; this last section would belong to the few users with many calls to \emph{High Income} users.
 
-Using this method it's possible to find that $\AUC = 0.746$, which is higher than all the other methods presented in \cref{subsec:algorithm_performance}. Additionally, when selecting $\tau = 0.514$, $\Accuracy = 0.694$ which is higher than the maximum \emph{Accuracy} in all other methods. These metrics, combined with the fact that $\Upsilon$ contains every user in the \emph{Testing Set}, result in the fact that $\varpi = \contacts$ is unambiguously the best way to classify the data for the algorithm. Additionally, $\Precision = 0.556$, $\Recall = 0.792$, $F_1 = 0.723$, and $F_4 = 0.783$.
+Using this method it is possible to find that $\AUC = 0.746$, which is higher than all the other methods presented in \cref{subsec:algorithm_performance}. Additionally, when selecting $\tau = 0.514$, $\Accuracy = 0.694$ which is higher than the maximum \emph{Accuracy} in all other methods. These metrics, combined with the fact that $\Upsilon$ contains every user in the \emph{Testing Set}, result in the fact that $\varpi = \contacts$ is unambiguously the best way to classify the data for the algorithm. Additionally, $\Precision = 0.556$, $\Recall = 0.792$, $F_1 = 0.723$, and $F_4 = 0.783$.
 
 \subsection{Final Results}
 
@@ -345,4 +345,4 @@ $I^{\calls}$ & \num{7910} & \num{4627} & \num{3283} & \num{0.214} \\
 
 The results in \cref{fig:bayes_contacts_least3} show the best possible predictor for a reasonable subset of the users. Both the \emph{Area Under the Curve} and the \emph{Accuracy} are higher than for all other predictors, with $\AUC = 0.829$ and $\Accuracy = 0.766$.
 
-All of those values are considerably better than any other predictor in this page at the cost of using only a small subset of the possible users. This is interesting as it's exactly the same subset as the one used in~\cite{fixmanasonam2016}, and it scores significantly higher in all the metrics.
+All of those values are considerably better than any other predictor in this page at the cost of using only a small subset of the possible users. This is interesting as it is exactly the same subset as the one used in~\cite{fixman2016bayesian}, and it scores significantly higher in all the metrics.

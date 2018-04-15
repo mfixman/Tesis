@@ -60,7 +60,7 @@ Here, we use the values $\contacts^{\low}_{v}$ and $\contacts^{\high}_{v}$ defin
 The following methods use commonly used supervised Machine Learning algorithms, described in \cref{subsec:supervised_machine_learning}, used with many similar \emph{Feature Extraction} methods on the \emph{Social Graph} $G$.
 
 The initial feature extraction method, referred to as \emph{User Data}, is described in \cref{subsec:user_data} and marked as $\ego_0$, consists of accumulating the total information about the links neighboring some user $v \in V$. 
-Later, as shown in \cref{subsec:higherorderuserdata}, it's possible to accumulate links from more levels of the \emph{Ego Network} to create feature sets that be used to build a better prediction of the data, marked $\ego_n$ for some level $n$.
+Later, as shown in \cref{subsec:higherorderuserdata}, it is possible to accumulate links from more levels of the \emph{Ego Network} to create feature sets that be used to build a better prediction of the data, marked $\ego_n$ for some level $n$.
 
 An extra method for feature extraction is presented in \cref{subsec:categoricaluserdata}, which in addition to doing the extraction of other methods it accumulates separately edges that go to \emph{High Income} and \emph{Low Income} users.
 These methodologies are marked with $\cat_n$ for some level $n$.
@@ -121,7 +121,7 @@ The features on the \emph{Social Graph} $G = \left< V, E \right>$, which contain
 
 However, and unlike in the experiments in \cref{sec:inference_methodology}, this time we aren't constrained either by having only users which have contacts with other users with known \emph{Income Category}, nor with having to have only two features for each category which was necessary since the solution used the \emph{Beta Distribution}.
 
-This way, it's possible to accumulate features for each user $v \in V$ as in \cref{eq:user_data}.
+This way, it is possible to accumulate features for each user $v \in V$ as in \cref{eq:user_data}.
 
 \begin{equation}
 \label{eq:user_data}
@@ -164,7 +164,7 @@ Given the \emph{Inner Graph} $\Upsilon$, containing the subset of users where at
 \end{aligned}
 \end{equation}
 
-Having defined these groups it's possible to define a set of features similar to the one in \cref{subsec:user_data}, where each feature is separated by the category of the neighbor. \Cref{eq:matcatuserdata} represents an intuitive way to define the names of the new features.
+Having defined these groups it is possible to define a set of features similar to the one in \cref{subsec:user_data}, where each feature is separated by the category of the neighbor. \Cref{eq:matcatuserdata} represents an intuitive way to define the names of the new features.
 
 \begin{equation}
 \label{eq:matcatuserdata}
@@ -209,7 +209,7 @@ Unlike the features in \cref{subsec:user_data}, and like the method presented in
 
 The features described in \cref{subsec:user_data} correspond to the information about calls and SMS from an user $\upsilon \in \Upsilon$ towards all of its neighbors, which is described as the \emph{Ego Network of Distance 1}. However, there's no reason why this information can't be extended to other nodes at a higher distance from $\upsilon$.
 
-If the distance between two nodes is defined using the intuitive definition presented in \cref{eq:distance}, it's possible to define the \emph{User Data of Order $n$} for any number $n \in \mathbb{N}$ as the accumulation of calls and SMS where one endpoint is on the border of the \emph{Ego Network of Order $n$} and the other one isn't. The \emph{Ego Network of Order $n$} or a certain node $\upsilon$ is the sub-graph composed of the node $\upsilon$ and all the nodes which are at at most distance $n$ of $\upsilon$.
+If the distance between two nodes is defined using the intuitive definition presented in \cref{eq:distance}, it is possible to define the \emph{User Data of Order $n$} for any number $n \in \mathbb{N}$ as the accumulation of calls and SMS where one endpoint is on the border of the \emph{Ego Network of Order $n$} and the other one isn't. The \emph{Ego Network of Order $n$} or a certain node $\upsilon$ is the sub-graph composed of the node $\upsilon$ and all the nodes which are at at most distance $n$ of $\upsilon$.
 
 \begin{equation}
 d \left( a, b \right) =
@@ -254,7 +254,7 @@ In one of the initial experiments in this thesis we added more features related 
 
 \subsection{Higher Order Categorical User Data --- Level $\cat_{n > 0}$}
 
-It's possible to combine the ideas in \cref{subsec:categoricaluserdata,subsec:higherorderuserdata} to create a group of sets of features containing the data from the border of the \emph{Ego Network or Order $n$}, separated by two disjoint groups depending in the category of the node outside the ego network, as in \cref{eq:formal_higher_order_categorical}, with $E$ defined as in \cref{sec:dataset} as the set of edges where $e_o$ is the user that originated a call and $e_d$ the user in the destination.
+It is possible to combine the ideas in \cref{subsec:categoricaluserdata,subsec:higherorderuserdata} to create a group of sets of features containing the data from the border of the \emph{Ego Network or Order $n$}, separated by two disjoint groups depending in the category of the node outside the ego network, as in \cref{eq:formal_higher_order_categorical}, with $E$ defined as in \cref{sec:dataset} as the set of edges where $e_o$ is the user that originated a call and $e_d$ the user in the destination.
 
 \begin{equation}
 	\begin{aligned}
@@ -285,8 +285,8 @@ These \emph{Machine Learning} methods used in this section contain many hyperpar
 \centering
 \begin{tabular}{>{\bfseries}c >{\bfseries}l >{\hspace{3em}}r r r r r r}
 \toprule
-\multirow{2}{*}{Dataset} & \multirow{2}{*}{Level} & \multicolumn{3}{>{\hspace{1em}}c}{\textbf{Logistic Regression}} & \multicolumn{3}{>{\hspace{2em}}c}{\textbf{Random Forest}} \\
-&& \phantom & $\log_{10}{\left(C\right)}$ && Criterion & Max Features & W/Replacement \\
+\multirow{2}{*}{Data} & \multirow{2}{*}{Level} & \multicolumn{3}{>{\hspace{1em}}c}{\textbf{Log. Regression}} & \multicolumn{3}{>{\hspace{2em}}c}{\textbf{Random Forest}} \\
+&& \phantom & $\log_{10}{\left(C\right)}$ && Criterion & Features & W/Replacement \\
 \midrule
 \multirow{5}{*}{$\Upsilon$}
 & $\ego_0$ & & $-2$ & & Entropy &  $\sqrt{f}$ & True \\
@@ -329,7 +329,7 @@ The method of \emph{Random Forest}, which is described with more detain in \cref
 
 There are several hyperparameters used in this method, namely the \texttt{Criterion} to measure the quality of a split (\texttt{gini} uses Gini impurity, while \texttt{entropy} uses information gain), the function used to calculate the \texttt{Sample Size} given the amount of features $f$, and whether the samples are taken with or without \texttt{Replacement}. This is formalized in \cref{eq:gridsearchrandomforest}.
 
-Another possible hyperparameter would be the number of trees. However, as it's been shown in~\cite{breiman2001random}, \emph{Random Forests} converge quickly for a high amount of trees. Since the objective of this section isn't to optimize by time, the value will be set to the sufficiently high $\text{\texttt{n\_estimators}} = 50$.
+Another possible hyperparameter would be the number of trees. However, as it is been shown in~\cite{breiman2001random}, \emph{Random Forests} converge quickly for a high amount of trees. Since the objective of this section isn't to optimize by time, the value will be set to the sufficiently high $\text{\texttt{n\_estimators}} = 50$.
 
 \begin{equation}
 \label{eq:gridsearchrandomforest}
@@ -345,14 +345,14 @@ Another possible hyperparameter would be the number of trees. However, as it's b
 There are several validation metrics used for each method.
 
 \begin{description}
-	\item[Accuracy] as described in \cref{subsec:accuracy}, which measures the general performance of this method.
-	\item[Precision] as described in \cref{subsec:precisionrecall}, which measures the performance regarding the positive instances found by this method.
-	\item[Recall] as described in \cref{subsec:precisionrecall}, which measures the performance regarding the positive instances in the dataset.
-	\item[Area Under the Curve] as described in \cref{subsec:auc}, which measures the general performance disregarding which threshold is used.
-	\item[$\mathbf{F_1}$ Score] as described in \cref{subsec:fmeasure} which is generalized score balancing Precision and Recall.
-	\item[$\mathbf{F_4}$ Score] as described in \cref{subsec:fmeasure}, which gives more weight to the Recall. This is usually wanted since the ultimate practical objective of this study is to find wealthier people, even if the result has low Precision.
-	\item[Fit Time] is the time it takes to fit a model. It's particularly high in ensemble methods such as \emph{Random Forest}.
-	\item[Predict Time] can be used to break ties between similar models.
+	\item[Accuracy] (Acc.) as described in \cref{subsec:accuracy}, which measures the general performance of this method.
+	\item[Precision] (Prec.) as described in \cref{subsec:precisionrecall}, which measures the performance regarding the positive instances found by this method.
+	\item[Recall] (Rec.) as described in \cref{subsec:precisionrecall}, which measures the performance regarding the positive instances in the dataset.
+	\item[Area Under the Curve] (AUC) as described in \cref{subsec:auc}, which measures the general performance disregarding which threshold is used.
+	\item[$\mathbf{F_1}$ Score] (F\textsubscript{1}) as described in \cref{subsec:fmeasure} which is generalized score balancing Precision and Recall.
+	\item[$\mathbf{F_4}$ Score] (F\textsubscript{4}) as described in \cref{subsec:fmeasure}, which gives more weight to the Recall. This is usually wanted since the ultimate practical objective of this study is to find wealthier people, even if the result has low Precision.
+	\item[Fit Time] (t\textsubscript{fit}) is the time it takes to fit a model. It is particularly high in ensemble methods such as \emph{Random Forest}.
+	\item[Predict Time] (t\textsubscript{predict}) can be used to break ties between similar models.
 \end{description}
 
 \section{Results}
@@ -374,7 +374,7 @@ By comparing only the methods based in \emph{Machine Learning}, we can reach a c
 
 The model based in \emph{Random Forest} has better results in all metrics when comparing the datasets of $\ego_0$ and $\ego_1$, that is, when making the \emph{Ego Network} of users where data is collected one degree bigger.
 Interestingly, not only these results aren't repeated when comparing the following two levels ($\ego_1$ and $\ego_2$), but most metrics, including \emph{Area Under the Curve}, show a slight decrease.
-While this means that an extra degree of data adds no useful information instead of just noise, using this data it's possible to see the fallibility of common \emph{Random Forest} fitting methods, as this regression shouldn't be possible since $\ego_2 \supset \ego_1$ and the noise features could have been ignored by the hypothetical perfectly-trained classifier.
+While this means that an extra degree of data adds no useful information instead of just noise, using this data it is possible to see the fallibility of common \emph{Random Forest} fitting methods, as this regression shouldn't be possible since $\ego_2 \supset \ego_1$ and the noise features could have been ignored by the hypothetical perfectly-trained classifier.
 
 The results are worse in all metrics of the $\ego$ datasets when predicting using a \emph{Logistic Regression} method.
 One possible cause of this is that the \emph{Random Forest} classifier is more versatile to odd cases and non-linear data when compared to the other classifier~\cite{logisticvsdecision}.
