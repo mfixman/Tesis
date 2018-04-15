@@ -17,9 +17,9 @@ This chapter will discuss several scientific papers in this area which were rele
 
 The first of two interesting studies this paper makes is to categorize the population depending on their total spending, and find out the spending level of each user category on one of several aggregated purchase groups. It makes it easy to see the difference in spending for lower income and higher income people: the former group tends to spend comparatively more money in entertainment and retail stores, while the latter group spends more money in hotels and vehicles.
 
-The second study presented in this paper relates to the correlation between people who buy from each of these groups to find categories which are commonly purchased together. Some groups, like \emph{Transportation}, \emph{IT}, or \emph{Personal Services} play a central role and are connected to many other communities, while some others like \emph{Car Sales and Maintenance} and \emph{Hardware Stores} and pairwise connected.
+The second study presented in this paper relates to the correlation between people who buy from each of these groups to find categories which are commonly purchased together. Some groups, like \emph{Transportation}, \emph{IT}, or \emph{Personal Services} play a central role and are connected to many other communities, while some others like \emph{Car Sales and Maintenance} and \emph{Hardware Stores} and pairwise connected. Both of these correlations can be seen intuitively in \cref{fig:paper_yannick}.
 
-Both of these correlations can be seen intuitively in \cref{fig:paper_yannick}.
+This thesis uses similar methods to find a correlation between the socioeconomic index of a user and the ones of his contacts. In addition, there's merit in that the observation that just as wealthier people spend more money in entertainment, they also are more active users of their telephones.
 
 \begin{figure}
 \centering
@@ -73,6 +73,9 @@ Two interesting tests made to measure the socioeconomic status of the respondent
 
 With this data it was possible to characterize economic stratification and inequality within the population of mobile phone users. Additionally, using the CDRs, it was possible to characterize graph properties for rich and poor users, in addition to other demographic indicators such as gender. In particular, while the mobile phone population is in general wealthier than the general population of Rwanda, there's still considerable inequality within the group of mobile phone users.
 
+The analysis on users' CDRs is very similar to the one used in this thesis.
+In particular, the stratification of the nodes in the graph into ``rich'' and ``poor'', along with other demographic patterns, to find previously unknown data is the same one that was used here.
+
 \section{Understanding Individual Human Mobility Patterns}
 
 \cite{gonzalez2008understanding} explores the statistical properties of a population's mobility patterns by using a mobile phone dataset similar to the one used in this thesis. In it, the author finds that the distribution of displacements of users over time can be approximated by a truncated Lévy flight\cite{mandelbrot1982fractal}.
@@ -101,13 +104,17 @@ The study proposes using several features for these links, while later using a l
 
 The authors also propose an iterative algorithm to compute the category of each link depending on the labels of their neighbour (which change on each step), which reports an improvement in classification accuracy.
 
+Some of the algorithms proposed in \cref{sec:comparison} are inspired by this paper.
+In particular, the methodology of having two independent sets of feature extraction and prediction methods in the same one used in this thesis.
+
 \section{Socioeconomic Correlations in Communications Networks}
 
 \cite{leo2015socioeconomic} uses a similar dataset to the one used in this thesis that collects communication and bank information about individuals, and shows that consumption patterns are correlated with identified socioeconomic classes leading to social stratification in a similar way to the paper discussed in \cref{sec:leo_correlations}.
 In addition, the paper introduces a correlation between merchant categories.
 
 Given the set of users' purchases, the authors separate it into 17 categories, and measure the fractional distribution of spending for each one as the amount of money each user spent into each category over the total money spent.
-As expected, people in lower socioeconomic classes spend more in groups associated with essential needs, such as retail stores, gas stations, or service providers, while people in higher socioeconomic classes spend the majority of the money on jewelry, automobiles, and professional services.
+
+As expected, people in lower socioeconomic classes spend more in groups associated with essential needs, such as retail stores, gas stations, or service providers, while people in higher socioeconomic classes spend the majority of the money on jewelry, automobiles, and professional services, which is a similar conclusion to the one reached in this thesis.
 
 \section{A Comparative Study of Social Network Classifiers}
 
