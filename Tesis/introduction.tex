@@ -24,7 +24,7 @@ In particular the study \cite{Luo2017inferring} shows the value of the Collectiv
 \section{Summary of our Approach}
 
 In this work, we leverage the socioeconomic homophily present in the cellular phone network to generate inferences of socioeconomic status in the communication graph. To this aim we will use the following data sources: (i) the Call Detail Records (CDRs) from the operator allow us to construct a social graph and to establish social affinities among users; (ii) banking reported income for a subset of their clients obtained from a large bank data source. We then construct an inferential algorithm that allows us to predict the socioeconomic status of users close to those for which we have banking information. To our knowledge, this is the first time both mobile phone and banking information has been integrated in this way to make inferences based on a social telecommunication graph.
-Part of this work was published in~\cite{Fixman2016bayesian}.
+Part of this work was published in~\cite{fixman2016bayesian}.
 
 The work done on this thesis is based the hypotheses that there is a significant level of homophily between a person's socioeconomic level and the one from its contacts (\cref{subsec:income_homophily}), and that using this correlation we can infer the first from the second (\cref{subsec:prediction_algorithm}).
 At the same time, this thesis presents several ``conventional'' Machine Learning algorithms (\cref{sec:comparison}) along with an inference algorithm based in Bayesian Inference which works thanks to the correlation hypothesis (\cref{sec:inference_methodology}). This extra information should give this algorithm better results than the conventional ones.
