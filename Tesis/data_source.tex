@@ -43,25 +43,7 @@ For simplicity sake, this paper will also refer to the elements of these three s
 \label{subsec:telco_magnitude}
 
 As a corollary, $G_N$ can be defined as the graph $\left< N, E_N \right>$, where $E_N$ contains only calls between users of the telco, and $G'$ as $\left< V', E' \right>$, where $E'$ contains the calls from and to users whose calls are located.
-
-The amount of each data contained in the dataset is described in \cref{tab:datasetnumbers}, while this form of graph can be seen in \cref{fig:outcalls_dist,fig:outcontacts_dist}. 
-
-\begin{table}
-\centering
-\begin{tabular}{>{\bfseries}l r r r}
-\toprule
-Dataset & \ct{Total Users} & \ct{Telco Users} & \ct{Located Users} \\
-Set & \ct{$G$} & \ct{$G_N$} & \ct{$G'$} \\
-\midrule
-Calls & \num{1024232445} & \num{551468102} & \num{114491125} \\
-SMS & \num{415693655} & \num{222179195} & \NA{} \\
-Time & \num{141271073893} & \num{81997400646} & \num{14945354005} \\
-Contacts & \num{249011358} & \num{110074848} & \num{14980756} \\
-\bottomrule
-\end{tabular}
-\caption{Magnitudes of data about the different datasets.}
-\label{tab:datasetnumbers}
-\end{table}
+This form of graph can be seen in \cref{fig:outcalls_dist,fig:outcontacts_dist}. 
 
 \begin{figure}
 \centering
