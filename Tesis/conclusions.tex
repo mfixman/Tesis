@@ -21,7 +21,7 @@ For this reason, separated the users into 2 distinct groups depending on which s
 Getting the intersection of both datasets it is possible to create the \emph{Social Graph} $G$, with the same users of the set of \emph{Call Detail Records}, but where a subset of users also contain banking information from the set $B$, as shown in \cref{subsec:banktencomathing}.
 This set, after being cleaned of outliers in \cref{subsec:outlier_filtering}, is the main input of the methods used in the thesis.
 
-\footnotetext{The input data, including the source country, is anonymized. The symbol \$ refers to a certain world currency and not necessarily the American Dollar.}
+\footnotetext{As explained in \cref{sec:dataset}, the symbol \$ refers to a certain currency and is not necessarily the American dollar.}
 
 \section{Similar Studies}
 
@@ -119,7 +119,7 @@ The result of these experiments, and its comparison with the \emph{Bayesian Algo
 There are several conclusions that can be found from these results.
 
 \begin{itemize}
-	\item In problems with highly nonlinear input data, like this thesis, methods based in \emph{Random Forest} perform better than methods based in \emph{Logistic Regression}.
+	\item In problems with highly nonlinear input data, like this thesis, methods based in \emph{Random Forest} perform better than methods based in \emph{Logistic Regression} since the feature space can be divided into more complex patterns.
 	\item Socioeconomic data on the edges, like the amount of wealthy people someone calls, is a much better predictor of socioeconomic level than more general metrics, like the total amount of people called, even when there is less data present of this kind.
 	\item Adding more levels to the \emph{Ego Network} of each user that's being used for engineering features adds useful features to the prediction and can make the final metrics better.
 	\item However, the precious point also adds an amount of noise. By the time the features contain data about the edges adjacent to the neighbours of the neighbours of the user, the metrics decreased.

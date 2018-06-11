@@ -6,7 +6,7 @@
 
 This thesis adds new data and experiments to the fast-growing area of \emph{Mobile Phone Social Network Analysis}.
 
-Earlier works in the general area of \emph{Social Network Analysis} and \emph{Socioeconomic Indices} and their relation to demographic features were drawn from sparse sociological studies~\cite{katz_economics_2001} and nationwide surveys~\cite{deaton1997}. However, the advent of massive clusters of real-world data along with computers big enough to process it completely changed the landscape of human data analysis, both for industry purposes and for academia.
+Earlier works in the general area of \emph{Social Network Analysis} and \emph{Socioeconomic Indices} and their relation to demographic features were drawn from sparse sociological studies~\cite{katz_economics_2001} and  surveys analyzing a single nation~\cite{deaton1997}. However, the advent of massive clusters of real-world data along with computers big enough to process it completely changed the landscape of human data analysis, both for industry purposes and for academia.
 
 This chapter will discuss several scientific papers in this area which were relevant for the research done in this one.
 
@@ -15,11 +15,27 @@ This chapter will discuss several scientific papers in this area which were rele
 
 Léo et.\ al.\ present correlations between purchasing patterns and socioeconomic position of users from a dataset similar to the one used in this thesis~\cite{leo2016correlations}. In particular, the authors have access to a database of credit card purchases for a set of users, with information about the amount of money spent and the general category (MCC) to which the purchase belongs, and also to a cellphone communications graph which allows them to infer the relationship between any two people.
 
-The first of two interesting studies this paper makes is to categorize the population depending on their total spending, and find out the spending level of each user category on one of several aggregated purchase groups. It makes it easy to see the difference in spending for lower income and higher income people: the former group tends to spend comparatively more money in entertainment and retail stores, while the latter group spends more money in hotels and vehicles.
+The first of two interesting studies this thesis makes is to categorize the population depending on their total spending, and find out the spending level of each user category on one of several aggregated purchase groups. It makes it easy to see the difference in spending for lower income and higher income people: the former group tends to spend comparatively more money in entertainment and retail stores, while the latter group spends more money in hotels and vehicles.
 
-The second study presented in this paper relates to the correlation between people who buy from each of these groups to find categories which are commonly purchased together. Some groups, like \emph{Transportation}, \emph{IT}, or \emph{Personal Services} play a central role and are connected to many other communities, while some others like \emph{Car Sales and Maintenance} and \emph{Hardware Stores} and pairwise connected. Both of these correlations can be seen intuitively in \cref{fig:paper_yannick}.
+The second study presented in this paper relates to the correlation between people who buy from each of these groups to find categories which are commonly purchased together. Some groups, like \emph{Transportation}, \emph{IT}, or \emph{Personal Services} play a central role and are connected to many other communities, while some others like \emph{Car Sales and Maintenance} and \emph{Hardware Stores} and pairwise connected. 
 
-This thesis uses similar methods to find a correlation between the socioeconomic index of a user and the ones of his contacts. In addition, there's merit in that the observation that just as wealthier people spend more money in entertainment, they also are more active users of their telephones.
+The correlation between two categories is presented in \cref{eq:leo_correlations}, where $r(c_i, u)$ quantifies the fraction of money spent on a category $c_i$ by a user $u$.
+
+\begin{equation}
+\label{eq:leo_correlations}
+	\rho \left( c_i, c_j \right) =
+		\frac{
+			n \left( \sum_u r ( c_i, u ) r ( c_j, u ) \right)
+		}
+		{
+			\left( \sum_u r ( c_i, u ) \right) \left( \sum_u r ( c_j, u ) \right)
+		}
+\end{equation}
+
+If $\rho(c_i, c_j) > 1$, then categories $c_i$ and $c_j$ are positively correlated; if $\rho(c_i, c_j) < 1$, then the categories are negatively correlated. Using this data, the authors build the weighted correlation traph $G_\rho = (V_\rho, E_\rho, \rho), where links $(c_i, c_j) \in E_\rho$ are weighted by the $\rho(c_i, c_j)$ correlation values.
+This graph can be seen intuitively in \cref{fig:paper_yannick}.
+
+This thesis uses similar methods to find a correlation between the socioeconomic index of a user and the ones of his contacts. In addition, there's merit in the observation that just as wealthier people spend more money in entertainment, they also are more active users of their telephones.
 
 \begin{figure}
 \centering
@@ -31,7 +47,7 @@ This thesis uses similar methods to find a correlation between the socioeconomic
 \includegraphicsmaybe{figures/yannick/service_service.png}
 \label{fig:service_service}
 \end{subfigure}
-\caption{Data from the study of categories of purchases. The heatmap on the left side contains the relative purchasing quantities of each category for every socioeconomic level (where 1 is lower and 9 is higher), while the graph on the right side contains the purchase groups which reveals several clusters.}
+\caption{Data from the study of categories of purchases. The heatmap on the left side is the adjacency matrix of $G_\rho$, shown with logarithmically scaled colors. The graph on the right represents $G_\rho^>$, a weighted subgraph of $G_\rho$ which shows only significant correlations where $\rho(c_i, c_j) > 1.5$.}
 \label{fig:paper_yannick}
 \end{figure}
 
@@ -39,7 +55,7 @@ This thesis uses similar methods to find a correlation between the socioeconomic
 \label{sec:luo2017inferring}
 
 Luo et.\ al.\ show that an individual's location is highly correlated with its socioeconomic status~\cite{Luo2017inferring}.
-In addition, the paper also finds the interesting observation that some social network patterns mimic the economic inequality patterns, and that there is a significant ($R^2 = 0.96$) correlation between the link diversity of individuals and their financial status.
+In addition, the paper also finds the interesting observation that some social network patterns mimic the economic inequality patterns, and that there is a significant ($R^2 = 0.96$) correlation between the diversity of an individual's links and their financial status: the wealthiest 1-percenters have higher diversity in mobile contacts and are centrally located, surrounded by other highly connected people (network hubs). On the other hand, the poorest individuals have low contact diversity and are weakly connected to fewer hubs.
 
 The results were validated by performing a social marketing campaign for the acquisition of new credit card clients by sending message for individuals that were predicted to be affluent.
 Compared to a control group, the users with the most covariance between their links (that is, with the highest link diversity) would more probably request the offered product, which was ideal for affluent users. These results can be seen in \cref{fig:luo2017results}.
@@ -51,18 +67,18 @@ Compared to a control group, the users with the most covariance between their li
 \label{fig:luo2017results}
 \end{figure}
 
-Additionally, to prove that the results were not dependent on the validation campaign, the authors produced an \emph{Analysis of Covariance}\cite{wildt1978analysis} on all the features they had access to to test the variance caused by network metrics and other factors.
+Additionally, to prove that the results were not dependent on the validation campaign, the authors produced an \emph{Analysis of Covariance}\cite{wildt1978analysis} on all the features they had access to test the variance caused by network metrics and other factors.
 This resulted in the conclusion that the correlation between collective influence is positive and significant in all groups of geographical communities, across genders, and among all age groups older than 24 years.
 Such robust network effects imply that network metrics are a potential indicator for financial status.
 
-Unlike this thesis, this paper is completely observational and doesn't provide a direct inference method for socioeconomic status. However, both its strict methodology and its prediction of \emph{Collective Influence} were useful for completing many parts of this work, specially since the dataset used by Luo et~al.\ has many similarities with the one used in this paper.
+Unlike this thesis, this paper is completely observational and doesn't provide a direct inference method for socioeconomic status. However, both its strict methodology and its prediction of \emph{Collective Influence} were useful for completing many parts of this work, specially since the dataset used by Luo et~al.\ has many similarities with the one used in this.
 
 
 \section{Socioeconomic Status and Mobile Phone Use}
 
 Blumenstock and Eagle combines data from direct demographic surveys with \emph{Call Details Records} obtained from a phone company to get demographical data about cellphone users in Rwanda~\cite{blumenstock2010mobile}.
 
-The paper combine data about the overall demographic composition of Rwanda with the demographic composition of a representative sample of mobile phone users, along with voluntary survey results and the call history of the survey residents.
+The paper combines data about the overall demographic composition of Rwanda with the demographic composition of a representative sample of mobile phone users, along with voluntary survey results and the call history of the survey residents.
 
 Two interesting tests made to measure the socioeconomic status of the respondents, which is particularly hard in a country where a significant percentage most people's income derives from informal channels.
 
@@ -78,7 +94,7 @@ In particular, the stratification of the nodes in the graph into ``rich'' and ``
 
 \section{Understanding Individual Human Mobility Patterns}
 
-Gonzalez et\. al\. explore the statistical properties of a population's mobility patterns by using a mobile phone dataset similar to the one used in this thesis~\cite{gonzalez2008understanding}. In it, the author finds that the distribution of displacements of users over time can be approximated by a truncated Lévy flight\cite{mandelbrot1982fractal}.
+Gonzalez et.\ al.\ explore the statistical properties of a population's mobility patterns by using a mobile phone dataset similar to the one used in this thesis~\cite{gonzalez2008understanding}. In it, the authors find that the distribution of displacements of users over time can be approximated by a truncated Lévy flight\cite{mandelbrot1982fractal}.
 
 \begin{equation}
 	P \left( \Delta r \right) = \left( \Delta r + \Delta r_0 \right) ^{-\beta} \exp \left( -\Delta r / \kappa \right)
@@ -98,18 +114,18 @@ This study demonstrates that the individual trajectories are characterized by th
 
 \section{Link-based Classification}
 
-Lu et\. al\. propose a statistical framework for modeling distributions between linked documents (such as relational databases or URLs in websites) to use in machine learning~\cite{lu2003link}. This is a hard problem, since naïvely applying traditional statistical inference procedures, that assume that links are independent, can lead to inappropriate conclusions\cite{jensen1999statistical}.
+Lu et.\ al.\ propose a statistical framework for modeling distributions between linked documents (such as relational databases or URLs in websites) to use in machine learning~\cite{lu2003link}. This is a hard problem, since naïvely applying traditional statistical inference procedures, that assume that links are independent, can lead to inappropriate conclusions\cite{jensen1999statistical}.
 
 The study proposes using several features for these links, while later using a logistic regression model for each of the features. Since the original problem required multilabeling classification, the study calculates the probability of each label given the features in a one-against-others model and picked the one for the highest posterior probability.
 
 The authors also propose an iterative algorithm to compute the category of each link depending on the labels of their neighbour (which change on each step), which reports an improvement in classification accuracy.
 
 Some of the algorithms proposed in \cref{sec:comparison} are inspired by this paper.
-In particular, the methodology of having two independent sets of feature extraction and prediction methods in the same one used in this thesis.
+In particular, the methodology of having two independent sets of feature extraction and prediction methods is the same one used in this thesis.
 
 \section{Socioeconomic Correlations in Communications Networks}
 
-Léo et\. al\. use a similar dataset to the one used in this thesis that collects communication and bank information about individuals, and shows that consumption patterns are correlated with identified socioeconomic classes leading to social stratification in a similar way to the paper discussed in \cref{sec:leo_correlations}~\cite{leo2015socioeconomic}.
+Léo et.\ al.\ use a similar dataset to the one used in this thesis that collects communication and bank information about individuals, and shows that consumption patterns are correlated with identified socioeconomic classes leading to social stratification in a similar way to the paper discussed in \cref{sec:leo_correlations}~\cite{leo2015socioeconomic}.
 In addition, the paper introduces a correlation between merchant categories.
 
 Given the set of users' purchases, the authors separate it into 17 categories, and measure the fractional distribution of spending for each one as the amount of money each user spent into each category over the total money spent.
@@ -118,7 +134,7 @@ As expected, people in lower socioeconomic classes spend more in groups associat
 
 \section{A Comparative Study of Social Network Classifiers}
 
-Óskarsdottir et\. al\. present several methods, the authors present several methods to address machine learning classification in social networks and other graph-related structures~\cite{oskarsdottir2016}.
+Óskarsdottir et.\ al.\ present several methods to address machine learning classification in social networks and other graph-related structures~\cite{oskarsdottir2016}.
 The methods are separated into several categories.
 
 \begin{enumerate}

@@ -87,12 +87,12 @@ D = E^D_o \cup E^D_d
 
 $D$ is defined as a subset of $S$, instead of one of $V$, because we cannot analyze the performance of a predictor on telco users who aren't part of the bank.
 
-There is an additional level of uncertainty: while the data contains information about calls, and the inference assumes that callee and caller know each other, there is simply no information about the socioeconomic level of acquaintances who don't share phone calls. However, the more calls a user names, and the more people it calls, the more \emph{Certain} we can be that the algorithm in this section is correct.
+There is an additional level of uncertainty: while the data contains information about calls, and the inference assumes that callee and caller know each other, there is simply no information about the socioeconomic level of acquaintances who don't share phone calls. However, the more calls a user makes, and the more people it calls, the more certain we can be that the algorithm in this section is correct.
 
 \subsection{Modelling Users --- Frequentist Approach}
 \label{subsec:modelling_users_frequentist}
 
-The final objective of this thesis is to detect \emph{High Income} users in a dataset by just knowing their calls using the hypothesis, described in \cref{subsec:income_homophily}, that a user will mostly call people from his same income category. For this, some calculated will be made on the low and high calculations for some property $\varpi$\footnotemark{}, which is one of the values defined in \cref{eq:property}. Part of the performance calculations in \cref{sec:results} will imply finding the $\varpi$ which maximizes some score.
+The final objective of this thesis is to detect \emph{High Income} users in a dataset by just knowing their calls using the hypothesis, described in \cref{subsec:income_homophily}, that a user will mostly call people from his same income category. For this, some calculations will be made for some property $\varpi$\footnotemark{} on the low and high income users, which is one of the values defined in \cref{eq:property}. Part of the performance in \cref{sec:results} will imply finding the $\varpi$ which maximizes some score.
 
 \footnotetext{$\varpi$ is a variant of the Greek letter $\pi$, which represents a \textbf{P}roperty.}
 
@@ -192,7 +192,7 @@ It is easy to evaluate the performance by calculating $p_v$ for all $v \in B$, w
 
 One advantage of this method is that it is possible to evaluate the method by calculating the \emph{Area Under the Curve} without having to specify a particular $\tau$, since this follows the necessary pattern defined in \cref{subsec:auc}. This way it is possible to select the best $\varpi$ without having to select the respective $\tau$.
 
-Once this methods defines which $\varpi \in \left\{ \calls, \etime, \sms, \contacts \right\}$ it will use, it chooses $\Theta$ as to maximize the \emph{Area Under the Curve} of the model. While calculating the \emph{Inverse Cumulative Function} for the \emph{Beta Distribution} is particularly slow, it is possible to calculate less datapoints by using a \emph{Statistical Prior}, as defined in \cref{subsec:modelling_users}.
+Once this methods defines which $\varpi \in \left\{ \calls, \etime, \sms, \contacts \right\}$ it will use, it chooses $\Theta$ as to maximize the \emph{Area Under the Curve} of the model. While calculating the \emph{Inverse Cumulative Function} for the \emph{Beta Distribution} is particularly slow, it is possible to infer less datapoints by using a \emph{Statistical Prior}, as defined in \cref{subsec:modelling_users}.
 Another probability (still unexplored) is to figure out that the \emph{Area Under the Curve} for a particular $\varpi$ is monotonic increasing until the optimal $\Theta$, and later is monotonic decreasing, as shown in the later \cref{fig:theta}. If this hypothesis were true, it would be possible to use \emph{Ternary Search} to find the best value of $\Theta$.
 
 After finding a $\varpi$ and $\Theta$, it is possible to find the point $p_v$ at which the \emph{Beta Distribution} $\Betasim_v$ of each user $v \in V$ integrates to $\Theta$. Having this data we can find the $\tau$ that maximizes the \emph{Accuracy} of the model by comparing the predicted categories to the data in the \emph{Testing Set}.
@@ -202,7 +202,7 @@ After finding a $\varpi$ and $\Theta$, it is possible to find the point $p_v$ at
 \section{Bayesian Graphical Model}
 \label{subsec:bayesiangm}
 
-An alternative way of seeing this problem is through a \emph{Bayesian Graphical Model}, which are explained with more detail in~\cite{wagenmakerslee}.
+An alternative way of seeing this problem is through a \emph{Bayesian Graphical Model}, which is explained in more detail in~\cite{wagenmakerslee}.
 
 In the model, shown in \cref{fig:bayesnetwork}, doesn't directly define a \emph{Beta Distribution} $\Betasim_v \sim \Betadist(\varpi^{\high}_v + 1, \varpi^{\low}_v + 1)$ for every user $v$. Instead, the problem is defined as the \emph{Binomial Distribution} in \cref{eq:graphicalmodel_binomial} for some probability $\pi_v$.
 
