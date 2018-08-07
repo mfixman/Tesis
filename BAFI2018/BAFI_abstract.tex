@@ -1,0 +1,78 @@
+% BAFI
+% \documentclass[conference]{IEEEtran}
+
+\documentclass[conference,onecolumn]{IEEEtran}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{blindtext}
+\usepackage{booktabs}
+\usepackage{caption}
+\usepackage{graphicx}
+\usepackage[utf8]{inputenc}
+\usepackage{multirow}
+\usepackage[group-separator={,}]{siunitx}
+\usepackage[x11names, rgb, dvipsnames]{xcolor}
+\usepackage{xfrac}
+% \usepackage[perpage]{footmisc}
+% \usepackage{microtype}
+\usepackage[capitalize, nameinlink, noabbrev]{cleveref}
+\usepackage{subcaption}
+
+% \usepackage{tikz}
+% \usetikzlibrary{shapes}
+% \usetikzlibrary{arrows}
+
+% \bibliographystyle{alpha}
+% \bibliographystyle{plain}
+\bibliographystyle{unsrt}
+
+\input{operators}
+
+\newcommand{\todo}[1]{\textbf{\color{red} TODO:\@ #1}}
+\newcommand{\maybe}[1]{\footnote{\color{red} #1}}
+
+\newcommand{\NA}{---}
+\newcommand{\ct}[1]{\multicolumn{1}{c}{#1}}
+
+\newcommand{\noimage}{%
+  \setlength{\fboxsep}{-\fboxrule}
+  \fbox{\phantom{\rule{\columnwidth}{100pt}}}
+}
+\newcommand{\includegraphicsmaybe}[1]{\IfFileExists{#1}{\includegraphics[width=\columnwidth, height=.24\textheight, keepaspectratio]{#1}}{\noimage}}
+
+\renewcommand{\thefootnote}{\fnsymbol{footnote}}
+\captionsetup[table]{skip = 2ex}
+
+% \title{Comparison of Featurization Methods and Predictors for Income Inference}
+
+\title{Featurization Methods and Predictors for Income Inference based on Communication Patterns}
+
+\author{%
+\IEEEauthorblockN{%
+	Martin Fixman\IEEEauthorrefmark{1}\IEEEauthorrefmark{2},
+	Martin Minnoni\IEEEauthorrefmark{2},
+	Matias Travizano\IEEEauthorrefmark{2},
+	Carlos Sarraute\IEEEauthorrefmark{2}
+}
+\IEEEauthorblockA{\IEEEauthorrefmark{1}Universidad de Buenos Aires, Argentina}
+\IEEEauthorblockA{\IEEEauthorrefmark{2}Grandata Labs, 550 15th Street, San Francisco, CA, USA}
+\IEEEauthorblockA{Email: martinfixman@gmail.com, \{martin, mat, charles\}@grandata.com}
+}
+
+\begin{document}
+\maketitle
+Patterns of mobile phone communications, coupled with the information of the social network graph and financial behavior, can be leveraged to make inferences of users' socio-economic attributes such as their income level. We present in this work several methods to extract features from mobile phone usage (calls and messages), and compare different combinations of supervised machine learning techniques and sets of features used as input for the inference of users' income. For this study, we had access to a set $P$ of anonymized Call Detail Records (CDR), composed of voice calls and text messages, from a telecommunication company in a Latin American country for a period of 3 consecutive months. Additionally, we used a set $B$ of account balances of millions of clients of a bank for a period of 6 consecutive months in the same country. 
+The data of each client $b \in B$ contains the phone number anonymized with the same cryptographic function as the telco dataset, along with the average income of this person over 6 months.
+We represent the network as a directed graph $G = \left< V, E \right>$, where the nodes $V$ represent users and the edges $E$ represent their communication. When we analyzed the communications between bank clients, we observed a strong homophily in the graph respect to the users' income, which is tied to the social stratification between populations of different purchasing power~\cite{fixmanasonam2016}.For the classification task, we divided the ground truth $T \subseteq V$ of the data in two  groups of equal size: \emph{High Income} and \emph{Low Income}.
+Each edge $e \in E$ contains the information: total number of calls; total time (in seconds) of all the calls; and total number of messages exchanged.We now describe several ways of transforming data from the graph $G = \left< V, E \right>$ into individual features.
+First, we aggregate the number of calls, total time and SMS for every node, separated on whether those features are incoming or outgoing.Then we extend this feature generation to nodes in the \emph{ego network of order $n$} of a node $v$, which is the subgraph composed of all the nodes which are at distance at most $n$ from $v$, obtaining in this way the \emph{user data of order $n$}, for $n = 1, 2, 3$.
+For our experimental setting, we consider the set of nodes which have at least one neighbor with income information, called the \emph{Inner Graph} $F$.
+In $F$ each edge feature is further separated in 2 features, depending on the category of the other endpoint (high or low income), obtaining a total of 72 features per node.The inferences based on features aggregated by node were performed using \emph{Logistic Regression} and \emph{Random Forest} classifiers.Finally, we compared the results with the \emph{Bayesian Method} presented in~\cite{fixmanasonam2016}, which only uses the amount of \emph{High Income} and \emph{Low Income} users in the egonetwork. 
+
+Our experiments show that the Bayesian Method obtains an AUC = 0.746, and thus makes a better prediction than the machine learning methods Logistic Regression (AUC = 0.693) and Random Forest (AUC = 0.714) using the most comprehensive set of features. We can reach the conclusion that, in this particular case, \emph{smaller is better}. The {machine learning} methods which use many features (despite these features being informative) are not better at predicting the socioeconomic level of a user than the Bayesian Method which uses only 2 simple features of the communication graph.
+
+
+\bibliography{../Tesis/bibliography/sna}{}
+
+\end{document}
