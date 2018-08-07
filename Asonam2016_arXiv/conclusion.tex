@@ -1,0 +1,13 @@
+\section{Conclusion}
+
+This work is based on a combined data source
+from mobile phone records and banking information.
+We first showed the presence of homophily with respect to the monthly income in the
+communication graph, that is, users of similar income tend to communicate more with each other. Based on the evidenced homophily, we presented a methodology to infer income categories for users in the graph for which we don't have
+banking information, by taking a Bayesian approach.
+
+To classify users into income categories, we first computed the number of calls a user $u$ makes to members of the different categories, and used them to construct a Beta distribution for the probability of user $u$ to belong to the high income category. We then validated our approach by constructing the ROC curve which clearly shows that our methodology outperforms random guessing.
+Finally, we described how we can extend our approach to multiple categories using the Dirichlet distribution.
+
+Our proposed inference methodology is useful for concrete applications, since it provides an estimation of socio-economic attributes of users lacking banking history, based on their communication network. We also note that this methodology is not restricted to the inference of socio-economic attributes, but is equally applicable to any attribute that exhibits significant homophily in the network.
+
