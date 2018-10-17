@@ -41,3 +41,4 @@
 *.bak
 
 *.DS_Store
+*.synctex.gz
