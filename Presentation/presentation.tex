@@ -121,6 +121,8 @@
 	}
 \end{frame}
 
+\subsection{Teorema de Bayes}
+
 \begin{frame}{Teorema de Bayes}
 	\begin{align*}
 		&P \left( H \mid E \right) = \frac{P \left( E \mid H \right) \cdot P \left( H \right)}{P \left( E \right)} &\text{\textbf{Teorema de Bayes}} \\
@@ -152,6 +154,8 @@
 	}
 \end{frame}
 
+\subsection{Distribución Beta}
+
 \begin{frame}{Distribución Beta}
 	\begin{gather*}
 		X \sim B \left( \alpha, \beta \right) \\
@@ -179,6 +183,7 @@
 	
 	\begin{figure}
 		\includegraphics[width=\framewidth]{beta.png}
+		\caption{Distribución Beta para diferentes valores de $\alpha$ y $\beta$.}
 	\end{figure}
 	
 	\note{%
@@ -188,8 +193,51 @@
 
 \section{Fuente de Datos}
 
-\begin{frame}
-	
+\subsection{Fuente de Datos}
+
+\begin{frame}{Fuente de Datos}
+	\begin{itemize}
+		\item Esta tesis usa dos fuentes de datos principales para cierta población.
+			\begin{enumerate}
+				\item Dos conjuntos $P$ y $S$ con \emph{Call Detail Records} de llamadas y SMS\@.
+				\item Un conjunto $B$ de datos bancarios, del cual se puede extraer el salario mensual.
+			\end{enumerate}
+		\item Con estos datos se calcula el \emph{Grafo Social}.
+			\begin{equation*}
+				G = \left< \text{V}, \text{E} \right>
+			\end{equation*}
+			Donde $V$ contiene datos de usuarios y su nivel de ingreso (si se conoce), y $E$ contiene sus conexiones con otros usuarios.
+	\end{itemize}
+\end{frame}
+
+\subsection{Inferencias Básicas}
+\begin{frame}{Distribución de Ingresos por Edad}
+	\begin{figure}
+		\includegraphics[width=.80\framewidth]{income_age_boxplot4.png}
+		\caption{Distribución de ingresos por grupo de edad.}
+	\end{figure}
+\end{frame}
+
+\begin{frame}{Distribución de Ingresos Totales}
+	\parbox{.60\textwidth}{\raggedleft{}
+		\begin{figure}
+			\includegraphics[width=.6\framewidth]{cumulative_income.png}
+			\caption{Proporción acumulada de ingresos por proporción acumulada de la población.}
+		\end{figure}
+	}
+	\parbox{.39\textwidth}{\raggedright{}
+		Dentro de los usuarios de este banco:
+		\begin{itemize}
+			\item 20\% de la población tiene 50\% de los activos.
+			\item Gini = 45\%.
+		\end{itemize}
+	}
+
+	\note{%
+		Este gráfico nota la desigual distribución de ingresos dentro de los usuarios del banco, donde la mayoría de los activos líquidos pertenecen a menos de un quinto de la población.
+
+		El coeficiente Gini mide la desigualdad de riqueza de un grupo de gente: un valor de 0\% indica total igualdad, mientras que un valor de 100\% indica una sola persona teniendo toda la riqueza. El coeficiente en este banco es igual a 45\%, que es un poco menor al valor total de 48\% del país del estudio ya que no incluye a la población no bancarizada de este país.
+	}
 \end{frame}
 
 \section{El Modelo Bayesiano}
