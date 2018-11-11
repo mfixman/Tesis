@@ -29,6 +29,9 @@
 
 \renewcommand\thesubfigure{(\Alph{subfigure})}
 
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\cov}{cov}
+
 \title[Inference of Socioeconomic Status]{Comparative Study of Methods for the Inference of Socioeconomic Status in a Communications Graph}
 \subtitle{Presentación de Tesis}
 
@@ -66,7 +69,7 @@
 
 \section{Marco Teórico}
 
-\subsection{Homofília Social}
+\subsection{Homofilia Social}
 
 \begin{frame}
 	\epigraph{``La gente ama a los que son como sí mismos.''}{\textit{Aristoteles \\ Retórica}}
@@ -75,7 +78,7 @@
 
 		La gente tiene características, como edad, género, o estatus socioeconómico, con el que hay una mayor tasa de contacto que gente disimilar.
 
-		El trabajo hecho en esta tesis está relacionado a descubrir y explotar casos de homofília en la población de un grafo social.
+		El trabajo hecho en esta tesis está relacionado a descubrir y explotar casos de homofilia en la población de un grafo social.
 	}
 \end{frame}
 
@@ -92,11 +95,11 @@
 			\caption{}%
 			\label{fig:country_homophily}
 		\end{subfigure}
-		\caption{Ejemplos varios de homofília en un cierto grafo social\footcite{ugander2011anatomy}. \subref{fig:age_homophily}: Distribución de edades para contactos de usuarios de cada edad. \subref{fig:country_homophily}: Mapa de calor marcando la cantidad normalizada de contactos entre cada par de países.}
+		\caption{Ejemplos varios de homofilia en un cierto grafo social\footcite{ugander2011anatomy}. \subref{fig:age_homophily}: Distribución de edades para contactos de usuarios de cada edad. \subref{fig:country_homophily}: Mapa de calor marcando la cantidad normalizada de contactos entre cada par de países.}
 	\end{figure}
 
 	\note{%
-		Dos casos muy comunes de homofília en grados sociales son la homofília por edad y la homofília por país. Ambas fueron investigadas por Ugander~et~al en el paper citado en este slide.
+		Dos casos muy comunes de homofilia en grados sociales son la homofilia por edad y la homofilia por país. Ambas fueron investigadas por Ugander~et~al en el paper citado en este slide.
 
 		Como se pueden apreciar en estos gráficos, el rango de edades para las conexiones de amistad en una red social están altamente sesgadas hacia la misma edad que tiene cada persona. También se puede ver lo mismo cuando se grafica los pares entre países entre todas las conexiones de amistad.
 	}
@@ -242,8 +245,41 @@
 
 \section{El Modelo Bayesiano}
 
+\subsection{Introducción}
+
+\begin{frame}{Introducción}
+	El objetivo principal de esta tesis es buscar un algoritmo que prediga el nivel de ingresos de un usuario dependiendo de datos sobre el \emph{Grafo Social}.
+
+	Esto se logra aprovechando el nivel de \emph{Homofilia de Ingresos} en los usuarios.
+\end{frame}
+
+
+\subsection{Homofilia de Ingresos}
+
+\begin{frame}{Coeficiente de Spearman}
+	El Coeficiente de Spearman $r_s$ mide la correlación entre la distribución de dos monotónicas variables $x$ e $y$~\footcite{statistical_analysis}, donde $\rho_{x, y}$ es el \emph{Coeficiente de Pearson} entre $x$ e $y$.
+
+
+	\begin{equation*}
+		r_s = \rho_{\rank\left(x\right), \rank\left(y\right)} = \frac{\cov\left(\rank\left(x\right), \rank\left(y\right))}{\sigma_{\rank(x)} \sigma_{\rank(y)}}
+	\end{equation*}
+
+	\alt<2>{%
+		\vspace{2em} \\
+
+		En la fuente de datos usada para esta tesis,
+
+		\begin{equation*}
+			r_s = 0.474
+		\end{equation*}
+	}{}
+\end{frame}
+
 \begin{frame}
-	
+	\begin{figure}
+		\includegraphics[width=.8\framewidth]{heatmap.png}
+		\caption{Mapa de calor entre ingresos de usuarios de cada llamada.}
+	\end{figure}
 \end{frame}
 
 \section{Modelos Comunes de Aprendizaje Automático}
