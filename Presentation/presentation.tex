@@ -11,7 +11,7 @@
 \usepackage[style=authortitle]{biblatex}
 \usepackage{epigraph}
 \usepackage{caption}
-\usepackage[labelformat=simple]{subcaption}
+\usepackage[labelformat=simple,subrefformat=simple]{subcaption}
 \usepackage[capitalise, noabbrev]{cleveref}
 
 \setbeameroption{show notes on second screen=right}
@@ -27,7 +27,6 @@
 \addbibresource{sna.bib}
 \addbibresource{presentation_sna.bib}
 
-\captionsetup[subfigure]{subrefformat=simple,labelformat=simple,listofformat=subsimple}
 \renewcommand\thesubfigure{(\Alph{subfigure})}
 
 \title[Inference of Socioeconomic Status]{Comparative Study of Methods for the Inference of Socioeconomic Status in a Communications Graph}
@@ -82,14 +81,14 @@
 
 \begin{frame}
 	\begin{figure}
-		\begin{subfigure}[b]{0.48\framewidth}%
+		\begin{subfigure}[b]{0.48\framewidth}
 			\includegraphics[width=0.9\textwidth]{age_homophily.png}
 			\caption{}%
 			\label{fig:age_homophily}
 		\end{subfigure}
-		\begin{subfigure}[b]{0.48\framewidth}%
-			\hspace{}
-			\includegraphics[width=0.8\textwidth]{country_homophily.png}
+		\begin{subfigure}[b]{0.48\framewidth}
+			\hfill{}
+			\includegraphics[width=0.9\textwidth]{country_homophily.png}
 			\caption{}%
 			\label{fig:country_homophily}
 		\end{subfigure}
