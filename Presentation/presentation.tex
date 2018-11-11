@@ -155,19 +155,35 @@
 \begin{frame}{Distribución Beta}
 	\begin{gather*}
 		X \sim B \left( \alpha, \beta \right) \\
-		\begin{aligned}
-			f \left( x; \alpha, \beta \right) &= \frac{1}{B \left(\alpha, \beta \right)} \cdot x^{\alpha - 1} {\left( 1 - x \right)}^{\beta - 1} \\
-			F \left( x; \alpha, \beta \right) &= \frac{1}{B \left(\alpha, \beta \right)} \cdot \int^x_0 {t^{\alpha - 1} {\left( 1 - t \right)}^{\beta - 1} dt} \\
+			\mathrm{B} \left( \alpha, \beta \right) = \frac{\left( \alpha + \beta - 1 \right)!}{\left( \alpha - 1 \right)! \cdot \left( \beta - 1 \right)!}
 			\vspace{1em} \\
-			B \left( \alpha, \beta \right) &= \frac{\Gamma \left( \alpha + \beta \right)}{\Gamma \left( \alpha \right) \Gamma \left( \beta \right)}
+		\begin{aligned}
+			f \left( x; \alpha, \beta \right) &= \frac{1}{\mathrm{B} \left(\alpha, \beta \right)} \cdot x^{\alpha - 1} {\left( 1 - x \right)}^{\beta - 1} \\
+			F \left( x; \alpha, \beta \right) &= \frac{1}{\mathrm{B} \left(\alpha, \beta \right)} \cdot \int^x_0 {t^{\alpha - 1} {\left( 1 - t \right)}^{\beta - 1} dt}
+			\vspace{1em} \\
 		\end{aligned}
 	\end{gather*}
+
+	\note{%
+		La distribución Beta es una familia de distribuciones de probabilidad paramterizada por dos parámetros $\alpha$ y $\beta$. Se suele usar para modelar como actúan variables aleatorias limitadas a intervalos de largo finito.
+
+		En el contexto de inferencia bayesiana, la distribución Beta es el conjugate prior de la distribución binomial. Esto nos permite describir conocimientos iniciales sobre la probabilidad de éxito de una distribución bivariada.
+
+		Dado una distribución binomial con $\alpha$ ejemplos positivos y $\beta$ ejemplos negativos como tirar una moneda $(\alpha + \beta)$ veces, la distribución Beta modela la probabilidad de que la primer distribución sea positiva.
+		
+		El trabajo principal de esta tesis usa mucho la función cuántil de la distribución Beta, que es la inversa de la función cumulativa de probabilidad. No hay ninguna formula cerrada para esto, pero se puede aproximar fácilmente usando el método de Newton.
+	}
 \end{frame}
 
-\section{Trabajos Relacionados}
-
-\begin{frame}
+\begin{frame}{Distribución Beta}
 	
+	\begin{figure}
+		\includegraphics[width=\framewidth]{beta.png}
+	\end{figure}
+	
+	\note{%
+		Este gráfico representa la distribución Beta para diferentes valores de $\alpha$ y $\beta$.
+	}
 \end{frame}
 
 \section{Fuente de Datos}
