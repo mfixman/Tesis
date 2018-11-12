@@ -1,4 +1,4 @@
-\documentclass{beamer}
+\documentclass[usenames,dvipsnames,table]{beamer}
 
 \usetheme{CambridgeUS}
 \usecolortheme{dolphin}
@@ -10,10 +10,19 @@
 \usepackage{relsize}
 \usepackage[style=authortitle]{biblatex}
 \usepackage{epigraph}
+% \usepackage[table,dvipsnames]{xcolor}
 \usepackage{caption}
 \usepackage[labelformat=simple,subrefformat=simple]{subcaption}
 \usepackage[capitalise, noabbrev]{cleveref}
 \usepackage[normalem]{ulem}
+\usepackage{xfrac}
+\usepackage{siunitx}
+\usepackage{booktabs}
+\usepackage{multirow}
+
+\usepackage{tikz}
+\usetikzlibrary{shapes}
+\usetikzlibrary{arrows}
 
 \setbeameroption{show notes on second screen=right}
 
@@ -55,7 +64,22 @@
 \DeclareMathOperator{\InvRecall}{Inverse\ Recall}
 \DeclareMathOperator{\Accuracy}{Accuracy}
 
+\DeclareMathOperator{\ego}{Nbr}
+\DeclareMathOperator{\cat}{Cat}
+
+\DeclareMathOperator{\incalls}{incalls}
+\DeclareMathOperator{\outcalls}{outcalls}
+\DeclareMathOperator{\insms}{insms}
+\DeclareMathOperator{\outsms}{insms}
+\DeclareMathOperator{\intime}{outtime}
+\DeclareMathOperator{\outtime}{outtime}
+\DeclareMathOperator{\incontacts}{incontacts}
+\DeclareMathOperator{\outcontacts}{outcontacts}
+
+
 \newcommand{\ct}[1]{\multicolumn{1}{c}{#1}}
+\newcommand{\meight}{\!\!\!\!\!\!\!\!}
+\newcommand{\NA}{---}
 
 \title[Inference of Socioeconomic Status]{Comparative Study of Methods for the Inference of Socioeconomic Status in a Communications Graph}
 \subtitle{Presentación de Tesis}
@@ -69,7 +93,9 @@
 \begin{document}
 
 \begin{frame}
+	\hypersetup{pageanchor=false}
 	\titlepage{} 
+	\hypersetup{pageanchor=true}
 \end{frame}
 
 \begin{frame}
@@ -287,12 +313,10 @@
 
 
 	\begin{equation*}
-		r_s = \rho_{\rank\left(x\right), \rank\left(y\right)} = \frac{\cov\left(\rank\left(x\right), \rank\left(y\right))}{\sigma_{\rank(x)} \sigma_{\rank(y)}}
+		r_s = \rho_{\rank\left(x\right), \rank\left(y\right)} = \frac{\cov\left(\rank\left(x\right), \rank\left(y\right)\right)}{\sigma_{\rank(x)} \sigma_{\rank(y)}}
 	\end{equation*}
 
 	\onslide<2>{%
-		\vspace{2em} \\
-
 		En la fuente de datos usada para esta tesis,
 
 		\begin{equation*}
@@ -397,7 +421,7 @@
 \begin{frame}{El Modelo Bayesiano}
 	\onslide<1->{%
 		\begin{equation*}
-			p_v &= Q \left( \Theta \right)
+			p_v = Q \left( \Theta \right)
 		\end{equation*}
 	}
 	\onslide<1>{%
@@ -429,8 +453,8 @@
 		\item $B_{\test}$ \emph{Testing set} base.
 			\begin{gather*}
 				B = B_{\train} \cup B_{\test} \\
-				\left| B_{\train} \right| = 0.8 \cdot \left|B| \qquad
-				\left| B_{\test} \right| = 0.2 \cdot \left|B|
+				\left| B_{\train} \right| = 0.8 \cdot \left|B\right| \qquad
+				\left| B_{\test} \right| = 0.2 \cdot \left|B\right|
 			\end{gather*}
 		\pause{}
 		\item $\hat{E}$ Usuarios con un algún vecino en el \emph{training set}.
@@ -470,11 +494,14 @@
 	\begin{table}
 		\centering
 		\begin{tabular}{l r r}
-			$\varpi$ & $\Theta$ Óptimo & AUC \\
+			\toprule
+			\ct{$\varpi$}& \ct{$\Theta$ Óptimo} & \ct{AUC} \\
+			\midrule
 			contacts & \num{0.394} & \num{0.746} \\
 			calls & \num{0.428} & \num{0.724} \\
 			time & \num{0.001} & \num{0.718} \\
-			sms & \num{0.428} & \num{0.715}
+			sms & \num{0.428} & \num{0.715} \\
+			\bottomrule
 		\end{tabular}
 		\caption{Resultados para $\Theta$ que maximizan el \emph{área bajo la curva}.}
 	\end{table}
@@ -498,9 +525,9 @@
 
 \begin{frame}{Infiriendo por Cantidad de Llamadas}
 		\begin{figure}
-			\includegraphics[width=\framewidth, height=.37\textheight, keepaspectratio]{figures/bayes/hist_calls.png} \\
-			\includegraphics[width=.49\framewidth, height=.37\textheight, keepaspectratio]{figures/bayes/roc_calls.png}
-			\includegraphics[width=.49\framewidth, height=.37\textheight, keepaspectratio]{figures/bayes/accuracy_calls.png}
+			\includegraphics[width=\framewidth, height=.37\textheight, keepaspectratio]{bayes/hist_calls.png} \\
+			\includegraphics[width=.49\framewidth, height=.37\textheight, keepaspectratio]{bayes/roc_calls.png}
+			\includegraphics[width=.49\framewidth, height=.37\textheight, keepaspectratio]{bayes/accuracy_calls.png}
 			\caption{Resultados del \emph{método bayesiano} usando cantidad de llamados. $\tau = 0.654$}
 		\end{figure}
 
@@ -516,16 +543,16 @@
 \begin{frame}{Infiriendo por Tiempo Total de Llamadas}
 
 	\begin{figure}
-		\includegraphics[width=\framewidth, height=.37\textheight, keepaspectratio]{figures/bayes/hist_time.png} \\
-		\includegraphics[width=.49\framewidth, height=.37\textheight, keepaspectratio]{figures/bayes/roc_time.png}
-		\includegraphics[width=.49\framewidth, height=.37\textheight, keepaspectratio]{figures/bayes/accuracy_time.png}
+		\includegraphics[width=\framewidth, height=.37\textheight, keepaspectratio]{bayes/hist_time.png} \\
+		\includegraphics[width=.49\framewidth, height=.37\textheight, keepaspectratio]{bayes/roc_time.png}
+		\includegraphics[width=.49\framewidth, height=.37\textheight, keepaspectratio]{bayes/accuracy_time.png}
 		\caption{Resultados del \emph{método bayesiano} usando tiempo total de llamads. $\tau = 0.722$}
 	\end{figure}
 
 \note{%
 	\Cref{fig:bayes_time} contains data about the predictor when $\varpi = \etime$ and the data is analyzed using $\Upsilon^{\calls}$ as \emph{Testing Set}, there are two big clusters of data at the edges; this is explained because the majority of users spend most of their time talking to either \emph{High Income} or \emph{Low Income} users.
 
-	The \emph{Area Under the Curve} of this inference mechanism is $\AUC = 0.718$, which is lower than the one for the calls in \cref{subsec:calls_infer}. The \emph{Accuracy Curve} is unsurprisingly similar to that one, and even the \emph{Accuracy} at $\tau = 0.722$ is the close. This is probably a result of the fact that there is an obvious correlation between total talking time and total calls.
+	The \emph{Area Under the Curve} of this inference mechanism is $AUC = 0.718$, which is lower than the one for the calls in \cref{subsec:calls_infer}. The \emph{Accuracy Curve} is unsurprisingly similar to that one, and even the \emph{Accuracy} at $\tau = 0.722$ is the close. This is probably a result of the fact that there is an obvious correlation between total talking time and total calls.
 
 	This $\tau$ also results in a predictor where $\Accuracy = 0.682$, $\Precision = 0.649$, $\Recall = 0.819$, $F_1 = 0.724$, and $F_4 = 0.807$.
 }
@@ -535,16 +562,16 @@
 \begin{frame}{Infiriendo por Cantidad Total de Mensajes de Texto}
 
 	\begin{figure}
-		\includegraphics[width=\framewidth, height=.37\textheight, keepaspectratio]{figures/bayes/hist_sms.png} \\
-		\includegraphics[width=.49\framewidth, height=.37\textheight, keepaspectratio]{figures/bayes/roc_sms.png}
-		\includegraphics[width=.49\framewidth, height=.37\textheight, keepaspectratio]{figures/bayes/accuracy_sms.png}
+		\includegraphics[width=\framewidth, height=.37\textheight, keepaspectratio]{bayes/hist_sms.png} \\
+		\includegraphics[width=.49\framewidth, height=.37\textheight, keepaspectratio]{bayes/roc_sms.png}
+		\includegraphics[width=.49\framewidth, height=.37\textheight, keepaspectratio]{bayes/accuracy_sms.png}
 	\caption{Resultados del \emph{método bayesiano} usando cantidad total de mensajes de texto. $\tau = 0.299$}
 	\end{figure}
 
 	\note{%
 		\Cref{fig:bayes_sms} shows the distributions when $\varpi = \sms$. Since the total amount of SMS is much lower than the amount of calls, the peaks of the result of the \emph{Inverse Cumulative Functions} of the \emph{Beta Distribution} applied on $\Upsilon^{\sms}$ that happen with the majority of users that have few of both are located closer to the center than in \cref{subsec:calls_infer,subsec:time_infer}. This makes some interesting cases if $\varpi = \sms$ is chosen, since the distribution is different than in the other cases.
 
-		In particular, this gives an $\AUC = 0.715$, which is lower than both in the case of \emph{Calls} and \emph{Time}. Interestingly, the maximum \emph{Accuracy} at $\tau = 0.299$ is slightly higher than both of the other cases; this is probably a side-effect of the fact that $\left| \Upsilon^{\sms} \right| < \left| \Upsilon^{\calls} \right|$.
+		In particular, this gives an $AUC = 0.715$, which is lower than both in the case of \emph{Calls} and \emph{Time}. Interestingly, the maximum \emph{Accuracy} at $\tau = 0.299$ is slightly higher than both of the other cases; this is probably a side-effect of the fact that $\left| \Upsilon^{\sms} \right| < \left| \Upsilon^{\calls} \right|$.
 
 		Additionally, $\Precision = 0.696$, $\Recall = 0.186$, $F_1 = 0.293$, and $F_4 = 0.194$.
 	}
@@ -554,9 +581,9 @@
 \begin{frame}{Infiriendo por Cantidad de Contactos}
 
 	\begin{figure}
-		\includegraphics[width=\framewidth, height=.37\textheight, keepaspectratio]{figures/bayes/hist_contacts.png} \\
-		\includegraphics[width=.49\framewidth, height=.37\textheight, keepaspectratio]{figures/bayes/roc_contacts.png}
-		\includegraphics[width=.49\framewidth, height=.37\textheight, keepaspectratio]{figures/bayes/accuracy_contacts.png}
+		\includegraphics[width=\framewidth, height=.37\textheight, keepaspectratio]{bayes/hist_contacts.png} \\
+		\includegraphics[width=.49\framewidth, height=.37\textheight, keepaspectratio]{bayes/roc_contacts.png}
+		\includegraphics[width=.49\framewidth, height=.37\textheight, keepaspectratio]{bayes/accuracy_contacts.png}
 
 		\caption{Resultados del \emph{método bayesiano} usando el grado de cada usuario. $\tau = 0.514$}
 	\end{figure}
@@ -564,7 +591,7 @@
 	\note{%
 		\Cref{fig:bayes_contacts} shows the distributions when $\varpi = \contacts$, where it is possible to get a pattern similar to the one shown in \cref{subsec:sms_infer} when $\varpi = \sms$, where the majority of users have relatively few contacts and the peaks in the histogram. Additionally, since the total amount of contacts is exponentially distributed (as shown in \cref{fig:outcontacts_dist}), and people with \emph{High Income} tend to have more contacts in general, there peaks are clustered in areas with low $p_v$ (where the majority of calls are made to \emph{Low Income} users), near the middle (where the calls are mostly equally distributed), but not at high $p_v$; this last section would belong to the few users with many calls to \emph{High Income} users.
 
-		Using this method it is possible to find that $\AUC = 0.746$, which is higher than all the other methods presented in \cref{subsec:algorithm_performance}. Additionally, when selecting $\tau = 0.514$, $\Accuracy = 0.694$ which is higher than the maximum \emph{Accuracy} in all other methods. These metrics, combined with the fact that $\Upsilon$ contains every user in the \emph{Testing Set}, result in the fact that $\varpi = \contacts$ is unambiguously the best way to classify the data for the algorithm. Additionally, $\Precision = 0.556$, $\Recall = 0.792$, $F_1 = 0.723$, and $F_4 = 0.783$.
+		Using this method it is possible to find that $AUC = 0.746$, which is higher than all the other methods presented in \cref{subsec:algorithm_performance}. Additionally, when selecting $\tau = 0.514$, $\Accuracy = 0.694$ which is higher than the maximum \emph{Accuracy} in all other methods. These metrics, combined with the fact that $\Upsilon$ contains every user in the \emph{Testing Set}, result in the fact that $\varpi = \contacts$ is unambiguously the best way to classify the data for the algorithm. Additionally, $\Precision = 0.556$, $\Recall = 0.792$, $F_1 = 0.723$, and $F_4 = 0.783$.
 	}
 
 \end{frame}
@@ -587,7 +614,7 @@
 	\end{table}
 
 	\pause{}
-	Los mejores resultados del algoritmo se van para los siguientes hiperparámetros.
+	Las mejores métricas del algoritmo se van para estos hiperparámetros.
 	\begin{align*}
 		\varpi &= \contacts \\
 		\Theta &= 0.394 \\
@@ -595,24 +622,308 @@
 	\end{align*}
 \end{frame}
 
-\section{Modelos Comunes de Aprendizaje Automático}
+\section{Otros Modelos Basados en Aprendizaje Automático}
 
-\begin{frame}
-	
+\subsection{Introducción}
+
+\begin{frame}{Introducción}
+	Esta tesis presenta otros métodos basados en prácticas más comunes del aprendizaje automático. El problema a resolver sigue siendo el mismo.
+
+	\begin{block}{}
+		Dado un \emph{grafo social} $G = \left< V, E \right>$, buscar cuáles usuarios $v \in V$ tienen bajos ingresos [$v \in H_1$] y cuáles tienen altos ingresos [$v \in H_2$].
+	\end{block}
+
+\end{frame}
+
+\subsection{Selección Aleatoria}
+
+\begin{frame}{Selección Aleatoria}
+	El método de selección aleatoria simplemente elige una categoría al azar.
+
+	\begin{align*}
+		P \left( v \in H_1 \right) &= \sfrac{1}{2} \\
+		P \left( v \in H_2 \right) &= \sfrac{1}{2}
+	\end{align*}
+\end{frame}
+
+\subsection{Votación Mayoritaria}
+\begin{frame}{Votación Mayoritaria}
+	El método de votación mayoritaria elige la categoría de cada usuario como la categoría a la que pertenecen la mayoría de sus contactos. En caso de empate, se elige una categoría al azar.
+
+	\begin{equation*}
+		P \left( v \in H_1 \right) =
+		\begin{cases}
+			0            & \text{si} \ \contacts^{\low}_{v} < \contacts^{\high}_{v} \\
+			\sfrac{1}{2} & \text{si} \ \contacts^{\low}_{v} = \contacts^{\high}_{v} \\
+			1            & \text{si} \ \contacts^{\low}_{v} > \contacts^{\high}_{v}
+		\end{cases}
+	\end{equation*}
+\end{frame}
+
+\subsection{Métodos de Extracción de Features}
+\begin{frame}{Métodos de Extracción de Features en un Grafo}
+	A continuación se presentan 6 métodos de extracción de features para el \emph{grafo social} $G$.
+	\begin{itemize}
+		\item Los métodos $\ego_{\left\{0, 1, 2\right\}}$, que usan datos sobre las aristas adyacentes a $n$ niveles del \emph{ego network} de cada nodo.
+		\item Los métodos $\cat_{\left\{0, 1, 2\right\}}$, que separan estos datos en diferentes categorías dependiendo del nivel socioeconómico de cada vecino.
+	\end{itemize}
+
+	\begin{figure}
+		\resizebox{!}{.4\textheight}{%
+			\framebox{%
+				\input{figures/mlrelationships.tikz}
+			}
+		}
+		\caption{Relaciones entre los métodos de extracción de features.}
+	\end{figure}
+\end{frame}
+
+\subsection{User Data --- Método $\ego_0$}
+\begin{frame}{User Data --- Método $\ego_0$}
+	Este método acumula diferentes features de las aristas de cada usuario.
+
+	\begin{equation*}
+		\begin{gathered}
+			\begin{aligned}
+				\incalls_v &= \sum_{\substack{e \in E \\ e_d = v}} \calls_e &
+				\outcalls_v &= \sum_{\substack{e \in E \\ e_o = v}} \calls_e \\
+				\intime_v &= \sum_{\substack{e \in E \\ e_d = v}} \etime_e &
+				\outtime_v &= \sum_{\substack{e \in E \\ e_o = v}} \etime_e \\
+				\insms_v &= \sum_{\substack{e \in E \\ e_d = v}} \sms_e &
+				\outsms_v &= \sum_{\substack{e \in E \\ e_o = v}} \sms_e \\
+			\end{aligned} \\
+			\begin{aligned}
+				\incontacts_v &= \left| \left\{ e \in E \mid e_d = v \right\} \right| \\
+				\outcontacts_v &= \left| \left\{ e \in E \mid e_o = v \right\} \right|
+			\end{aligned}
+		\end{gathered}
+	\end{equation*}
+
+	\note{%
+		Donde $E$ es el conjunto de aristas del \emph{grafo social}, y $\calls_e$, $\etime_e$, y $\sms_e$ son la cantidad de llamadas, el tiempo total de charla, y la cantidad de SMS en la arista $e$.
+	}
+\end{frame}
+
+\subsection{Categorical User Data --- Método $\cat_0$}
+\begin{frame}{Categorical User Data --- Método $\cat_0$}
+	Los nodos $\Upsilon \subseteq V$ en los que se va a evaluar este métodos contiene información bancaria de los usuarios. 
+
+	Esto permite crear features con los siguientes nombres.
+
+
+	\begin{equation*}
+		\begin{Bmatrix} \text{in} \\ \text{out} \end{Bmatrix}
+		\times
+		\begin{Bmatrix} \text{calls} \\ \text{time} \\ \text{sms} \\ \text{contacts} \end{Bmatrix}
+		\times
+		\begin{Bmatrix} \text{low} \\ \text{high} \end{Bmatrix}
+	\end{equation*}
+
+	Todos estos features se general de una manera similar a la siguiente ecuación.
+
+	\begin{align*}
+		\operatorname{incallslow}_v  = \sum_{\substack{e \in E \\ e_d \in H_1 \\ e_o = v}} &\calls_e &
+		\operatorname{incallshigh}_v = \sum_{\substack{e \in E \\ e_d \in H_2 \\ e_o = v}} &\calls_e
+	\end{align*}
+\end{frame}
+
+
+\subsection{Higher Order User Data --- Método $\ego_n$}
+\begin{frame}{Higher Order User Data --- Método $\ego_n$}
+	El \emph{Ego Network de Orden $n$} de un nodo $v$ contiene el nodo $v$, y todos los nodos y las aristas a los que tienen distancia $\leq n$ a $v$.
+
+\begin{figure}
+	\framebox{%
+		\input{figures/ego.tikz}
+	}
+	\caption{Los ejes que se usan al calcular el método $\ego_2$ de un nodo $v$. Las aristas \textcolor{red}{rojas} son las aristas usadas en $\ego_{n \geq 0}$, las \textcolor{blue}{azules} las usadas en $\ego_{n \geq 1}$, y las \textcolor{ForestGreen}{verdes} los que se usan en $\ego_{n \geq 2}$.}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Higher Order User Data --- Método $\ego_n$}
+	Se extienden los features del método $\ego_0$ con datos del \emph{Ego Network de Orden $n$} de $v$.
+
+	\begin{align*}
+		\incalls^n_v  = \meight\sum_{\substack{e \in E \\ d(e_o, v) = n \\ d(e_d, v) = n + 1}}\meight&\calls_e &
+		\outcalls^n_v = \meight\sum_{\substack{e \in E \\ d(e_d, v) = n \\ d(e_o, v) = n + 1}}\meight &\calls_e
+	\end{align*}
+\end{frame}
+
+\subsection{Categorical Higher Order User Data --- Método $\cat_n$}
+\begin{frame}{Categorical Higher Order User Data --- Método $\cat_n$}
+	Se extienden los features del método $\cat_0$ con datos del \emph{Ego Network de Orden $n$} de $v$, donde cada arista agrega diferentes valores para los vecinos de bajo y alto nivel socioeconómico.
+
+	\begin{align*}
+		\operatorname{incallslow}^n_v = \meight\sum_{\substack{e \in E \\ e_d \in H_1 \\ d \left( e_o, v \right) = n \\ d \left( e_d, v \right) = n + 1}}\meight \calls_e &\quad
+		\operatorname{incallshigh}^n_v = \meight\sum_{\substack{e \in E \\ e_d \in H_2 \\ d \left( e_o, v \right) = n \\ d \left( e_d, v \right) = n + 1}}\meight \calls_e \\
+		\vspace{1em} \\
+		\operatorname{outcallslow}^n_v = \meight\sum_{\substack{e \in E \\ e_o \in H_1 \\ d \left( e_d, v \right) = n \\ d \left( e_o, v \right) = n + 1}}\meight \calls_e &\quad
+		\operatorname{outcallshigh}^n_v = \meight\sum_{\substack{e \in E \\ e_o \in H_2 \\ d \left( e_d, v \right) = n \\ d \left( e_o, v \right) = n + 1}}\meight \calls_e \\
+		\vspace{1em} \\
+	\end{align*}
+\end{frame}
+
+\subsection{Métodos de Machine Learning}
+\begin{frame}{Métodos de Machine Learning}
+	Cada uno de estos conjuntos de features es entrenado usando uno de estos métodos de aprendizaje automático y grid search usando stratified 5-fold validation, y luego evaluado el resultado en $\Upsilon$.
+	\begin{itemize}
+		\item \emph{Regresión Lineal}, eligiendo el coeficiente regulador $C$ en incrementos exponenciales.
+			\begin{equation*}
+				C \in \left\{ 10^{-3}, 10^{-2}, 10^{-1}, 10^0, 10^1, 10^2, 10^3 \right\}
+			\end{equation*}
+		\item \emph{Random Forest}, con alguno de los siguientes hiperparámetros, donde $f$ es la cantidad de features para este método.
+			\begin{align*}
+				\operatorname{Criterion} &\in \left\{ \operatorname{Gini}, \operatorname{Entropy} \right\} \\
+				\operatorname{Features} &\in \left\{ f, \sqrt{f}, \log_2{f} \right\} \\
+				\operatorname{Replacement} &\in \left\{ \operatorname{True}, \operatorname{False} \right\}
+			\end{align*}
+	\end{itemize}
 \end{frame}
 
 \section{Resultados Finales}
 
-\begin{frame}
-	
+\subsection{Resultados}
+\begin{frame}{Resultados}
+	El método bayesiano, los 2 métodos triviales, y los 2 métodos de aprendizaje automático aplicados a los 6 métodos de extracción de features se entrenaron con el mismo conjunto de datos y fueron evaluados en $\Upsilon$ en un server con las siguientes propiedades.
+
+	\begin{itemize}
+		\item Intel Xeon D-1540 con 2GHZ y 128GByte de RAM.\@  \\
+		\item Numpy 1.12.1 \\
+		\item Scipy 0.18.1 \\
+		\item Padas 0.19.2 \\
+		\item Scikit-learn 0.18
+	\end{itemize}
 \end{frame}
 
-\section{Referencias}
+\begin{frame}{Resultados}
+	\resizebox{\framewidth}{!}{%
+		\begin{tabular}{l l r r r r r r r r}
+			\toprule
+			\ct{Modelo} & \ct{Features} & \ct{Acc.} & \ct{Prec.} & \ct{Rec.} & \ct{AUC} & \ct{F\textsubscript{1}} & \ct{F\textsubscript{4}} & \ct{t\textsubscript{fit}} & \ct{t\textsubscript{pred}} \\
+
+			\midrule
+
+			&&&&&&&&& \\
+			\midrule
+
+			\multicolumn{2}{l}{Aleatorio}
+			& 0.499 & 0.499 & 0.500 & 0.499 & 0.500 & 0.500 & \ct{\NA} & \SI{0.005}{\second} \\
+
+			\multicolumn{2}{l}{Mayoría}
+			& 0.681 & 0.640 & 0.826 & 0.681 & 0.721 & 0.712 & \ct{\NA} & \SI{0.059}{\second} \\
+
+			\midrule
+
+			\multirow{6}{*}{LR}
+			& $\ego_0$ & 0.536 & 0.531 & 0.625 & 0.536 & 0.574 & 0.619 & \SI{0.145}{\second}   & \SI{0.002}{\second} \\
+			& $\ego_1$ & 0.535 & 0.525 & 0.730 & 0.535 & 0.611 & 0.714 & \SI{0.141}{\second}   & \SI{0.011}{\second} \\
+			& $\ego_2$ & 0.568 & 0.578 & 0.525 & 0.569 & 0.550 & 0.528 & \SI{0.119}{\second}   & \SI{0.003}{\second} \\
+			& $\cat_0$ & 0.686 & 0.655 & 0.785 & 0.686 & 0.714 & 0.776 & \SI{0.167}{\second}   & \SI{0.005}{\second} \\
+			& $\cat_1$ & 0.693 & 0.665 & 0.780 & 0.693 & 0.718 & 0.772 & \SI{1.588}{\second}   & \SI{0.011}{\second} \\
+			& $\cat_2$ & 0.693 & 0.670 & 0.764 & 0.692 & 0.714 & 0.758 & \SI{0.956}{\second}   & \SI{0.009}{\second} \\
+			\midrule
+
+			\multirow{6}{*}{RF}
+			& $\ego_0$ & 0.548 & 0.548 & 0.550 & 0.548 & 0.549 & 0.550 & \SI{5.986}{\second}   & \SI{0.588}{\second} \\
+			& $\ego_1$ & 0.582 & 0.583 & 0.577 & 0.582 & 0.580 & 0.577 & \SI{56.548}{\second}  & \SI{0.483}{\second} \\
+			& $\ego_2$ & 0.576 & 0.577 & 0.580 & 0.576 & 0.579 & 0.580 & \SI{50.197}{\second}  & \SI{0.253}{\second} \\
+			& $\cat_0$ & 0.671 & 0.665 & 0.690 & 0.671 & 0.677 & 0.688 & \SI{6.346}{\second}   & \SI{0.539}{\second} \\
+			& $\cat_1$ & 0.714 & 0.713 & 0.716 & 0.714 & 0.714 & 0.716 & \SI{96.005}{\second}  & \SI{0.460}{\second} \\
+			& $\cat_2$ & 0.709 & 0.710 & 0.711 & 0.709 & 0.711 & 0.711 & \SI{81.528}{\second}  & \SI{0.242}{\second} \\
+			\bottomrule
+
+		\end{tabular}
+	}
+
+	\note{%
+		Con estos datos, se pueden sacar varias conclusiones.
+		\begin{itemize}
+			\item Como los datos no son lineales, los métodos basados en \emph{Random Forest} tienen mejores resultados que los basados en \emph{Regresión Lineal}. Esto es consistente con muchos experimentos similares, como los de Muchlinski et~al.~\cite{muchlinski2016}~\cite{logisticvsdecision}. \\
+			\item El método basado en \emph{Random Forest} tiene mejores resultados cuando se agregan features nuevos, como en la diferencia entre $\ego_0$ y $\ego_1$. Interesantemente, la mayoría de las métricas presentan un decrecimiento cuando suben un nivel más a $\ego_2$, aunque este sea un superconjunto del anterior. Una posible razón es que los nuevos features traen ruido al entrenamiento del \emph{Random Forest}. \\
+			\item La mayor mejora de los métodos basados en aprendizaje automático es agregando labels que dependen del nivel socioeconómico de los vecinos, como en los niveles $\cat_0$ a $\cat_2$.
+		\end{itemize}
+	}
+\end{frame}
+
+\begin{frame}{Resultados}
+	\resizebox{\framewidth}{!}{%
+		\begin{tabular}{l l r r r r r r r r}
+			\toprule
+			\ct{Modelo} & \ct{Features} & \ct{Acc.} & \ct{Prec.} & \ct{Rec.} & \ct{AUC} & \ct{F\textsubscript{1}} & \ct{F\textsubscript{4}} & \ct{t\textsubscript{fit}} & \ct{t\textsubscript{pred}} \\
+
+			\midrule
+			\multicolumn{2}{l}{Bayesiano}
+			& 0.693 & 0.665 & 0.792 & \textbf{0.746} & \textbf{0.723} & \textbf{0.783} & \ct{\NA} & \SI{33.155}{\second} \\
+			\midrule
+
+			\multicolumn{2}{l}{Aleatorio}
+			& 0.499 & 0.499 & 0.500 & 0.499 & 0.500 & 0.500 & \ct{\NA} & \SI{0.005}{\second} \\
+
+			\multicolumn{2}{l}{Mayoría}
+			& 0.681 & 0.640 & 0.826 & 0.681 & 0.721 & 0.712 & \ct{\NA} & \SI{0.059}{\second} \\
+
+			\midrule
+
+			\multirow{6}{*}{LR}
+			& $\ego_0$ & 0.536 & 0.531 & 0.625 & 0.536 & 0.574 & 0.619 & \SI{0.145}{\second}   & \SI{0.002}{\second} \\
+			& $\ego_1$ & 0.535 & 0.525 & 0.730 & 0.535 & 0.611 & 0.714 & \SI{0.141}{\second}   & \SI{0.011}{\second} \\
+			& $\ego_2$ & 0.568 & 0.578 & 0.525 & 0.569 & 0.550 & 0.528 & \SI{0.119}{\second}   & \SI{0.003}{\second} \\
+			& $\cat_0$ & 0.686 & 0.655 & 0.785 & 0.686 & 0.714 & 0.776 & \SI{0.167}{\second}   & \SI{0.005}{\second} \\
+			& $\cat_1$ & 0.693 & 0.665 & 0.780 & 0.693 & 0.718 & 0.772 & \SI{1.588}{\second}   & \SI{0.011}{\second} \\
+			& $\cat_2$ & 0.693 & 0.670 & 0.764 & 0.692 & 0.714 & 0.758 & \SI{0.956}{\second}   & \SI{0.009}{\second} \\
+			\midrule
+
+			\multirow{6}{*}{RF}
+			& $\ego_0$ & 0.548 & 0.548 & 0.550 & 0.548 & 0.549 & 0.550 & \SI{5.986}{\second}   & \SI{0.588}{\second} \\
+			& $\ego_1$ & 0.582 & 0.583 & 0.577 & 0.582 & 0.580 & 0.577 & \SI{56.548}{\second}  & \SI{0.483}{\second} \\
+			& $\ego_2$ & 0.576 & 0.577 & 0.580 & 0.576 & 0.579 & 0.580 & \SI{50.197}{\second}  & \SI{0.253}{\second} \\
+			& $\cat_0$ & 0.671 & 0.665 & 0.690 & 0.671 & 0.677 & 0.688 & \SI{6.346}{\second}   & \SI{0.539}{\second} \\
+			& $\cat_1$ & 0.714 & 0.713 & 0.716 & 0.714 & 0.714 & 0.716 & \SI{96.005}{\second}  & \SI{0.460}{\second} \\
+			& $\cat_2$ & 0.709 & 0.710 & 0.711 & 0.709 & 0.711 & 0.711 & \SI{81.528}{\second}  & \SI{0.242}{\second} \\
+			\bottomrule
+
+		\end{tabular}
+	}
+
+	\note{%
+		\onslide<1>{%
+			Los resultados de los métodos de aprendizaje automático tienen peor performance que el algoritmo bayesiano presentado en este paper.
+
+			Esto es remarcable porque el algoritmo bayesiano usa 2 features por nodo, mientras que los de machine learning usan cualquier número desde 8 hasta 48.
+
+			Una manera de explicar esto es con la ley de la navaja de Occam: la hipótesis que asume la menor cantidad de cosas entre varias hipótesis debe ser la elegida.
+		}
+
+		\onslide<2>{%
+			Nuestra hipótesis en los métodos de aprendizaje automático es que los features están correlacionados con los resultados, y que todos tienen un buen nivel de señal a ruido. Aunque esto es cierto en el caso general, no es una correlación perfecta y hsta métodos altamente no-lineares como \emph{Random Forest} pueden fallar.
+
+			Una vez que se setean los hiperparámetros $\varpi$, $\Theta$, y $\tau$, la única hipótesis es que ante mayor cantiadd de llamadas, SMS, tiempo, o cantidad de contactos que un usuario tiene con altos ingresos, crece la \emph{certeza} de que este usuario sea parte de esta categoría.
+
+			Esto es una buena hipótesis y, como mostrado en esta tésis, lo suficientemente fuerte para manejar un buen predictor de nivel socioeconómico.
+		}
+	}
+
+\end{frame}
+
+\section{Bibliografía}
+
+\begin{frame}{Bibliografía}
+
+\renewcommand*{\bibfont}{\footnotesize}
+\printbibliography{}
+
+\end{frame}
 
 \section{Agradecimientos}
 
 \begin{frame}
-	
+	\includegraphics[width=\framewidth,height=\textheight,keepaspectratio]{tomyteachers.png}
+
+	\note{%
+		Nombrar a:
+
+		Noemí, Pablo Coll, Charles, Agustín (coach), el equipo de la ICPC, Mamá, Papá, Reneé, Mauricio, los profesores y ayudantes de Exactas, Gravano, los jurados, Feuerstein, Grandata.
+	}
 \end{frame}
 
 \end{document}
