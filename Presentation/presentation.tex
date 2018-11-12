@@ -30,8 +30,6 @@
 \setbeamerfont{caption}{size=\scriptsize}
 \setbeamertemplate{navigation symbols}{}
 
-% \captionsetup[figure]{labelformat=empty}
-
 \graphicspath{{figures/}}
 
 \addbibresource{sna.bib}
@@ -98,31 +96,32 @@
 	\hypersetup{pageanchor=true}
 \end{frame}
 
-\begin{frame}
-	\tableofcontents{}
-\end{frame}
-
 \section{Introducción}
 
-\begin{frame}
+\begin{frame}{Introducción}
 
-	\begin{figure}[b]
-		\includegraphics[width=\framewidth]{data_science_google_trends.png}
-		\caption{Google trends for the term ``Data Science''\footcite{datasciencegt}}
-	\end{figure}
-	
-\note{%
 	En los últimos años hubo un crecimiento exponencial en la capacidad de acumular, guardar, y manipular cantidades masivas de datos sobre un gran espectro de disciplinas.
-
 	Este crecimiento creó una pequeña revolución en muchas disciplinas académicas donde se solían usar encuestas u otros datos más particulares.
-}
+
+	\begin{figure}
+		\includegraphics[width=\framewidth,height=.5\textheight,keepaspectratio]{data_science_google_trends.png}
+		\caption{Google Trends para el término ``data science'' desde el año 2008.}
+	\end{figure}
+
+\end{frame}
+
+\begin{frame}{Introducción}
+
+	Las operadores de telecomunicaciones tienen acceso a una gran cantidad de información sobre las comunicaciones y habitos de sus usuarios~\footcite{huurdeman2003}, pero a pesar de eso la minería de datos de telcos a gran escala es una disciplina relativamente nueva~\footcite{han2002emerging}.
+
+	Esta tesis usa métodos similares a los usados por Óskarsdottir et~al.~\footcite{oskarsdottir2016} y Singh et~al.~\footcite{singh2013predicting}, además de una fuente de información de una telco y de un banco grande para encontrar que la distribución de ingresos de los usuarios sigue de manera cercana (pero no exacta) la distribución de ingresos de la población en general.
 \end{frame}
 
 \section{Marco Teórico}
 
 \subsection{Homofilia Social}
 
-\begin{frame}
+\begin{frame}{Homofilia Social}
 	\epigraph{``La gente ama a los que son como sí mismos.''}{\textit{Aristoteles \\ Retórica}}
 	\note{%
 		La similaridad lleva a la conexión.
@@ -133,7 +132,7 @@
 	}
 \end{frame}
 
-\begin{frame}
+\begin{frame}{Homofilia Social}
 	\begin{figure}
 		\begin{subfigure}[b]{0.48\framewidth}
 			\includegraphics[width=0.9\textwidth]{age_homophily.png}
@@ -251,18 +250,23 @@
 \subsection{Fuente de Datos}
 
 \begin{frame}{Fuente de Datos}
-	\begin{itemize}
-		\item Esta tesis usa dos fuentes de datos principales para cierta población.
-			\begin{enumerate}
-				\item Dos conjuntos $P$ y $S$ con \emph{Call Detail Records} de llamadas y SMS\@.
-				\item Un conjunto $B$ de datos bancarios, del cual se puede extraer el salario mensual.
-			\end{enumerate}
-		\item Con estos datos se calcula el \emph{Grafo Social}.
-			\begin{equation*}
-				G = \left< \text{V}, \text{E} \right>
-			\end{equation*}
-			Donde $V$ contiene datos de usuarios y su nivel de ingreso (si se conoce), y $E$ contiene sus conexiones con otros usuarios.
-	\end{itemize}
+	Esta tesis usa dos fuentes de datos principales para cierta población.
+	\begin{enumerate}
+		\item Dos conjuntos $P$ y $S$ con \emph{Call Detail Records} de llamadas y SMS\@.
+		\item Un conjunto $B$ de datos bancarios, del cual se puede extraer el salario mensual.
+	\end{enumerate}
+\end{frame}
+
+\begin{frame}{Fuente de Datos}
+	Con estos datos se calcula el \emph{Grafo Social}.
+	\begin{equation*}
+		G = \left< \text{V}, \text{E} \right>
+	\end{equation*}
+	Donde $V$ contiene datos de usuarios y su nivel de ingreso (si se conoce), y $E$ contiene sus conexiones con otros usuarios. Se puede usar el grafo social para entender el comportamiento de los usuarios \footcite{gonzalez2008understanding}\footcite{ponieman2013human}\footcite{sarraute2015city}.
+
+	\begin{center}
+		\input{figures/introduction_graph.tex}
+	\end{center}
 \end{frame}
 
 \subsection{Inferencias Básicas}
@@ -299,7 +303,7 @@
 
 \subsection{Introducción}
 
-\begin{frame}{Introducción}
+\begin{frame}{El Modelo Bayesiano}
 	El objetivo principal de esta tesis es buscar un algoritmo que prediga el nivel de ingresos de un usuario dependiendo de datos sobre el \emph{Grafo Social}.
 
 	Esto se logra aprovechando el nivel de \emph{Homofilia de Ingresos} en los usuarios.
@@ -325,7 +329,7 @@
 	}
 \end{frame}
 
-\begin{frame}
+\begin{frame}{Homofilia de Ingresos}
 	\begin{figure}
 		\includegraphics[width=.8\framewidth]{heatmap.png}
 		\caption{Mapa de calor entre ingresos de usuarios de cada llamada.}
@@ -335,10 +339,7 @@
 \subsection{El Modelo Bayesiano}
 
 \begin{frame}{El Modelo Bayesiano}
-	
-	\note{%
-		La principal contribución de esta tesis es un modelo bayesiano de predicción de nivel de ingresos para los usuarios del grafo social y encontrar usuarios de altos ingresos.
-	}
+	La principal contribución de esta tesis es un modelo bayesiano de predicción de nivel de ingresos para los usuarios del grafo social y encontrar usuarios de altos ingresos.
 \end{frame}
 
 \begin{frame}{El Modelo Bayesiano}
@@ -626,7 +627,7 @@
 
 \subsection{Introducción}
 
-\begin{frame}{Introducción}
+\begin{frame}{Otros Modelos Basados en Aprendizaje Automático}
 	Esta tesis presenta otros métodos basados en prácticas más comunes del aprendizaje automático. El problema a resolver sigue siendo el mismo.
 
 	\begin{block}{}
@@ -838,7 +839,7 @@
 	\note{%
 		Con estos datos, se pueden sacar varias conclusiones.
 		\begin{itemize}
-			\item Como los datos no son lineales, los métodos basados en \emph{Random Forest} tienen mejores resultados que los basados en \emph{Regresión Lineal}. Esto es consistente con muchos experimentos similares, como los de Muchlinski et~al.~\cite{muchlinski2016}~\cite{logisticvsdecision}. \\
+			\item Como los datos no son lineales, los métodos basados en \emph{Random Forest} tienen mejores resultados que los basados en \emph{Regresión Lineal}. Esto es consistente con muchos experimentos similares, como los de Muchlinski et~al.~\footcite{muchlinski2016}~\footcite{logisticvsdecision}. \\
 			\item El método basado en \emph{Random Forest} tiene mejores resultados cuando se agregan features nuevos, como en la diferencia entre $\ego_0$ y $\ego_1$. Interesantemente, la mayoría de las métricas presentan un decrecimiento cuando suben un nivel más a $\ego_2$, aunque este sea un superconjunto del anterior. Una posible razón es que los nuevos features traen ruido al entrenamiento del \emph{Random Forest}. \\
 			\item La mayor mejora de los métodos basados en aprendizaje automático es agregando labels que dependen del nivel socioeconómico de los vecinos, como en los niveles $\cat_0$ a $\cat_2$.
 		\end{itemize}
@@ -922,8 +923,15 @@
 	\note{%
 		Nombrar a:
 
-		Noemí, Pablo Coll, Charles, Agustín (coach), el equipo de la ICPC, Mamá, Papá, Reneé, Mauricio, los profesores y ayudantes de Exactas, Gravano, los jurados, Feuerstein, Grandata.
+		Noemí, Pablo Coll, Charles, Agustín (coach), el equipo de la ICPC, Mamá, Papá, Reneé, Mauricio, los profesores y ayudantes de Exactas, Gravano, los jurados, Feuerstein, Grandata, Yannick.
 	}
+\end{frame}
+
+\section{Preguntas}
+\subsection{Preguntas}
+\begin{frame}
+	\centering
+	\Huge ¿Preguntas?
 \end{frame}
 
 \end{document}
